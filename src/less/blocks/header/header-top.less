@@ -1,13 +1,8 @@
 // out: null
 
-.header-top .wrap, .header-top__logo, .header-top__user a, .header-top__logo a {
+.header-top .wrap {
     display: flex;
     flex-direction: row;
-}
-
-.header-top__logo, .header-top__watch-us, .header-top__menu, .header-top__search, .header-top__social, .header-top__user {
-    display: flex;
-    align-items: center;
 }
 
 .header-top {
@@ -23,11 +18,16 @@
 }
 
 .header-top__logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin-right: 32px;
     margin-left: 20px;
 }
 
 .header-top__logo a {
+    display: flex;
+    flex-direction: row;
     font-family: @font-main;
     font-size: 12px;
     font-style: italic;
@@ -46,6 +46,8 @@
 }
 
 .header-top__watch-us {
+    display: flex;
+    align-items: center;
     width: 117px;
     margin-right: 54px;
 }
@@ -65,6 +67,8 @@
 }
 
 .header-top__menu {
+    display: flex;
+    align-items: center;
     width: 137px;
     margin-right: 60px;
 }
@@ -78,13 +82,19 @@
 }
 
 .header-top__search {
+    display: flex;
+    align-items: center;
+    height: 41px;
+    box-sizing:border-box;
+    border-bottom: 2px solid @color-headerTop;
     width: 30px;
     margin-right: 41px;
 }
 
 .header-top__search:hover {
+    height: 41px;
+    box-sizing:border-box;
     border-bottom: 2px solid #f9ca0e;
-    height: 39px;
 }
 
 .header-top__search span {
@@ -96,6 +106,8 @@
 }
 
 .header-top__social {
+    display: flex;
+    align-items: center;
     width: 152px;
     margin: 0;
     padding-left: 0;
@@ -144,6 +156,16 @@
     background-image: url("@{img}/header-twitterIcon.png");
     width: 17px;
     height: 13px;
+}
+
+.header-top__user {
+    display: flex;
+    align-items: center;
+}
+
+.header-top__user a {
+    display: flex;
+    flex-direction: row;
 }
 
 .header-top__user a:before {
