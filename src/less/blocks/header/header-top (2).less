@@ -1,8 +1,8 @@
 // out: null
 
-.header-top .wrap, .header-top__logo, .header-top__user a, .header-top__logo a {
+.header-top .wrap, .header-top__logo {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; 
 }
 
 .header-top__watch-us, .header-top__menu, .header-top__search, .header-top__social, .header-top__user {
@@ -14,8 +14,12 @@
 }
 
 .header-top {
-    height: @height-headerTop;
-    background-color: @color-headerTop;
+    height: 41px;
+    background-color: #0b2227;
+}
+
+.header-top .wrap {
+    height: 41px;
 }
 
 .header-top__watch-us, .header-top__menu-item, .header-top__user a {
@@ -26,7 +30,8 @@
 }
 
 .header-top__logo {
-    margin-right: 32px;
+    height: 41px;
+    margin-right: 58px;
     margin-left: 20px;
 }
 
@@ -37,20 +42,22 @@
     color: @color-menu;
     text-decoration: none;
     width: 200px;
+    display: block;
 }
 
-.header-top__logo a:before {
-    content: "";
-    display: block;
+.header-top__logo span {
     background-image: url("@{img}/header-wereToWatchIcon.png");
     width: 17px;
     height: 17px;
+    display: block;
     margin-right: 14px;
 }
 
 .header-top__watch-us {
-    width: 117px;
-    margin-right: 54px;
+    width: 114px;
+    float: left;
+    height: 41px;
+    margin-right: 61px;
 }
 
 .header-top__watch-us a {
@@ -58,7 +65,6 @@
     color: @color-menuActive;
     font-family: Arial;
     font-size: 13px;
-    margin-left: 3px;
 }
 
 .header-top__watch-us span {
@@ -69,11 +75,12 @@
 
 .header-top__menu {
     width: 137px;
+    height: 41px;
     margin-right: 60px;
 }
 
 .header-top__menu-item {
-    margin-right: 39px;
+    margin-right: 42px;
 }
 
 .header-top__menu-item:last-child {
@@ -82,7 +89,8 @@
 
 .header-top__search {
     width: 30px;
-    margin-right: 41px;
+    margin-right: 48px;
+    height: 41px;
 }
 
 .header-top__search:hover {
@@ -91,6 +99,7 @@
 }
 
 .header-top__search span {
+    display: block;
     background-image: url("@{img}/header-searchIcon.png");
     width: 17px;
     height: 17px;
@@ -99,10 +108,11 @@
 }
 
 .header-top__social {
+    height: 41px;
     width: 152px;
     margin: 0;
     padding-left: 0;
-    margin-right: 73px;
+    margin-right: 10px;
 }
 
 .header-top__social-item {
@@ -147,6 +157,15 @@
     background-image: url("@{img}/header-twitterIcon.png");
     width: 17px;
     height: 13px;
+}
+
+.header-top__user {
+    width: 67px;
+    height: 41px;
+}
+
+.header-top__user a {
+    display: block;
 }
 
 .header-top__user a:before {
