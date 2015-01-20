@@ -1,11 +1,31 @@
 // out: null
 
-.header-timeline{
-    margin-left: -70px;
-    width: 5000px;
+.header-timeline {
+    width: 100%;
+    overflow: hidden;
 }
 
-.header-timeline .time{
+.header-timeline .wrap {
+    width: 5250px;
+    display: flex;
+    flex-direction: row;
+}
+
+.header-timeline__item {
+    //border-top:2px solid #747474;
+    padding-right: 15px;
+    padding-top: 2px;
+    color: @color-mainMenu;
+}
+.header-timeline__item:before {
+    content: "";
+    display: block;
+    height: 2px;
+    background: #747474;
+    border-radius: 1px;
+}
+
+.header-timeline__time {
     margin-top: 0px;
     font-family: @font-main;
     font-weight: bold;
@@ -13,45 +33,27 @@
     height: 20px;
     float: left;
     font-size:14px;
+    color: @color-timelineTime;
 }
 
-.header-timeline-item{
-    border-top:2px solid #747474;
-    padding-right: 15px;
-    height: 40px;
-    padding-top: 2px;
+.header-timeline__live {
+    color: @color-timelineLive;
+    font-size: 14px;
+    font-family: @font-main;
+    font-weight: bold;
+    float: left;
+    width: 63px;
+    height: 20px;
 }
 
-.header-timeline p{
+.header-timeline__description {
     font-family: @font-main;
     font-style: italic;
     font-weight: 100;
     font-size: 13px;
+    color: @color-timelineDescription;
     margin:0;
-    height: 20px;
     display: block;
     margin-top: 5px;
-}
-
-.header-timeline-item{
-    float: left;
-    color: @color-mainMenu;
-    margin: 0 10px;
-
-}
-
-.header-timeline .live{
-    color: red;
-    font-size: 14px;
-    font-family: @font-main;
-    float: left;
-    width: 50px;
-    height: 20px;
-}
-
-.header-timeline-item_clearfix{
     clear: both;
-    width: 100px;
-    margin-right: 0;
-    height: 20px;
 }
