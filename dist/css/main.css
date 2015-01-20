@@ -427,6 +427,9 @@ th {
   padding: 0;
 }
 
+body {
+  background: #000;
+}
 .wrap {
   width: 980px;
   margin: 0 auto;
@@ -453,14 +456,14 @@ th {
   text-decoration: none;
   color: #8a8c8e;
 }
-.header-top__logo {
+.header-top__worldwide {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-right: 32px;
   margin-left: 20px;
 }
-.header-top__logo a {
+.header-top__worldwide a {
   display: flex;
   flex-direction: row;
   font-family: PT Sans;
@@ -470,7 +473,7 @@ th {
   text-decoration: none;
   width: 200px;
 }
-.header-top__logo a:before {
+.header-top__worldwide a:before {
   content: "";
   display: block;
   background-image: url("../img/header-wereToWatchIcon.png");
@@ -522,7 +525,8 @@ th {
   box-sizing: border-box;
   border-bottom: 2px solid #f9ca0e;
 }
-.header-top__search span {
+.header-top__search:before {
+  content: "";
   background-image: url("../img/header-searchIcon.png");
   width: 17px;
   height: 17px;
@@ -681,12 +685,6 @@ th {
   background: url("../img/header-ukInactive.png") no-repeat;
   float: left;
   margin-top: -7px;
-}
-body {
-  background: #90abad;
-}
-body {
-  background: #000;
 }
 .header-timeline {
   margin-left: -70px;
