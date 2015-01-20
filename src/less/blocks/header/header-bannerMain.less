@@ -1,0 +1,64 @@
+// out: null
+
+.banner-main {
+    z-index: 100;
+}
+
+.banner-main:before {
+    content: "";
+    background: url("@{img}/headerDark.png") repeat-x 0 0;
+    height: 530px;
+    width: 100%;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.banner-main__item {
+    height: 530px;
+    width: 100%;
+    z-index: -1;
+    top: 0;
+    position: absolute;
+}
+
+.banner-main__item .wrap {
+    margin-top: 200px;
+    height: 330px;
+    .border;
+}
+
+.banner-main__item-leftArrow {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    float: left;
+}
+
+.banner-main__item-rightArrow {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.banner-main__item-leftArrow:before {
+    content: "";
+    background: url("@{img}/header-sliderArrow.png");
+    width: 21px;
+    height: 35px;
+    display: block;
+}
+
+.banner-main__item-rightArrow:before {
+    content: "";
+    background: url("@{img}/header-sliderArrow.png");
+    width: 21px;
+    height: 35px;
+    display: block;
+    transform: rotate(180deg);
+}
+
+.banner-main__item-time {
+    color: @color-bannerMainTime;
+}
