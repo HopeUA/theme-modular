@@ -4,12 +4,12 @@
     z-index: 100;
 }
 
-.banner-main:before {
+.banner-main__item:after {
     content: "";
     background: url("@{img}/headerDark.png") repeat-x 0 0;
     height: 530px;
     width: 100%;
-    z-index: 0;
+    z-index: -1;
     top: 0;
     left: 0;
     position: absolute;
@@ -26,6 +26,7 @@
 .banner-main__item .wrap {
     margin-top: 200px;
     height: 330px;
+    z-index: 100;
     .border;
 }
 
@@ -61,4 +62,28 @@
 
 .banner-main__item-time {
     color: @color-bannerMainTime;
+    font-family: @font-main;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.banner-main__item-day {
+    color: @color-bannerMainDay;
+    font-family: @font-main;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    background-color: @color-bannerMainDayBackground;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: inline-block;
+}
+
+.banner-main__item-title {
+    color: @color-bannerMainTitle;
+    font-family: @font-main;
+    font-weight: bold;
+    font-size: 18px;
 }

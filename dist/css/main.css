@@ -448,7 +448,6 @@ body {
 }
 .header-top {
   height: 41px;
-  background-color: rgba(0, 0, 0, 0.3);
 }
 .header-top__watch-us,
 .header-top__menu-item,
@@ -750,12 +749,12 @@ body {
 .banner-main {
   z-index: 100;
 }
-.banner-main:before {
+.banner-main__item:after {
   content: "";
   background: url("../img/headerDark.png") repeat-x 0 0;
   height: 530px;
   width: 100%;
-  z-index: 0;
+  z-index: -1;
   top: 0;
   left: 0;
   position: absolute;
@@ -770,6 +769,7 @@ body {
 .banner-main__item .wrap {
   margin-top: 200px;
   height: 330px;
+  z-index: 100;
   border: solid 1px red;
 }
 .banner-main__item-leftArrow {
@@ -800,5 +800,27 @@ body {
 }
 .banner-main__item-time {
   color: #ffffff;
+  font-family: PT Sans;
+  font-weight: bold;
+  font-size: 40px;
+}
+.banner-main__item-day {
+  color: #ffffff;
+  font-family: PT Sans;
+  font-weight: bold;
+  font-size: 13px;
+  text-transform: uppercase;
+  background-color: #d82929;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 8px;
+  padding-right: 8px;
+  display: inline-block;
+}
+.banner-main__item-title {
+  color: #ffffff;
+  font-family: PT Sans;
+  font-weight: bold;
+  font-size: 18px;
 }
 /*# sourceMappingURL=main.css.map */
