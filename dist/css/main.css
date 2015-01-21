@@ -771,7 +771,7 @@ body {
   height: 293px;
   z-index: 100;
 }
-.banner-main__item-leftArrow {
+.banner-main__arrow_left {
   display: flex;
   height: 100%;
   float: left;
@@ -779,21 +779,21 @@ body {
   top: 330px;
   left: 20%;
 }
-.banner-main__item-rightArrow {
+.banner-main__arrow_right {
   display: flex;
   height: 100%;
   position: absolute;
   top: 330px;
   right: 20%;
 }
-.banner-main__item-leftArrow:before {
+.banner-main__arrow_left:before {
   content: "";
   background: url("../img/header-sliderArrow.png");
   width: 21px;
   height: 35px;
   display: block;
 }
-.banner-main__item-rightArrow:before {
+.banner-main__arrow_right:before {
   content: "";
   background: url("../img/header-sliderArrow.png");
   width: 21px;
