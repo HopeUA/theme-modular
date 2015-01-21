@@ -788,14 +788,14 @@ body {
 }
 .banner-main__arrow_left:before {
   content: "";
-  background: url("../img/header-sliderArrow.png");
+  background: url("../img/banner-main__arrow_left.png");
   width: 21px;
   height: 35px;
   display: block;
 }
 .banner-main__arrow_right:before {
   content: "";
-  background: url("../img/header-sliderArrow.png");
+  background: url("../img/banner-main__arrow_left.png");
   width: 21px;
   height: 35px;
   display: block;
