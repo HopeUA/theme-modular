@@ -765,6 +765,7 @@ body {
   z-index: -1;
   top: 0;
   position: absolute;
+  background-position-x: center;
 }
 .banner-main__item .wrap {
   margin-top: 237px;
