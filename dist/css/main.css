@@ -767,21 +767,24 @@ body {
   position: absolute;
 }
 .banner-main__item .wrap {
-  margin-top: 200px;
-  height: 330px;
+  margin-top: 237px;
+  height: 293px;
   z-index: 100;
-  border: solid 1px red;
 }
 .banner-main__item-leftArrow {
   display: flex;
-  align-items: center;
   height: 100%;
   float: left;
+  position: absolute;
+  top: 330px;
+  left: 20%;
 }
 .banner-main__item-rightArrow {
   display: flex;
-  align-items: center;
   height: 100%;
+  position: absolute;
+  top: 330px;
+  right: 20%;
 }
 .banner-main__item-leftArrow:before {
   content: "";
@@ -803,6 +806,8 @@ body {
   font-family: PT Sans;
   font-weight: bold;
   font-size: 40px;
+  margin-left: 60px;
+  margin-bottom: 0px;
 }
 .banner-main__item-day {
   color: #ffffff;
@@ -816,11 +821,23 @@ body {
   padding-left: 8px;
   padding-right: 8px;
   display: inline-block;
+  margin-left: 60px;
+  margin-bottom: 30px;
 }
 .banner-main__item-title {
+  width: 167px;
   color: #ffffff;
   font-family: PT Sans;
   font-weight: bold;
   font-size: 18px;
+  margin-left: 60px;
+  margin-bottom: 13px;
+}
+.banner-main__item-description {
+  width: 102px;
+  color: #d1d3d4;
+  font-family: PT Sans;
+  font-size: 14px;
+  margin-left: 60px;
 }
 /*# sourceMappingURL=main.css.map */

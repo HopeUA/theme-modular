@@ -24,23 +24,26 @@
 }
 
 .banner-main__item .wrap {
-    margin-top: 200px;
-    height: 330px;
+    margin-top: 237px;
+    height: 293px;
     z-index: 100;
-    .border;
 }
 
 .banner-main__item-leftArrow {
     display: flex;
-    align-items: center;
     height: 100%;
     float: left;
+    position: absolute;
+    top: 330px;
+    left: 20%;
 }
 
 .banner-main__item-rightArrow {
     display: flex;
-    align-items: center;
     height: 100%;
+    position: absolute;
+    top: 330px;
+    right: 20%;
 }
 
 .banner-main__item-leftArrow:before {
@@ -65,6 +68,8 @@
     font-family: @font-main;
     font-weight: bold;
     font-size: 40px;
+    margin-left: 60px;
+    margin-bottom: 0px;
 }
 
 .banner-main__item-day {
@@ -79,11 +84,24 @@
     padding-left: 8px;
     padding-right: 8px;
     display: inline-block;
+    margin-left: 60px;
+    margin-bottom: 30px;
 }
 
 .banner-main__item-title {
+    width: 167px;
     color: @color-bannerMainTitle;
     font-family: @font-main;
     font-weight: bold;
     font-size: 18px;
+    margin-left: 60px;
+    margin-bottom: 13px;
+}
+
+.banner-main__item-description {
+    width: 102px;
+    color: @color-bannerMainDescription;
+    font-family: @font-main;
+    font-size: 14px;
+    margin-left: 60px;
 }
