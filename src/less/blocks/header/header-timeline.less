@@ -14,23 +14,36 @@
 }
 
 .header-timeline__item {
-    //border-top:2px solid #747474;
     padding-right: 15px;
-    padding-top: 2px;
+    padding-top: 3px;
     color: @color-mainMenu;
 }
+
+.header-timeline__item-next {
+    padding-right: 15px;
+    padding-top: 3px;
+    color: @color-mainMenu;
+}
+
 .header-timeline__item:before {
     content: "";
     display: block;
-    height: 2px;
-    background: #747474;
+    height: 3px;
+    background: @color-timelinePrev;
+    border-radius: 1px;
+}
+
+.header-timeline__item-next:before {
+    content: "";
+    display: block;
+    height: 3px;
+    background: @color-timelineNext;
     border-radius: 1px;
 }
 
 .header-timeline__time {
-    margin-top: 0px;
-    font-family: @font-main;
-    font-weight: bold;
+    margin-top: 4px;
+    font-family: @font-Bold;
     width: 40px;
     height: 20px;
     float: left;
@@ -39,18 +52,17 @@
 }
 
 .header-timeline__live {
+    margin-top: 4px;
     color: @color-timelineLive;
     font-size: 14px;
-    font-family: @font-main;
-    font-weight: bold;
+    font-family: @font-Bold;
     float: left;
     width: 63px;
     height: 20px;
 }
 
 .header-timeline__description {
-    font-family: @font-main;
-    font-style: italic;
+    font-family: @font-Italic;
     font-weight: 100;
     font-size: 13px;
     color: @color-timelineDescription;
@@ -58,4 +70,5 @@
     display: block;
     margin-top: 5px;
     clear: both;
+    line-height: 16px;
 }
