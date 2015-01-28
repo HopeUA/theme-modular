@@ -720,6 +720,7 @@ body {
   padding-bottom: 5px;
   border-bottom: 2px solid rgba(0, 0, 0, 0);
   height: 26px;
+  transition: all 0.1s ease-out;
 }
 .header-main__menu-item a:hover {
   border-bottom: 2px solid #ffa700;
