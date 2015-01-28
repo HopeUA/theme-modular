@@ -862,7 +862,7 @@ body {
 }
 .header-banner__item:after {
   content: "";
-  background: url("../img/headerDark.png") repeat-x 0 0;
+  background: url("../img/header-mask.png") repeat-x 0 0;
   height: 530px;
   width: 100%;
   z-index: -1;
@@ -900,14 +900,14 @@ body {
 }
 .header-banner__arrow_left:before {
   content: "";
-  background: url("../img/banner-main__arrow_left.png");
+  background: url("../img/header-arrow-leftIcon.png");
   width: 21px;
   height: 35px;
   display: block;
 }
 .header-banner__arrow_right:before {
   content: "";
-  background: url("../img/banner-main__arrow_left.png");
+  background: url("../img/header-arrow-leftIcon.png");
   width: 21px;
   height: 35px;
   display: block;
