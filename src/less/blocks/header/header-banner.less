@@ -1,12 +1,12 @@
 // out: null
 
-.banner-main {
+.header-banner {
     z-index: 100;
 }
 
-.banner-main__item:after {
+.header-banner__item:after {
     content: "";
-    background: url("@{img}/headerDark.png") repeat-x 0 0;
+    background: @headerBanner__mask repeat-x 0 0;
     height: 530px;
     width: 100%;
     z-index: -1;
@@ -15,7 +15,7 @@
     position: absolute;
 }
 
-.banner-main__item {
+.header-banner__item {
     height: 530px;
     width: 100%;
     z-index: -1;
@@ -24,13 +24,13 @@
     background-position-x:center
 }
 
-.banner-main__item .wrap {
+.header-banner__item .wrap {
     margin-top: 237px;
     height: 293px;
     z-index: 100;
 }
 
-.banner-main__arrow_left {
+.header-banner__arrow_left {
     display: flex;
     height: 100%;
     float: left;
@@ -39,7 +39,7 @@
     left: 19%;
 }
 
-.banner-main__arrow_right {
+.header-banner__arrow_right {
     display: flex;
     height: 100%;
     position: absolute;
@@ -47,25 +47,25 @@
     right: 19%;
 }
 
-.banner-main__arrow_left:before {
+.header-banner__arrow_left:before {
     content: "";
-    background: url("@{img}/banner-main__arrow_left.png");
+    background: @headerBanner__arrow;
     width: 21px;
     height: 35px;
     display: block;
 }
 
-.banner-main__arrow_right:before {
+.header-banner__arrow_right:before {
     content: "";
-    background: url("@{img}/banner-main__arrow_left.png");
+    background: @headerBanner__arrow;
     width: 21px;
     height: 35px;
     display: block;
     transform: rotate(180deg);
 }
 
-.banner-main__item-time {
-    color: @color-bannerMainTime;
+.header-banner__item-time {
+    color: @headerBanner__color-time;
     font-family: @font-Bold;
     font-size: 40px;
     margin-left: 60px;
@@ -74,12 +74,12 @@
     text-align: center;
 }
 
-.banner-main__item-day {
-    color: @color-bannerMainDay;
+.header-banner__item-day {
+    color: @headerBanner__color-day;
     font-family: @font-Bold;
     font-size: 12px;
     text-transform: uppercase;
-    background-color: @color-bannerMainDayBackground;
+    background-color: @headerBanner__color-day__background;
     padding-top: 7px;
     padding-bottom: 7px;
     display: inline-block;
@@ -89,18 +89,18 @@
     text-align: center;
 }
 
-.banner-main__item-title {
+.header-banner__item-title {
     width: 167px;
-    color: @color-bannerMainTitle;
+    color: @headerBanner__color-title;
     font-family: @font-Bold;
     font-size: 16px;
     margin-left: 60px;
     margin-bottom: 13px;
 }
 
-.banner-main__item-description {
+.header-banner__item-description {
     width: 136px;
-    color: @color-bannerMainDescription;
+    color: @headerBanner__color-description;
     font-family: @font-Regular;
     font-size: 14px;
     margin-left: 60px;

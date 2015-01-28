@@ -1,23 +1,75 @@
 // out: null
+
+// Main sizes
 @width-main: 980px;
+
+// Main folders
 @img: "../img";
+
+//Main fonts
 @font-Bold: PTSansBold;
 @font-Italic: PTSansItalic;
 @font-Narrow: PTSansNarrow;
 @font-Regular: PTSansRegular;
-@font-main: PT Sans;
-@color-menu: #8a8c8e;
-@color-menuActive: #dfedfd;
-@color-mainMenu: #dcddde;
-@color-headerTop: rgba(0,0,0,0);
-@height-headerTop: 41px;
-@color-timelinePrev: #7c7c7c;
-@color-timelineNext: #2662b1;
-@color-timelineTime: #d1d3d4;
-@color-timelineLive: #ef3800;
-@color-timelineDescription: #bcbec0;
-@color-bannerMainTime: #fff;
-@color-bannerMainDay: #fff;
-@color-bannerMainDayBackground: #d82929;
-@color-bannerMainTitle: #fff;
-@color-bannerMainDescription: #d1d3d4;
+
+//******************** BEGIN headerTop ********************
+// Colors
+@headerTop__color-invisibleBorder: rgba(0,0,0,0);
+@headerTop__color-Border__hover: #f9ca0e;
+@headerTop__color-element: #8a8c8e;
+@headerTop__color-element__hover: #fff;
+@headerTop__color-element__important: #dfedfd;
+
+// Social icons
+@headerTop__rss: url("@{img}/header-rssIcon.svg");
+@headerTop__rss__hover: url("@{img}/header-rssIcon__hover.svg");
+@headerTop__yt: url("@{img}/header-youtubeIcon.svg");
+@headerTop__yt__hover: url("@{img}/header-youtubeIcon__hover.svg");
+@headerTop__fb: url("@{img}/header-facebookIcon.svg");
+@headerTop__fb__hover: url("@{img}/header-facebookIcon__hover.svg");
+@headerTop__vk: url("@{img}/header-vkIcon.svg");
+@headerTop__vk__hover: url("@{img}/header-vkIcon__hover.svg");
+@headerTop__tw: url("@{img}/header-twitterIcon.svg");
+@headerTop__tw__hover: url("@{img}/header-twitterIcon__hover.svg");
+
+// Another icons
+@headerTop__worldwide: url("@{img}/header-whereToWatchIcon.svg");
+@headerTop__search: url("@{img}/header-searchIcon.svg");
+@headerTop__logIn: url("@{img}/header-logInIcon.svg");
+
+// Animations
+@headerTop__animations-all: all 0.1s ease-out;
+//******************** END headerTop **********************
+
+//******************** BEGIN headerMain *******************
+// Another icons
+@headerMain__logo: url("@{img}/header-hopeLogo.svg");
+@headerMain__play: url("@{img}/header-playIcon.svg");
+
+// Colors
+@headerMain__color-element: #dcddde;
+@headerMain__color-invisibleBorder: rgba(0,0,0,0);
+@headerMain__color-Border__hover: #ffa700;
+//******************** END headerMain *********************
+
+//******************** BEGIN headerTimeline ***************
+// Colors
+@headerTimeline__color-prev: #7c7c7c;
+@headerTimeline__color-next: #2662b1;
+@headerTimeline__color-time: #d1d3d4;
+@headerTimeline__color-live: #ef3800;
+@headerTimeline__color-description: #bcbec0;
+//******************** END headerTimeline *****************
+
+//******************** BEGIN headerBanner *****************
+// Colors
+@headerBanner__color-time: #fff;
+@headerBanner__color-day: #fff;
+@headerBanner__color-day__background: #d82929;
+@headerBanner__color-title: #fff;
+@headerBanner__color-description: #d1d3d4;
+
+// Another icons
+@headerBanner__arrow: url("@{img}/banner-main__arrow_left.png");
+@headerBanner__mask: url("@{img}/headerDark.png");
+//******************** END headerBanner *******************

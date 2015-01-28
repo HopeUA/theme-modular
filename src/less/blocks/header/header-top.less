@@ -8,14 +8,14 @@
 }
 
 .header-top {
-    height: @height-headerTop;
+    height: 41px;
 }
 
 .header-top__watch-us, .header-top__menu-item, .header-top__user a {
     font-family: @font-Regular;
     font-size: 13px;
     text-decoration: none;
-    color: @color-menu;
+    color: @headerTop__color-element;
 }
 
 .header-top__worldwide {
@@ -31,16 +31,21 @@
     flex-direction: row;
     font-family: @font-Italic;
     font-size: 12px;
-    color: @color-menu;
+    color: @headerTop__color-element;
     text-decoration: none;
     width: 200px;
     line-height: 20px;
+    transition: @headerTop__animations-all;
+}
+
+.header-top__worldwide a:hover {
+   color: @headerTop__color-element__hover;
 }
 
 .header-top__worldwide a:before {
     content: "";
     display: block;
-    background-image: url("@{img}/header-whereToWatchIcon.svg");
+    background-image: @headerTop__worldwide;
     background-repeat: no-repeat;
     width: 18px;
     height: 18px;
@@ -56,7 +61,7 @@
 
 .header-top__watch-us a {
     text-decoration: none;
-    color: @color-menuActive;
+    color: @headerTop__color-element__important;
     font-family: Arial;
     font-size: 13px;
     margin-left: 3px;
@@ -64,7 +69,7 @@
 
 .header-top__watch-us span {
     font-family: @font-Regular;
-    color: @color-menuActive;
+    color: @headerTop__color-element__important;
     text-decoration: underline;
 }
 
@@ -76,7 +81,16 @@
 }
 
 .header-top__menu-item {
+    font-family: @font-Regular;
+    font-size: 13px;
+    text-decoration: none;
+    color: @headerTop__color-element;
     margin-right: 39px;
+    transition: @headerTop__animations-all;
+}
+
+.header-top__menu-item:hover {
+    color: @headerTop__color-element__hover;
 }
 
 .header-top__menu-item:last-child {
@@ -88,20 +102,21 @@
     align-items: center;
     height: 41px;
     box-sizing:border-box;
-    border-bottom: 2px solid @color-headerTop;
+    border-bottom: 2px solid @headerTop__color-invisibleBorder;
     width: 30px;
     margin-right: 41px;
+    transition: @headerTop__animations-all;
 }
 
 .header-top__search:hover {
     height: 41px;
     box-sizing:border-box;
-    border-bottom: 2px solid #f9ca0e;
+    border-bottom: 2px solid @headerTop__color-Border__hover;
 }
 
 .header-top__search:before {
     content: "";
-    background-image: url("@{img}/header-searchIcon.svg");
+    background-image: @headerTop__search;
     width: 30px;
     height: 17px;
     margin-top: 12px;
@@ -132,38 +147,68 @@
 }
 
 .header-top__social-link_rss {
-    background-image: url("@{img}/header-rssIcon.svg#normal");
+    background-image: @headerTop__rss;
     background-repeat: no-repeat;
     width: 14px;
     height: 14px;
+    transition: @headerTop__animations-all;
+}
+
+.header-top__social-link_rss:hover {
+    background-image: @headerTop__rss__hover;
+    background-repeat: no-repeat;
 }
 
 .header-top__social-link_yt {
-    background-image: url("@{img}/header-youtubeIcon.svg");
+    background-image: @headerTop__yt;
     background-repeat: no-repeat;
     width: 18px;
     height: 14px;
+    transition: @headerTop__animations-all;
+}
+
+.header-top__social-link_yt:hover {
+    background-image: @headerTop__yt__hover;
+    background-repeat: no-repeat;
 }
 
 .header-top__social-link_fb {
-    background-image: url("@{img}/header-facebookIcon.svg");
+    background-image: @headerTop__fb;
     background-repeat: no-repeat;
     width: 6px;
     height: 14px;
+    transition: @headerTop__animations-all;
+}
+
+.header-top__social-link_fb:hover {
+    background-image: @headerTop__fb__hover;
+    background-repeat: no-repeat;
 }
 
 .header-top__social-link_vk {
-    background-image: url("@{img}/header-vkIcon.svg");
+    background-image: @headerTop__vk;
     background-repeat: no-repeat;
     width: 24px;
     height: 14px;
+    transition: @headerTop__animations-all;
+}
+
+.header-top__social-link_vk:hover {
+    background-image: @headerTop__vk__hover;
+    background-repeat: no-repeat;
 }
 
 .header-top__social-link_tw {
-    background-image: url("@{img}/header-twitterIcon.svg");
+    background-image: @headerTop__tw;
     background-repeat: no-repeat;
     width: 17px;
     height: 14px;
+    transition: @headerTop__animations-all;
+}
+
+.header-top__social-link_tw:hover {
+    background-image: @headerTop__tw__hover;
+    background-repeat: no-repeat;
 }
 
 .header-top__user {
@@ -174,12 +219,17 @@
 .header-top__user a {
     display: flex;
     flex-direction: row;
+    transition: @headerTop__animations-all;
+}
+
+.header-top__user a:hover {
+    color: @headerTop__color-element__hover;
 }
 
 .header-top__user a:before {
     content: "";
     display: block;
-    background-image: url("@{img}/header-logInIcon.svg");
+    background-image: @headerTop__logIn;
     background-repeat: no-repeat;
     width: 10px;
     height: 14px;
