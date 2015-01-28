@@ -600,55 +600,70 @@ body {
   background-repeat: no-repeat;
   width: 14px;
   height: 14px;
+  padding-bottom: 11px;
+  border-bottom: solid 2px rgba(0, 0, 0, 0);
   transition: all 0.1s ease-out;
 }
 .header-top__social-link_rss:hover {
   background-image: url("../img/header-rssIcon__hover.svg");
   background-repeat: no-repeat;
+  border-bottom: solid 2px #f9ca0e;
 }
 .header-top__social-link_yt {
   background-image: url("../img/header-youtubeIcon.svg");
   background-repeat: no-repeat;
   width: 18px;
   height: 14px;
+  padding-bottom: 11px;
+  border-bottom: solid 2px rgba(0, 0, 0, 0);
   transition: all 0.1s ease-out;
 }
 .header-top__social-link_yt:hover {
   background-image: url("../img/header-youtubeIcon__hover.svg");
   background-repeat: no-repeat;
+  border-bottom: solid 2px #f9ca0e;
 }
 .header-top__social-link_fb {
   background-image: url("../img/header-facebookIcon.svg");
   background-repeat: no-repeat;
   width: 6px;
   height: 14px;
+  padding-bottom: 11px;
+  border-bottom: solid 2px rgba(0, 0, 0, 0);
   transition: all 0.1s ease-out;
 }
 .header-top__social-link_fb:hover {
   background-image: url("../img/header-facebookIcon__hover.svg");
   background-repeat: no-repeat;
+  border-bottom: solid 2px #f9ca0e;
 }
 .header-top__social-link_vk {
   background-image: url("../img/header-vkIcon.svg");
   background-repeat: no-repeat;
   width: 24px;
   height: 14px;
+  padding-bottom: 11px;
+  border-bottom: solid 2px rgba(0, 0, 0, 0);
   transition: all 0.1s ease-out;
 }
 .header-top__social-link_vk:hover {
   background-image: url("../img/header-vkIcon__hover.svg");
   background-repeat: no-repeat;
+  border-bottom: solid 2px #f9ca0e;
 }
 .header-top__social-link_tw {
   background-image: url("../img/header-twitterIcon.svg");
   background-repeat: no-repeat;
   width: 17px;
   height: 14px;
+  padding-bottom: 11px;
+  border-bottom: solid 2px rgba(0, 0, 0, 0);
   transition: all 0.1s ease-out;
 }
 .header-top__social-link_tw:hover {
   background-image: url("../img/header-twitterIcon__hover.svg");
   background-repeat: no-repeat;
+  border-bottom: solid 2px #f9ca0e;
 }
 .header-top__user {
   display: flex;
@@ -952,5 +967,15 @@ body {
   font-size: 14px;
   margin-left: 60px;
   line-height: 16px;
+  float: left;
+}
+.header-banner__item-play {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 60px;
+  border: solid 1px white;
+  margin-top: -115px;
 }
 /*# sourceMappingURL=main.css.map */
