@@ -521,17 +521,24 @@ body {
   width: 117px;
   margin-right: 54px;
 }
-.header-top__watch-us a {
+.header-top__watch-us:hover div span,
+.header-top__watch-us:hover div {
+  text-decoration: none;
+  border-bottom: none;
+  color: #f9ca0e;
+}
+.header-top__watch-us div {
   text-decoration: none;
   color: #dfedfd;
   font-family: Arial;
   font-size: 13px;
   margin-left: 3px;
 }
-.header-top__watch-us span {
+.header-top__watch-us div span {
   font-family: PTSansRegular;
   color: #dfedfd;
   text-decoration: underline;
+  transition: all 0.1s ease-out;
 }
 .header-top__menu {
   display: flex;

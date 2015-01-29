@@ -59,7 +59,13 @@
     margin-right: 54px;
 }
 
-.header-top__watch-us a {
+.header-top__watch-us:hover div span, .header-top__watch-us:hover div{
+    text-decoration: none;
+    border-bottom: none;
+    color: @headerTop__color-element__yellow;
+}
+
+.header-top__watch-us div {
     text-decoration: none;
     color: @headerTop__color-element__important;
     font-family: Arial;
@@ -67,10 +73,11 @@
     margin-left: 3px;
 }
 
-.header-top__watch-us span {
+.header-top__watch-us div span {
     font-family: @font-Regular;
     color: @headerTop__color-element__important;
     text-decoration: underline;
+    transition: @headerTop__animations-all;
 }
 
 .header-top__menu {
