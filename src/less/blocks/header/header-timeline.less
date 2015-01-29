@@ -7,8 +7,11 @@
     z-index: 100;
 }
 
-.header-timeline .wrap {
+.header-timeline > .wrap {
     width: 5250px;
+}
+
+.header-timeline .wrap .header-timeline__items {
     display: flex;
     flex-direction: row;
 }
@@ -57,14 +60,13 @@
     border-radius: 1px;
 }
 
-.header-timeline__item-current::after {
+.header-timeline .wrap .wrap::before {
     content: "";
     width: 3px;
-    height: 8px;
+    height: 9px;
     background: red;
     display: block;
     position: relative;
-    top: -45px;
     left: 75px;
 }
 
