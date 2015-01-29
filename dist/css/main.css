@@ -593,7 +593,7 @@ body {
 .header-top__search-item::after {
   content: "";
   display: block;
-  background-image: url("../img/header-searchIcon.svg");
+  background-image: url("../img/header-searchIcon__hover.svg");
   width: 30px;
   height: 17px;
   margin-top: 12px;
