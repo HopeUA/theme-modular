@@ -553,6 +553,10 @@ body {
 .header-top__menu-item:last-child {
   margin-right: -42px;
 }
+.header-top__search {
+  width: 30px;
+  margin-right: 41px;
+}
 .header-top__search-item {
   display: flex;
   align-items: center;
