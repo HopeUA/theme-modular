@@ -1121,7 +1121,7 @@ body {
 .header-banner__controls-item:last-child {
   margin-right: 0;
 }
-.header-banner__controls .active {
+.header-banner__controls-item__active {
   background-color: #facb0e;
 }
 .header-banner::after {
@@ -1129,7 +1129,7 @@ body {
   display: block;
   background-color: #558b97;
   height: 5px;
-  width: 70%;
+  width: 500px;
   position: relative;
   top: 327px;
 }
