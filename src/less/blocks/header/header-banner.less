@@ -2,6 +2,8 @@
 
 .header-banner {
     z-index: 100;
+    height: 335px;
+    border-bottom: solid 6px @headerBanner__color-loader;
 }
 
 .header-banner__item:after {
@@ -117,7 +119,7 @@
     margin: 0 auto;
     margin-top: -115px;
     background-image: @headerBanner__play;
-    transition: all 0.1s ease-out;
+    transition: @headerBanner__animations-all;
 }
 
 .header-banner__item-play:hover {
@@ -133,17 +135,31 @@
     position: relative;
     top: 312px;
     margin: 0 auto;
-    //border: solid 1px red;
     display: flex;
 }
 
 .header-banner__controls-item {
     width: 8px;
     height: 8px;
-    //background-color: @headerBanner__color-control;
+    background-color: @headerBanner__color-control;
     margin-right: 7px;
+    border-radius: 8px;
 }
 
 .header-banner__controls-item:last-child {
     margin-right: 0;
+}
+
+.header-banner__controls .active {
+    background-color: @headerBanner__color-control__active;
+}
+
+.header-banner::after {
+    content: "";
+    display: block;
+    background-color: @headerBanner__color-loader__active;
+    height: 5px;
+    width: 70%;
+    position: relative;
+    top: 327px;
 }
