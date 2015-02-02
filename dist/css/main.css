@@ -899,10 +899,8 @@ body {
   position: relative;
   z-index: 100;
 }
-.header-timeline > .wrap {
+.header-timeline__items {
   width: 5250px;
-}
-.header-timeline .wrap .header-timeline__items {
   display: flex;
   flex-direction: row;
 }
@@ -930,8 +928,19 @@ body {
   display: block;
   height: 3px;
   background: #7c7c7c;
-  background: linear-gradient(to right, #7c7c7c 0%, #7c7c7c 75px, #2662b1 76px, #2662b1 100%);
   border-radius: 1px;
+  width: 51px;
+}
+.header-timeline__item-current:after {
+  content: "";
+  display: block;
+  height: 3px;
+  background: #2662b1;
+  border-radius: 1px;
+  width: 90px;
+  top: -43px;
+  left: 60px;
+  position: relative;
 }
 .header-timeline__item-next:before {
   content: "";
@@ -940,14 +949,15 @@ body {
   background: #2662b1;
   border-radius: 1px;
 }
-.header-timeline .wrap .wrap::before {
+.header-timeline .wrap::before {
   content: "";
   width: 3px;
   height: 9px;
   background: red;
   display: block;
   position: relative;
-  left: 75px;
+  left: 64px;
+  top: 9px;
 }
 .header-timeline__time {
   margin-top: 4px;
@@ -1021,18 +1031,20 @@ body {
 }
 .header-banner__arrow_left:before {
   content: "";
-  background: url("../img/header-arrow-leftIcon.png");
+  background: url("../img/header-arrow-leftIcon.svg");
   width: 21px;
   height: 35px;
   display: block;
+  opacity: 0.4;
 }
 .header-banner__arrow_right:before {
   content: "";
-  background: url("../img/header-arrow-leftIcon.png");
+  background: url("../img/header-arrow-leftIcon.svg");
   width: 21px;
   height: 35px;
   display: block;
   transform: rotate(180deg);
+  opacity: 0.4;
 }
 .header-banner__item-time {
   color: #ffffff;
@@ -1079,8 +1091,18 @@ body {
   height: 100px;
   display: block;
   margin: 0 auto;
-  border-radius: 60px;
-  border: solid 1px white;
   margin-top: -115px;
+  background-image: url("../img/header-playButton.svg");
+  transition: all 0.1s ease-out;
+}
+.header-banner__item-play:hover {
+  width: 110px;
+  height: 110px;
+  cursor: pointer;
+  margin-top: -120px;
+}
+.header-banner__controls {
+  width: 112px;
+  margin: 0 auto;
 }
 /*# sourceMappingURL=main.css.map */
