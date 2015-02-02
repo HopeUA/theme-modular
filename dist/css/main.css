@@ -1103,6 +1103,18 @@ body {
 }
 .header-banner__controls {
   width: 112px;
+  height: 8px;
+  position: relative;
+  top: 312px;
   margin: 0 auto;
+  display: flex;
+}
+.header-banner__controls-item {
+  width: 8px;
+  height: 8px;
+  margin-right: 7px;
+}
+.header-banner__controls-item:last-child {
+  margin-right: 0;
 }
 /*# sourceMappingURL=main.css.map */
