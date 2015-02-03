@@ -427,6 +427,13 @@ th {
   padding: 0;
 }
 
+.grid__column-1 {
+  width: 227px;
+}
+.grid__column-3 {
+  width: 702px;
+  margin-right: 12px;
+}
 @font-face {
   font-family: 'PTSansBold';
   src: url('../css/fonts/PTSans-Bold.eot');
@@ -462,8 +469,23 @@ body {
   width: 980px;
   margin: 0 auto;
 }
-.border {
-  border: solid 1px red;
+.container {
+  width: 940px;
+  margin: 38px auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+}
+.container h2 {
+  font-family: PTSansRegular;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #808285;
+  font-weight: 100;
+  margin-bottom: 17px;
+}
+.container-content {
+  display: flex;
 }
 .clearfix {
   clear: both;
@@ -989,7 +1011,13 @@ body {
   line-height: 16px;
 }
 .header-banner {
-  z-index: 100;
+  height: 341px;
+}
+.header-banner:hover .header-banner__item-play {
+  width: 110px;
+  height: 110px;
+  cursor: pointer;
+  margin-top: -120px;
 }
 .header-banner__item:after {
   content: "";
@@ -1004,11 +1032,11 @@ body {
 .header-banner__item {
   height: 530px;
   width: 100%;
-  z-index: -1;
   top: 0;
   position: absolute;
   background-position-x: center;
   border-bottom: solid 6px #9b9b9b;
+  z-index: -1;
 }
 .header-banner__item .wrap {
   margin-top: 237px;
@@ -1094,13 +1122,8 @@ body {
   margin: 0 auto;
   margin-top: -115px;
   background-image: url("../img/header-playButton.svg");
-  transition: all 0.1s ease-out;
-}
-.header-banner__item-play:hover {
-  width: 110px;
-  height: 110px;
-  cursor: pointer;
-  margin-top: -120px;
+  transition: all 0.1s;
+  transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
 }
 .header-banner__controls {
   width: 112px;
@@ -1131,5 +1154,194 @@ body {
   width: 500px;
   position: relative;
   top: 328px;
+}
+.content-episode__large {
+  width: 471px;
+  height: 260px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 70%, rgba(39, 39, 39, 0.4) 85%, rgba(0, 0, 0, 0.8) 100%);
+  overflow: hidden;
+}
+.content-episode__large img {
+  position: relative;
+  z-index: -1;
+  width: 100%;
+}
+.content-episode__large:hover .content-episode__large-play::before {
+  width: 86px;
+  height: 86px;
+  top: 87px;
+  left: 189px;
+  cursor: pointer;
+}
+.content-episode__large-play {
+  width: 86px;
+  height: 86px;
+}
+.content-episode__large::before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 260px;
+  width: 464px;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 50%, rgba(39, 39, 39, 0.4) 75%, rgba(0, 0, 0, 0.8) 100%);
+}
+.content-episode__large-play::before {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  background: url(../img/header-playButton.svg);
+  top: 90px;
+  left: 192px;
+  transition: all 0.1s;
+  transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
+}
+.content-episode__large-title__episode {
+  z-index: 100;
+  color: #fff;
+  font-family: PTSansBold;
+  font-weight: 500;
+  font-size: 19px;
+  position: relative;
+  left: 34px;
+  top: 79px;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  display: block;
+  width: 264px;
+}
+.content-episode__large-title__show {
+  z-index: 100;
+  color: #e6e7e8;
+  font-family: PTSansRegular;
+  font-size: 15px;
+  position: relative;
+  left: 34px;
+  top: 45px;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  display: block;
+  width: 264px;
+}
+.content-episode__large-title__show::before {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  background: url(../img/content-episode-arrowIcon.svg);
+  float: left;
+  margin-top: 5px;
+  margin-right: 6px;
+}
+.content-episode-image__squared {
+  top: -145px;
+}
+.content-episode-image__wide {
+  top: -212px;
+}
+.content-episode-info__right {
+  width: 198px;
+  height: 240px;
+  background: #fff;
+  padding-left: 40px;
+  padding-top: 20px;
+}
+.content-episode-info__right-date {
+  font-family: PTSansRegular;
+  font-size: 12px;
+  color: #808285;
+  margin-bottom: 0;
+}
+.content-episode-info__right-date span {
+  color: #bcbec0;
+}
+.content-episode-info__right-title {
+  font-family: PTSansBold;
+  font-size: 16px;
+  color: #4d4d4f;
+  margin-top: 21px;
+  margin-bottom: 3px;
+}
+.content-episode-info__right-category {
+  font-family: PTSansRegular;
+  font-size: 14px;
+  color: #2f8dca;
+  padding-bottom: 0;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 10px;
+}
+.content-episode-info__right-category::before {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  background: url(../img/content-episode-arrowIcon.svg);
+  background-repeat: no-repeat;
+  float: left;
+  margin-top: 3px;
+  margin-right: 6px;
+  margin-left: -11px;
+}
+.content-episode-info__right-category::after {
+  content: "";
+  display: block;
+  background: #7cb0d9;
+  height: 1px;
+  width: 100%;
+  position: relative;
+  top: -2px;
+  box-shadow: 0px 1px 0px 0px rgba(216, 230, 242, 0.9);
+  left: 1px;
+}
+.content-episode-info__right-category span {
+  font-family: Arial;
+  font-size: 13px;
+  position: relative;
+  right: -1px;
+}
+.content-episode-info__right-description {
+  font-family: PTSansRegular;
+  font-size: 13px;
+  color: #939598;
+  width: 175px;
+  margin-top: 28px;
+}
+.content-episode-info__right-share {
+  margin-top: 27px;
+}
+.content-episode-info__right-share span {
+  font-family: PTSansItalic;
+  font-size: 13px;
+  color: #808285;
+  float: left;
+}
+.content-episode-info__right-share-items {
+  display: flex;
+  padding-left: 10px;
+  padding-top: 1px;
+}
+.content-episode-info__right-share-item {
+  list-style-type: none;
+  margin-right: 10px;
+  opacity: 0.8;
+}
+.content-episode-info__right-share-item:last-child {
+  margin-right: 0;
+}
+.episode-info__right-share-item_vk {
+  background-image: url("../img/header-vkIcon.svg");
+  width: 24px;
+  height: 14px;
+}
+.episode-info__right-share-item_fb {
+  background-image: url("../img/header-facebookIcon.svg");
+  width: 7px;
+  height: 14px;
+}
+.episode-info__right-share-item_tw {
+  background-image: url("../img/header-twitterIcon.svg");
+  width: 17px;
+  height: 14px;
 }
 /*# sourceMappingURL=main.css.map */

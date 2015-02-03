@@ -1,0 +1,96 @@
+// out: null
+
+.content-episode__large {
+    width: 471px;
+    height: 260px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 70%, rgba(39, 39, 39, 0.4) 85%, rgba(0,0,0,0.8) 100%);
+    overflow: hidden;
+}
+
+.content-episode__large img {
+    position: relative;
+    z-index: -1;
+    width: 100%;
+}
+
+.content-episode__large:hover .content-episode__large-play::before{
+    width: 86px;
+    height: 86px;
+    top: 87px;
+    left: 189px;
+    cursor: pointer;
+}
+
+.content-episode__large-play{
+    width: 86px;
+    height: 86px;
+}
+
+.content-episode__large::before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 260px;
+    width: 464px;
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 50%, rgba(39, 39, 39, 0.4) 75%, rgba(0,0,0,0.8) 100%);
+}
+
+.content-episode__large-play::before {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 80px;
+    position: relative;
+    background: url(../img/header-playButton.svg);
+    top: 90px;
+    left: 192px;
+    transition: all 0.1s;
+    transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.content-episode__large-title__episode {
+    z-index: 100;
+    color: #fff;
+    font-family: @font-Bold;
+    font-weight: 500;
+    font-size: 19px;
+    position: relative;
+    left: 34px;
+    top: 79px;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    display: block;
+    width: 264px;
+}
+
+.content-episode__large-title__show {
+    z-index: 100;
+    color: #e6e7e8;
+    font-family: @font-Regular;
+    font-size: 15px;
+    position: relative;
+    left: 34px;
+    top: 45px;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    display: block;
+    width: 264px;
+}
+
+.content-episode__large-title__show::before {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    background: url(../img/content-episode-arrowIcon.svg);
+    float: left;
+    margin-top: 5px;
+    margin-right: 6px;
+}
+
+.content-episode-image__squared {
+    top: -145px;
+}
+
+.content-episode-image__wide {
+    top: -212px;
+}

@@ -1,7 +1,14 @@
 // out: null
 
 .header-banner {
-    z-index: 100;
+    height: 341px;
+}
+
+.header-banner:hover .header-banner__item-play{
+    width: 110px;
+    height: 110px;
+    cursor: pointer;
+    margin-top: -120px;
 }
 
 .header-banner__item:after {
@@ -18,11 +25,11 @@
 .header-banner__item {
     height: 530px;
     width: 100%;
-    z-index: -1;
     top: 0;
     position: absolute;
     background-position-x:center;
     border-bottom: solid 6px @headerBanner__color-loader;
+    z-index: -1;
 }
 
 .header-banner__item .wrap {
@@ -118,15 +125,16 @@
     margin: 0 auto;
     margin-top: -115px;
     background-image: @headerBanner__play;
-    transition: @headerBanner__animations-all;
+    transition: all 0.1s;
+    transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
 }
 
-.header-banner__item-play:hover {
-    width: 110px;
-    height: 110px;
-    cursor: pointer;
-    margin-top: -120px;
-}
+//.header-banner__item-play:hover {
+//    width: 110px;
+//    height: 110px;
+//    cursor: pointer;
+//    margin-top: -120px;
+//}
 
 .header-banner__controls {
     width: 112px;
