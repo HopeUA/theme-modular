@@ -1152,10 +1152,10 @@ body {
   content: "";
   display: block;
   background-color: #558b97;
-  height: 5px;
+  height: 6px;
   width: 500px;
   position: relative;
-  top: 328px;
+  top: 377px;
 }
 .content-episode__large {
   width: 471px;
