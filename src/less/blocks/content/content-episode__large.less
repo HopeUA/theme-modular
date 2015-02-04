@@ -3,17 +3,25 @@
 .content-episode__large {
     width: 471px;
     height: 260px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 70%, rgba(39, 39, 39, 0.4) 85%, rgba(0,0,0,0.8) 100%);
     overflow: hidden;
+    position: relative;
+}
+
+.content-episode__large:hover {
+    cursor: pointer;
+}
+
+.content-episode__large:hover .content-episode__large-play{
+    transform: scale(1.25);
 }
 
 .content-episode__large img {
-    position: relative;
+    position: absolute;
     z-index: -1;
     width: 100%;
 }
 
-.content-episode__large:hover .content-episode__large-play::before{
+.content-episode__large:hover .content-episode__large-play::before {
     width: 86px;
     height: 86px;
     top: 87px;
@@ -21,7 +29,7 @@
     cursor: pointer;
 }
 
-.content-episode__large-play{
+.content-episode__large-play {
     width: 86px;
     height: 86px;
 }
@@ -31,22 +39,25 @@
     display: block;
     position: absolute;
     height: 260px;
-    width: 464px;
-    z-index: 10;
+    width: 465px;
+    z-index: 2;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 50%, rgba(39, 39, 39, 0.4) 75%, rgba(0,0,0,0.8) 100%);
 }
 
-.content-episode__large-play::before {
+.content-episode__large-play {
     content: "";
     display: block;
     width: 80px;
     height: 80px;
     position: relative;
     background: url(../img/header-playButton.svg);
-    top: 90px;
-    left: 192px;
+    top: 50%;
+    left: 50%;
+    margin-left: -40px;
+    margin-top: -40px;
     transition: all 0.1s;
     transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
+    position: absolute;
 }
 
 .content-episode__large-title__episode {
@@ -55,12 +66,14 @@
     font-family: @font-Bold;
     font-weight: 500;
     font-size: 19px;
-    position: relative;
-    left: 34px;
-    top: 79px;
+    position: absolute;
+    left: 35px;
+    top: 200px;
     text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
     display: block;
     width: 264px;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .content-episode__large-title__show {
@@ -68,12 +81,14 @@
     color: #e6e7e8;
     font-family: @font-Regular;
     font-size: 15px;
-    position: relative;
-    left: 34px;
-    top: 45px;
+    position: absolute;
+    left: 35px;
+    top: 225px;
     text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
     display: block;
     width: 264px;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .content-episode__large-title__show::before {
@@ -88,9 +103,9 @@
 }
 
 .content-episode-image__squared {
-    top: -145px;
+    top: 0;
 }
 
 .content-episode-image__wide {
-    top: -212px;
+    top: 0;
 }
