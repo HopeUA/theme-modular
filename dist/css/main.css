@@ -1000,6 +1000,8 @@ body {
   float: left;
   width: 23px;
   height: 20px;
+  font-smoothing: subpixel-antialiased !important;
+  backface-visibility: hidden;
 }
 .header-timeline__description {
   font-family: PTSansItalic;
