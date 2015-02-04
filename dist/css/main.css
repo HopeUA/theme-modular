@@ -916,15 +916,17 @@ body {
   margin-top: -7px;
 }
 .header-timeline {
-  width: 100%;
-  overflow: hidden;
+  width: 980px;
   position: relative;
   z-index: 100;
+  margin: 0 auto;
 }
 .header-timeline__items {
   width: 5250px;
   display: flex;
   flex-direction: row;
+  position: absolute;
+  left: -470px;
 }
 .header-timeline__item {
   padding-right: 15px;
