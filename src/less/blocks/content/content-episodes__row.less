@@ -51,6 +51,10 @@
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 50%, rgba(39, 39, 39, 0.6) 75%, rgba(0, 0, 0, 0.9) 100%);
 }
 
+.content-episodes__row-item:hover::before {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 0%, rgba(39, 39, 39, 0.6) 1%, rgba(0, 0, 0, 0.9) 100%);
+}
+
 .content-episodes__row-item-play {
     content: "";
     display: block;
@@ -85,21 +89,36 @@
 }
 
 .content-episodes__row__arrow-right {
-    background: @headerBanner__arrow;
-    width: 21px;
-    height: 35px;
-    display: block;
-    transform: rotate(180deg);
-    opacity: 0.2;
+    width: 100px;
+    height: 259px;
     position: absolute;
-    right: -14px;
+    top: 43px;
+}
+
+.content-episodes__row__arrow-right::before {
+    content: "";
+    background: url("@{img}/arrow.svg");
+    width: 21px;
+    height: 38px;
+    display: block;
+    opacity: 0.6;
+    position: absolute;
+    right: 66px;
     top: 50%;
+    margin-top: -19px;
     transition: all 0.1s;
     transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
+    transform: scaleX(-1);
 }
 
 .content-episodes__row__arrow-right:hover {
     cursor: pointer;
-    opacity: 0.4;
-    transform: rotate(180deg) scale(1.25);
+}
+
+.content-episodes__row__arrow-right:hover::before {
+    opacity: 0.85;
+    transform: scaleX(-1) scale(1.05);
+    //-webkit-animation: arrowAnimation 0.2s;
+    //-webkit-animation-delay: 0.25s;
+    right: 61px;
 }
