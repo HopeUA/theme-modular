@@ -465,6 +465,9 @@ th {
 body {
   background: #eeeeee;
 }
+.header {
+  overflow: hidden;
+}
 .wrap {
   width: 980px;
   margin: 0 auto;
@@ -1156,8 +1159,8 @@ body {
   background-color: #558b97;
   height: 6px;
   width: 500px;
-  position: relative;
-  top: 377px;
+  position: absolute;
+  top: 530px;
 }
 .content-episode__large {
   width: 471px;
