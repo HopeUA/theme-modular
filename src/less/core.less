@@ -2,6 +2,7 @@
 
 body {
     background: #eeeeee;
+    -webkit-font-smoothing: antialiased;
 }
 
 .header {
@@ -32,12 +33,9 @@ body {
     margin-bottom: 17px;
 }
 
-.container .grid__column-1:last-child, .container .grid__column-2:last-child, .container .grid__column-3:last-child, .container .grid__column-4:last-child {
-    margin-right: 0;
-}
-
 .container-content {
     display: flex;
+    overflow: hidden;
 }
 
 .border {
@@ -46,8 +44,4 @@ body {
 
 .clearfix{
     clear: both;
-}
-
-.grid__column-flex {
-    display: flex;
 }

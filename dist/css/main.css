@@ -431,27 +431,42 @@ th {
   width: 227px;
   margin-right: 12px;
 }
+.grid__column-1:last-child {
+  margin-right: 0;
+}
 .grid__column-2 {
   width: 464px;
   margin-right: 12px;
+}
+.grid__column-2:last-child {
+  margin-right: 0;
 }
 .grid__column-3 {
   width: 702px;
   margin-right: 12px;
 }
+.grid__column-3:last-child {
+  margin-right: 0;
+}
 .grid__column-4 {
   width: 940px;
+}
+.grid__column-4:last-child {
+  margin-right: 0;
 }
 .grid__row-2 {
   width: 464px;
   overflow: hidden;
   margin-left: 12px;
 }
+.grid__column-flex {
+  display: flex;
+}
 @font-face {
   font-family: 'PTSansBold';
   src: url('../css/fonts/PTSans-Bold.eot');
   src: url('../css/fonts/PTSans-Bold.eot?#iefix') format('embedded-opentype'), url('../css/fonts/PTSans-Bold.woff2') format('woff2'), url('../css/fonts/PTSans-Bold.woff') format('woff'), url('../css/fonts/PTSans-Bold.ttf') format('truetype'), url('../css/fonts/PTSans-Bold.svg#PTSans-Bold') format('svg');
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
 }
 @font-face {
@@ -477,6 +492,7 @@ th {
 }
 body {
   background: #eeeeee;
+  -webkit-font-smoothing: antialiased;
 }
 .header {
   overflow: hidden;
@@ -502,20 +518,12 @@ body {
   padding-top: 0;
   margin-bottom: 17px;
 }
-.container .grid__column-1:last-child,
-.container .grid__column-2:last-child,
-.container .grid__column-3:last-child,
-.container .grid__column-4:last-child {
-  margin-right: 0;
-}
 .container-content {
   display: flex;
+  overflow: hidden;
 }
 .clearfix {
   clear: both;
-}
-.grid__column-flex {
-  display: flex;
 }
 .header-top .wrap {
   display: flex;
@@ -1198,42 +1206,41 @@ body {
   position: absolute;
   top: 530px;
 }
-.content-episode__large {
+.content-episode__large-info {
   margin-right: 0px;
 }
-.content-episode__large-container {
-  width: 464px;
+.content-episode__large {
   height: 260px;
   overflow: hidden;
   position: relative;
 }
-.content-episode__large-container:hover {
+.content-episode__large:hover {
   cursor: pointer;
 }
-.content-episode__large-container:hover .content-episode__large-container-play {
+.content-episode__large:hover .content-episode__large-play {
   transform: scale(1.25);
 }
-.content-episode__large-container img {
+.content-episode__large img {
   position: absolute;
   z-index: -1;
   width: 100%;
 }
-.content-episode__large-container:hover .content-episode__large-container-play::before {
+.content-episode__large:hover .content-episode__large-play::before {
   width: 86px;
   height: 86px;
   top: 87px;
   left: 189px;
   cursor: pointer;
 }
-.content-episode__large-container:hover::before {
+.content-episode__large:hover::before {
   background: rgba(0, 25, 63, 0.8);
 }
-.content-episode__large-container:hover .content-episode__large-container-image__wide,
-.content-episode__large-container-image__squared {
+.content-episode__large:hover .content-episode__large-image__wide,
+.content-episode__large-image__squared {
   transform: scale(1.05);
   -webkit-filter: grayscale(100%);
 }
-.content-episode__large-container::before {
+.content-episode__large::before {
   content: "";
   display: block;
   position: absolute;
@@ -1242,7 +1249,7 @@ body {
   z-index: 2;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 50%, rgba(39, 39, 39, 0.6) 75%, rgba(0, 0, 0, 0.9) 100%);
 }
-.content-episode__large-container-play {
+.content-episode__large-play {
   content: "";
   display: block;
   width: 80px;
@@ -1258,7 +1265,7 @@ body {
   position: absolute;
   z-index: 100;
 }
-.content-episode__large-container-title__episode {
+.content-episode__large-title__episode {
   z-index: 100;
   color: #fff;
   font-family: PTSansBold;
@@ -1273,7 +1280,7 @@ body {
   margin-top: 0;
   padding-top: 0;
 }
-.content-episode__large-container-title__show {
+.content-episode__large-title__show {
   z-index: 100;
   color: #e6e7e8;
   font-family: PTSansRegular;
@@ -1287,7 +1294,7 @@ body {
   margin-top: 0;
   padding-top: 0;
 }
-.content-episode__large-container-title__show::before {
+.content-episode__large-title__show::before {
   content: "";
   display: block;
   width: 5px;
@@ -1570,9 +1577,8 @@ body {
   -webkit-column-gap: 12px;
   -moz-column-gap: 12px;
   column-gap: 12px;
-  width: 2865px;
+  width: 464px;
   height: 264px;
-  margin-top: 43px;
 }
 .content-episodes__row-item {
   width: 226px;

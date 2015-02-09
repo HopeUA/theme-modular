@@ -1,31 +1,30 @@
 // out: null
 
-.content-episode__large {
+.content-episode__large-info {
     margin-right: 0px;
 }
 
-.content-episode__large-container {
-    width: 464px;
+.content-episode__large {
     height: 260px;
     overflow: hidden;
     position: relative;
 }
 
-.content-episode__large-container:hover {
+.content-episode__large:hover {
     cursor: pointer;
 }
 
-.content-episode__large-container:hover .content-episode__large-container-play{
+.content-episode__large:hover .content-episode__large-play{
     transform: scale(1.25);
 }
 
-.content-episode__large-container img {
+.content-episode__large img {
     position: absolute;
     z-index: -1;
     width: 100%;
 }
 
-.content-episode__large-container:hover .content-episode__large-container-play::before {
+.content-episode__large:hover .content-episode__large-play::before {
     width: 86px;
     height: 86px;
     top: 87px;
@@ -33,16 +32,16 @@
     cursor: pointer;
 }
 
-.content-episode__large-container:hover::before {
+.content-episode__large:hover::before {
     background: rgba(0, 25, 63, 0.8);
 }
 
-.content-episode__large-container:hover .content-episode__large-container-image__wide, .content-episode__large-container-image__squared {
+.content-episode__large:hover .content-episode__large-image__wide, .content-episode__large-image__squared {
     transform: scale(1.05);
     -webkit-filter: grayscale(100%);
 }
 
-.content-episode__large-container::before {
+.content-episode__large::before {
     content: "";
     display: block;
     position: absolute;
@@ -54,7 +53,7 @@
     //transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
 }
 
-.content-episode__large-container-play {
+.content-episode__large-play {
     content: "";
     display: block;
     width: 80px;
@@ -71,7 +70,7 @@
     z-index: 100;
 }
 
-.content-episode__large-container-title__episode {
+.content-episode__large-title__episode {
     z-index: 100;
     color: #fff;
     font-family: @font-Bold;
@@ -87,7 +86,7 @@
     padding-top: 0;
 }
 
-.content-episode__large-container-title__show {
+.content-episode__large-title__show {
     z-index: 100;
     color: #e6e7e8;
     font-family: @font-Regular;
@@ -102,7 +101,7 @@
     padding-top: 0;
 }
 
-.content-episode__large-container-title__show::before {
+.content-episode__large-title__show::before {
     content: "";
     display: block;
     width: 5px;
