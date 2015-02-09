@@ -1232,6 +1232,8 @@ body {
   position: absolute;
   z-index: -1;
   width: 100%;
+  transition: all 0.1s;
+  transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
 }
 .content-episode__large:hover .content-episode__large-play::before {
   width: 86px;
@@ -1730,10 +1732,11 @@ body {
   font-size: 12px;
   color: #808285;
   margin-left: 21px;
+  margin-bottom: 21px;
 }
 .content-article__small-title {
   font-family: PTSansBold;
-  font-size: 14px;
+  font-size: 12px;
   color: #4d4d4f;
   margin-left: 21px;
 }
@@ -1745,7 +1748,7 @@ body {
 }
 .content-article__small-date span {
   font-family: PTSansBold;
-  font-size: 12px;
+  font-size: 11px;
   color: #bcbec0;
 }
 /*# sourceMappingURL=main.css.map */
