@@ -1,7 +1,13 @@
 // out: null
 
-.content-article__small-item {
+.content-article__small {
     background: #fff;
+    backface-visibility: hidden;
+    flex: none;
+}
+
+.content-article__small:hover {
+    cursor: pointer;
 }
 
 .content-article__small-image {
@@ -22,6 +28,8 @@
     font-size: 12px;
     color: #4d4d4f;
     margin-left: 21px;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .content-article__small-date {

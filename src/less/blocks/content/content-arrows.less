@@ -1,0 +1,72 @@
+// out: null
+
+.content-arrow-right {
+    width: 100px;
+    height: 259px;
+    position: absolute;
+    top: 43px;
+    right: -97px;
+}
+
+.content-arrow-right::before {
+    content: "";
+    background: url("@{img}/arrow.svg");
+    width: 21px;
+    height: 38px;
+    display: block;
+    opacity: 0.6;
+    position: absolute;
+    right: 66px;
+    top: 50%;
+    margin-top: -19px;
+    transition: all 0.1s;
+    transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
+    transform: scaleX(-1);
+}
+
+.content-arrow-right:hover {
+    cursor: pointer;
+}
+
+.content-arrow-right:hover::before {
+    opacity: 0.85;
+    transform: scaleX(-1) scale(1.05);
+    //-webkit-animation: arrowAnimation 0.2s;
+    //-webkit-animation-delay: 0.25s;
+    right: 61px;
+}
+
+.content-arrow-left {
+    width: 100px;
+    height: 259px;
+    position: absolute;
+    top: 43px;
+    left: -97px;
+}
+
+.content-arrow-left::before {
+    content: "";
+    background: url("@{img}/arrow.svg");
+    width: 21px;
+    height: 38px;
+    display: block;
+    opacity: 0.6;
+    position: absolute;
+    left: 66px;
+    top: 50%;
+    margin-top: -19px;
+    transition: all 0.1s;
+    transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.content-arrow-left:hover {
+    cursor: pointer;
+}
+
+.content-arrow-left:hover::before {
+    opacity: 0.85;
+    transform: scale(1.05);
+    //-webkit-animation: arrowAnimation 0.2s;
+    //-webkit-animation-delay: 0.25s;
+    left: 61px;
+}

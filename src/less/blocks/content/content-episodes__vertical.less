@@ -1,0 +1,61 @@
+// out: null
+
+.content-episodes__vertical {
+    background: #fff;
+    backface-visibility: hidden;
+    flex: none;
+}
+
+.content-episodes__vertical:hover {
+    cursor: pointer;
+}
+
+.content-episodes__vertical-link {
+   font-family: @font-Regular;
+    font-size: 14px;
+    color: #2f8dca;
+    padding-bottom: 0;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 33px;
+}
+
+.content-episodes__vertical-link::before {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    background: url(../img/content-episode-arrowIcon.svg);
+    background-repeat: no-repeat;
+    float: left;
+    margin-top: 3px;
+    margin-right: 6px;
+    margin-left: -11px;
+}
+
+.content-episodes__vertical-link::after {
+    content: "";
+    display: block;
+    background: #7cb0d9;
+    height: 1px;
+    width: 100%;
+    position: relative;
+    top: -2px;
+    box-shadow: 0px 1px 0px 0px rgba(216, 230, 242, 0.9);
+    left: 1px;
+}
+
+.content-episodes__vertical-link span {
+    font-family: Arial;
+    font-size: 13px;
+    position: relative;
+    right: -1px;
+}
+
+.content-episodes__vertical-description {
+    font-family: @font-Regular;
+    font-size: 12px;
+    color: #808285;
+    margin-left: 21px;
+    margin-bottom: 21px;
+}
