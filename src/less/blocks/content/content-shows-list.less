@@ -4,20 +4,82 @@
     border-bottom: solid 5px #ddd;
 }
 
+.content-shows-list-category h1 {
+    font-family: @font-Bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
 .content-shows-list-link {
+    font-family: @font-Regular;
+    font-size: 13px;
+    color: #2f8dca;
     text-decoration: none;
+    position: absolute;
+    top: 4px;
+    right: 1px;
+}
+
+.content-shows-list-link::before {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    background: url(../img/content-episode-arrowIcon.svg);
+    background-repeat: no-repeat;
+    float: left;
+    margin-top: 3px;
+    margin-right: 6px;
+    margin-left: -11px;
+}
+
+.content-shows-list-link::after {
+    content: "";
+    display: block;
+    background: #7cb0d9;
+    height: 1px;
+    width: 100%;
+    position: relative;
+    top: -2px;
+    box-shadow: 0px 1px 0px 0px rgba(216, 230, 242, 0.9);
+    left: 1px;
+}
+
+.content-shows-list-link span {
+    font-family: Arial;
+    font-size: 13px;
+    position: relative;
+    right: -1px;
 }
 
 .content-shows-category-link {
     text-decoration: none;
-    font-family: @font-Bold;
-    font-size: 14px;
-    text-transform: uppercase;
     color: #2f8dca;
+}
+
+.content-shows-list-items {
+    padding-left: 19px;
 }
 
 .content-shows-list-item {
     list-style-type: none;
+    position: relative;
+}
+
+.content-shows-list-item span {
+    position: absolute;
+    display: inline-block;
+    width: 19px;
+    height: 13px;
+    top: -1px;
+    margin-left: 5px;
+    border-radius: 3px;
+    font-family: @font-Bold;
+    font-size: 9px;
+    text-align: center;
+    color: #fff;
+    background-color: #ff1111;
 }
 
 .content-shows-list-item a {
@@ -27,16 +89,107 @@
     color: #8a8c8e;
 }
 
-.content-shows-list__row {
-    webkit-column-width: 226px;
-    -moz-column-width: 226px;
-    column-width: 226px;
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
-    -webkit-column-gap: 12px;
-    -moz-column-gap: 12px;
-    column-gap: 12px;
-    width: 464px;
-    height: 264px;
+.content-shows-list-channel-description {
+    font-family: @font-Regular;
+    font-size: 12px;
+    line-height: 17px;
+    color: #8a8c8e;
+    padding: 0;
+    margin: 0;
+}
+
+.content-shows-list-channel-description span {
+    font-family: @font-Bold;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.content-shows-list-channel-link {
+    font-family: @font-Regular;
+    font-size: 13px;
+    color: #2f8dca;
+    text-decoration: none;
+    position: absolute;
+    left: 11px;
+    margin-top: 7px;
+}
+
+.content-shows-list-channel-link::before {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    background: url(../img/content-episode-arrowIcon.svg);
+    background-repeat: no-repeat;
+    float: left;
+    margin-top: 3px;
+    margin-right: 6px;
+    margin-left: -11px;
+}
+
+.content-shows-list-channel-link::after {
+    content: "";
+    display: block;
+    background: #7cb0d9;
+    height: 1px;
+    width: 100%;
+    position: relative;
+    top: -2px;
+    box-shadow: 0px 1px 0px 0px rgba(216, 230, 242, 0.9);
+    left: 1px;
+}
+
+.content-shows-list-channel-link span {
+    font-family: Arial;
+    font-size: 13px;
+    position: relative;
+    right: -1px;
+}
+
+.content-shows-list-channel-share {
+    position: absolute;
+    margin-top: 35px;
+    margin-left: 0;
+    padding: 0;
+}
+
+.content-shows-list-channel-share li{
+    list-style-type: none;
+    float: left;
+    margin-right: 10px;
+}
+
+.content-shows-list-channel-share-item_rss {
+    background-image: @headerTop__rss;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px;
+}
+
+.content-shows-list-channel-share-item_yt {
+    background-image: @headerTop__yt;
+    background-repeat: no-repeat;
+    width: 19px;
+    height: 14px;
+}
+
+.content-shows-list-channel-share-item_fb {
+    background-image: @headerTop__fb;
+    background-repeat: no-repeat;
+    width: 7px;
+    height: 14px;
+}
+
+.content-shows-list-channel-share-item_vk {
+    background-image: @headerTop__vk;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 14px;
+}
+
+.content-shows-list-channel-share-item_tw {
+    background-image: @headerTop__tw;
+    background-repeat: no-repeat;
+    width: 17px;
+    height: 14px;
 }
