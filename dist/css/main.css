@@ -522,7 +522,6 @@ body {
   color: #808285;
   font-weight: 100;
   margin-top: 0;
-  padding-top: 0;
   margin-bottom: 17px;
   display: inline-block;
 }
@@ -532,6 +531,81 @@ body {
 }
 .clearfix {
   clear: both;
+}
+.btn-large {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  box-sizing: border-box;
+  padding-left: 30px;
+  padding-right: 30px;
+  border: none;
+  border-radius: 3px;
+  display: inline-block;
+}
+.btn-default {
+  color: #fff;
+  background-color: #2f8dca;
+}
+.btn-up {
+  width: 40px;
+  height: 40px;
+  background-color: #ebebec;
+  border-radius: 3px;
+  color: #929497;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.form__default-label {
+  font-family: PTSansRegular;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #a7a9ac;
+  display: block;
+  margin-bottom: 20px;
+}
+.form__default-input__text {
+  height: 41px;
+  width: 100%;
+  background-color: #f2f2f2;
+  border: solid 1px #eeeeee;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  outline: none;
+  color: #8a8c8e;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+.form__default-input__email {
+  height: 41px;
+  width: 100%;
+  background-color: #f2f2f2;
+  border: solid 1px #eeeeee;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  outline: none;
+  color: #8a8c8e;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+.form__default-textarea {
+  height: 221px;
+  width: 100%;
+  background-color: #f2f2f2;
+  border: solid 1px #eeeeee;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  outline: none;
+  color: #8a8c8e;
+  padding-top: 12px;
+  padding-right: 10px;
+  padding-bottom: 12px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  resize: none;
 }
 .header-top .wrap {
   display: flex;
@@ -2058,5 +2132,68 @@ body {
   background-repeat: no-repeat;
   width: 17px;
   height: 14px;
+}
+.content-pray-us {
+  margin-top: -38px;
+  width: 100%;
+  background: #fff;
+  border-bottom: solid 1px #dddddd;
+}
+.content-pray-us-title {
+  padding-top: 37px;
+}
+.content-pray-us-description {
+  font-family: PTSansRegular;
+  font-size: 13px;
+  color: #8a8c8e;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 30px;
+  padding-left: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 34px;
+  margin-left: 0;
+  display: block;
+  border-bottom: solid 1px #dddddd;
+}
+.content-pray-us-description span {
+  font-weight: bold;
+}
+.content-pray-us-submit {
+  text-align: center;
+}
+.footer__main {
+  background-color: #fff;
+  margin-top: -38px;
+  padding-bottom: 38px;
+}
+.footer__main-copyright {
+  font-family: PTSansRegular;
+  color: #808285;
+  font-size: 13px;
+  display: block;
+  margin: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 5px;
+  margin-left: 0;
+  padding: 0;
+}
+.footer__main-author {
+  font-family: PTSansRegular;
+  color: #808285;
+  font-size: 11px;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.footer__main-address {
+  font-family: PTSansRegular;
+  color: #808285;
+  font-size: 13px;
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 /*# sourceMappingURL=main.css.map */
