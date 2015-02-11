@@ -889,31 +889,31 @@ body {
 }
 .header-top__social-link_rss {
   width: 14px;
-  height: 14px;
+  height: 26px;
   padding-bottom: 11px;
   border-bottom: solid 2px rgba(0, 0, 0, 0);
 }
 .header-top__social-link_yt {
   width: 19px;
-  height: 14px;
+  height: 26px;
   padding-bottom: 11px;
   border-bottom: solid 2px rgba(0, 0, 0, 0);
 }
 .header-top__social-link_fb {
   width: 7px;
-  height: 14px;
+  height: 26px;
   padding-bottom: 11px;
   border-bottom: solid 2px rgba(0, 0, 0, 0);
 }
 .header-top__social-link_vk {
   width: 24px;
-  height: 14px;
+  height: 26px;
   padding-bottom: 11px;
   border-bottom: solid 2px rgba(0, 0, 0, 0);
 }
 .header-top__social-link_tw {
   width: 17px;
-  height: 14px;
+  height: 26px;
   padding-bottom: 11px;
   border-bottom: solid 2px rgba(0, 0, 0, 0);
 }
@@ -1052,7 +1052,7 @@ body {
   display: flex;
   flex-direction: row;
   position: absolute;
-  left: -470px;
+  left: -590px;
 }
 .header-timeline__item {
   padding-right: 15px;
@@ -1308,7 +1308,7 @@ body {
   height: 6px;
   width: 500px;
   position: absolute;
-  top: 530px;
+  top: 524px;
 }
 .content-arrow-right {
   width: 100px;
