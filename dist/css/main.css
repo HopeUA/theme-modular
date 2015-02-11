@@ -638,7 +638,6 @@ body {
   flex-direction: row;
   align-items: center;
   margin-right: 32px;
-  margin-left: 20px;
 }
 .header-top__worldwide a {
   display: flex;
@@ -946,7 +945,6 @@ body {
   z-index: 100;
 }
 .header-main__logo {
-  margin-left: 14px;
   margin-right: 81px;
   width: 160px;
   height: 95px;
@@ -967,7 +965,7 @@ body {
   padding-left: 0;
   display: flex;
   align-items: center;
-  width: 582px;
+  width: 647px;
 }
 .header-main__menu-item {
   display: inline;
@@ -976,7 +974,7 @@ body {
   height: 26px;
 }
 .header-main__menu-item:last-child {
-  margin-right: -79px;
+  margin-right: 0;
   margin-left: -13px;
 }
 .header-main__menu-item a {
@@ -984,7 +982,6 @@ body {
   color: #dcddde;
   font-family: PTSansNarrow;
   font-size: 20px;
-  padding-bottom: 5px;
   border-bottom: 2px solid rgba(0, 0, 0, 0);
   height: 26px;
   transition: all 0.1s ease-out;
@@ -996,7 +993,7 @@ body {
 .header-main__menu-item_online {
   display: flex;
   align-items: center;
-  height: 20px;
+  margin-top: 1px;
 }
 .header-main__menu-item_online:before {
   content: "";
@@ -1009,9 +1006,8 @@ body {
   margin-right: 12px;
 }
 .header-main__lang {
-  width: 60px;
+  width: 52px;
   height: 72px;
-  margin-left: 75px;
   margin-top: 27px;
 }
 .header-main__russian {
@@ -2184,7 +2180,6 @@ body {
 }
 .footer__main {
   background-color: #fff;
-  padding-bottom: 38px;
 }
 .footer__main-copyright {
   font-family: PTSansRegular;
@@ -2192,13 +2187,18 @@ body {
   font-size: 13px;
   display: block;
   margin: 0;
-  margin-top: 0;
+  margin-top: 30px;
   margin-right: 0;
-  margin-bottom: 5px;
+  margin-bottom: 0;
   margin-left: 0;
   padding: 0;
   position: absolute;
   left: 0;
+}
+.footer__main-copyright p {
+  margin: 0;
+  padding: 0;
+  line-height: 13px;
 }
 .footer__main-copyright span {
   font-family: PTSansRegular;
@@ -2206,7 +2206,10 @@ body {
   font-size: 11px;
   display: block;
   margin: 0;
-  padding: 0;
+  padding-top: 8px;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
 }
 .footer__main-address {
   width: 100%;
@@ -2214,9 +2217,17 @@ body {
   font-family: PTSansRegular;
   color: #808285;
   font-size: 13px;
+  margin-top: 30px;
+  margin-bottom: 38px;
+}
+.footer__main-address p {
+  margin: 0;
+  padding: 0;
+  line-height: 17px;
 }
 .footer__main-button__up {
   position: absolute;
+  top: 30px;
   right: 0;
 }
 /*# sourceMappingURL=main.css.map */
