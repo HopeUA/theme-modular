@@ -2,7 +2,6 @@
 
 .footer__main {
     background-color: #fff;
-    margin-top: -38px;
     padding-bottom: 38px;
 }
 
@@ -17,9 +16,11 @@
     margin-bottom: 5px;
     margin-left: 0;
     padding: 0;
+    position: absolute;
+    left: 0;
 }
 
-.footer__main-author {
+.footer__main-copyright span {
     font-family: @font-Regular;
     color: #808285;
     font-size: 11px;
@@ -29,10 +30,14 @@
 }
 
 .footer__main-address {
+    width: 100%;
+    text-align: center;
     font-family: @font-Regular;
     color: #808285;
     font-size: 13px;
-    display: block;
-    margin: 0;
-    padding: 0;
+}
+
+.footer__main-button__up {
+    position: absolute;
+    right: 0;
 }

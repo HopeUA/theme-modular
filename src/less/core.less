@@ -1,5 +1,13 @@
 // out: null
 
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
     background: #eeeeee;
     -webkit-font-smoothing: antialiased;
@@ -15,8 +23,8 @@ body {
 }
 
 .container {
-    width: @width-main - 40px;
-    margin: 38px auto;
+    width: @width-main;
+    margin: 0 auto;
     padding-left: 20px;
     padding-right: 20px;
     position: relative;
@@ -32,7 +40,7 @@ body {
     text-transform: uppercase;
     color: #808285;
     font-weight: 100;
-    margin-top: 0;
+    margin-top: 38px;
     margin-bottom: 17px;
     display: inline-block;
 }
@@ -40,6 +48,7 @@ body {
 .container-content {
     display: flex;
     overflow: hidden;
+    position: relative;
 }
 
 .border {
