@@ -1048,7 +1048,7 @@ body {
   display: flex;
   flex-direction: row;
   position: absolute;
-  left: -590px;
+  left: -595px;
 }
 .header-timeline__item {
   padding-right: 15px;
@@ -1102,7 +1102,7 @@ body {
   background: red;
   display: block;
   position: relative;
-  left: 64px;
+  left: 59px;
   top: 9px;
 }
 .header-timeline__time {
