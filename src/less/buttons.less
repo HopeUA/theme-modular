@@ -28,4 +28,24 @@
     background: #ebebec;
     color: #929497;
     text-align: center;
+    transition: all 0.1s ease-out;
+}
+
+.btn-up:hover {
+    cursor: pointer;
+    background: #2f8dca;
+}
+
+.btn-up:hover::before {
+    background: url(../img/arrow-up__hover.svg);
+}
+
+.btn-up::before {
+    content: "";
+    display: block;
+    width: 12px;
+    height: 7px;
+    background: url(../img/arrow-up.svg);
+    margin: 0 auto;
+    transition: all 0.1s ease-out;
 }

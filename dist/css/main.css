@@ -572,6 +572,23 @@ body {
   background: #ebebec;
   color: #929497;
   text-align: center;
+  transition: all 0.1s ease-out;
+}
+.btn-up:hover {
+  cursor: pointer;
+  background: #2f8dca;
+}
+.btn-up:hover::before {
+  background: url(../img/arrow-up__hover.svg);
+}
+.btn-up::before {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 7px;
+  background: url(../img/arrow-up.svg);
+  margin: 0 auto;
+  transition: all 0.1s ease-out;
 }
 .form__default-label {
   font-family: PTSansRegular;
@@ -1324,7 +1341,7 @@ body {
   content: "";
   background: url("../img/arrow.svg");
   width: 21px;
-  height: 38px;
+  height: 36px;
   display: block;
   opacity: 0.6;
   position: absolute;
@@ -1333,14 +1350,14 @@ body {
   margin-top: -19px;
   transition: all 0.1s;
   transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
-  transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
 }
 .content-arrow-right:hover {
   cursor: pointer;
 }
 .content-arrow-right:hover::before {
   opacity: 0.85;
-  transform: scaleX(-1) scale(1.05);
+  -webkit-transform: scaleX(-1) scale(1.05);
   right: 61px;
 }
 .content-arrow-left {
@@ -1354,7 +1371,7 @@ body {
   content: "";
   background: url("../img/arrow.svg");
   width: 21px;
-  height: 38px;
+  height: 36px;
   display: block;
   opacity: 0.6;
   position: absolute;
@@ -1369,7 +1386,7 @@ body {
 }
 .content-arrow-left:hover::before {
   opacity: 0.85;
-  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
   left: 61px;
 }
 .content-episode__large-info {
@@ -1974,7 +1991,6 @@ body {
 .banners-wide {
   box-sizing: border-box;
   width: 100%;
-  height: 190px;
   background: #fff;
   border-top: solid 5px #ddd;
   border-bottom: solid 5px #ddd;
@@ -1983,23 +1999,27 @@ body {
 .banners-wide-link {
   display: block;
   overflow: hidden;
-  height: 180px;
+  height: 191px;
 }
 .content-shows-list {
   border-bottom: solid 5px #ddd;
-  padding-bottom: 65px;
+  padding-top: 10px;
+  padding-bottom: 16px;
 }
 .content-shows-list-column-1 {
-  width: 240px;
+  width: 272px;
   margin-right: 0;
+  margin-top: 10px;
 }
 .content-shows-list-column-2 {
-  width: 240px;
+  width: 258px;
   margin-right: 0;
+  margin-top: 10px;
 }
 .content-shows-list-column-3 {
   width: auto;
   margin-right: 0;
+  margin-top: 10px;
 }
 .content-shows-list-category h1 {
   font-family: PTSansBold;
@@ -2014,8 +2034,8 @@ body {
   color: #2f8dca;
   text-decoration: none;
   position: absolute;
-  top: 40px;
-  right: 0;
+  top: 42px;
+  right: 46px;
 }
 .content-shows-list-link::before {
   content: "";
@@ -2060,16 +2080,16 @@ body {
   position: relative;
 }
 .content-shows-list-item:last-child {
-  margin-bottom: 20px;
+  margin-bottom: 26px;
 }
 .content-shows-list-item__new a::after {
   content: "new";
   position: absolute;
   display: inline-block;
   width: 19px;
-  height: 13px;
-  top: -1px;
-  margin-left: 5px;
+  line-height: 13px;
+  top: -5px;
+  margin-left: 4px;
   border-radius: 3px;
   font-family: PTSansBold;
   font-weight: bold;
@@ -2090,14 +2110,15 @@ body {
 .content-shows-list-channel-description {
   font-family: PTSansRegular;
   font-size: 13px;
-  line-height: 19px;
+  line-height: 20px;
   color: #8a8c8e;
   padding: 0;
   margin: 0;
+  margin-top: 10px;
 }
 .content-shows-list-channel-description span {
   font-family: PTSansBold;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
 }
 .content-shows-list-channel-link {
@@ -2107,7 +2128,7 @@ body {
   text-decoration: none;
   position: absolute;
   left: 11px;
-  margin-top: 7px;
+  margin-top: 19px;
 }
 .content-shows-list-channel-link::before {
   content: "";
@@ -2140,7 +2161,7 @@ body {
 }
 .content-shows-list-channel-share {
   position: absolute;
-  margin-top: 35px;
+  margin-top: 58px;
   margin-left: 0;
   padding: 0;
 }

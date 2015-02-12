@@ -12,7 +12,7 @@
     content: "";
     background: url("@{img}/arrow.svg");
     width: 21px;
-    height: 38px;
+    height: 36px;
     display: block;
     opacity: 0.6;
     position: absolute;
@@ -21,7 +21,7 @@
     margin-top: -19px;
     transition: all 0.1s;
     transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
-    transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
 }
 
 .content-arrow-right:hover {
@@ -30,7 +30,7 @@
 
 .content-arrow-right:hover::before {
     opacity: 0.85;
-    transform: scaleX(-1) scale(1.05);
+    -webkit-transform: scaleX(-1) scale(1.05);
     //-webkit-animation: arrowAnimation 0.2s;
     //-webkit-animation-delay: 0.25s;
     right: 61px;
@@ -48,7 +48,7 @@
     content: "";
     background: url("@{img}/arrow.svg");
     width: 21px;
-    height: 38px;
+    height: 36px;
     display: block;
     opacity: 0.6;
     position: absolute;
@@ -65,7 +65,7 @@
 
 .content-arrow-left:hover::before {
     opacity: 0.85;
-    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
     //-webkit-animation: arrowAnimation 0.2s;
     //-webkit-animation-delay: 0.25s;
     left: 61px;
