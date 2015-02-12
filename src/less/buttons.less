@@ -1,29 +1,31 @@
 // out: null
 
-.btn-large {
-    display: flex;
-    align-items: center;
-    height: 40px;
-    box-sizing: border-box;
-    padding-left: 30px;
-    padding-right: 30px;
+.btn {
+    display: inline-block;
+    font-size: 18px;
+    font-family: @font-Regular;
     border: none;
     border-radius: 3px;
-    display: inline-block;
+    outline: none;
+}
+
+.btn-large {
+    height: 40px;
+    padding: 0 30px 0 30px;
 }
 
 .btn-default {
+    background: #2f8dca;
     color: #fff;
-    background-color: #2f8dca;
 }
 
 .btn-up {
-    width: 40px;
-    height: 40px;
-    background-color: #ebebec;
-    border-radius: 3px;
-    color: #929497;
     display: flex;
     align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    background: #ebebec;
+    color: #929497;
     text-align: center;
 }
