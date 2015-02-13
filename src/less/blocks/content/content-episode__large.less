@@ -1,13 +1,13 @@
 // out: null
 
 .content-episode__large-info {
-    margin-right: 0px;
+    margin: 0;
 }
 
 .content-episode__large {
-    height: 260px;
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
+    height: 260px;
 }
 
 .content-episode__large:hover {
@@ -22,16 +22,15 @@
     position: absolute;
     z-index: -1;
     width: 100%;
-    transition: all 0.1s;
-    transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
-    backface-visibility: hidden;
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+    backface-visibility: hidden; //fix animation visual bug
 }
 
 .content-episode__large:hover .content-episode__large-play::before {
-    width: 86px;
-    height: 86px;
     top: 87px;
     left: 189px;
+    width: 86px;
+    height: 86px;
     cursor: pointer;
 }
 
@@ -45,84 +44,75 @@
 }
 
 .content-episode__large::before {
-    content: "";
-    display: block;
     position: absolute;
-    height: 260px;
-    width: 100%;
     z-index: 2;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 50%, rgba(39, 39, 39, 0.6) 75%, rgba(0, 0, 0, 0.9) 100%);
-    //transition: all 0.1s;
-    //transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
+    display: block;
+    width: 100%;
+    height: 260px;
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(77, 77, 77, 0) 50%,
+        rgba(39, 39, 39, 0.6) 75%,
+        rgba(0, 0, 0, 0.9) 100%);
+    content: "";
 }
 
 .content-episode__large-play {
-    content: "";
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
     display: block;
     width: 80px;
     height: 80px;
-    position: relative;
+    margin: -40px 0 0 -40px;
     background: url(../img/header-playButton.svg);
-    top: 50%;
-    left: 50%;
-    margin-left: -40px;
-    margin-top: -40px;
-    transition: all 0.1s;
-    transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
-    position: absolute;
-    z-index: 100;
+    content: "";
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
 }
 
 .content-episode__large-title__episode {
-    z-index: 100;
-    color: #fff;
-    font-family: @font-Bold;
-    font-weight: bold;
-    font-size: 19px;
     position: absolute;
-    left: 35px;
+    z-index: 100;
     top: 200px;
-    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    left: 35px;
     display: block;
     width: 264px;
-    margin-top: 0;
-    padding-top: 0;
+    margin: 0;
+    color: #fff;
+    font: bold 19px @font-Bold;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .content-episode__large-title__show {
-    z-index: 100;
-    color: #e6e7e8;
-    font-family: @font-Regular;
-    font-size: 15px;
     position: absolute;
-    left: 35px;
+    z-index: 100;
     top: 225px;
-    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    left: 35px;
     display: block;
     width: 264px;
-    margin-top: 0;
-    padding-top: 0;
+    margin: 0;
+    color: #e6e7e8;
+    font: 15px @font-Regular;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .content-episode__large-title__show::before {
-    content: "";
+    float: left;
     display: block;
     width: 5px;
     height: 10px;
+    margin: 5px 6px 0 0;
     background: url(../img/content-episode-arrowIcon.svg);
-    float: left;
-    margin-top: 5px;
-    margin-right: 6px;
+    content: "";
 }
 
 .content-episode-image__squared {
-    transition: all 0.1s;
-    transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
     top: 0;
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
 }
 
 .content-episode-image__wide {
-    transition: all 0.1s;
-    transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
     top: 0;
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
 }
