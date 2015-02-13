@@ -1,9 +1,9 @@
 // out: null
 
 .content-article__small {
-    background: #fff;
-    backface-visibility: hidden;
     flex: none;
+    background: #fff;
+    backface-visibility: hidden; //fix animation visual bug
 }
 
 .content-article__small:hover {
@@ -16,33 +16,25 @@
 }
 
 .content-article__small-description {
-    font-family: @font-Regular;
-    font-size: 12px;
+    margin: 12px 0 20px 21px;
     color: #808285;
-    margin-left: 21px;
-    margin-bottom: 20px;
+    font: 12px @font-Regular;
 }
 
 .content-article__small-title {
-    font-family: @font-Bold;
-    font-weight: bold;
-    font-size: 12px;
+    margin: 0 0 0 21px;
     color: #4d4d4f;
-    margin-left: 21px;
-    font-weight: bold;
+    font: bold 12px @font-Bold;
     text-decoration: none;
 }
 
 .content-article__small-date {
-    font-family: @font-Regular;
-    font-size: 12px;
+    margin: 12px 0 12px 21px;
     color: #808285;
-    margin-left: 21px;
+    font: 12px @font-Regular;
 }
 
 .content-article__small-date span {
-    font-family: @font-Bold;
-    font-weight: 500;
-    font-size: 11px;
     color: #bcbec0;
+    font-family: 500 11px @font-Bold;
 }
