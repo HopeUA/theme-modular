@@ -1332,9 +1332,9 @@ body {
 }
 .content-arrow-right {
   width: 100px;
-  height: 259px;
+  height: 261px;
   position: absolute;
-  top: 43px;
+  top: 81px;
   right: -97px;
 }
 .content-arrow-right::before {
@@ -1347,24 +1347,24 @@ body {
   position: absolute;
   right: 66px;
   top: 50%;
-  margin-top: -19px;
+  margin-top: -18px;
   transition: all 0.1s;
   transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
-  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 .content-arrow-right:hover {
   cursor: pointer;
 }
 .content-arrow-right:hover::before {
   opacity: 0.85;
-  -webkit-transform: scaleX(-1) scale(1.05);
+  transform: scaleX(-1) scale(1.05);
   right: 61px;
 }
 .content-arrow-left {
   width: 100px;
-  height: 259px;
+  height: 261px;
   position: absolute;
-  top: 43px;
+  top: 81px;
   left: -97px;
 }
 .content-arrow-left::before {
@@ -1377,7 +1377,7 @@ body {
   position: absolute;
   left: 66px;
   top: 50%;
-  margin-top: -19px;
+  margin-top: -18px;
   transition: all 0.1s;
   transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
 }
@@ -1386,7 +1386,7 @@ body {
 }
 .content-arrow-left:hover::before {
   opacity: 0.85;
-  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
   left: 61px;
 }
 .content-episode__large-info {
@@ -1860,7 +1860,7 @@ body {
   font-size: 12px;
   color: #808285;
   margin-left: 21px;
-  margin-bottom: 21px;
+  margin-bottom: 20px;
 }
 .content-article__small-title {
   font-family: PTSansBold;
@@ -1986,7 +1986,7 @@ body {
   font-size: 12px;
   color: #808285;
   margin-left: 21px;
-  margin-bottom: 21px;
+  margin-bottom: 17px;
 }
 .banners-wide {
   box-sizing: border-box;

@@ -2,9 +2,9 @@
 
 .content-arrow-right {
     width: 100px;
-    height: 259px;
+    height: 261px;
     position: absolute;
-    top: 43px;
+    top: 81px;
     right: -97px;
 }
 
@@ -18,10 +18,10 @@
     position: absolute;
     right: 66px;
     top: 50%;
-    margin-top: -19px;
+    margin-top: -18px;
     transition: all 0.1s;
     transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
-    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
 
 .content-arrow-right:hover {
@@ -30,7 +30,7 @@
 
 .content-arrow-right:hover::before {
     opacity: 0.85;
-    -webkit-transform: scaleX(-1) scale(1.05);
+    transform: scaleX(-1) scale(1.05);
     //-webkit-animation: arrowAnimation 0.2s;
     //-webkit-animation-delay: 0.25s;
     right: 61px;
@@ -38,9 +38,9 @@
 
 .content-arrow-left {
     width: 100px;
-    height: 259px;
+    height: 261px;
     position: absolute;
-    top: 43px;
+    top: 81px;
     left: -97px;
 }
 
@@ -54,7 +54,7 @@
     position: absolute;
     left: 66px;
     top: 50%;
-    margin-top: -19px;
+    margin-top: -18px;
     transition: all 0.1s;
     transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
 }
@@ -65,7 +65,7 @@
 
 .content-arrow-left:hover::before {
     opacity: 0.85;
-    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
     //-webkit-animation: arrowAnimation 0.2s;
     //-webkit-animation-delay: 0.25s;
     left: 61px;
