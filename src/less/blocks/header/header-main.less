@@ -1,113 +1,107 @@
 // out: null
 
-.header-main, .header-main .wrap{
+.header-main {
     position: relative;
     z-index: 1;
-    height: 95px;
     display: flex;
-    flex-direction: row;
+    height: 95px;
+    font: 20px @font-Narrow;
 }
 
-.header-main__logo{
-    margin-right: 81px;
+.header-main__logo {
+    align-items: center;
+    display: flex;
     width: 160px;
     height: 95px;
-    display: flex;
-    align-items: center;
+    margin-right: 81px;
 }
 
 .header-main__logo a {
     display: block;
-    background: @headerMain__logo;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
     width: 160px;
     height: 52px;
+    background: @headerMain__logo 50% 50% no-repeat;
 }
 
-.header-main__menu{
-    height: 95px;
-    margin: 0;
-    padding-left: 0;
-    display: flex;
+.header-main__menu {
     align-items: center;
+    display: flex;
     width: 647px;
+    height: 95px;
+    padding: 0;
+    margin: 0;
 }
 
-.header-main__menu-item{
+.header-main__menu-item {
     display: inline;
-    list-style-type: none;
-    margin-right: 62px;
     height: 26px;
+    margin-right: 62px;
+    list-style-type: none;
 }
 
 .header-main__menu-item:last-child {
-    margin-right: 0;
     margin-left: -13px;
 }
 
-.header-main__menu-item a{
-    text-decoration: none;
-    color: @headerMain__color-element;
-    font-family: @font-Narrow;
-    font-size: 20px;
-    border-bottom: 2px solid @headerMain__color-invisibleBorder;
+.header-main__menu-item a {
     height: 26px;
+    border-bottom: 2px solid @headerMain__color-invisibleBorder;
+    color: @headerMain__color-element;
+    text-decoration: none;
     transition: @headerMain__animations-all;
 }
 
-.header-main__menu-item a:hover{
-    border-bottom: 2px solid @headerMain__color-Border__hover;
+.header-main__menu-item a:hover {
     height: 26px;
+    border-bottom: 2px solid @headerMain__color-Border__hover;
+
 }
 
 .header-main__menu-item_online {
-    display: flex;
     align-items: center;
+    display: flex;
     margin-top: 1px;
 }
 
-.header-main__menu-item_online:before{
-    content: "";
+.header-main__menu-item_online:before {
     display: block;
-    height: 10px;
     width: 10px;
-    background-image: @headerMain__play;
-    background-repeat: no-repeat;
-    float: left;
+    height: 10px;
     margin-right: 12px;
+    background: @headerMain__play no-repeat;
+    content: "";
 }
 
-.header-main__lang{
+.header-main__lang {
     width: 52px;
     height: 72px;
     margin-top: 27px;
 }
 
-.header-main__russian{
+.header-main__russian {
+    float: left;
     width: 27px;
     height: 27px;
-    background: url("@{img}/header-ruActive.png")no-repeat;
-    float: left;
+    background: url("@{img}/header-ruActive.png") no-repeat;
 }
-.header-main__arrow{
-    width: 20px;
-    height: 27px;
-    background: url("@{img}/header-arrow.png")no-repeat 25% 10%;
+.header-main__arrow {
     float: left;
     clear: right;
+    width: 20px;
+    height: 27px;
+    background: url("@{img}/header-arrow.png") no-repeat 25% 10%;
 }
-.header-main__arrow2{
+.header-main__arrow2 {
+    float: left;
     width: 27px;
     height: 27px;
-    background: url("@{img}/header-arrow2.png")no-repeat 90% 20%;
-    float: left;
     margin-right: 4px;
+    background: url("@{img}/header-arrow2.png")no-repeat 90% 20%;
 }
-.header-main__ukrain{
+.header-main__ukrain {
+    float: left;
     width: 20px;
     height: 20px;
-    background: url("@{img}/header-ukInactive.png")no-repeat;
-    float: left;
     margin-top: -7px;
+    background: url("@{img}/header-ukInactive.png") no-repeat;
 }
