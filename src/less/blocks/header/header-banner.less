@@ -22,21 +22,21 @@
     position: absolute;
     background-position-x:center;
     border-bottom: solid 6px @headerBanner__color-loader;
-    z-index: -1;
+    z-index: 0;
 }
 
-.header-banner__item .wrap {
-    margin-top: 237px;
-    height: 293px;
+.header-banner__item .container-content {
     z-index: 100;
+    margin-top: 174px;
+    height: 350px;
 }
 
 .header-banner__arrow_left {
+    z-index: 1;
     display: flex;
     align-items: center;
     width: 140px;
     height: 303px;
-    float: left;
     position: absolute;
     top: 225px;
     left: 18%;
@@ -65,6 +65,10 @@
     transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
 }
 
+.header-banner__arrow_left:hover {
+    cursor: pointer;
+}
+
 .header-banner__arrow_left:hover::before {
     transform: scale(1.95);
     opacity: 0.5;
@@ -84,23 +88,31 @@
     transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
 }
 
+.header-banner__arrow_right:hover {
+    cursor: pointer;
+}
+
 .header-banner__arrow_right:hover::before {
     transform: rotate(180deg) scale(1.95);
     opacity: 0.5;
 }
 
 .header-banner__item-time {
+    position: absolute;
+    top: 68px;
     color: @headerBanner__color-time;
     font-family: @font-Bold;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 38px;
-    margin-left: 60px;
+    margin-left: 40px;
     margin-bottom: 0px;
-    width: 110px;
+    width: 103px;
     text-align: center;
 }
 
 .header-banner__item-day {
+    position: absolute;
+    top: 119px;
     color: @headerBanner__color-day;
     font-family: @font-Bold;
     font-weight: bold;
@@ -110,48 +122,62 @@
     padding-top: 7px;
     padding-bottom: 7px;
     display: inline-block;
-    margin-left: 60px;
+    margin-left: 40px;
     margin-bottom: 35px;
-    width: 110px;
+    width: 103px;
     text-align: center;
 }
 
 .header-banner__item-title {
+    position: absolute;
+    top: 191px;
     width: 167px;
     color: @headerBanner__color-title;
     font-family: @font-Bold;
     font-weight: bold;
     font-size: 15px;
-    margin-left: 60px;
+    margin-left: 40px;
     margin-bottom: 13px;
 }
 
 .header-banner__item-description {
+    position: absolute;
+    top: 238px;
     width: 136px;
     color: @headerBanner__color-description;
     font-family: @font-Regular;
     font-size: 14px;
-    margin-left: 60px;
+    margin-left: 40px;
     line-height: 16px;
     float: left;
 }
 
 .header-banner__item-play {
+    position: relative;
+    top: 95px;
+    left: 285px;
+    margin: -50px 0 0 -50px;
+    width: 705px;
+    height: 270px;
+    display: block;
+}
+
+.header-banner__item-play::before {
+    margin-top: 78px;
+    margin-left: 184px;
+    content: "";
     width: 100px;
     height: 100px;
     display: block;
-    margin: 0 auto;
-    margin-top: -115px;
     background-image: @headerBanner__play;
-    transition: all 0.1s;
-    transition-timing-function: cubic-bezier(0.8, 0, 0.3, 1);
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
 }
 
-.header-banner:hover {
+.header-banner__item-play:hover {
     cursor: pointer;
 }
 
-.header-banner:hover .header-banner__item-play{
+.header-banner__item-play:hover::before {
     transform: scale(1.25);
 }
 
@@ -170,6 +196,12 @@
     background-color: @headerBanner__color-control;
     margin-right: 7px;
     border-radius: 8px;
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.header-banner__controls-item:hover {
+    transform: scale(1.3);
+    cursor: pointer;
 }
 
 .header-banner__controls-item:last-child {
@@ -178,6 +210,7 @@
 
 .header-banner__controls-item__active {
     background-color: @headerBanner__color-control__active;
+    transform: scale(1.3);
 }
 
 .header-banner::after {
