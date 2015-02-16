@@ -1456,12 +1456,9 @@ body {
 }
 .content-episode-info__right-description {
   width: 175px;
-  margin-top: 28px;
+  margin: 28px 0 14px 0;
   color: #939598;
   font: 13px PTSansRegular;
-}
-.content-episode-info__right-share {
-  margin-top: -2px;
 }
 .content-episode-info__right-share span {
   float: left;
@@ -1471,6 +1468,7 @@ body {
 .content-episode-info__right-share-items {
   display: flex;
   padding: 1px 0 0 10px;
+  margin: 0;
 }
 .content-episode-info__right-share-item {
   margin-right: 10px;
@@ -1483,17 +1481,17 @@ body {
 .episode-info__right-share-item_vk {
   width: 24px;
   height: 14px;
-  background-image: url("../img/header-vkIcon.svg");
+  background: url("../img/header-vkIcon.svg");
 }
 .episode-info__right-share-item_fb {
   width: 7px;
   height: 14px;
-  background-image: url("../img/header-facebookIcon.svg");
+  background: url("../img/header-facebookIcon.svg");
 }
 .episode-info__right-share-item_tw {
   width: 17px;
   height: 14px;
-  background-image: url("../img/header-twitterIcon.svg");
+  background: url("../img/header-twitterIcon.svg");
 }
 .content-sheduler__vertical-current {
   position: relative;
