@@ -1,0 +1,15 @@
+{
+  "name": "HopeUA-theme",
+  "version": "0.0.1",
+  "homepage": "http://hope.ua",
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-autoprefixer": "^1.0.1",
+    "gulp-concat": "^2.5.0",
+    "gulp-less": "^1.3.6",
+    "gulp-sourcemaps": "^1.2.2",
+    "gulp-watch": "^1.0.7",
+    "npm": "^2.0.0"
+  }
+}
