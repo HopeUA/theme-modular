@@ -773,11 +773,11 @@ body {
   display: flex;
   width: 152px;
   padding-left: 0;
-  margin-right: 73px;
+  margin: 13px 73px 0 0;
 }
 .header-top__social-item {
   display: block;
-  height: 14px;
+  height: 27px;
   margin-right: 16px;
 }
 .header-top__social-item:last-child {
@@ -785,18 +785,19 @@ body {
 }
 .header-top__social-link {
   display: block;
-  height: 27px;
+  height: 16px;
   padding-bottom: 12px;
   border-bottom: solid 2px rgba(0, 0, 0, 0);
   backface-visibility: hidden;
   transform-style: preserve-3d;
   transition: all 0.2s linear;
 }
+.header-top__social-item:hover {
+  cursor: pointer;
+  border-bottom: 2px solid #f9ca0e;
+}
 .header-top__social-item:hover .header-top__social-link {
   transform: rotateY(180deg);
-}
-.header-top__social-link:hover {
-  border-bottom: 2px solid #f9ca0e;
 }
 .header-top__social-link::before {
   position: absolute;
