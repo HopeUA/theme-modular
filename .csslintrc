@@ -1,0 +1,13 @@
+{
+  "box-sizing": false,
+  "box-model": false,
+  "unqualified-attributes": false,
+  "outline-none": false,
+  "compatible-vendor-prefixes": false,
+  "universal-selector": false,
+  "order-alphabetical": false,
+  "duplicate-background-images": false,
+  "qualified-headings": false,
+  "fallback-colors": false,
+  "unique-headings": false
+}
