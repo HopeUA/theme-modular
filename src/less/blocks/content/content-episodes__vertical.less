@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+.content-episodes__vertical:hover .content-episodes__vertical-link::after {
+    opacity: 0;
+}
+
 .content-episodes__vertical-link {
     display: inline-block;
     margin: 0 0 0 33px;
@@ -38,6 +42,7 @@
     background: #7cb0d9;
     box-shadow: 0 1px 0 0 rgba(216, 230, 242, 0.9);
     content: "";
+    transition: all 0.1s ease-out;
 }
 
 .content-episodes__vertical-link span {
