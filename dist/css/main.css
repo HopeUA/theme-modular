@@ -1512,6 +1512,9 @@ body {
   font: 14px PTSansRegular;
   text-decoration: none;
 }
+.content-episode-info__right-category:hover::after {
+  opacity: 0;
+}
 .content-episode-info__right-category::before {
   float: left;
   display: block;
@@ -1531,6 +1534,7 @@ body {
   background: #7cb0d9;
   box-shadow: 0 1px 0 0 rgba(216, 230, 242, 0.9);
   content: "";
+  transition: all 0.1s ease-out;
 }
 .content-episode-info__right-category span {
   position: relative;
@@ -1667,6 +1671,10 @@ body {
   background: #7cb0d9;
   box-shadow: 0 1px 0 0 rgba(216, 230, 242, 0.9);
   content: "";
+  transition: all 0.1s ease-out;
+}
+.content-sheduler__vertical-link:hover::after {
+  opacity: 0;
 }
 .content-sheduler__vertical-list {
   padding: 0;
@@ -1680,8 +1688,7 @@ body {
 .content-sheduler__vertical-list-item {
   width: 181px;
   padding-bottom: 4px;
-  border-bottom: solid 1px #b2b2b3;
-  border-bottom-style: dotted;
+  border-bottom: dotted 1px #b2b2b3;
   margin-top: 8px;
   color: #808285;
   font: 11px PTSansRegular;
@@ -1712,6 +1719,11 @@ body {
   text-decoration: none;
   line-height: 8px;
   text-align: center;
+  transition: all 0.1s ease-out;
+}
+.content-sheduler__vertical-link__more:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 .content-episodes__row {
   width: 464px;
@@ -1790,12 +1802,41 @@ body {
   line-height: 14px;
 }
 .content-article__small {
+  position: relative;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
-  background: #fff;
+  height: 278px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+.content-article__small::before {
+  position: absolute;
+  display: block;
+  width: 226px;
+  height: 124px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 50%, rgba(39, 39, 39, 0.6) 75%, rgba(0, 0, 0, 0.9) 100%);
+  content: "";
+  transition: all 0.1s ease-out;
+}
+.content-article__small-info {
+  position: absolute;
+  z-index: 1;
+  padding: 10px 0;
+  margin-top: -4px;
+  background: #fff;
+  transition: all 0.1s ease-out;
+}
+.content-article__small:hover::before {
+  background: rgba(0, 25, 63, 0.8);
+}
+.content-article__small:hover .content-article__small-info {
+  position: absolute;
+  z-index: 2;
+  margin-top: -40px;
+}
+.content-article__small:hover .content-article__small-description {
+  height: 87px;
 }
 .content-article__small:hover {
   cursor: pointer;
@@ -1805,9 +1846,13 @@ body {
   height: 124px;
 }
 .content-article__small-description {
+  display: block;
+  overflow: hidden;
+  height: 45px;
   margin: 12px 0 20px 21px;
   color: #808285;
   font: 12px PTSansRegular;
+  transition: all 0.1s ease-out;
 }
 .content-article__small-title {
   margin: 0 0 0 21px;

@@ -31,6 +31,10 @@
     text-decoration: none;
 }
 
+.content-episode-info__right-category:hover::after {
+    opacity: 0;
+}
+
 .content-episode-info__right-category::before {
     float: left;
     display: block;
@@ -51,6 +55,7 @@
     background: #7cb0d9;
     box-shadow: 0 1px 0 0 rgba(216, 230, 242, 0.9);
     content: "";
+    transition: all 0.1s ease-out;
 }
 
 .content-episode-info__right-category span {
