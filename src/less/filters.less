@@ -1,0 +1,115 @@
+
+.filter-small {
+    position: absolute;
+    margin-top: 29px;
+    color: #808285;
+    font: 13px @font-Regular;
+    line-height: 28px;
+}
+
+.filter-small__items {
+    position: absolute;
+    z-index: 3;
+    top: 9px;
+    right: -8px;
+    padding: 0;
+    border-radius: 3px;
+    background: #fff;
+    color: #808285;
+    font: 14px @font-Regular;
+    box-shadow: 0 0 10 0 rgba(0, 0, 0, 0.2);
+}
+
+.filter-small__item:last-child {
+    margin-bottom: 15px;
+}
+
+.filter-small__item__selected {
+    display: flex;
+    padding: 5px 7px 5px 10px;
+    margin: 15px 0 0 15px;
+    color: #2f8dca;
+    font: bold 14px @font-Bold;
+    list-style-type: none;
+    transition: all 1s ease-out;
+}
+
+.filter-small__item__selected:hover {
+    cursor: pointer;
+}
+
+.filter-small__item__selected:hover::after {
+    transform: rotate(180deg);
+}
+
+.filter-small__item__selected::after {
+    display: block;
+    width: 12px;
+    height: 7px;
+    margin: 6px 0 0 9px;
+    background: url(../img/filter-small__item__sel.svg);
+    opacity: 0.8;
+    content: "";
+}
+
+.filter-small__item {
+    padding: 5px 7px 5px 10px;
+    margin: 0 12px 0 15px;
+    list-style-type: none;
+}
+
+.filter-small__item:hover {
+    border-radius: 3px;
+    background: #2f8dca;
+    color: #fff;
+    cursor: pointer;
+}
+
+.filter-small__default {
+    right: 0;
+    padding: 10px 21px 10px 10px;
+}
+
+.filter-small__default::after {
+    position: absolute;
+    top: 21px;
+    right: 0;
+    display: block;
+    width: 12px;
+    height: 7px;
+    background: url(../img/filter-small__items.svg);
+    opacity: 0.8;
+    content: "";
+    transition: all 4s ease-out;
+}
+
+.filter-small__default:hover::after {
+    opacity: 1;
+}
+
+.filter-small__reload {
+    right: 0;
+    padding: 10px 23px 10px 10px;
+}
+
+.filter-small__reload::after {
+    position: absolute;
+    top: 17px;
+    right: 0;
+    display: block;
+    width: 17px;
+    height: 13px;
+    background: url(../img/filter-small__reload.svg);
+    opacity: 0.8;
+    transform: rotate(180deg);
+    content: "";
+    transition: all 0.1s ease-out;
+}
+
+.filter-small:hover {
+    cursor: pointer;
+}
+
+.filter-small__reload:hover::after {
+    opacity: 1;
+}

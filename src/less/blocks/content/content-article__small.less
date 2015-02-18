@@ -64,10 +64,20 @@
 }
 
 .content-article__small-title {
+    display: flex;
     margin: 0 0 0 21px;
     color: #4d4d4f;
     font: bold 12px @font-Bold;
     text-decoration: none;
+}
+
+.content-article__small-title::before {
+    display: block;
+    width: 20px;
+    height: 18px;
+    margin-right: 5px;
+    background: url(../img/articles.svg);
+    content: "";
 }
 
 .content-article__small-date {
