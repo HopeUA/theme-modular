@@ -14,11 +14,6 @@
     text-decoration: none;
 }
 
-.header-top__user {
-    color: @headerTop__color-element;
-    text-decoration: none;
-}
-
 .header-top__worldwide {
     align-items: center;
     display: flex;
@@ -266,12 +261,13 @@
 }
 
 .header-top__user {
+    position: absolute;
+    top: 11px;
+    right: 0;
     align-items: center;
     display: flex;
-}
-
-.header-top__user {
-    display: flex;
+    color: @headerTop__color-element;
+    text-decoration: none;
     transition: @headerTop__animations-all;
 }
 
