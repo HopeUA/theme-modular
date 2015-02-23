@@ -8,19 +8,27 @@
     }
 
     .header-top__watch-us {
-        margin-right: 5%;
+        margin-right: 5.7%;
     }
 
     .header-top__menu {
-        margin-right: 3%;
+        margin-right: 6%;
+    }
+
+    .header-top__menu-item {
+        margin-right: 39px;
     }
 
     .header-top__search {
-        margin-right: 10%;
+        margin-right: 5%;
     }
 
     .header-main__logo {
-        margin-right: 3%;
+        margin-right: 9.2%;
+    }
+
+    .header-main__menu-item {
+        margin-right: 62px;
     }
 
     .header-timeline {
@@ -31,12 +39,26 @@
         width: 400px;
     }
 
+    .header-banner__item-play:hover::before {
+        transform: scale(1.15);
+    }
+
     .header-banner__arrow_left {
         left: 0;
     }
 
+    .header-banner__arrow_left:hover::before {
+        opacity: 0.5;
+        transform: scale(1.5);
+    }
+
     .header-banner__arrow_right {
         right: 0;
+    }
+
+    .header-banner__arrow_right:hover::before {
+        opacity: 0.5;
+        transform: rotate(180deg) scale(1.5);
     }
 
     .content-episode__large {
@@ -50,6 +72,18 @@
 
     .content-sheduler__vertical {
         height: 260px;
+    }
+
+    .content-sheduler__vertical-list-item:nth-child(2) {
+        border-bottom: none;
+    }
+
+    .content-sheduler__vertical-list-item:nth-child(3) {
+        opacity: 0;
+    }
+
+    .content-sheduler__vertical-link__more {
+        display: block;
     }
 
     .grid__column-1 {
@@ -102,6 +136,22 @@
     .content-shows-list-about {
         width: 230px;
     }
+
+    .content-shows-list-link {
+        right: 46px;
+    }
+
+    .content-shows-list-channel-link {
+        margin-top: 19px;
+    }
+
+    .content-shows-list-channel-share {
+        margin-top: 58px;
+    }
+
+    .content-shows-list-channel-share li {
+        margin-right: 10px;
+    }
 }
 
 @media screen and (min-width: 1450px) {
@@ -110,23 +160,31 @@
     }
 
     .header-top__worldwide {
-        margin-right: 14%;
+        margin-right: 11.8%;
     }
 
     .header-top__watch-us {
-        margin-right: 5%;
+        margin-right: 8%;
     }
 
     .header-top__menu {
-        margin-right: 3%;
+        margin-right: 6%;
+    }
+
+    .header-top__menu-item {
+        margin-right: 50px;
     }
 
     .header-top__search {
-        margin-right: 15%;
+        margin-right: 6.5%;
     }
 
     .header-main__logo {
-        margin-right: 12%;
+        margin-right: 15%;
+    }
+
+    .header-main__menu-item {
+        margin-right: 94px;
     }
 
     .header-timeline {
@@ -137,12 +195,26 @@
         width: 700px;
     }
 
+    .header-banner__item-play:hover::before {
+        transform: scale(1.25);
+    }
+
     .header-banner__arrow_left {
         left: 0;
     }
 
+    .header-banner__arrow_left:hover::before {
+        opacity: 0.5;
+        transform: scale(1.95);
+    }
+
     .header-banner__arrow_right {
         right: 0;
+    }
+
+    .header-banner__arrow_right:hover::before {
+        opacity: 0.5;
+        transform: rotate(180deg) scale(1.95);
     }
 
     .content-episode__large {
@@ -155,7 +227,16 @@
     }
 
     .content-sheduler__vertical {
-        height: 268px;
+        width: 478px;
+        column-width: 230px;
+    }
+
+    .content-sheduler__vertical-current {
+        width: 230px;
+    }
+
+    .content-sheduler__vertical-link__more {
+        display: none;
     }
 
     .grid__column-1 {
@@ -205,11 +286,11 @@
     }
 
     .content-shows-list-column-1 {
-        width: 350px;
+        width: 345px;
     }
 
     .content-shows-list-column-2 {
-        width: 356px;
+        width: 350px;
     }
 
     .content-shows-list-column-3 {
@@ -219,29 +300,25 @@
     .content-shows-list-about {
         width: 275px;
     }
+
+    .content-shows-list-link {
+        right: 87px;
+    }
+
+    .content-shows-list-channel-link {
+        margin-top: 25px;
+    }
+
+    .content-shows-list-channel-share {
+        margin-top: 85px;
+    }
+
+    .content-shows-list-channel-share li {
+        margin-right: 14px;
+    }
 }
 
 @media screen and (min-width: 1600px) {
-    .header-top__worldwide {
-        margin-right: 15%;
-    }
-
-    .header-top__watch-us {
-        margin-right: 5%;
-    }
-
-    .header-top__menu {
-        margin-right: 3%;
-    }
-
-    .header-top__search {
-        margin-right: 10%;
-    }
-
-    .header-main__logo {
-        margin-right: 15%;
-    }
-
     .header-timeline {
         width: 1262px;
     }
@@ -251,10 +328,10 @@
     }
 
     .header-banner__arrow_left {
-        left: 11%;
+        left: 110px;
     }
 
     .header-banner__arrow_right {
-        right: 11%;
+        right: 110px;
     }
 }

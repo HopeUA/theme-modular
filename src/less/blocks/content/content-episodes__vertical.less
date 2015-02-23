@@ -6,17 +6,9 @@
     backface-visibility: hidden; //fix animation visual bug
 }
 
-.content-episodes__vertical:hover {
-    cursor: pointer;
-}
-
-.content-episodes__vertical:hover .content-episodes__vertical-link::after {
-    opacity: 0;
-}
-
 .content-episodes__vertical-link {
     display: inline-block;
-    margin: 0 0 0 33px;
+    margin: 0 0 0 29px;
     color: #2f8dca;
     font: 14px @font-Regular;
     text-decoration: none;
@@ -45,6 +37,10 @@
     transition: all 0.1s ease-out;
 }
 
+.content-episodes__vertical-link:hover::after {
+    cursor: pointer;
+    opacity: 0;
+}
 .content-episodes__vertical-link span {
     position: relative;
     right: -1px;
@@ -52,7 +48,7 @@
 }
 
 .content-episodes__vertical-description {
-    margin: 12px 0 17px 21px;
+    margin: 12px 17px 17px 17px;
     color: #808285;
     font: 12px @font-Regular;
 }
