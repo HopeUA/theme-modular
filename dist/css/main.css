@@ -2101,6 +2101,7 @@ body {
 }
 .content-sheduler__vertical {
   position: relative;
+  z-index: 1;
 }
 .content-sheduler__vertical-current-image {
   position: absolute;
