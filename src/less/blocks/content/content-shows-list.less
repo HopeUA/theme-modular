@@ -42,6 +42,10 @@
     text-decoration: none;
 }
 
+.content-shows-list-link:hover::after {
+    opacity: 0;
+}
+
 .content-shows-list-link::before {
     float: left;
     display: block;
@@ -62,6 +66,7 @@
     background: #7cb0d9;
     box-shadow: 0 1px 0 0 rgba(216, 230, 242, 0.9);
     content: "";
+    transition: all 0.1s ease-out;
 }
 
 .content-shows-list-link span {
@@ -110,6 +115,12 @@
     font: 14px @font-Regular;
     text-decoration: none;
     line-height: 14px;
+    transition: all 0.1s ease-out;
+}
+
+.content-shows-list-item:hover {
+    color: #2f8dca;
+    text-decoration: underline;
 }
 
 .content-shows-list-channel-description {
@@ -132,6 +143,10 @@
     text-decoration: none;
 }
 
+.content-shows-list-channel-link:hover::after {
+    opacity: 0;
+}
+
 .content-shows-list-channel-link::before {
     float: left;
     display: block;
@@ -152,6 +167,7 @@
     background: #7cb0d9;
     box-shadow: 0 1px 0 0 rgba(216, 230, 242, 0.9);
     content: "";
+    transition: all 0.1s ease-out;
 }
 
 .content-shows-list-channel-link span {
@@ -165,37 +181,149 @@
     padding: 0;
 }
 
-.content-shows-list-channel-share li{
+.content-shows-list-channel-share-item {
     float: left;
     list-style-type: none;
 }
 
+.content-shows-list-channel-share-link {
+    display: block;
+    height: 14px;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: all 0.2s linear;
+}
+
+.content-shows-list-channel-share-item:hover .content-shows-list-channel-share-link {
+    transform: rotateY(180deg);
+}
+
 .content-shows-list-channel-share-item_rss {
     width: 14px;
-    height: 14px;
+}
+
+.content-shows-list-channel-share-item_rss::before {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
     background: @headerTop__rss no-repeat;
+    content: "";
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.content-shows-list-channel-share-item_rss::after {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__rss no-repeat;
+    content: "";
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
 
 .content-shows-list-channel-share-item_yt {
     width: 19px;
-    height: 14px;
+}
+
+.content-shows-list-channel-share-item_yt::before {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
     background: @headerTop__yt no-repeat;
+    content: "";
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.content-shows-list-channel-share-item_yt::after {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__yt no-repeat;
+    content: "";
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
 
 .content-shows-list-channel-share-item_fb {
     width: 7px;
-    height: 14px;
+}
+
+.content-shows-list-channel-share-item_fb::before {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
     background: @headerTop__fb no-repeat;
+    content: "";
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.content-shows-list-channel-share-item_fb::after {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__fb no-repeat;
+    content: "";
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
 
 .content-shows-list-channel-share-item_vk {
     width: 24px;
-    height: 14px;
+}
+
+.content-shows-list-channel-share-item_vk::before {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
     background: @headerTop__vk no-repeat;
+    content: "";
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.content-shows-list-channel-share-item_vk::after {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__vk no-repeat;
+    content: "";
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
 
 .content-shows-list-channel-share-item_tw {
     width: 17px;
-    height: 14px;
+}
+
+.content-shows-list-channel-share-item_tw::before {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
     background: @headerTop__tw no-repeat;
+    content: "";
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.content-shows-list-channel-share-item_tw::after {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__tw no-repeat;
+    content: "";
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }

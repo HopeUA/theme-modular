@@ -6,6 +6,10 @@
     backface-visibility: hidden; //fix animation visual bug
 }
 
+.content-episodes__row-item:nth-child(even) {
+    margin-bottom: 0;
+}
+
 .content-episodes__row-item:hover {
     cursor: pointer;
 }
@@ -38,8 +42,8 @@
 }
 
 .content-episodes__row-item:hover .content-episodes__row-image__wide, .content-episodes__row-image__squared {
-    transform: scale(1.05);
-    -webkit-filter: grayscale(100%);
+    //transform: scale(1.05);
+    filter: grayscale(100%);
 }
 
 .content-episodes__row-item-play {

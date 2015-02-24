@@ -92,20 +92,92 @@
     margin-right: 0;
 }
 
+.episode-info__right-share-link {
+    display: block;
+    height: 14px;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: all 0.2s linear;
+}
+
+.content-episode-info__right-share-item:hover .episode-info__right-share-link {
+    transform: rotateY(180deg);
+}
+
 .episode-info__right-share-item_vk {
     width: 24px;
-    height: 14px;
-    background: @headerTop__vk;
+}
+
+.episode-info__right-share-item_vk::before {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__vk no-repeat;
+    content: "";
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.episode-info__right-share-item_vk::after {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__vk no-repeat;
+    content: "";
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
 
 .episode-info__right-share-item_fb {
     width: 7px;
-    height: 14px;
-    background: @headerTop__fb;
+}
+
+.episode-info__right-share-item_fb::before {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__fb no-repeat;
+    content: "";
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.episode-info__right-share-item_fb::after {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__fb no-repeat;
+    content: "";
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
 
 .episode-info__right-share-item_tw {
     width: 17px;
-    height: 14px;
-    background: @headerTop__tw;
+}
+
+.episode-info__right-share-item_tw::before {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__tw no-repeat;
+    content: "";
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.episode-info__right-share-item_tw::after {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: @headerTop__tw no-repeat;
+    content: "";
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
