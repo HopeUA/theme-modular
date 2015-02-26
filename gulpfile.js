@@ -31,7 +31,8 @@ gulp.task('theme-less', function(){
 
     gulp.src([
         'src/js/vendor/jquery-2.1.3.min.js',
-        'src/js/main.js'
+        'src/js/button-up.js',
+        'src/js/content/recomended.js'
     ])
     .pipe(sourcemaps.init())
     .pipe(concat('app.js'))

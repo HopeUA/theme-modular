@@ -865,6 +865,11 @@ body {
 .clearfix {
   clear: both;
 }
+.recomended {
+  position: relative;
+  left: 0;
+  display: inherit;
+}
 .btn {
   display: inline-block;
   font-size: 18px;
@@ -2141,11 +2146,13 @@ body {
   right: 61px;
 }
 .content-arrow-left {
-  width: 100px;
-  height: 261px;
   position: absolute;
   top: 81px;
   left: -97px;
+  width: 100px;
+  height: 261px;
+  opacity: 0;
+  display: none;
 }
 .content-arrow-left::before {
   content: "";
@@ -2622,9 +2629,6 @@ body {
   height: 124px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-}
-.content-episodes__row-item:nth-child(even) {
-  margin-bottom: 0;
 }
 .content-episodes__row-item:hover {
   cursor: pointer;
