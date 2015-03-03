@@ -31,6 +31,8 @@ gulp.task('theme-less', function(){
 
     gulp.src([
         'src/js/vendor/jquery-2.1.3.min.js',
+        'src/js/vendor/jquery.easing.1.3.js',
+        'src/js/vendor/jquery.bez.min.js',
         'src/js/button-up.js',
         'src/js/content/recomended.js'
     ])
@@ -39,7 +41,7 @@ gulp.task('theme-less', function(){
     .pipe(sourcemaps.write(
         './',
         {
-            includeContent: false,
+            includeContent: true,
             sourceRoot: '../src/js'
         }
     ))

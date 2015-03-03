@@ -5,46 +5,55 @@ $(function(){
 
 (function( $ ) {
     var SliderBlock = function(object, options){
+
         this.$object = $(object);
         this.options = $.extend({}, SliderBlock.DEFAULTS, options);
 
-        this.options.$arrowLeft  = $(this.selector + '-arrow-left');
-        this.options.$arrowRight = $(this.selector + '-arrow-right')
-        this.options.clickCounter = 0;
+        this.clickCounter = 0;
 
-        init(this, this.options);
+        this.$arrowLeft  = 'arrowLeft'  in this.options ? $(this.options.arrowLeft)  : $('.' + this.$object.attr('class') + '-arrow-left');
+        this.$arrowRight = 'arrowRight' in this.options ? $(this.options.arrowRight) : $('.' + this.$object.attr('class') + '-arrow-right');
+
+        console.log(this.$arrowLeft);
+        console.log(this.$arrowRight);
+
     };
 
     SliderBlock.DEFAULTS = {
-        pages : 5
+        pages     : 5
     };
 
-    function move(object, options, direction) {
-        var object_items  = $(object.selector + ' > div'); // items
+    SliderBlock.prototype.move = function (direction) {
 
-        var total = Math.round(object.width() / object_items.width()); // count blocks on screen
+        var self = this;
+
+        console.log('call move');
+
+        var object_items  = this.$object.children('div');
+
+        var total = Math.round(this.$object.width() / object_items.width()); // count blocks on screen
 
         var margin = parseInt(object_items.css('margin-right')); // column margin
         var shift  = object_items.width() * total + margin * (total - 1) + margin; // width of shift block
 
         switch (direction) {
             case 'begin':
-                options.clickCounter = 0;
+                this.clickCounter = 0;
 
-                options.$arrowLeft.animate({'opacity' : 0}, 200);
+                this.$arrowLeft.animate({'opacity' : 0}, 200);
 
                 setTimeout(function(){
-                    options.$arrowLeft.css({'display' : 'none'});
+                    this.$arrowLeft.css({'display' : 'none'});
                 }, 200)
 
-                object.animate({'left' : 0}, 250);
+                this.$object.animate({'left' : 0}, 250);
 
                 break;
 
             case 'right':
                 var click_limit = total - 1; // count max clicks
 
-                var items_limit   = total * options.pages;  // count max items
+                var items_limit   = total * this.options.pages;  // count max items
                 var items_current = object_items.length; // count current items
 
                 var count = items_limit - items_current;
@@ -55,31 +64,33 @@ $(function(){
                     count = count;
                 }
 
-                shift += 40;   // add some optional animations shift
+                shift += 150;   // add some optional animations shift
                 shift += 'px'; // add 'px'
 
-                options.clickCounter++;
+                this.clickCounter++;
 
-                object.animate({'left' : '+=40px'}, 300);
-                object.animate({'left' : '-=' + shift, 'opacity' : '0.3'}, 250);
-                object.animate({'opacity' : '1'}, 200);
+                this.$object.animate({'left' : '-=' + shift}, 250);
+                setTimeout(function(){
+                    self.$object.animate({'left' : '+=150px'}, 450, $.bez([.85,1.92,.63,-0.77]));
+                }, 250);
 
-                if (options.clickCounter > 0) {
-                    options.$arrowLeft.css({'display' : 'block'});
-                    options.$arrowLeft.animate({'opacity' : 1}, 200);
+
+                if (this.clickCounter > 0) {
+                    this.$arrowLeft.css({'display' : 'block'});
+                    this.$arrowLeft.animate({'opacity' : 1}, 200);
 
                     if (items_current < items_limit) {
                         $.get('ajax/recomended' + count + '.html',function(data){
-                            object.append(data);
+                            self.$object.append(data);
                         });
                         console.log('load ajax ajax/recomended' + count);
                     }
                 }
 
-                if (options.clickCounter === (options.pages - 1)) {
-                    options.$arrowRight.animate({'opacity' : 0}, 200);
+                if (this.clickCounter === (this.options.pages - 1)) {
+                    this.$arrowRight.animate({'opacity' : 0}, 200);
                     setTimeout(function(){
-                        options.$arrowRight.css({'display' : 'none'});
+                        this.$arrowRight.css({'display' : 'none'});
                     }, 200);
                 }
 
@@ -90,21 +101,21 @@ $(function(){
                 shift -= 40;   // add some optional animations shift
                 shift += 'px'; // add 'px'
 
-                options.clickCounter--;
+                this.clickCounter--;
 
-                object.animate({'left' : '+=40px'}, 300);
-                object.animate({'left' : '+=' + shift, 'opacity' : '0.3'}, 250);
-                object.animate({'opacity' : '1'}, 200);
+                this.$object.animate({'left' : '+=40px'}, 300);
+                this.$object.animate({'left' : '+=' + shift, 'opacity' : '0.3'}, 250);
+                this.$object.animate({'opacity' : '1'}, 200);
 
-                if (options.clickCounter < (options.pages - 1)) {
-                    options.$arrowRight.css({'display' : 'block'});
-                    options.$arrowRight.animate({'opacity' : 1}, 200);
+                if (this.clickCounter < (this.options.pages - 1)) {
+                    this.$arrowRight.css({'display' : 'block'});
+                    this.$arrowRight.animate({'opacity' : 1}, 200);
                 }
 
-                if (options.clickCounter === 0) {
-                    options.$arrowLeft.animate({'opacity' : 0}, 200);
+                if (this.clickCounter === 0) {
+                    this.$arrowLeft.animate({'opacity' : 0}, 200);
                     setTimeout(function(){
-                        options.$arrowLeft.css({'display' : 'none'});
+                        this.$arrowLeft.css({'display' : 'none'});
                     }, 200)
                 }
 
@@ -113,22 +124,36 @@ $(function(){
         }
     };
 
-    function init(object, options) {
+    SliderBlock.prototype.init = function() {
 
-        options.$arrowLeft.click(function(){
-            move(object, options, 'left');
+        console.log('init');
+        var self = this;
+        this.$arrowLeft.click(function(){
+            console.log('left');
+            self.move('left');
         });
 
-        options.$arrowRight.click(function(){
-            move(object, options, 'right');
+        this.$arrowRight.click(function(){
+            self.move('right');
         });
 
         $(window).resize(function() {
-            move(object, options, 'begin');
+            self.move('begin');
         });
 
+    };
+
+
+
+    function Plugin(option) {
+        return this.each(function () {
+            var options = typeof option == 'object' && option;
+
+            new SliderBlock(this, options).init();
+        });
     }
 
-    $.fn.hopeSliderBlock = SliderBlock;
+    $.fn.hopeSliderBlock = Plugin;
+    $.fn.hopeSliderBlock.Constructor = SliderBlock;
 
 })(jQuery);
