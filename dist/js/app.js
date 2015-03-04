@@ -208,6 +208,7 @@ jQuery.extend( jQuery.easing,
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
 jQuery.extend({bez:function(encodedFuncName,coOrdArray){if(jQuery.isArray(encodedFuncName)){coOrdArray=encodedFuncName;encodedFuncName="bez_"+coOrdArray.join("_").replace(/\./g,"p")}if(typeof jQuery.easing[encodedFuncName]!=="function"){var polyBez=function(p1,p2){var A=[null,null],B=[null,null],C=[null,null],bezCoOrd=function(t,ax){C[ax]=3*p1[ax],B[ax]=3*(p2[ax]-p1[ax])-C[ax],A[ax]=1-C[ax]-B[ax];return t*(C[ax]+t*(B[ax]+t*A[ax]))},xDeriv=function(t){return C[0]+t*(2*B[0]+3*A[0]*t)},xForT=function(t){var x=t,i=0,z;while(++i<14){z=bezCoOrd(x,0)-t;if(Math.abs(z)<.001)break;x-=z/xDeriv(x)}return x};return function(t){return bezCoOrd(xForT(t),1)}};jQuery.easing[encodedFuncName]=function(x,t,b,c,d){return c*polyBez([coOrdArray[0],coOrdArray[1]],[coOrdArray[2],coOrdArray[3]])(t/d)+b}}return encodedFuncName}});;
 
 $(function(){
@@ -225,7 +226,7 @@ $(function(){
 (function( $ ) {
     var SliderBlock = function(object, options){
 
-        this.$object = $(object);
+        this.$object = $(object); // main object
         this.options = $.extend({}, SliderBlock.DEFAULTS, options);
 
         this.clickCounter = 0;
@@ -233,49 +234,67 @@ $(function(){
         this.$arrowLeft  = 'arrowLeft'  in this.options ? $(this.options.arrowLeft)  : $('.' + this.$object.attr('class') + '-arrow-left');
         this.$arrowRight = 'arrowRight' in this.options ? $(this.options.arrowRight) : $('.' + this.$object.attr('class') + '-arrow-right');
 
-        console.log(this.$arrowLeft);
-        console.log(this.$arrowRight);
-
     };
 
     SliderBlock.DEFAULTS = {
-        pages     : 5
+        pages       : 5,
+        time        : 350,
+        arrowTime   : 200,
+        shiftSize   : 150,
+        shiftTime   : 450,
+        shiftEasing : [.85,1.92,.63,-0.77]
     };
 
     SliderBlock.prototype.move = function (direction) {
 
-        var self = this;
+        var self = this; // context for inner function scope
 
-        console.log('call move');
+        var objectChildren  = this.$object.children('div'); // items
 
-        var object_items  = this.$object.children('div');
+        var total = Math.round(this.$object.width() / objectChildren.width()); // count blocks on screen
 
-        var total = Math.round(this.$object.width() / object_items.width()); // count blocks on screen
+        var margin = parseInt(objectChildren.css('margin-right')); // column margin
+        var shift  = objectChildren.width() * total + margin * (total - 1) + margin; // width of shift block
 
-        var margin = parseInt(object_items.css('margin-right')); // column margin
-        var shift  = object_items.width() * total + margin * (total - 1) + margin; // width of shift block
+        var easing = typeof this.options.shiftEasing === 'string' ? this.options.shiftEasing : $.bez(self.options.shiftEasing);
+        // you can use string type like this 'easeInSine' or cubic-bezier like this [1,1,1,1]
 
         switch (direction) {
-            case 'begin':
-                this.clickCounter = 0;
+            case 'left' :
 
-                this.$arrowLeft.animate({'opacity' : 0}, 200);
+                shift -= this.options.shiftSize;   // add some optional animations shift
+                shift += 'px'; // add 'px'
+
+                this.clickCounter--;
+
+                this.$object.animate({'left' : '+=' + shift}, self.options.time);
 
                 setTimeout(function(){
-                    this.$arrowLeft.css({'display' : 'none'});
-                }, 200)
+                    self.$object.animate({'left' : '+=' + self.options.shiftSize + 'px'}, self.options.shiftTime, easing);
+                }, self.options.time);
 
-                this.$object.animate({'left' : 0}, 250);
+                if (this.clickCounter < (this.options.pages - 1)) {
+                    this.$arrowRight.css({'display' : 'block'});
+                    this.$arrowRight.animate({'opacity' : 1}, this.options.arrowTime);
+                }
+
+                if (this.clickCounter === 0) {
+                    this.$arrowLeft.animate({'opacity' : 0}, this.options.arrowTime);
+                    setTimeout(function(){
+                        self.$arrowLeft.css({'display' : 'none'});
+                    }, this.options.arrowTime)
+                }
 
                 break;
 
             case 'right':
-                var click_limit = total - 1; // count max clicks
 
-                var items_limit   = total * this.options.pages;  // count max items
-                var items_current = object_items.length; // count current items
+                var clickLimit = total - 1; // count max clicks
 
-                var count = items_limit - items_current;
+                var itemsLimit   = total * this.options.pages;  // count max items
+                var itemsCurrent = objectChildren.length; // count current items
+
+                var count = itemsLimit - itemsCurrent;
 
                 if (count >= total) {
                     count = total;
@@ -283,92 +302,91 @@ $(function(){
                     count = count;
                 }
 
-                shift += 150;   // add some optional animations shift
+                shift += this.options.shiftSize;   // add some optional animations shift
                 shift += 'px'; // add 'px'
 
                 this.clickCounter++;
 
-                this.$object.animate({'left' : '-=' + shift}, 250);
-                setTimeout(function(){
-                    self.$object.animate({'left' : '+=150px'}, 450, $.bez([.85,1.92,.63,-0.77]));
-                }, 250);
+                this.$object.animate({'left' : '-=' + shift}, self.options.time);
 
+                setTimeout(function(){
+                    self.$object.animate({'left' : '+=' + self.options.shiftSize + 'px'}, self.options.shiftTime, easing);
+                }, self.options.time);
 
                 if (this.clickCounter > 0) {
                     this.$arrowLeft.css({'display' : 'block'});
-                    this.$arrowLeft.animate({'opacity' : 1}, 200);
+                    this.$arrowLeft.animate({'opacity' : 1}, this.options.arrowTime);
 
-                    if (items_current < items_limit) {
+                    if (itemsCurrent < itemsLimit) {
                         $.get('ajax/recomended' + count + '.html',function(data){
                             self.$object.append(data);
                         });
-                        console.log('load ajax ajax/recomended' + count);
                     }
                 }
 
                 if (this.clickCounter === (this.options.pages - 1)) {
-                    this.$arrowRight.animate({'opacity' : 0}, 200);
+                    this.$arrowRight.animate({'opacity' : 0}, this.options.arrowTime);
                     setTimeout(function(){
-                        this.$arrowRight.css({'display' : 'none'});
-                    }, 200);
+                        self.$arrowRight.css({'display' : 'none'});
+                    }, this.options.arrowTime);
                 }
 
-                console.log('right');
                 break;
 
-            case 'left' :
-                shift -= 40;   // add some optional animations shift
-                shift += 'px'; // add 'px'
+            case 'begin':
 
-                this.clickCounter--;
+                this.clickCounter = 0;
 
-                this.$object.animate({'left' : '+=40px'}, 300);
-                this.$object.animate({'left' : '+=' + shift, 'opacity' : '0.3'}, 250);
-                this.$object.animate({'opacity' : '1'}, 200);
+                this.$arrowLeft.animate({'opacity' : 0}, this.options.arrowTime);
 
-                if (this.clickCounter < (this.options.pages - 1)) {
-                    this.$arrowRight.css({'display' : 'block'});
-                    this.$arrowRight.animate({'opacity' : 1}, 200);
-                }
+                setTimeout(function(){
+                    self.$arrowLeft.css({'display' : 'none'});
+                }, this.options.arrowTime)
 
-                if (this.clickCounter === 0) {
-                    this.$arrowLeft.animate({'opacity' : 0}, 200);
-                    setTimeout(function(){
-                        this.$arrowLeft.css({'display' : 'none'});
-                    }, 200)
-                }
+                this.$arrowRight.css({'display' : 'block'});
+                this.$arrowRight.animate({'opacity' : 1}, this.options.arrowTime);
 
-                console.log('left');
+                this.$object.animate({'left' : 0}, this.options.time);
+
                 break;
         }
     };
 
     SliderBlock.prototype.init = function() {
 
-        console.log('init');
-        var self = this;
+        var self = this; // context for inner function scope
+        var count = 0;
+
         this.$arrowLeft.click(function(){
-            console.log('left');
-            self.move('left');
+            self.move('left'); // move left
         });
 
         this.$arrowRight.click(function(){
-            self.move('right');
+            if (count === 0) {
+                self.move('right'); // move right
+                console.log('start');
+                count++;
+            } else {
+                setTimeout(function(){
+                    self.move('right'); // move right
+                    console.log('interval');
+                }, self.options.time);
+            }
         });
 
         $(window).resize(function() {
-            self.move('begin');
+            self.move('begin'); // move to begin
         });
 
     };
 
-
-
     function Plugin(option) {
         return this.each(function () {
-            var options = typeof option == 'object' && option;
 
-            new SliderBlock(this, options).init();
+            var options = typeof option == 'object' && option; // return false or object option
+
+            new SliderBlock(this, options).init(); // constructor initializating
+
         });
     }
 
