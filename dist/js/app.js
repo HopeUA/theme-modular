@@ -211,18 +211,6 @@ jQuery.extend( jQuery.easing,
 
 jQuery.extend({bez:function(encodedFuncName,coOrdArray){if(jQuery.isArray(encodedFuncName)){coOrdArray=encodedFuncName;encodedFuncName="bez_"+coOrdArray.join("_").replace(/\./g,"p")}if(typeof jQuery.easing[encodedFuncName]!=="function"){var polyBez=function(p1,p2){var A=[null,null],B=[null,null],C=[null,null],bezCoOrd=function(t,ax){C[ax]=3*p1[ax],B[ax]=3*(p2[ax]-p1[ax])-C[ax],A[ax]=1-C[ax]-B[ax];return t*(C[ax]+t*(B[ax]+t*A[ax]))},xDeriv=function(t){return C[0]+t*(2*B[0]+3*A[0]*t)},xForT=function(t){var x=t,i=0,z;while(++i<14){z=bezCoOrd(x,0)-t;if(Math.abs(z)<.001)break;x-=z/xDeriv(x)}return x};return function(t){return bezCoOrd(xForT(t),1)}};jQuery.easing[encodedFuncName]=function(x,t,b,c,d){return c*polyBez([coOrdArray[0],coOrdArray[1]],[coOrdArray[2],coOrdArray[3]])(t/d)+b}}return encodedFuncName}});;
 
-$(function(){
-    $('.footer__main-button__up').click(function(){
-		$('html, body').animate({scrollTop : 0},800);
-		return false;
-	});
-});
-
-$(function(){
-    $('.recomended').hopeSliderBlock();
-});
-
-
 (function( $ ) {
     var SliderBlock = function(object, options){
 
@@ -231,8 +219,8 @@ $(function(){
 
         this.clickCounter = 0;
 
-        this.$arrowLeft  = 'arrowLeft'  in this.options ? $(this.options.arrowLeft)  : $('.' + this.$object.attr('class') + '-arrow-left');
-        this.$arrowRight = 'arrowRight' in this.options ? $(this.options.arrowRight) : $('.' + this.$object.attr('class') + '-arrow-right');
+        this.$arrowLeft  = 'arrowLeft'  in this.options ? $(this.options.arrowLeft)  : $('.' + this.options.name + '-arrow-left');
+        this.$arrowRight = 'arrowRight' in this.options ? $(this.options.arrowRight) : $('.' + this.options.name + '-arrow-right');
 
     };
 
@@ -240,18 +228,20 @@ $(function(){
         pages       : 5,
         time        : 350,
         arrowTime   : 200,
-        shiftSize   : 150,
-        shiftTime   : 450,
-        shiftEasing : [.85,1.92,.63,-0.77]
+        shiftSize   : 110,
+        shiftTime   : 210,
+        shiftEasing : [.28,.11,.17,-0.1],
+        lines       : 1,
+        loadUrl     : null
     };
 
     SliderBlock.prototype.move = function (direction) {
 
         var self = this; // context for inner function scope
 
-        var objectChildren  = this.$object.children('div'); // items
+        var objectChildren  = this.$object.children(); // items
 
-        var total = Math.round(this.$object.width() / objectChildren.width()); // count blocks on screen
+        var total = Math.round(this.$object.parent().width() / objectChildren.width()); // count blocks on screen
 
         var margin = parseInt(objectChildren.css('margin-right')); // column margin
         var shift  = objectChildren.width() * total + margin * (total - 1) + margin; // width of shift block
@@ -262,16 +252,14 @@ $(function(){
         switch (direction) {
             case 'left' :
 
-                shift -= this.options.shiftSize;   // add some optional animations shift
+                shift += this.options.shiftSize; // add some optional animations shift
                 shift += 'px'; // add 'px'
 
                 this.clickCounter--;
 
                 this.$object.animate({'left' : '+=' + shift}, self.options.time);
 
-                setTimeout(function(){
-                    self.$object.animate({'left' : '+=' + self.options.shiftSize + 'px'}, self.options.shiftTime, easing);
-                }, self.options.time);
+                this.$object.animate({'left' : '-=' + self.options.shiftSize + 'px'}, self.options.shiftTime, easing);
 
                 if (this.clickCounter < (this.options.pages - 1)) {
                     this.$arrowRight.css({'display' : 'block'});
@@ -291,34 +279,35 @@ $(function(){
 
                 var clickLimit = total - 1; // count max clicks
 
-                var itemsLimit   = total * this.options.pages;  // count max items
+                var itemsLimit   = total * this.options.pages; // count max items
                 var itemsCurrent = objectChildren.length; // count current items
 
                 var count = itemsLimit - itemsCurrent;
 
                 if (count >= total) {
                     count = total;
-                } else {
-                    count = count;
                 }
 
-                shift += this.options.shiftSize;   // add some optional animations shift
+                if (this.options.lines > 1) {
+                    count = count * this.options.lines; //TODO multiplelines
+                }
+
+                shift += this.options.shiftSize; // add some optional animations shift
                 shift += 'px'; // add 'px'
 
                 this.clickCounter++;
 
                 this.$object.animate({'left' : '-=' + shift}, self.options.time);
 
-                setTimeout(function(){
-                    self.$object.animate({'left' : '+=' + self.options.shiftSize + 'px'}, self.options.shiftTime, easing);
-                }, self.options.time);
+                this.$object.animate({'left' : '+=' + self.options.shiftSize + 'px'}, self.options.shiftTime, easing);
 
                 if (this.clickCounter > 0) {
                     this.$arrowLeft.css({'display' : 'block'});
                     this.$arrowLeft.animate({'opacity' : 1}, this.options.arrowTime);
 
                     if (itemsCurrent < itemsLimit) {
-                        $.get('ajax/recomended' + count + '.html',function(data){
+                        $.get(this.options.loadUrl + count + '.html',function(data){
+                        // TODO ajax url
                             self.$object.append(data);
                         });
                     }
@@ -352,26 +341,33 @@ $(function(){
         }
     };
 
+    SliderBlock.prototype.isAnimated = function(){
+
+        return this.$object.is(':animated');
+
+    };
+
     SliderBlock.prototype.init = function() {
 
         var self = this; // context for inner function scope
         var count = 0;
 
         this.$arrowLeft.click(function(){
+
+            if (self.isAnimated()) {
+                return;
+            }
+
             self.move('left'); // move left
         });
 
         this.$arrowRight.click(function(){
-            if (count === 0) {
-                self.move('right'); // move right
-                console.log('start');
-                count++;
-            } else {
-                setTimeout(function(){
-                    self.move('right'); // move right
-                    console.log('interval');
-                }, self.options.time);
+
+            if (self.isAnimated()) {
+                return;
             }
+
+            self.move('right'); // move right
         });
 
         $(window).resize(function() {
@@ -394,5 +390,30 @@ $(function(){
     $.fn.hopeSliderBlock.Constructor = SliderBlock;
 
 })(jQuery);
+$(function(){
+    $('.footer__main-button__up').click(function(){
+		$('html, body').animate({scrollTop : 0},800);
+		return false;
+	});
+});
 
+$(function(){
+    $('.anons').hopeSliderBlock({
+        loadUrl: 'ajax/anons',
+        name: 'anons'
+    });
+});
+$(function(){
+    $('.popular').hopeSliderBlock({
+        loadUrl: 'ajax/popular',
+        name: 'popular',
+        lines: 2
+    });
+});
+$(function(){
+    $('.recomended').hopeSliderBlock({
+        loadUrl: 'ajax/recomended',
+        name: 'recomended'
+    });
+});
 //# sourceMappingURL=app.js.map

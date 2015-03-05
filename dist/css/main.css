@@ -566,6 +566,7 @@ th {
     width: 464px;
   }
   .content-shows__row {
+    position: relative;
     height: 264px;
     -webkit-column-count: 12px;
     -moz-column-count: 12px;
@@ -578,7 +579,7 @@ th {
     column-width: 226px;
   }
   .content-shows__row-item {
-    margin: 0 0 12px 0;
+    margin: 0 12px 12px 0;
   }
   .content-episodes__row {
     height: 264px;
@@ -710,6 +711,7 @@ th {
     width: 100%;
   }
   .content-shows__row {
+    position: relative;
     height: 272px;
     -webkit-column-count: 18px;
     -moz-column-count: 18px;
@@ -722,7 +724,7 @@ th {
     column-width: 230px;
   }
   .content-shows__row-item {
-    margin: 0 0 20px 0;
+    margin: 0 18px 20px 0;
   }
   .content-episodes__row {
     height: 272px;
@@ -818,6 +820,12 @@ html {
 *:after {
   box-sizing: inherit;
 }
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 body {
   background: #eeeeee;
   -webkit-font-smoothing: antialiased;
@@ -869,6 +877,14 @@ body {
   position: relative;
   left: 0;
   display: inherit;
+}
+.anons {
+  position: relative;
+  left: 0;
+  display: inherit;
+}
+.popular {
+  left: 0;
 }
 .btn {
   display: inline-block;
@@ -1409,30 +1425,38 @@ body {
 }
 .header-main__russian {
   float: left;
-  width: 27px;
-  height: 27px;
-  background: url("../img/header-ruActive.png") no-repeat;
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  border: solid 3px #fff;
+  background: url("../img/ru.svg") no-repeat;
 }
 .header-main__arrow {
   float: left;
   clear: right;
   width: 20px;
   height: 27px;
-  background: url("../img/header-arrow.png") no-repeat 25% 10%;
+  background: url("../img/arrowLanguage--hover.svg") no-repeat;
+  opacity: 0.5;
 }
 .header-main__arrow2 {
   float: left;
   width: 27px;
   height: 27px;
   margin-right: 4px;
-  background: url("../img/header-arrow2.png") no-repeat 90% 20%;
+  background: url("../img/arrowLanguage--hover.svg") no-repeat;
+  -webkit-transform: scaleX(-1) scaleY(-1);
+  transform: scaleX(-1) scaleY(-1);
+  opacity: 0.5;
 }
 .header-main__ukrain {
   float: left;
   width: 20px;
   height: 20px;
   margin-top: -7px;
-  background: url("../img/header-ukInactive.png") no-repeat;
+  border-radius: 10px;
+  border: solid 3px rgba(0, 0, 0, 0.3);
+  background: url("../img/ua.svg") no-repeat;
 }
 .header-timeline {
   position: relative;
@@ -2115,10 +2139,14 @@ body {
 }
 .content-arrow-right {
   width: 100px;
-  height: 261px;
+  height: 264px;
   position: absolute;
   top: 81px;
   right: -97px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .content-arrow-right::before {
   content: "";
@@ -2150,9 +2178,13 @@ body {
   top: 81px;
   left: -97px;
   width: 100px;
-  height: 261px;
+  height: 264px;
   opacity: 0;
   display: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .content-arrow-left::before {
   content: "";
@@ -2876,6 +2908,11 @@ body {
   border-bottom: solid 5px #ddd;
   margin-top: 35px;
   transition: all 0.5s ease-out;
+}
+.banners-wide-item {
+  border-right: dotted 1px #808285;
+  height: 160px;
+  margin: 13px 0;
 }
 .banners-wide-link {
   display: block;

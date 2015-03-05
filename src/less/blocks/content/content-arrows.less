@@ -2,10 +2,11 @@
 
 .content-arrow-right {
     width: 100px;
-    height: 261px;
+    height: 264px;
     position: absolute;
     top: 81px;
     right: -97px;
+    user-select: none;
 }
 
 .content-arrow-right::before {
@@ -31,8 +32,6 @@
 .content-arrow-right:hover::before {
     opacity: 0.85;
     transform: scaleX(-1) scale(1.05);
-    //-webkit-animation: arrowAnimation 0.2s;
-    //-webkit-animation-delay: 0.25s;
     right: 61px;
 }
 
@@ -41,9 +40,10 @@
     top: 81px;
     left: -97px;
     width: 100px;
-    height: 261px;
+    height: 264px;
     opacity: 0;
     display: none;
+    user-select: none;
 }
 
 .content-arrow-left::before {

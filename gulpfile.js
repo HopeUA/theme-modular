@@ -33,7 +33,10 @@ gulp.task('theme-less', function(){
         'src/js/vendor/jquery-2.1.3.min.js',
         'src/js/vendor/jquery.easing.1.3.js',
         'src/js/vendor/jquery.bez.min.js',
+        'src/js/plugins/slider-block.js',
         'src/js/button-up.js',
+        'src/js/content/anons.js',
+        'src/js/content/popular.js',
         'src/js/content/recomended.js'
     ])
     .pipe(sourcemaps.init())
