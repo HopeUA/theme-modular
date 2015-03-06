@@ -35,6 +35,7 @@ gulp.task('theme-less', function(){
         'src/js/vendor/jquery.bez.min.js',
         'src/js/plugins/slider-block.js',
         'src/js/button-up.js',
+        'src/js/content/new.js',
         'src/js/content/anons.js',
         'src/js/content/popular.js',
         'src/js/content/recomended.js'

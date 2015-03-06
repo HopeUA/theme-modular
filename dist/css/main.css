@@ -886,6 +886,13 @@ body {
 .popular {
   left: 0;
 }
+.new {
+  position: relative;
+  left: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
 .btn {
   display: inline-block;
   font-size: 18px;

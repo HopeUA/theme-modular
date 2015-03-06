@@ -28,10 +28,20 @@
 
         var objectChildren  = this.$object.children(); // items
 
-        var total = Math.round(this.$object.parent().width() / objectChildren.width()); // count blocks on screen
+        if (objectChildren.length === 2) {
+            var place = objectChildren.filter(':eq(1)');
+            var special = true;
+        } else {
+             var place = this.$object
+        }
+
+        var objectChildrenWidth = objectChildren.filter(':eq(1)').width();
+
+        var total = Math.round(this.$object.parent().width() / objectChildrenWidth); // count blocks on screen
 
         var margin = parseInt(objectChildren.css('margin-right')); // column margin
-        var shift  = objectChildren.width() * total + margin * (total - 1) + margin; // width of shift block
+
+        var shift  = objectChildrenWidth * total + margin * (total - 1) + margin; // width of shift block
 
         var easing = typeof this.options.shiftEasing === 'string' ? this.options.shiftEasing : $.bez(self.options.shiftEasing);
         // you can use string type like this 'easeInSine' or cubic-bezier like this [1,1,1,1]
@@ -66,18 +76,41 @@
 
                 var clickLimit = total - 1; // count max clicks
 
-                var itemsLimit   = total * this.options.pages; // count max items
-                var itemsCurrent = objectChildren.length; // count current items
+                if (special) {
+                    var itemsLimit = ((total - 1) * this.options.pages) * this.options.lines; // count max items
+                    var n = total * 2;
 
-                var count = itemsLimit - itemsCurrent;
+                    var itemsCurrent = objectChildren.filter(':eq(1)').children().length; // count current items
+                    var count = itemsLimit - itemsCurrent;
 
-                if (count >= total) {
-                    count = total;
+                    if (count >= n) {
+                        count = n;
+                    }
+
+                } else if (this.options.lines > 1) {
+                    var itemsLimit = (total * this.options.pages) * this.options.lines; // count max items
+                    var n = total * 2;
+
+                    var itemsCurrent = objectChildren.length; // count current items
+                    var count = itemsLimit - itemsCurrent;
+
+                    console.log(count);
+
+                    if (count >= n) {
+                        count = n;
+                    }
+
+                } else {
+                    var itemsLimit = total * this.options.pages; // count max items
+
+                    var itemsCurrent = objectChildren.length; // count current items
+                    var count = itemsLimit - itemsCurrent;
+
+                    if (count >= total) {
+                        count = total;
+                    }
                 }
 
-                if (this.options.lines > 1) {
-                    count = count * this.options.lines; //TODO multiplelines
-                }
 
                 shift += this.options.shiftSize; // add some optional animations shift
                 shift += 'px'; // add 'px'
@@ -95,7 +128,7 @@
                     if (itemsCurrent < itemsLimit) {
                         $.get(this.options.loadUrl + count + '.html',function(data){
                         // TODO ajax url
-                            self.$object.append(data);
+                            place.append(data);
                         });
                     }
                 }
