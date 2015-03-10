@@ -77,7 +77,7 @@
                 var clickLimit = total - 1; // count max clicks
 
                 if (special) {
-                    var itemsLimit = ((total - 1) * this.options.pages) * this.options.lines; // count max items
+                    var itemsLimit = (((total - 1) * this.options.pages) * this.options.lines) + 6; // count max items
                     var n = total * 2;
 
                     var itemsCurrent = objectChildren.filter(':eq(1)').children().length; // count current items
@@ -94,8 +94,6 @@
                     var itemsCurrent = objectChildren.length; // count current items
                     var count = itemsLimit - itemsCurrent;
 
-                    console.log(count);
-
                     if (count >= n) {
                         count = n;
                     }
@@ -110,7 +108,6 @@
                         count = total;
                     }
                 }
-
 
                 shift += this.options.shiftSize; // add some optional animations shift
                 shift += 'px'; // add 'px'
@@ -167,6 +164,10 @@
 
     };
 
+    SliderBlock.prototype.test = function() {
+        console.log('test');
+    }
+
     SliderBlock.prototype.init = function() {
 
         var self = this; // context for inner function scope
@@ -198,15 +199,25 @@
 
     function Plugin(option) {
         return this.each(function () {
-
+            var $this = $(this);
+            var data = $this.data('hopeSliderBlock');
             var options = typeof option == 'object' && option; // return false or object option
 
-            new SliderBlock(this, options).init(); // constructor initializating
+            //if (!data) {
+                data = new SliderBlock(this, options); // constructor initializating
+                data.init();
+            //    $this.data('hopeSliderBlock', data);
+            //}
 
         });
     }
 
     $.fn.hopeSliderBlock = Plugin;
     $.fn.hopeSliderBlock.Constructor = SliderBlock;
+
+    //$.fn.hopeSliderBlock.setUrl = function (url) {
+    //
+    //    return object;
+    //};
 
 })(jQuery);
