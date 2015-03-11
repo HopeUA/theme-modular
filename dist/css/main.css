@@ -983,16 +983,23 @@ body {
 }
 .filter-small {
   position: absolute;
+  z-index: 100;
   margin-top: 29px;
   color: #808285;
   font: 13px PTSansRegular;
   line-height: 28px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .filter-small__items {
   position: absolute;
   z-index: 3;
   top: 9px;
   right: -8px;
+  display: none;
+  opacity: 0;
   padding: 0;
   border-radius: 3px;
   background: #fff;
