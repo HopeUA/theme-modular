@@ -211,6 +211,103 @@ jQuery.extend( jQuery.easing,
 
 jQuery.extend({bez:function(encodedFuncName,coOrdArray){if(jQuery.isArray(encodedFuncName)){coOrdArray=encodedFuncName;encodedFuncName="bez_"+coOrdArray.join("_").replace(/\./g,"p")}if(typeof jQuery.easing[encodedFuncName]!=="function"){var polyBez=function(p1,p2){var A=[null,null],B=[null,null],C=[null,null],bezCoOrd=function(t,ax){C[ax]=3*p1[ax],B[ax]=3*(p2[ax]-p1[ax])-C[ax],A[ax]=1-C[ax]-B[ax];return t*(C[ax]+t*(B[ax]+t*A[ax]))},xDeriv=function(t){return C[0]+t*(2*B[0]+3*A[0]*t)},xForT=function(t){var x=t,i=0,z;while(++i<14){z=bezCoOrd(x,0)-t;if(Math.abs(z)<.001)break;x-=z/xDeriv(x)}return x};return function(t){return bezCoOrd(xForT(t),1)}};jQuery.easing[encodedFuncName]=function(x,t,b,c,d){return c*polyBez([coOrdArray[0],coOrdArray[1]],[coOrdArray[2],coOrdArray[3]])(t/d)+b}}return encodedFuncName}});;
 
+$(function(){
+
+    var elementArrowLeft   = $('.header-banner__arrow_left');
+    var elementArrowRight  = $('.header-banner__arrow_right');
+
+    elementArrowRight.click(function(){
+
+        var $current = $('.header-banner__item__current');
+        var $next    = $('.header-banner__item__current').next('.header-banner__item');
+        var $prev    = $('.header-banner__item__current').prev('.header-banner__item');
+        var $first   = $('.header-banner__item').first();
+
+        $current.animate({opacity : 0}, 200);
+
+        $current.removeClass('header-banner__item__current');
+
+        if ($next.length === 0) {
+            $first.addClass('header-banner__item__current');
+
+            return;
+        }
+
+        $next.animate({opacity : 1}, 200);
+        setTimeout(function(){
+            $next.addClass('header-banner__item__current');
+        });
+
+    });
+});
+$(function(){
+
+    var status = true;
+
+    $('.header-timeline__items > div').click(function(){
+
+        var timelineMenu = $('.header-timeline-menu');
+        var blur = 'blur(6px)';
+
+        var elementTime        = $('.header-banner__item-time');
+        var elementDay         = $('.header-banner__item-day');
+        var elementTitle       = $('.header-banner__item-title');
+        var elementDescription = $('.header-banner__item-description');
+        var elementPlay        = $('.header-banner__item-play');
+        var elementArrowLeft   = $('.header-banner__arrow_left');
+        var elementArrowRight  = $('.header-banner__arrow_right');
+
+        if (status) {
+            timelineMenu.css({display : 'block'});
+            timelineMenu.animate({opacity : 1}, 200);
+
+            $('.header-banner__item').css('filter', blur)
+                .css('webkitFilter', blur)
+                .css('mozFilter', blur)
+                .css('oFilter', blur)
+                .css('msFilter', blur);
+
+            hide(elementTime, 200);
+            hide(elementDay, 200);
+            hide(elementTitle, 200);
+            hide(elementDescription, 200);
+            hide(elementPlay, 200);
+            hide(elementArrowLeft, 200);
+            hide(elementArrowRight, 200);
+
+        } else {
+            timelineMenu.animate({opacity : 0}, 200);
+            setTimeout(function(){
+                timelineMenu.css({display : 'none'});
+            }, 200);
+
+            $('.header-banner__item').css('filter', 'blur(0)')
+                .css('webkitFilter', 'blur(0)')
+                .css('mozFilter', 'blur(0)')
+                .css('oFilter', 'blur(0)')
+                .css('msFilter', 'blur(0)');
+
+            show(elementTime, 200);
+            show(elementDay, 200);
+            show(elementTitle, 200);
+            show(elementDescription, 200);
+            show(elementPlay, 200);
+            show(elementArrowLeft, 200);
+            show(elementArrowRight, 200);
+
+        }
+
+        function hide($object, time){
+            $object.animate({opacity : 0}, time);
+        };
+
+        function show($object, time){
+            $object.animate({opacity : 1}, time);
+        };
+
+        status = !status;
+    });
+});
 (function( $ ) {
     var SliderBlock = function(object, options){
 

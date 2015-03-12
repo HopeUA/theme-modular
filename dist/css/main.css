@@ -1484,6 +1484,10 @@ body {
   display: -ms-flexbox;
   display: flex;
   width: 5250px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .header-timeline__item {
   padding: 3px 15px 0 0;
@@ -1579,6 +1583,8 @@ body {
   position: absolute;
   top: 0;
   overflow: hidden;
+  display: none;
+  opacity: 0;
   width: 100%;
   height: 530px;
   background: rgba(0, 0, 0, 0.75);
@@ -1592,6 +1598,7 @@ body {
 }
 .header-timeline-menu-items {
   position: absolute;
+  z-index: 10;
   top: 210px;
   left: -528px;
   display: -webkit-flex;
@@ -1966,6 +1973,9 @@ body {
 .header-banner {
   height: 385px;
 }
+.header-banner__item__current {
+  opacity: 1!important;
+}
 .header-banner__item {
   position: absolute;
   z-index: 0;
@@ -1974,8 +1984,7 @@ body {
   height: 530px;
   border-bottom: solid 5px #9b9b9b;
   background-position: center top;
-  -webkit-filter: blur(6px);
-  filter: blur(6px);
+  opacity: 0;
 }
 .header-banner__item:after {
   position: absolute;
@@ -2004,7 +2013,6 @@ body {
   align-items: center;
   width: 140px;
   height: 303px;
-  opacity: 0;
 }
 .header-banner__arrow_left::before {
   display: block;
@@ -2030,7 +2038,6 @@ body {
   align-items: center;
   width: 140px;
   height: 303px;
-  opacity: 0;
 }
 .header-banner__arrow_right::before {
   display: block;
@@ -2055,7 +2062,6 @@ body {
   color: #ffffff;
   font: 500 38px PTSansBold;
   text-align: center;
-  opacity: 0;
 }
 .header-banner__item-day {
   position: absolute;
@@ -2069,7 +2075,6 @@ body {
   font: bold 12px PTSansBold;
   text-transform: uppercase;
   text-align: center;
-  opacity: 0;
 }
 .header-banner__item-title {
   position: absolute;
@@ -2078,7 +2083,6 @@ body {
   margin: 0 0 13px 40px;
   color: #ffffff;
   font: bold 15px PTSansBold;
-  opacity: 0;
 }
 .header-banner__item-description {
   position: absolute;
@@ -2088,7 +2092,6 @@ body {
   color: #d1d3d4;
   font: 14px PTSansRegular;
   line-height: 16px;
-  opacity: 0;
 }
 .header-banner__item-play {
   position: relative;
@@ -2096,7 +2099,6 @@ body {
   display: block;
   height: 290px;
   margin: 0 auto;
-  opacity: 0;
 }
 .header-banner__item-play::before {
   display: block;
