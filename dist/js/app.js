@@ -498,6 +498,8 @@ $(function(){
 
     $('.filter-small__default').click(function(){
 
+        event.stopPropagation();
+
         var status = $(this).is(':animated');
 
         if (status) {
@@ -527,7 +529,9 @@ $(function(){
         counter = !counter;
     });
 
-    $('.filter-small__item').click(function(){
+    $('.filter-small__items').on('click', '.filter-small__item', function(){
+
+        event.stopPropagation();
 
         var status = $(this).is(':animated');
 
@@ -548,6 +552,17 @@ $(function(){
 
         var filterActive = $(this).parents().children().filter('.filter-small__item__selected');
 
+        var itemBefore = $("<li class='filter-small__item' data-type='" + filterActive.attr('data-type') + "' data-order='" + filterActive.attr('data-order') + "'>" + filterActive.html() + "</li>");
+
+        itemBefore.appendTo(parent);
+        children = parent.children().filter('li').not('.filter-small__item__selected');
+
+        children.sort(function(a, b) {
+            return a.getAttribute('data-order') > b.getAttribute('data-order');
+        }).appendTo(children.parent());
+
+        this.remove();
+
         parent.animate({'opacity' : 0}, 200);
         setTimeout(function(){
             parent.css({'display' : 'none'});
@@ -557,12 +572,28 @@ $(function(){
         filterDefault.animate({'opacity' : 1}, 200);
 
         filterDefault.html(currentText);
-        filterActive.html(currentText);
 
-        this.remove();
+        filterActive.html(currentText);
+        filterActive.attr('data-type', currentType);
+        filterActive.attr('data-order', currentId);
+
+        slider.setUrl('ajax/popular/?type=' + currentType);
+        slider.reload();
 
         counter = !counter;
+    });
 
+    $(document).click(function(){
+
+        $('.filter-small__default').css({'display' : 'block'});
+        $('.filter-small__default').animate({'opacity' : 1}, 200);
+
+        $('.filter-small__items').animate({'opacity' : 0}, 200);
+        setTimeout(function(){
+            $(this).css({'display' : 'none'});
+        }, 200);
+
+        counter = true;
     });
 });
 
