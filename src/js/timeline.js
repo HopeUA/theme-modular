@@ -14,6 +14,7 @@ $(function(){
         var elementPlay        = $('.header-banner__item-play');
         var elementArrowLeft   = $('.header-banner__arrow_left');
         var elementArrowRight  = $('.header-banner__arrow_right');
+        var elementControls    = $('.header-banner__controls');
 
         if (status) {
             timelineMenu.css({display : 'block'});
@@ -32,6 +33,7 @@ $(function(){
             hide(elementPlay, 200);
             hide(elementArrowLeft, 200);
             hide(elementArrowRight, 200);
+            hide(elementControls, 200);
 
         } else {
             timelineMenu.animate({opacity : 0}, 200);
@@ -52,6 +54,7 @@ $(function(){
             show(elementPlay, 200);
             show(elementArrowLeft, 200);
             show(elementArrowRight, 200);
+            show(elementControls, 200);
 
         }
 

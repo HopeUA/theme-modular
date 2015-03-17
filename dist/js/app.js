@@ -216,30 +216,115 @@ $(function(){
     var elementArrowLeft   = $('.header-banner__arrow_left');
     var elementArrowRight  = $('.header-banner__arrow_right');
 
-    elementArrowRight.click(function(){
+    elementArrowLeft.click(function(){
 
-        var $current = $('.header-banner__item__current');
-        var $next    = $('.header-banner__item__current').next('.header-banner__item');
-        var $prev    = $('.header-banner__item__current').prev('.header-banner__item');
-        var $first   = $('.header-banner__item').first();
-
-        $current.animate({opacity : 0}, 200);
-
-        $current.removeClass('header-banner__item__current');
-
-        if ($next.length === 0) {
-            $first.addClass('header-banner__item__current');
-
-            return;
-        }
-
-        $next.animate({opacity : 1}, 200);
-        setTimeout(function(){
-            $next.addClass('header-banner__item__current');
-        });
+        move('left');
 
     });
+
+    elementArrowRight.click(function(){
+
+        move('right');
+
+    });
+
+    function move(direction) {
+
+        var time = 400;
+
+        var $current = $('.header-banner__item__current');
+        var $first   = $('.header-banner__item').first();
+        var $last   = $('.header-banner__item').last();
+
+        if (direction === 'left') {
+            var $next    = $('.header-banner__item__current').prev('.header-banner__item');
+            var $prev    = $('.header-banner__item__current').next('.header-banner__item');
+
+            if ($first.hasClass('header-banner__item__current')) {
+
+                $current.animate({opacity : 0}, time);
+                $last.animate({opacity : 1}, time);
+
+                setTimeout(function(){
+                    $current.removeClass('header-banner__item__current');
+                    $last.addClass('header-banner__item__current');
+
+                    $current = $('.header-banner__item__current');
+                    $current.animate({opacity : 1}, time);
+                }, time)
+
+            } else {
+
+                $current.animate({opacity : 0}, time);
+                $next.animate({opacity : 1}, time);
+
+                setTimeout(function(){
+                    $current.removeClass('header-banner__item__current');
+                    $next.addClass('header-banner__item__current');
+
+                    $current = $('.header-banner__item__current');
+                    $current.animate({opacity : 1}, time);
+                }, time);
+            }
+
+        } else if (direction === 'right') {
+
+            var $next    = $('.header-banner__item__current').next('.header-banner__item');
+            var $prev    = $('.header-banner__item__current').prev('.header-banner__item');
+
+            if ($last.hasClass('header-banner__item__current')) {
+
+                $current.animate({opacity : 0}, time);
+                $first.animate({opacity : 1}, time);
+
+                setTimeout(function(){
+                    $current.removeClass('header-banner__item__current');
+                    $first.addClass('header-banner__item__current');
+
+                    $current = $('.header-banner__item__current');
+                    $current.animate({opacity : 1}, time);
+                }, time)
+
+            } else {
+
+                $current.animate({opacity : 0}, time);
+                $next.animate({opacity : 1}, time);
+
+                setTimeout(function(){
+                    $current.removeClass('header-banner__item__current');
+                    $next.addClass('header-banner__item__current');
+
+                    $current = $('.header-banner__item__current');
+                    $current.animate({opacity : 1}, time);
+                }, time);
+            }
+        }
+    }
+
+    function bannerTimer() {
+        var $line = $('.header-banner__loader');
+        var time = 5000;
+        var w = $(window).width();
+        var speed = (w/time) * 1000;
+
+        $line.animate({
+            width: w
+        }, time, 'linear')
+
+        setTimeout(function(){
+            move('right');
+            $line.width(0);
+        }, time);
+    };
+
+    bannerTimer();
+
+    setInterval(function(){
+        bannerTimer();
+    }, 5000);
+
 });
+
 $(function(){
 
     var status = true;
@@ -256,6 +341,7 @@ $(function(){
         var elementPlay        = $('.header-banner__item-play');
         var elementArrowLeft   = $('.header-banner__arrow_left');
         var elementArrowRight  = $('.header-banner__arrow_right');
+        var elementControls    = $('.header-banner__controls');
 
         if (status) {
             timelineMenu.css({display : 'block'});
@@ -274,6 +360,7 @@ $(function(){
             hide(elementPlay, 200);
             hide(elementArrowLeft, 200);
             hide(elementArrowRight, 200);
+            hide(elementControls, 200);
 
         } else {
             timelineMenu.animate({opacity : 0}, 200);
@@ -294,6 +381,7 @@ $(function(){
             show(elementPlay, 200);
             show(elementArrowLeft, 200);
             show(elementArrowRight, 200);
+            show(elementControls, 200);
 
         }
 
@@ -308,6 +396,7 @@ $(function(){
         status = !status;
     });
 });
+
 (function( $ ) {
     var SliderBlock = function(object, options){
 

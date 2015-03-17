@@ -4,10 +4,6 @@
     height: 385px;
 }
 
-.header-banner__item__current {
-    opacity: 1!important;
-}
-
 .header-banner__item {
     position: absolute;
     z-index: 0;
@@ -17,6 +13,10 @@
     border-bottom: solid 5px @headerBanner__color-loader;
     background-position: center top;
     opacity: 0;
+}
+
+.header-banner__item__current {
+    opacity: 1;
 }
 
 .header-banner__item:after {
@@ -158,7 +158,6 @@
     width: 112px;
     height: 8px;
     margin: 0 auto;
-    opacity: 0;
 }
 
 .header-banner__controls-item {
@@ -184,12 +183,10 @@
     transform: scale(1.3);
 }
 
-.header-banner::after {
+.header-banner__loader {
     position: absolute;
     top: 525px;
-    display: block;
-    width: 500px;
+    width: 0;
     height: 5px;
     background: @headerBanner__color-loader__active;
-    content: "";
 }
