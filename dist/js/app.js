@@ -228,6 +228,12 @@ $(function(){
 
     });
 
+    $('.header-banner__controls-item').click(function(){
+        var index = $(this).index();
+
+        moveTo(this, index);
+    });
+
     function move(direction) {
 
         var time = 400;
@@ -235,6 +241,7 @@ $(function(){
         var $current = $('.header-banner__item__current');
         var $first   = $('.header-banner__item').first();
         var $last    = $('.header-banner__item').last();
+        currentIndex = $current.index();
 
         var $labelActive = $('.header-banner__controls-item__active');
         var $labelFirst   = $('.header-banner__controls-item').first();
@@ -253,12 +260,14 @@ $(function(){
                 $current.animate({opacity : 0}, time);
                 $last.animate({opacity : 1}, time);
 
+                mainColor = $last.data('averegecolor');
+
+                $labelActive.removeClass('header-banner__controls-item__active');
+                $labelLast.addClass('header-banner__controls-item__active');
+
                 setTimeout(function(){
                     $current.removeClass('header-banner__item__current');
-                    $labelActive.removeClass('header-banner__controls-item__active');
-                    $labelLast.addClass('header-banner__controls-item__active');
                     $last.addClass('header-banner__item__current');
-
                     $current = $('.header-banner__item__current');
                     $current.animate({opacity : 1}, time);
                 }, time)
@@ -268,11 +277,14 @@ $(function(){
                 $current.animate({opacity : 0}, time);
                 $next.animate({opacity : 1}, time);
 
+                mainColor = $next.data('averegecolor');
+
+                $labelActive.removeClass('header-banner__controls-item__active');
+                $labelNext.addClass('header-banner__controls-item__active');
+
                 setTimeout(function(){
                     $current.removeClass('header-banner__item__current');
-                    $labelActive.removeClass('header-banner__controls-item__active');
                     $next.addClass('header-banner__item__current');
-                    $labelNext.addClass('header-banner__controls-item__active');
                     $current = $('.header-banner__item__current');
                     $current.animate({opacity : 1}, time);
                 }, time);
@@ -291,12 +303,14 @@ $(function(){
                 $current.animate({opacity : 0}, time);
                 $first.animate({opacity : 1}, time);
 
+                mainColor = $first.data('averegecolor');
+
+                $labelActive.removeClass('header-banner__controls-item__active');
+                $labelFirst.addClass('header-banner__controls-item__active');
+
                 setTimeout(function(){
                     $current.removeClass('header-banner__item__current');
-                    $labelActive.removeClass('header-banner__controls-item__active');
-                    $labelFirst.addClass('header-banner__controls-item__active');
                     $first.addClass('header-banner__item__current');
-
                     $current = $('.header-banner__item__current');
                     $current.animate({opacity : 1}, time);
                 }, time)
@@ -306,12 +320,14 @@ $(function(){
                 $current.animate({opacity : 0}, time);
                 $next.animate({opacity : 1}, time);
 
+                mainColor = $next.data('averegecolor');
+
+                $labelActive.removeClass('header-banner__controls-item__active');
+                $labelNext.addClass('header-banner__controls-item__active');
+
                 setTimeout(function(){
                     $current.removeClass('header-banner__item__current');
-                    $labelActive.removeClass('header-banner__controls-item__active');
                     $next.addClass('header-banner__item__current');
-                    $labelNext.addClass('header-banner__controls-item__active');
-
                     $current = $('.header-banner__item__current');
                     $current.animate({opacity : 1}, time);
                 }, time);
@@ -319,47 +335,72 @@ $(function(){
         }
     }
 
-    function bannerTimer() {
+    function moveTo(self, index) {
 
-        //
+        var $labelActive = $('.header-banner__controls-item__active');
+
+        var $current = $('.header-banner__item__current');
+        var $first   = $('.header-banner__item').first();
+        var $last    = $('.header-banner__item').last();
+
+        var $next = $('.header-banner__item').eq(index);
+
+        mainColor = $next.data('averegecolor');
+
+        $labelActive.removeClass('header-banner__controls-item__active');
+        $(self).addClass('header-banner__controls-item__active');
+
+        $current.animate({opacity : 0}, 400);
+        $next.animate({opacity : 1}, 400);
+
+        setTimeout(function(){
+            $current.removeClass('header-banner__item__current');
+            $next.addClass('header-banner__item__current');
+            $current = $('.header-banner__item__current');
+            $current.animate({opacity : 1}, 400);
+        }, 400);
+    }
+
+    var mainColor = $('.header-banner__item').eq(0).data('averegecolor');
+
+    function bannerTimer() {
 
         var $line = $('.header-banner__loader');
         var timer = 5000;
         var width = $(window).width();
 
         var $line = $('.header-banner__loader');
-        var $current = $('.header-banner__item__current').data('averegecolor');
-        var color = $current;
 
-        $line.css('background-color', color);
+        $line.css('background-color', mainColor);
 
         $line.animate({
             width: width
-        }, timer, 'linear');
+        }, 4990, 'linear', function(){
+            move('right');
+        });
 
         setTimeout(function(){
-            move('right');
             $line.animate({width : 0}, 0);
-        }, 4999);
+        }, 4990);
 
     };
 
     var sliderAnimations = null;
-
-//    var $line = $('.header-banner__loader');
-//    var $current = $('.header-banner__item__current').data('averegecolor');
-//    var color = $current;
-//
-//    $line.css('background-color', color);
+    var changeTimeout = null;
+    var $line = $('.header-banner__loader');
 
     bannerTimer();
-    var sliderAnimations = window.setInterval(bannerTimer, 5010);
+
+    var sliderAnimations = setInterval(bannerTimer, 5010);
 
     $('.header__large').hover(function(){
-        window.clearInterval(sliderAnimations);
+        clearInterval(sliderAnimations);
+        $line.stop();
+        $line.animate({width : 0}, 600);
+
     }, function(){
         bannerTimer();
-        sliderAnimations = window.setInterval(bannerTimer, 5010);
+        sliderAnimations = setInterval(bannerTimer, 5010);
     });
 });
 
