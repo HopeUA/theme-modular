@@ -1479,7 +1479,7 @@ body {
 }
 .header-timeline__items {
   position: absolute;
-  left: -662px;
+  left: -636px;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -1514,7 +1514,7 @@ body {
   background: #7c7c7c;
   content: "";
 }
-.header-timeline__item-current::before {
+.header-timeline__item-current .before {
   display: block;
   width: 51px;
   height: 3px;
@@ -1522,7 +1522,7 @@ body {
   background: #7c7c7c;
   content: "";
 }
-.header-timeline__item-current::after {
+.header-timeline__item-current .after {
   position: relative;
   top: -43px;
   left: 60px;
@@ -1532,6 +1532,7 @@ body {
   border-radius: 1px;
   background: #2662b1;
   content: "";
+  z-index: -1;
 }
 .header-timeline__item-next::before {
   display: block;
@@ -1546,7 +1547,7 @@ body {
 .header-timeline-line::before {
   position: relative;
   top: 9px;
-  left: -28px;
+  left: -2px;
   display: block;
   width: 3px;
   height: 9px;

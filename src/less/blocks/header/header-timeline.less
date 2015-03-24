@@ -8,7 +8,7 @@
 
 .header-timeline__items {
     position: absolute;
-    left: -662px;
+    left: -636px;
     display: flex;
     width: 5250px;
     user-select:none;
@@ -46,7 +46,7 @@
     content: "";
 }
 
-.header-timeline__item-current::before {
+.header-timeline__item-current .before {
     display: block;
     width: 51px;
     height: 3px;
@@ -55,7 +55,7 @@
     content: "";
 }
 
-.header-timeline__item-current::after {
+.header-timeline__item-current .after {
     position: relative;
     top: -43px;
     left: 60px;
@@ -65,6 +65,7 @@
     border-radius: 1px;
     background: @headerTimeline__color-next;
     content: "";
+    z-index: -1;
 }
 
 .header-timeline__item-next::before {
@@ -82,7 +83,7 @@
 .header-timeline-line::before {
     position: relative;
     top: 9px;
-    left: -28px;
+    left: -2px;
     display: block;
     width: 3px;
     height: 9px;
