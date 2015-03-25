@@ -2,7 +2,7 @@ $(function(){
 
     var status = true;
 
-    moveTimeline();
+    //moveTimeline();
 
     loadJson('/dist/ajax/timeline.json');
 
@@ -129,31 +129,79 @@ $(function(){
     }
 
     function loadJson(url) {
+
+        var self = $('.header-timeline__item-current');
+        var $before = self.find('.before');
+        var $after  = self.find('.after');
+
+        currentBefore = null;
+        currentAfter  = null;
+
         $.getJSON(url, function(data) {
-            var serverTime = data.serverTime;
-            var episodes   = data.episodes;
-            var str        = null;
-            var place      = $('.header-timeline__items');
-            var minutes    = null;
-            var multiplier = 5;
+            var serverTime   = data.serverTime;
+            var episodes     = data.episodes;
+            var str          = null;
+            var place        = $('.header-timeline__items');
+            var minutes      = null;
+            var multiplier   = 5;
+            var minutes      = null;
+            var elementClass = null;
 
             var minWidth = 100;
-            var width    = multiplier * minutes;
 
-            if (width < minWidth) {
-                width = minWidth;
-            }
+            console.log('Current ServerTime: ' + myTime(serverTime) + ' unix: ' + serverTime);
 
             $.each(episodes, function(index, element) {
-                str = '<div class="header-timeline__item" style="width: 150px"><span class="header-timeline__time">' + element.beginTime + '</span><span class="header-timeline__live">' + element.label +'</span><p class="header-timeline__description">' + element.showTitle + '</p></div>'
+
+                var start    = element.beginTime;
+                var duration = element.duration / 60;
+                var end      = start + element.duration;
+                var after    = end - serverTime;
+                var before   = element.duration - after;
+                var width    = multiplier * duration;
+
+                if (width < minWidth) {
+                    width = minWidth;
+                }
+
+                if (end < serverTime) {
+                    before = element.duration;
+                    after  = 0;
+                    elementClass = 'header-timeline__item';
+                }
+
+                if (before < 0) {
+                    before = 0;
+                    after  = element.duration;
+                    elementClass = 'header-timeline__item-next';
+                }
+
+                if (before > 0 && after > 0) {
+                    elementClass = 'header-timeline__item-current';
+                    currentBefore = before / (element.duration / width);
+                    currentAfter  = after / (element.duration / width);
+                }
+
+                str = '<div class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + myTime(element.beginTime) + '</span><span class="header-timeline__live">' + element.label +'</span><p class="header-timeline__description">' + element.showTitle + '</p><div class="after"></div></div>'
                 place.append(str);
-                console.log(str);
             });
         });
+
+        $before.css('width', currentBefore);
+        $after.css('width', currentAfter);
     }
 
-//<div class="header-timeline__item" style="width: 150px">
-//                <span class="header-timeline__time">12:40</span>
-//                <span class="header-timeline__live">live</span>
-//                <p class="header-timeline__description">В центре внимания</p>
-//            </div>
+    function myTime(unixTime) {
+
+        var date = new Date(unixTime *1000);
+
+        var hours   = date.getUTCHours();
+        var minutes = date.getUTCMinutes();
+
+        hours   = (hours < 10) ? '0' + hours : hours;
+        minutes = (minutes < 10) ? '0' + minutes : minutes;
+
+        var result = hours + ':' + minutes;
+
+        return result;
+    }

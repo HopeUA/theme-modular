@@ -1507,7 +1507,7 @@ body {
 .header-timeline__item-next:hover {
   cursor: pointer;
 }
-.header-timeline__item:before {
+.header-timeline__item .before {
   display: block;
   height: 3px;
   border-radius: 1px;
@@ -1516,7 +1516,6 @@ body {
 }
 .header-timeline__item-current .before {
   display: block;
-  width: 51px;
   height: 3px;
   border-radius: 1px;
   background: #7c7c7c;
@@ -1527,14 +1526,13 @@ body {
   top: -43px;
   left: 60px;
   display: block;
-  width: 76px;
   height: 3px;
   border-radius: 1px;
   background: #2662b1;
   content: "";
   z-index: -1;
 }
-.header-timeline__item-next::before {
+.header-timeline__item-next .before {
   display: block;
   height: 3px;
   border-radius: 1px;
