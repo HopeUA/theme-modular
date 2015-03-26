@@ -134,9 +134,6 @@ $(function(){
         var $before = self.find('.before');
         var $after  = self.find('.after');
 
-        currentBefore = null;
-        currentAfter  = null;
-
         $.getJSON(url, function(data) {
             var serverTime   = data.serverTime;
             var episodes     = data.episodes;
@@ -146,10 +143,15 @@ $(function(){
             var multiplier   = 5;
             var minutes      = null;
             var elementClass = null;
+            var currentBefore = null;
+            var currentAfter  = null;
+            var leftAfter     = null;
+            var leftTimeline  = null;
+            var counterElements = null;
 
             var minWidth = 100;
 
-            console.log('Current ServerTime: ' + myTime(serverTime) + ' unix: ' + serverTime);
+            console.log('Now: ' + myTime(serverTime));
 
             $.each(episodes, function(index, element) {
 
@@ -164,10 +166,11 @@ $(function(){
                     width = minWidth;
                 }
 
-                if (end < serverTime) {
+                if (end <= serverTime) {
                     before = element.duration;
                     after  = 0;
                     elementClass = 'header-timeline__item';
+                    leftTimeline += width;
                 }
 
                 if (before < 0) {
@@ -176,19 +179,40 @@ $(function(){
                     elementClass = 'header-timeline__item-next';
                 }
 
-                if (before > 0 && after > 0) {
+                if (before > 0 && after > 0 || start == serverTime) {
                     elementClass = 'header-timeline__item-current';
-                    currentBefore = before / (element.duration / width);
-                    currentAfter  = after / (element.duration / width);
+                    currentBefore = ((width - 28) / duration) * (before / 60);
+                    currentAfter  = (width - 28) - currentBefore;
+                    leftAfter = currentBefore + 13;
+
+                    if (start == serverTime) {
+                        leftTimeline -= 5;
+                    }
                 }
+
+                console.log(elementClass);
+                console.log(element.showTitle);
+                console.log('begin: ' + myTime(start));
+                console.log('before: ' + myTime(before));
+                console.log('after: ' + myTime(after));
+                console.log('************************');
+
 
                 str = '<div class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + myTime(element.beginTime) + '</span><span class="header-timeline__live">' + element.label +'</span><p class="header-timeline__description">' + element.showTitle + '</p><div class="after"></div></div>'
                 place.append(str);
-            });
-        });
 
-        $before.css('width', currentBefore);
-        $after.css('width', currentAfter);
+            });
+
+            counterElements = $('.header-timeline__item').length;
+
+            $('.header-timeline__item-current .before').css('width', currentBefore);
+            $('.header-timeline__item-current .after').css({'width' : currentAfter, 'left' : leftAfter});
+
+            leftTimeline += currentBefore + 5;
+            leftTimeline = '-' + leftTimeline + 'px';
+            $('.header-timeline__items').css('left', leftTimeline);
+
+        });
     }
 
     function myTime(unixTime) {
