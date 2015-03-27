@@ -408,9 +408,9 @@ $(function(){
 
     var status = true;
 
-    //moveTimeline();
-
     loadJson('/dist/ajax/timeline.json');
+
+
 
     $('.header-timeline__items > div').click(function(){
         toogleTimeline(status);
@@ -511,29 +511,6 @@ $(function(){
         return true;
     };
 
-    function moveTimeline() {
-
-        var self = $('.header-timeline__item-current');
-        var timelineItems = $('.header-timeline__items');
-        var timelineItemsLeft = timelineItems.position();
-        timelineItemsLeft = timelineItemsLeft.left;
-
-        var width       = self.outerWidth() - 14;
-        var before      = self.find('.before')
-        var after       = self.find('.after')
-        var beforeWidth = before.width();
-        var afterWidth  = after.width();
-        var left   = self.find('.after').css('left');
-        var shift  = 9;
-
-        var shiftMain = (width - beforeWidth) + shift;
-        var shiftTimeline = timelineItemsLeft - shiftMain;
-
-        before.animate({width : width}, 1500);
-        timelineItems.animate({left : shiftTimeline}, 2000);
-
-    }
-
     function loadJson(url) {
 
         var self = $('.header-timeline__item-current');
@@ -556,8 +533,6 @@ $(function(){
             var counterElements = null;
 
             var minWidth = 100;
-
-            console.log('Now: ' + myTime(serverTime));
 
             $.each(episodes, function(index, element) {
 
@@ -618,7 +593,44 @@ $(function(){
             leftTimeline = '-' + leftTimeline + 'px';
             $('.header-timeline__items').css('left', leftTimeline);
 
+            setInterval(function(){
+
+                moveTimeline();
+            }, 600);
+
         });
+    }
+
+    function moveTimeline() {
+
+        var timelineItems = $('.header-timeline__items');
+        var timelineItemsLeft = timelineItems.position();
+        timelineItemsLeft = timelineItemsLeft.left - 4.533;
+
+        var $currentElement = $('.header-timeline__item-current');
+        var $currentElementWidth = $currentElement.width() + 3;
+        var $currentElementBefore = $currentElement.find('.before');
+        var $currentElementBeforeWidth = $currentElementBefore.width();
+        var $currentElementAfter = $currentElement.find('.after');
+        var $currentElementAfterWidth = $currentElementAfter.width();
+        var $currentElementAfterMargin = parseInt($currentElementAfter.css('margin-left'));
+
+        if ($currentElementBeforeWidth < $currentElementWidth) {
+            $currentElementBeforeWidth = $currentElementBeforeWidth + 4.533;
+            $currentElementAfterWidth = $currentElementAfterWidth - 4.533;
+            $currentElementAfterMargin = $currentElementAfterMargin + 5;
+            $currentElementBefore.animate({'width' : $currentElementBeforeWidth}, 600, 'linear');
+            $currentElementAfter.animate({'width' : $currentElementAfterWidth, 'margin-left' : $currentElementAfterMargin}, 600, 'linear');
+        } else if ($currentElementBeforeWidth == $currentElementWidth) {
+            $currentElement = $('.header-timeline__item-current');
+            $currentElement.addClass('header-timeline__item');
+            $currentElement.removeClass('header-timeline__item-current');
+            $currentElement.next().removeClass('header-timeline__item-next');
+            $currentElement.next().addClass('header-timeline__item-current');
+        }
+
+        timelineItems.animate({'left' : timelineItemsLeft}, 600, 'linear');
+
     }
 
     function myTime(unixTime) {

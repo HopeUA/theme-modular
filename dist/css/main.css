@@ -1539,6 +1539,10 @@ body {
   background: #2662b1;
   content: "";
 }
+.header-timeline__item-next .after {
+  z-index: -1;
+  position: relative;
+}
 .header-timeline-line {
   overflow: visible;
 }
