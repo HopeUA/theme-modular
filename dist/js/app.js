@@ -410,9 +410,7 @@ $(function(){
 
     loadJson('/dist/ajax/timeline.json');
 
-
-
-    $('.header-timeline__items > div').click(function(){
+    $('.header-timeline__items').on('click', 'div', function(){
         toogleTimeline(status);
         status = !status;
     });
@@ -421,7 +419,38 @@ $(function(){
         hideTimeline();
     });
 
+    $('.header-timeline__items').on('mouseenter', 'div', function(){
+
+        var self = $('.header-timeline__items > div').not($(this));
+
+        if (isAnimated(self)) {
+            return;
+        }
+
+        self.animate({'opacity' : 0.3}, 400);
+
+    });
+
+    $('.header-timeline__items').on('mouseleave', 'div', function(){
+
+        var self = $('.header-timeline__items > div').not($(this));
+
+        if (isAnimated(self)) {
+            return;
+        }
+
+        self.animate({'opacity' : 1}, 400);
+
+    });
+
+
 });
+
+    function isAnimated(self){
+
+        return self.is(':animated');
+
+    };
 
     function toogleTimeline(status) {
         if (status) {
@@ -596,11 +625,11 @@ $(function(){
             var timelineIntervalCounter = 0;
 
             var timelineInterval = setInterval(function(){
-                if(timelineIntervalCounter >= 999) {
+                if(timelineIntervalCounter >= 0) {
                     clearInterval(timelineInterval);
                 } else {
                     moveTimeline();
-                    console.log('counter: ' + timelineIntervalCounter);
+                    //console.log('counter: ' + timelineIntervalCounter);
                     timelineIntervalCounter++;
                 }
             }, 3000);
