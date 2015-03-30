@@ -165,12 +165,12 @@ $(function(){
                     }
                 }
 
-                console.log(elementClass);
-                console.log(element.showTitle);
-                console.log('begin: ' + myTime(start));
-                console.log('before: ' + myTime(before));
-                console.log('after: ' + myTime(after));
-                console.log('************************');
+//                console.log(elementClass);
+//                console.log(element.showTitle);
+//                console.log('begin: ' + myTime(start));
+//                console.log('before: ' + myTime(before));
+//                console.log('after: ' + myTime(after));
+//                console.log('************************');
 
 
                 str = '<div class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + myTime(element.beginTime) + '</span><span class="header-timeline__live">' + element.label +'</span><p class="header-timeline__description">' + element.showTitle + '</p><div class="after"></div></div>'
@@ -187,10 +187,17 @@ $(function(){
             leftTimeline = '-' + leftTimeline + 'px';
             $('.header-timeline__items').css('left', leftTimeline);
 
-            setInterval(function(){
+            var timelineIntervalCounter = 0;
 
-                moveTimeline();
-            }, 600);
+            var timelineInterval = setInterval(function(){
+                if(timelineIntervalCounter >= 999) {
+                    clearInterval(timelineInterval);
+                } else {
+                    moveTimeline();
+                    console.log('counter: ' + timelineIntervalCounter);
+                    timelineIntervalCounter++;
+                }
+            }, 3000);
 
         });
     }
@@ -199,7 +206,7 @@ $(function(){
 
         var timelineItems = $('.header-timeline__items');
         var timelineItemsLeft = timelineItems.position();
-        timelineItemsLeft = timelineItemsLeft.left - 4.533;
+        timelineItemsLeft = timelineItemsLeft.left - 5;
 
         var $currentElement = $('.header-timeline__item-current');
         var $currentElementWidth = $currentElement.width() + 3;
@@ -210,20 +217,21 @@ $(function(){
         var $currentElementAfterMargin = parseInt($currentElementAfter.css('margin-left'));
 
         if ($currentElementBeforeWidth < $currentElementWidth) {
-            $currentElementBeforeWidth = $currentElementBeforeWidth + 4.533;
-            $currentElementAfterWidth = $currentElementAfterWidth - 4.533;
+            $currentElementBeforeWidth = $currentElementBeforeWidth + 5;
+            $currentElementAfterWidth = $currentElementAfterWidth - 5;
             $currentElementAfterMargin = $currentElementAfterMargin + 5;
-            $currentElementBefore.animate({'width' : $currentElementBeforeWidth}, 600, 'linear');
-            $currentElementAfter.animate({'width' : $currentElementAfterWidth, 'margin-left' : $currentElementAfterMargin}, 600, 'linear');
+            $currentElementBefore.animate({'width' : $currentElementBeforeWidth}, 300, 'linear');
+            $currentElementAfter.animate({'width' : $currentElementAfterWidth, 'margin-left' : $currentElementAfterMargin}, 300, 'linear');
         } else if ($currentElementBeforeWidth == $currentElementWidth) {
             $currentElement = $('.header-timeline__item-current');
             $currentElement.addClass('header-timeline__item');
             $currentElement.removeClass('header-timeline__item-current');
             $currentElement.next().removeClass('header-timeline__item-next');
             $currentElement.next().addClass('header-timeline__item-current');
+            console.log('finish');
         }
 
-        timelineItems.animate({'left' : timelineItemsLeft}, 600, 'linear');
+        timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
 
     }
 
