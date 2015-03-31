@@ -1493,6 +1493,7 @@ body {
 .header-timeline__item {
   padding: 3px 0 0 0;
   margin-right: 15px;
+  height: 48px;
 }
 .header-timeline__item:hover {
   cursor: pointer;
@@ -1500,6 +1501,7 @@ body {
 .header-timeline__item-current {
   padding: 3px 0 0 0;
   margin-right: 15px;
+  height: 48px;
 }
 .header-timeline__item-current:hover {
   cursor: pointer;
@@ -1507,6 +1509,7 @@ body {
 .header-timeline__item-next {
   padding: 3px 0 0 0;
   margin-right: 15px;
+  height: 48px;
 }
 .header-timeline__item-next:hover {
   cursor: pointer;
