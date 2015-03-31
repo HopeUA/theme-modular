@@ -1542,12 +1542,15 @@ body {
   display: block;
   height: 3px;
   border-radius: 1px;
-  background: #2662b1;
+  background: #7c7c7c;
   content: "";
+  width: 100%;
 }
 .header-timeline__item-next .after {
   z-index: -1;
   position: relative;
+  background: #2662b1;
+  width: 100%;
 }
 .header-timeline-line {
   overflow: visible;
@@ -1555,6 +1558,7 @@ body {
 .header-timeline-line::before {
   position: relative;
   top: 9px;
+  left: 238px;
   display: block;
   width: 3px;
   height: 9px;

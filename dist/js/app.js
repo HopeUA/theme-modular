@@ -612,7 +612,7 @@ $(function(){
             var currentBefore = null;
             var currentAfter  = null;
             var leftAfter     = null;
-            var leftTimeline  = null;
+            var leftTimeline  = -238;
             var counterElements = null;
 
             var minWidth = 100;
@@ -650,7 +650,7 @@ $(function(){
                     leftAfter = currentBefore + 13;
 
                     if (start == serverTime) {
-                        leftTimeline -= 5;
+                        leftTimeline += 0;
                     }
                 }
 
@@ -672,6 +672,8 @@ $(function(){
             $('.header-timeline__item-current .before').css('width', currentBefore);
             $('.header-timeline__item-current .after').css({'width' : currentAfter, 'left' : leftAfter});
 
+
+
             leftTimeline += currentBefore + 5;
             leftTimeline = '-' + leftTimeline + 'px';
             $('.header-timeline__items').css('left', leftTimeline);
@@ -679,7 +681,7 @@ $(function(){
             var timelineIntervalCounter = 0;
 
             var timelineInterval = setInterval(function(){
-                if(timelineIntervalCounter >= 99) {
+                if(timelineIntervalCounter >= 5) {
                     clearInterval(timelineInterval);
                 } else {
                     moveTimeline();
@@ -698,15 +700,20 @@ $(function(){
         timelineItemsLeft = timelineItemsLeft.left - 5;
 
         var $currentElement = $('.header-timeline__item-current');
-        var $currentElementWidth = $currentElement.width() + 3;
+        var $currentElementWidth = $currentElement.width();
         var $currentElementBefore = $currentElement.find('.before');
         var $currentElementBeforeWidth = $currentElementBefore.width();
         var $currentElementAfter = $currentElement.find('.after');
         var $currentElementAfterWidth = $currentElementAfter.width();
         var $currentElementAfterMargin = parseInt($currentElementAfter.css('margin-left'));
 
+
+
         if ($currentElementBeforeWidth < $currentElementWidth) {
             $currentElementBeforeWidth = $currentElementBeforeWidth + 5;
+            if ($currentElementBeforeWidth > $currentElementWidth) {
+                $currentElementBeforeWidth = $currentElementWidth;
+            }
             $currentElementAfterWidth = $currentElementAfterWidth - 5;
             $currentElementAfterMargin = $currentElementAfterMargin + 5;
             $currentElementBefore.animate({'width' : $currentElementBeforeWidth}, 300, 'linear');
@@ -717,7 +724,7 @@ $(function(){
             $currentElement.removeClass('header-timeline__item-current');
             $currentElement.next().removeClass('header-timeline__item-next');
             $currentElement.next().addClass('header-timeline__item-current');
-            console.log('finish');
+            //console.log('finish');
         }
 
         timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
