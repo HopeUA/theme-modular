@@ -1544,11 +1544,13 @@ body {
   border-radius: 1px;
   background: #7c7c7c;
   content: "";
-  width: 100%;
+  width: 0;
 }
 .header-timeline__item-next .after {
   z-index: -1;
   position: relative;
+  top: -43px;
+  height: 3px;
   background: #2662b1;
   width: 100%;
 }

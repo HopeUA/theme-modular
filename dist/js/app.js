@@ -645,9 +645,10 @@ $(function(){
 
                 if (before > 0 && after > 0 || start == serverTime) {
                     elementClass = 'header-timeline__item-current';
-                    currentBefore = ((width - 13) / duration) * (before / 60);
-                    currentAfter  = (width - 13) - currentBefore;
-                    leftAfter = currentBefore + 13;
+
+                    currentBefore = 5 * (before / 60);
+                    currentAfter  = (width - 7) - currentBefore;
+                    leftAfter = currentBefore + 7;
 
                     if (start == serverTime) {
                         leftTimeline += 0;
@@ -674,14 +675,14 @@ $(function(){
 
 
 
-            leftTimeline += currentBefore + 5;
+            leftTimeline += currentBefore + 2;
             leftTimeline = '-' + leftTimeline + 'px';
             $('.header-timeline__items').css('left', leftTimeline);
 
             var timelineIntervalCounter = 0;
 
             var timelineInterval = setInterval(function(){
-                if(timelineIntervalCounter >= 5) {
+                if(timelineIntervalCounter >= 1) {
                     clearInterval(timelineInterval);
                 } else {
                     moveTimeline();
@@ -708,27 +709,34 @@ $(function(){
         var $currentElementAfterMargin = parseInt($currentElementAfter.css('margin-left'));
 
 
-
         if ($currentElementBeforeWidth < $currentElementWidth) {
             $currentElementBeforeWidth = $currentElementBeforeWidth + 5;
-            if ($currentElementBeforeWidth > $currentElementWidth) {
-                $currentElementBeforeWidth = $currentElementWidth;
-            }
+            console.log('$currentElementBeforeWidth < $currentElementWidth');
             $currentElementAfterWidth = $currentElementAfterWidth - 5;
             $currentElementAfterMargin = $currentElementAfterMargin + 5;
             $currentElementBefore.animate({'width' : $currentElementBeforeWidth}, 300, 'linear');
             $currentElementAfter.animate({'width' : $currentElementAfterWidth, 'margin-left' : $currentElementAfterMargin}, 300, 'linear');
-        } else if ($currentElementBeforeWidth == $currentElementWidth) {
-            $currentElement = $('.header-timeline__item-current');
-            $currentElement.addClass('header-timeline__item');
-            $currentElement.removeClass('header-timeline__item-current');
-            $currentElement.next().removeClass('header-timeline__item-next');
-            $currentElement.next().addClass('header-timeline__item-current');
-            //console.log('finish');
+            if ($currentElementBeforeWidth == $currentElementWidth) {
+                console.log('$currentElementBeforeWidth == $currentElementWidth');
+                $currentElement = $('.header-timeline__item-current');
+                $currentElement.addClass('header-timeline__item');
+                $currentElement.removeClass('header-timeline__item-current');
+                $currentElement.next().removeClass('header-timeline__item-next');
+                $currentElement.next().addClass('header-timeline__item-current');
+
+                timelineItemsLeft = timelineItemsLeft - 13;
+                timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
+                console.log('Новая программа');
+                $('.header-timeline__item-current').animate({'margin-top' : '-15px'}, 300);
+                setTimeout(function(){
+                    $('.header-timeline__item-current').animate({'margin-top' : '0'}, 300);
+                }, 300)
+
+                //$('.header-timeline__item-current .before')
+            }
+        } else {
+            timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
         }
-
-        timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
-
     }
 
     function myTime(unixTime) {
