@@ -17,12 +17,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        if (isAnimated(self)) {
-            return;
-        }
-
-        self.animate({'opacity' : 0.5}, 150);
-        self.stop(true,true);
+        self.stop().animate({'opacity' : 0.5}, 150);
 
     });
 
@@ -30,12 +25,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        if (isAnimated(self)) {
-            return;
-        }
-
-        self.animate({'opacity' : 0.5}, 150);
-        self.stop(true,true);
+        self.stop().animate({'opacity' : 0.5}, 150);
 
     });
 
@@ -43,12 +33,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        if (isAnimated(self)) {
-            return;
-        }
-
-        self.animate({'opacity' : 0.5}, 250);
-        self.stop(true,true);
+        self.stop().animate({'opacity' : 0.5}, 250);
 
     });
 
@@ -56,12 +41,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        if (isAnimated(self)) {
-            return;
-        }
-
-        self.animate({'opacity' : 1}, 150);
-        self.stop(true,true);
+        self.stop().animate({'opacity' : 1}, 150);
 
     });
 
@@ -69,12 +49,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        if (isAnimated(self)) {
-            return;
-        }
-
-        self.animate({'opacity' : 1}, 150);
-        self.stop(true,true);
+        self.stop().animate({'opacity' : 1}, 150);
 
     });
 
@@ -82,12 +57,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        if (isAnimated(self)) {
-            return;
-        }
-
-        self.animate({'opacity' : 1}, 250);
-        self.stop(true,true);
+        self.stop().animate({'opacity' : 1}, 250);
 
     });
 
@@ -276,7 +246,7 @@ $(function(){
             var timelineIntervalCounter = 0;
 
             var timelineInterval = setInterval(function(){
-                if(timelineIntervalCounter >= 1) {
+                if(timelineIntervalCounter >= 9999) {
                     clearInterval(timelineInterval);
                 } else {
                     moveTimeline();
@@ -309,27 +279,52 @@ $(function(){
             $currentElementAfterWidth = $currentElementAfterWidth - 5;
             $currentElementAfterMargin = $currentElementAfterMargin + 5;
             $currentElementBefore.animate({'width' : $currentElementBeforeWidth}, 300, 'linear');
-            $currentElementAfter.animate({'width' : $currentElementAfterWidth, 'margin-left' : $currentElementAfterMargin}, 300, 'linear');
+            if ($('.header-timeline__item-current .before').width() == 0) {
+                $currentElementAfter.animate({'width' : $currentElementAfterWidth, 'margin-left' : 12}, 300, 'linear');
+            } else {
+                $currentElementAfter.animate({'width' : $currentElementAfterWidth, 'margin-left' : $currentElementAfterMargin}, 300, 'linear');
+            }
             if ($currentElementBeforeWidth == $currentElementWidth) {
-                console.log('$currentElementBeforeWidth == $currentElementWidth');
+
                 $currentElement = $('.header-timeline__item-current');
                 $currentElement.addClass('header-timeline__item');
                 $currentElement.removeClass('header-timeline__item-current');
                 $currentElement.next().removeClass('header-timeline__item-next');
                 $currentElement.next().addClass('header-timeline__item-current');
+                $currentElement = $('.header-timeline__item-current');
+
+                $currentElementWidth = $currentElement.width();
+                $currentElementBefore = $currentElement.find('.before');
+                $currentElementBeforeWidth = $currentElementBefore.width();
+                $currentElementAfter = $currentElement.find('.after');
+                $currentElementAfterWidth = $currentElementAfter.width();
+                $currentElementAfterMargin = null;
+
+                $currentElementBefore.css('width', 0);
+                $currentElementAfterWidth = $currentElementWidth - 5;
+                $currentElementAfter.css({'width' : $currentElementAfterWidth});
+                $currentElementAfter.animate({'margin-left' : 5}, 300);
 
                 timelineItemsLeft = timelineItemsLeft - 13;
                 timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
                 console.log('Новая программа');
-                $('.header-timeline__item-current').animate({'margin-top' : '-15px'}, 300);
+                $('.header-timeline__item-current').animate({'margin-top' : '-5px'}, 300);
                 setTimeout(function(){
                     $('.header-timeline__item-current').animate({'margin-top' : '0'}, 300);
                 }, 300)
 
-                //$('.header-timeline__item-current .before')
+            } else if ($('.header-timeline__item-current .before').width() == 0) {
+                console.log('first iteration');
+                $currentElementAfterWidth -=2;
+                $currentElementAfterMargin +=7;
+
+                timelineItemsLeft -=2;
+                timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
+            } else {
+                console.log('next iteration');
+
+                timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
             }
-        } else {
-            timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
         }
     }
 
