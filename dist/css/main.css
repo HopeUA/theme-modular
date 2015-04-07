@@ -1557,6 +1557,19 @@ body {
 .header-timeline-line {
   overflow: visible;
 }
+.header-timeline-time {
+  top: -16px;
+  left: 219px;
+  position: absolute;
+  width: 42px;
+  height: 20px;
+  text-align: center;
+  color: #d1d3d4;
+  font: bold 14px PTSansBold;
+  background: url("../img/activeTime-42x20.svg");
+  display: inline-block;
+  opacity: 0;
+}
 .header-timeline-line::before {
   position: relative;
   top: 9px;

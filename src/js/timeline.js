@@ -17,7 +17,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        self.stop().animate({'opacity' : 0.5}, 150);
+        self.stop().animate({'opacity' : 0.5}, 250);
 
     });
 
@@ -25,7 +25,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        self.stop().animate({'opacity' : 0.5}, 150);
+        self.stop().animate({'opacity' : 0.5}, 250);
 
     });
 
@@ -41,7 +41,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        self.stop().animate({'opacity' : 1}, 150);
+        self.stop().animate({'opacity' : 1}, 250);
 
     });
 
@@ -49,7 +49,7 @@ $(function(){
 
         var self = $('.header-timeline__items > div').not($(this));
 
-        self.stop().animate({'opacity' : 1}, 150);
+        self.stop().animate({'opacity' : 1}, 250);
 
     });
 
@@ -61,7 +61,21 @@ $(function(){
 
     });
 
+    $('.header-timeline__items').on('mouseenter', '.header-timeline__item-current', function(){
 
+        var self = $('.header-timeline-time');
+
+        self.stop().animate({'opacity' : 1}, 250);
+
+    });
+
+    $('.header-timeline__items').on('mouseleave', '.header-timeline__item-current', function(){
+
+        var self = $('.header-timeline-time');
+
+        self.stop().animate({'opacity' : 0}, 250);
+
+    });
 });
 
     function isAnimated(self){
@@ -181,6 +195,9 @@ $(function(){
 
             var minWidth = 100;
 
+            var currentTime = myTime(serverTime);
+            $('.header-timeline-time').html(currentTime);
+
             $.each(episodes, function(index, element) {
 
                 var start    = element.beginTime;
@@ -255,6 +272,8 @@ $(function(){
                 }
             }, 3000);
 
+            mainTime(serverTime);
+
         });
     }
 
@@ -326,6 +345,16 @@ $(function(){
                 timelineItems.animate({'left' : timelineItemsLeft}, 300, 'linear');
             }
         }
+    }
+
+    function mainTime(time) {
+
+        var mainTimeTimer = setInterval(function(){
+                time += 60;
+                var newTime = myTime(time);
+                $('.header-timeline-time').html(newTime);
+                console.log(myTime(time));
+        }, 3000);
     }
 
     function myTime(unixTime) {
