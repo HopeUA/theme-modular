@@ -5,7 +5,12 @@ $(function(){
     loadJson('/dist/ajax/timeline.json');
 
     $('.header-timeline__items').on('click', 'div', function(){
-        toogleTimeline(status);
+
+        var $current=$(this).parent().children();
+        var index = $current.index(this);
+
+        toogleTimeline(status, index);
+
         status = !status;
     });
 
@@ -84,9 +89,20 @@ $(function(){
 
     };
 
-    function toogleTimeline(status) {
+    function showUnderElement(index) {
+        console.log(index);
+
+        var $items = $('.header-timeline-menu-items');
+
+        var current = $items.find('.header-timeline-menu-item').eq(index);
+
+        current.addClass('header-timeline-menu-item__current');
+
+    };
+
+    function toogleTimeline(status, index) {
         if (status) {
-            showTimeline();
+            showTimeline(index);
         } else {
             hideTimeline();
         }
@@ -106,9 +122,12 @@ $(function(){
         var elementArrowRight  = $('.header-banner__arrow_right');
         var elementControls    = $('.header-banner__controls');
 
+        var $items = $('.header-timeline-menu-items .header-timeline-menu-item__current');
+
         timelineMenu.animate({opacity : 0}, 200);
         setTimeout(function(){
             timelineMenu.css({display : 'none'});
+            $items.removeClass('header-timeline-menu-item__current');
         }, 200);
 
         $('.header-banner__item').css('filter', 'blur(0)')
@@ -133,7 +152,7 @@ $(function(){
         return false;
     };
 
-    function showTimeline() {
+    function showTimeline(index) {
 
         var timelineMenu = $('.header-timeline-menu');
         var blur = 'blur(6px)';
@@ -146,6 +165,11 @@ $(function(){
         var elementArrowLeft   = $('.header-banner__arrow_left');
         var elementArrowRight  = $('.header-banner__arrow_right');
         var elementControls    = $('.header-banner__controls');
+
+        var $items = $('.header-timeline-menu-items');
+        var current = $items.find('.header-timeline-menu-item').eq(index);
+
+        current.addClass('header-timeline-menu-item__current');
 
         timelineMenu.css({display : 'block'});
         timelineMenu.animate({opacity : 1}, 200);
@@ -242,55 +266,56 @@ $(function(){
                 str = '<div class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + myTime(element.beginTime) + '</span><span class="header-timeline__live">' + element.label +'</span><p class="header-timeline__description">' + element.showTitle + '</p><div class="after"></div></div>'
                 place.append(str);
 
-                strFull = '<div class="header-timeline-menu-item header-timeline-menu-item__current">' +
+                strFull = '<div class="header-timeline-menu-item">' +
+
                     '<div class="header-timeline-menu-item-full">' +
 
-                    '<div class="header-timeline-menu-item-full__left">' +
-                        '<span class="header-timeline-menu-item-full-time">13:20</span>' +
-                        '<span class="header-timeline-menu-item-full-label">live</span>' +
-                        '<div class="header-timeline-menu-item-full-arrow__left"></div>' +
-                        '<a class="header-timeline-menu-item-full-calendar" href="#">Напомнить</a>' +
-                    '</div>' +
+                        '<div class="header-timeline-menu-item-full__left">' +
+                            '<span class="header-timeline-menu-item-full-time">' + myTime(element.beginTime) + '</span>' +
+                            '<span class="header-timeline-menu-item-full-label">' + element.label + '</span>' +
+                            '<div class="header-timeline-menu-item-full-arrow__left"></div>' +
+                            '<a class="header-timeline-menu-item-full-calendar" href="#">Напомнить</a>' +
+                        '</div>' +
 
-                    '<div class="header-timeline-menu-item-full__content">' +
-                        '<h1 class="header-timeline-menu-item-full-episode">«Там», где Бог</h1>' +
-                        '<h2 class="header-timeline-menu-item-full-shows">Богослужение в храме на Подоле</h2>' +
-                        '<div class="header-timeline-menu-item-full-video"><img src="img/timeline_menu_video.jpg"></div>' +
-                        '<p class="header-timeline-menu-item-full-description">Важно ли найти свое место в жизни и довольны ли мы им? Находимся ли мы именно там, где Бог хочет видеть? Иногда нам не понятно, почему мы именно здесь или там...</p>' +
-                    '</div>' +
+                        '<div class="header-timeline-menu-item-full__content">' +
+                            '<h1 class="header-timeline-menu-item-full-episode">' + element.episodeTitle + '</h1>' +
+                            '<h2 class="header-timeline-menu-item-full-shows">' + element.showTitle + '</h2>' +
+                            '<div class="header-timeline-menu-item-full-video"><img src="img/timeline_menu_video.jpg"></div>' +
+                            '<p class="header-timeline-menu-item-full-description">' + element.description + '</p>' +
+                        '</div>' +
 
-                    '<div class="header-timeline-menu-item-full__right">' +
-                        '<div class="header-timeline-menu-item-full-close"></div>' +
-                        '<div class="header-timeline-menu-item-full-arrow__right"></div>' +
-                        '<div class="header-timeline-menu-item-full-share">' +
-                            '<span class="header-timeline-menu-item-full-share-text">Поделиться:</span>' +
+                        '<div class="header-timeline-menu-item-full__right">' +
+                            '<div class="header-timeline-menu-item-full-close"></div>' +
+                            '<div class="header-timeline-menu-item-full-arrow__right"></div>' +
+                            '<div class="header-timeline-menu-item-full-share">' +
+                                '<span class="header-timeline-menu-item-full-share-text">Поделиться:</span>' +
 
-                            '<ul class="header-timeline-menu-item-full-share-items">' +
-                                '<li class="header-timeline-menu-item-full-share-item">' +
-                                    '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_vk" href="#"></a>' +
-                                '</li>' +
+                                '<ul class="header-timeline-menu-item-full-share-items">' +
+                                    '<li class="header-timeline-menu-item-full-share-item">' +
+                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_vk" href="#"></a>' +
+                                    '</li>' +
 
-                                '<li class="header-timeline-menu-item-full-share-item">' +
-                                    '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_fb" href="#"></a>' +
-                                '</li>'
+                                    '<li class="header-timeline-menu-item-full-share-item">' +
+                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_fb" href="#"></a>' +
+                                    '</li>' +
 
-                                '<li class="header-timeline-menu-item-full-share-item">' +
-                                    '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_tw" href="#"></a>' +
-                                '</li>' +
-                            '</ul>' +
+                                    '<li class="header-timeline-menu-item-full-share-item">' +
+                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_tw" href="#"></a>' +
+                                    '</li>' +
+                                '</ul>' +
+                            '</div>' +
                         '</div>' +
                     '</div>' +
-                '</div>' +
 
-                '<div class="header-timeline-menu-item-small">' +
-                    '<h1 class="header-timeline-menu-item-episode">Цар Давид — Ухиляв...</h1>' +
-                    '<h2 class="header-timeline-menu-item-shows">Богослужение в храме на Подоле</h2>' +
-                    '<span class="header-timeline-menu-item-time">12:45</span>' +
-                    '<span class="header-timeline-menu-item-label">новый випуск</span>' +
-                    '<p class="header-timeline-menu-item-description">Важно ли найти свое место в жизни и довольны ли мы им? Находимся ли мы именно там, где Бог хочет видеть? Иногда нам не понятно, почему мы именно здесь или там...</p>' +
-                '</div>' +
+                    '<div class="header-timeline-menu-item-small">' +
+                        '<h1 class="header-timeline-menu-item-episode">' + element.episodeTitle + '</h1>' +
+                        '<h2 class="header-timeline-menu-item-shows">' + element.showTitle + '</h2>' +
+                        '<span class="header-timeline-menu-item-time">' + myTime(element.beginTime) + '</span>' +
+                        '<span class="header-timeline-menu-item-label">' + element.label + '</span>' +
+                        '<p class="header-timeline-menu-item-description">' + element.description + '</p>' +
+                    '</div>' +
 
-            '</div>';
+                '</div>';
                 placeFull.append(strFull);
 
             });
