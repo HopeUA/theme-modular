@@ -420,7 +420,7 @@ $(function(){
         status = !status;
     });
 
-    $('.header-timeline-menu-item__current .header-timeline-menu-item-full-close').click(function(){
+    $('.header-timeline__items').on('click', '.header-timeline-menu-item-full-close', function(){
         hideTimeline();
     });
 
@@ -575,6 +575,32 @@ $(function(){
         var $items = $('.header-timeline-menu-items');
         var current = $items.find('.header-timeline-menu-item').eq(index);
 
+        var itemesBeginPoint = 176;
+
+        var itemsLeft = 176;
+
+        switch (index) {
+            case 0 :
+                //itemsLeft = 713;
+                itemsLeft = 178 + (267 * 2);
+                break;
+            case 1 :
+                //itemsLeft = 445;
+                itemsLeft = 178 + 267;
+                break;
+            case 2 :
+                itemsLeft = 178;
+                break;
+            case 3 :
+                itemsLeft = -89;
+                break;
+            default :
+                itemsLeft = (index - 3) * (-267) - 89;
+                break;
+        }
+
+        $items.css('left', itemsLeft);
+
         current.addClass('header-timeline-menu-item__current');
 
         timelineMenu.css({display : 'block'});
@@ -698,11 +724,11 @@ $(function(){
 
                                 '<ul class="header-timeline-menu-item-full-share-items">' +
                                     '<li class="header-timeline-menu-item-full-share-item">' +
-                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_vk" href="#"></a>' +
+                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_fb" href="#"></a>' +
                                     '</li>' +
 
                                     '<li class="header-timeline-menu-item-full-share-item">' +
-                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_fb" href="#"></a>' +
+                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_vk" href="#"></a>' +
                                     '</li>' +
 
                                     '<li class="header-timeline-menu-item-full-share-item">' +
