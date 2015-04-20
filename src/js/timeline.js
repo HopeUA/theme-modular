@@ -14,8 +14,19 @@ $(function(){
         status = !status;
     });
 
-    $('.header-timeline__items').on('click', '.header-timeline-menu-item-full-close', function(){
+    $('.header-timeline-menu-item-full-close').on('click', function(){
         hideTimeline();
+
+        status = !status;
+    });
+
+
+    $('.header-timeline-menu-item-full__left').on('click', function(){
+        moveFullTimeline('left');
+    });
+
+    $('.header-timeline-menu-item-full__right').on('click', function(){
+        moveFullTimeline('right');
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item', function(){
@@ -296,13 +307,6 @@ $(function(){
 
                     '<div class="header-timeline-menu-item-full">' +
 
-                        '<div class="header-timeline-menu-item-full__left">' +
-                            '<span class="header-timeline-menu-item-full-time">' + myTime(element.beginTime) + '</span>' +
-                            '<span class="header-timeline-menu-item-full-label">' + element.label + '</span>' +
-                            '<div class="header-timeline-menu-item-full-arrow__left"></div>' +
-                            '<a class="header-timeline-menu-item-full-calendar" href="#">Напомнить</a>' +
-                        '</div>' +
-
                         '<div class="header-timeline-menu-item-full__content">' +
                             '<h1 class="header-timeline-menu-item-full-episode">' + element.episodeTitle + '</h1>' +
                             '<h2 class="header-timeline-menu-item-full-shows">' + element.showTitle + '</h2>' +
@@ -310,27 +314,6 @@ $(function(){
                             '<p class="header-timeline-menu-item-full-description">' + element.description + '</p>' +
                         '</div>' +
 
-                        '<div class="header-timeline-menu-item-full__right">' +
-                            '<div class="header-timeline-menu-item-full-close"></div>' +
-                            '<div class="header-timeline-menu-item-full-arrow__right"></div>' +
-                            '<div class="header-timeline-menu-item-full-share">' +
-                                '<span class="header-timeline-menu-item-full-share-text">Поделиться:</span>' +
-
-                                '<ul class="header-timeline-menu-item-full-share-items">' +
-                                    '<li class="header-timeline-menu-item-full-share-item">' +
-                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_fb" href="#"></a>' +
-                                    '</li>' +
-
-                                    '<li class="header-timeline-menu-item-full-share-item">' +
-                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_vk" href="#"></a>' +
-                                    '</li>' +
-
-                                    '<li class="header-timeline-menu-item-full-share-item">' +
-                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_tw" href="#"></a>' +
-                                    '</li>' +
-                                '</ul>' +
-                            '</div>' +
-                        '</div>' +
                     '</div>' +
 
                     '<div class="header-timeline-menu-item-small">' +
@@ -467,4 +450,36 @@ $(function(){
         var result = hours + ':' + minutes;
 
         return result;
+    }
+
+    function moveFullTimeline(direction) {
+
+        var $items = $('.header-timeline-menu-items');
+        var $current = $('.header-timeline-menu-item__current');
+        var shift = null;
+
+        if (direction == 'left') {
+            shift = $items.position();
+            shift = shift.left - 267;
+
+            $current.next().addClass('header-timeline-menu-item__current');
+
+            $current.animate({'opacity' : 0}, 450);
+
+            setTimeout(function(){
+                $current.removeClass('header-timeline-menu-item__current');
+            }, 460);
+
+
+
+            $current.animate({'opacity' : 1}, 300);
+
+            $items.animate({'left' : shift}, 300);
+
+
+        } else if (direction == 'right') {
+
+
+
+        }
     }

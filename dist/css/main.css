@@ -1650,6 +1650,20 @@ body {
 .header-timeline-menu-item-small {
   opacity: 0.6;
 }
+.header-timeline-menu-item-full__left {
+  position: absolute;
+  top: 218px;
+  left: 710px;
+  width: 70px;
+  z-index: 111;
+}
+.header-timeline-menu-item-full__right {
+  position: absolute;
+  top: 218px;
+  left: 1122px;
+  width: 70px;
+  z-index: 111;
+}
 .header-timeline-menu-item-episode {
   display: block;
   height: 22px;
@@ -1693,13 +1707,16 @@ body {
   font-size: 12px;
 }
 .header-timeline-menu-item__current {
-  width: 486px;
+  width: 270px;
+  margin-left: 106px;
   margin-top: 10px;
+  margin-right: 167px;
+  overflow: hidden;
 }
 .header-timeline-menu-item-full {
   height: 315px;
 }
-.header-timeline-menu-item-full::before {
+.header-timeline-menu-item-full__left::before {
   position: absolute;
   top: 0;
   left: 3px;
@@ -1764,7 +1781,7 @@ body {
 }
 .header-timeline-menu-item-full-close {
   position: absolute;
-  right: 1px;
+  right: -3px;
   margin-top: 17px;
   width: 28px;
   height: 28px;
@@ -1862,7 +1879,7 @@ body {
 }
 .header-timeline-menu-item-full-description {
   display: block;
-  width: 271px;
+  width: 264px;
   padding: 0;
   margin: 23px 0 0 0;
   font-size: 12px;
