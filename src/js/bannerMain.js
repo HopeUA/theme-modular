@@ -188,5 +188,6 @@ $(function(){
     }, function(){
         bannerTimer();
         sliderAnimations = setInterval(bannerTimer, 5010);
+        //console.log('test');
     });
 });
