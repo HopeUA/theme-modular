@@ -12,6 +12,7 @@ $(function(){
         toogleTimeline(status, index);
 
         status = !status;
+
     });
 
     $('.header-timeline-menu-item-full-close').on('click', function(){
