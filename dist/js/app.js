@@ -870,10 +870,11 @@ $(function(){
 
             $current.next().addClass('header-timeline-menu-item__current');
 
-            $current.animate({'opacity' : 0}, 450);
+            //$current.animate({'opacity' : 0}, 450);
+            $current.removeClass('header-timeline-menu-item__current');
 
             setTimeout(function(){
-                $current.removeClass('header-timeline-menu-item__current');
+                //$current.removeClass('header-timeline-menu-item__current');
             }, 460);
 
 
@@ -885,6 +886,16 @@ $(function(){
 
         } else if (direction == 'right') {
 
+            shift = $items.position();
+            shift = shift.left + 267;
+            console.log(shift);
+
+            $current.prev().addClass('header-timeline-menu-item__current');
+            $current.removeClass('header-timeline-menu-item__current');
+
+            $current.animate({'opacity' : 1}, 300);
+
+            $items.animate({'left' : shift}, 300);
 
 
         }
