@@ -12,7 +12,6 @@ $(function(){
         toogleTimeline(status, index);
 
         status = !status;
-
     });
 
     $('.header-timeline-menu-item-full-close').on('click', function(){
@@ -136,11 +135,10 @@ $(function(){
 
         var $items = $('.header-timeline-menu-items .header-timeline-menu-item__current');
 
-        timelineMenu.animate({opacity : 0}, 200);
-        setTimeout(function(){
+        timelineMenu.animate({opacity : 0}, 200, function(){
             timelineMenu.css({display : 'none'});
             $items.removeClass('header-timeline-menu-item__current');
-        }, 200);
+        });
 
         $('.header-banner__item').css('filter', 'blur(0)')
             .css('webkitFilter', 'blur(0)')
