@@ -388,20 +388,26 @@ $(function(){
     var sliderAnimations = null;
     var changeTimeout = null;
     var $line = $('.header-banner__loader');
+    var mainSliderStatus = $('.header-timeline-menu').css('opacity');
 
-    bannerTimer();
-
-    var sliderAnimations = setInterval(bannerTimer, 5010);
+    if (mainSliderStatus == 0) {
+        bannerTimer();
+        sliderAnimations = setInterval(bannerTimer, 5010);
+    }
 
     $('.header__large').hover(function(){
+        console.log('in');
         clearInterval(sliderAnimations);
         $line.stop();
         $line.animate({width : 0}, 600);
 
     }, function(){
-        bannerTimer();
-        sliderAnimations = setInterval(bannerTimer, 5010);
+        mainSliderStatus = $('.header-timeline-menu').css('opacity');
 
+        if (mainSliderStatus == 0) {
+            bannerTimer();
+            sliderAnimations = setInterval(bannerTimer, 5010);
+        }
     });
 
     //console.log('test');
@@ -424,9 +430,11 @@ $(function(){
     });
 
     $('.header-timeline-menu-item-full-close').on('click', function(){
+
         hideTimeline();
 
         status = !status;
+
     });
 
 
@@ -434,7 +442,7 @@ $(function(){
         moveFullTimeline('left');
     });
 
-    $('.header-timeline-menu-item-full__right').on('click', function(){
+    $('.header-timeline-menu-item-full-arrow__right').on('click', function(){
         moveFullTimeline('right');
     });
 
@@ -587,6 +595,12 @@ $(function(){
 
         var $items = $('.header-timeline-menu-items');
         var current = $items.find('.header-timeline-menu-item').eq(index);
+
+        var timeData = current.find('.header-timeline-menu-item-small .header-timeline-menu-item-time').text();
+        var timeContainer = $('.header-timeline-menu-item-full-time').text(timeData);
+
+        var labelData = current.find('.header-timeline-menu-item-small .header-timeline-menu-item-label').text();
+        var labelContainer = $('.header-timeline-menu-item-full-label').text(labelData);
 
         var itemesBeginPoint = 176;
 
