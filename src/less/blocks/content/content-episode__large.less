@@ -1,0 +1,118 @@
+// out: null
+
+.content-episode__large-info {
+    margin: 0;
+}
+
+.content-episode__large {
+    position: relative;
+    overflow: hidden;
+}
+
+.content-episode__large:hover {
+    cursor: pointer;
+}
+
+.content-episode__large:hover .content-episode__large-play{
+    transform: scale(1.25);
+}
+
+.content-episode__large img {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+    backface-visibility: hidden; //fix animation visual bug
+}
+
+.content-episode__large:hover .content-episode__large-play::before {
+    top: 87px;
+    left: 189px;
+    width: 86px;
+    height: 86px;
+    cursor: pointer;
+}
+
+.content-episode__large:hover::before {
+    background: rgba(0, 25, 63, 0.8);
+}
+
+.content-episode__large:hover .content-episode__large-image__wide, .content-episode__large-image__squared {
+    //transform: scale(1.05);
+    filter: grayscale(100%);
+}
+
+.content-episode__large::before {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(77, 77, 77, 0) 50%,
+        rgba(39, 39, 39, 0.6) 75%,
+        rgba(0, 0, 0, 0.9) 100%);
+    content: "";
+}
+
+.content-episode__large-play {
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: -40px 0 0 -40px;
+    background: url(../img/header-playButton.svg);
+    content: "";
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.content-episode__large-title__episode {
+    position: absolute;
+    z-index: 100;
+    top: 200px;
+    left: 35px;
+    display: block;
+    width: 264px;
+    margin: 0;
+    color: #fff;
+    font: bold 19px @font-Bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.content-episode__large-title__show {
+    position: absolute;
+    z-index: 100;
+    top: 225px;
+    left: 35px;
+    display: block;
+    width: 264px;
+    margin: 0;
+    color: #e6e7e8;
+    font: 15px @font-Regular;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.content-episode__large-title__show::before {
+    float: left;
+    display: block;
+    width: 5px;
+    height: 10px;
+    margin: 5px 6px 0 0;
+    background: url(../img/content-episode-arrowIcon.svg);
+    content: "";
+}
+
+.content-episode-image__squared {
+    top: 0;
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.content-episode-image__wide {
+    top: 0;
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}

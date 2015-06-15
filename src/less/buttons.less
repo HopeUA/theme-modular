@@ -1,0 +1,51 @@
+// out: null
+
+.btn {
+    display: inline-block;
+    font-size: 18px;
+    font-family: @font-Regular;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+}
+
+.btn-large {
+    height: 40px;
+    padding: 0 30px 0 30px;
+}
+
+.btn-default {
+    background: #2f8dca;
+    color: #fff;
+}
+
+.btn-up {
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    background: #ebebec;
+    color: #929497;
+    text-align: center;
+    transition: all 0.1s ease-out;
+}
+
+.btn-up:hover {
+    cursor: pointer;
+    background: #2f8dca;
+}
+
+.btn-up:hover::before {
+    background: url(../img/arrow-up__hover.svg);
+}
+
+.btn-up::before {
+    display: block;
+    width: 12px;
+    height: 7px;
+    background: url(../img/arrow-up.svg);
+    margin: 0 auto;
+    content: "";
+    transition: all 0.1s ease-out;
+}

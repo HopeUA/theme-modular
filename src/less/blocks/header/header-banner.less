@@ -1,0 +1,191 @@
+// out: null
+
+.header-banner {
+    height: 390px;
+}
+
+.header-banner__item {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    width: 100%;
+    height: 540px;
+    border-bottom: solid 5px @headerBanner__color-loader;
+    background-position: center top;
+    opacity: 0;
+}
+
+.header-banner__item__current {
+    opacity: 1;
+}
+
+.header-banner__item:after {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 530px;
+    background: @headerBanner__mask repeat-x 0 0;
+    content: "";
+}
+
+.header-banner__item .container-content {
+    z-index: 100;
+    height: 350px;
+    margin-top: 174px;
+}
+
+.header-banner__arrow_left {
+    position: absolute;
+    z-index: 1;
+    top: 225px;
+    display: flex;
+    align-items: center;
+    width: 140px;
+    height: 303px;
+}
+
+.header-banner__arrow_left::before {
+    display: block;
+    width: 21px;
+    height: 35px;
+    margin: 0 0 56px 55px;
+    background: @headerBanner__arrow;
+    opacity: 0.4;
+    content: "";
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.header-banner__arrow_left:hover {
+    cursor: pointer;
+}
+
+.header-banner__arrow_right {
+    position: absolute;
+    top: 225px;
+    display: flex;
+    align-items: center;
+    width: 140px;
+    height: 303px;
+}
+
+.header-banner__arrow_right::before {
+    display: block;
+    width: 21px;
+    height: 35px;
+    margin: 0 0 56px 55px;
+    background: @headerBanner__arrow;
+    opacity: 0.4;
+    transform: rotate(180deg);
+    content: "";
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.header-banner__arrow_right:hover {
+    cursor: pointer;
+}
+
+.header-banner__item-time {
+    position: absolute;
+    top: 68px;
+    width: 103px;
+    margin-left: 40px;
+    color: @headerBanner__color-time;
+    font: 500 38px @font-Bold;
+    text-align: center;
+}
+
+.header-banner__item-day {
+    position: absolute;
+    top: 119px;
+    display: inline-block;
+    width: 103px;
+    padding: 7px 0 7px;
+    margin: 0 0 35px 40px;
+    background: @headerBanner__color-day__background;
+    color: @headerBanner__color-day;
+    font: bold 12px @font-Bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.header-banner__item-title {
+    position: absolute;
+    top: 191px;
+    width: 167px;
+    margin: 0 0 13px 40px;
+    color: @headerBanner__color-title;
+    font: bold 15px @font-Bold;
+}
+
+.header-banner__item-description {
+    position: absolute;
+    top: 238px;
+    width: 136px;
+    margin-left: 40px;
+    color: @headerBanner__color-description;
+    font: 14px @font-Regular;
+    line-height: 16px;
+}
+
+.header-banner__item-play {
+    position: relative;
+    top: 30px;
+    display: block;
+    height: 290px;
+    margin: 0 auto;
+}
+
+.header-banner__item-play::before {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 91px auto;
+    background: @headerBanner__play;
+    content: "";
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.header-banner__item-play:hover {
+    cursor: pointer;
+}
+
+.header-banner__controls {
+    position: relative;
+    top: 363px;
+    display: flex;
+    width: 112px;
+    height: 8px;
+    margin: 0 auto;
+}
+
+.header-banner__controls-item {
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    margin-right: 7px;
+    background: @headerBanner__color-control;
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.header-banner__controls-item:hover {
+    cursor: pointer;
+    transform: scale(1.3);
+}
+
+.header-banner__controls-item:last-child {
+    margin-right: 0;
+}
+
+.header-banner__controls-item__active {
+    background: @headerBanner__color-control__active;
+    transform: scale(1.3);
+}
+
+.header-banner__loader {
+    position: absolute;
+    top: 535px;
+    width: 0;
+    height: 5px;
+}

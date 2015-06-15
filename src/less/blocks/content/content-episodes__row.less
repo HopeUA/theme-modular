@@ -1,0 +1,69 @@
+.content-episodes__row-item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height: 124px;
+    backface-visibility: hidden; //fix animation visual bug
+}
+
+.content-episodes__row-item:hover {
+    cursor: pointer;
+}
+
+.content-episodes__row-item:hover .content-episodes__row-item-play {
+    transform: scale(1.25);
+}
+
+.content-episodes__row-image__wide {
+    width: 100%;
+    height: 124px;
+}
+
+.content-episodes__row-item::before {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: 124px;
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(77, 77, 77, 0) 50%,
+        rgba(39, 39, 39, 0.6) 75%,
+        rgba(0, 0, 0, 0.9) 100%);
+    content: "";
+}
+
+.content-episodes__row-item:hover::before {
+    background: rgba(0, 25, 63, 0.8);
+}
+
+.content-episodes__row-item:hover .content-episodes__row-image__wide, .content-episodes__row-image__squared {
+    //transform: scale(1.05);
+    filter: grayscale(100%);
+}
+
+.content-episodes__row-item-play {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    background: url(../img/header-playButton.svg);
+    content: "";
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.content-episodes__row-item-title {
+    position: absolute;
+    z-index: 2;
+    top: 100px;
+    left: 12px;
+    width: 90%;
+    margin: 0;
+    color: #fff;
+    font: bold 12px @font-Bold;
+    line-height: 14px;
+}

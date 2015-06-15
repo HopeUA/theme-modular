@@ -1,0 +1,148 @@
+// out: null
+
+.header-timeline {
+    position: relative;
+    z-index: 100;
+    margin: 0 auto;
+}
+
+.header-timeline__items {
+    position: absolute;
+    left: -430px;
+    display: flex;
+    margin-left: 20px;
+    width: 5250px;
+    user-select:none;
+}
+
+.header-timeline__item {
+    padding: 3px 0 0 0;
+    margin-right: 15px;
+    height: 48px;
+}
+
+.header-timeline__item:hover {
+    cursor: pointer;
+}
+
+.header-timeline__item-current {
+    padding: 3px 0 0 0;
+    margin-right: 15px;
+    height: 48px;
+}
+
+.header-timeline__item-current:hover {
+    cursor: pointer;
+}
+
+.header-timeline__item-next {
+    padding: 3px 0 0 0;
+    margin-right: 15px;
+    height: 48px;
+}
+
+.header-timeline__item-next:hover {
+    cursor: pointer;
+}
+
+.header-timeline__item .before {
+    display: block;
+    height: 3px;
+    border-radius: 1px;
+    background: @headerTimeline__color-prev;
+    content: "";
+}
+
+.header-timeline__item-current .before {
+    display: block;
+    height: 3px;
+    border-radius: 1px;
+    background: @headerTimeline__color-prev;
+    content: "";
+}
+
+.header-timeline__item-current .after {
+    position: relative;
+    top: -43px;
+    display: block;
+    height: 3px;
+    border-radius: 1px;
+    background: @headerTimeline__color-next;
+    content: "";
+    z-index: -1;
+}
+
+.header-timeline__item-next .before {
+    display: block;
+    height: 3px;
+    border-radius: 1px;
+    background: @headerTimeline__color-prev;
+    content: "";
+    width: 0;
+}
+
+.header-timeline__item-next .after {
+    z-index: -1;
+    position: relative;
+    top: -43px;
+    height: 3px;
+    background: #2662b1;
+    width: 100%;
+}
+
+.header-timeline-line {
+    overflow: visible;
+}
+
+.header-timeline-time {
+    top: -16px;
+    left: 219px;
+    position: absolute;
+    width: 42px;
+    height: 20px;
+    text-align: center;
+    color: @headerTimeline__color-time;
+    font: bold 14px @font-Bold;
+    background: url("../img/activeTime-42x20.svg");
+    display: inline-block;
+    opacity: 0;
+}
+
+.header-timeline-line::before {
+    position: relative;
+    top: 9px;
+    left: 238px;
+    display: block;
+    width: 3px;
+    height: 9px;
+    background: red;
+    content: "";
+}
+
+.header-timeline__time {
+    float: left;
+    width: 40px;
+    height: 20px;
+    margin-top: 4px;
+    color: @headerTimeline__color-time;
+    font: bold 14px @font-Bold;
+}
+
+.header-timeline__live {
+    float: left;
+    width: 23px;
+    height: 20px;
+    margin-top: 4px;
+    color: @headerTimeline__color-live;
+    font: bold 14px @font-Bold;
+    backface-visibility: hidden; //fix animation visual bug
+}
+
+.header-timeline__description {
+    clear: both;
+    display: block;
+    margin: 0;
+    color: @headerTimeline__color-description;
+    font: 13px @font-Italic;
+    line-height: 16px;
+}
