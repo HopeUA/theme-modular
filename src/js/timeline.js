@@ -216,7 +216,9 @@ function showTimeline(index) {
     switch (index) {
     case 0:
         //itemsLeft = 713;
-        itemsLeft = 178 + (267 * 2);
+        //itemsLeft = 178 + (267 * 2);
+        itemsLeft = 397;
+        $('.header-timeline-menu-item-full-arrow__right').css('opacity', '0');
         break;
     case 1:
         //itemsLeft = 445;
@@ -513,6 +515,7 @@ function myTime(unixTime) {
 }
 
 function moveFullTimeline(direction) {
+    //slider FullTimeline
 
     var $items = $('.header-timeline-menu-items');
     var $current = $('.header-timeline-menu-item__current');
