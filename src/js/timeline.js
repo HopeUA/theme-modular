@@ -1,6 +1,13 @@
+var timelineInterval = null;
+var timelineIntervalCounter = 0;
+var newTime = null;
+var DateStopUnix = null;
+var newTimeUnix = null;
+
 $(function () {
 
     var status = true;
+
 
     loadJson('/dist/ajax/timeline.json');
 
@@ -119,7 +126,7 @@ function isAnimated(self) {
 };
 
 function showUnderElement(index) {
-    console.log(index);
+    //console.log(index);
 
     var $items = $('.header-timeline-menu-items');
 
@@ -138,6 +145,12 @@ function toogleTimeline(status, index) {
 };
 
 function hideTimeline() {
+
+    timelineInterval = startInterval();
+    var timeShift = (newTimeUnix - DateStopUnix) / 60;
+
+    console.log(timeShift);
+
 
     var timelineMenu = $('.header-timeline-menu');
     var blur = 'blur(6px)';
@@ -188,6 +201,9 @@ function hideTimeline() {
 
 function showTimeline(index) {
 
+    DateStopUnix = newTimeUnix;
+    //console.log(DateStop);
+
     var timelineMenu = $('.header-timeline-menu');
     var blur = 'blur(6px)';
 
@@ -213,6 +229,10 @@ function showTimeline(index) {
 
     var itemsLeft = 176;
 
+    if (timelineInterval) {
+        clearInterval(timelineInterval);
+    }
+
     switch (index) {
     case 0:
         //itemsLeft = 713;
@@ -222,16 +242,20 @@ function showTimeline(index) {
         break;
     case 1:
         //itemsLeft = 445;
-        itemsLeft = 178 + 267;
+        //itemsLeft = 178 + 267;
+        itemsLeft = 124;
         break;
     case 2:
-        itemsLeft = 178;
+        itemsLeft = -139;
         break;
     case 3:
-        itemsLeft = -89;
+        itemsLeft = -400;
         break;
     default:
-        itemsLeft = (index - 3) * (-267) - 89;
+        //itemsLeft = (index - 3) * (-267) - 89;
+        itemsLeft = (index - 3 + 1) * (-267) - 150;
+        //itemsLeft = -940;
+        //console.log(itemsLeft);
         break;
     }
 
@@ -292,6 +316,7 @@ function loadJson(url) {
         var leftAfter = null;
         var leftTimeline = -238;
         var counterElements = null;
+
 
         var minWidth = 100;
 
@@ -380,21 +405,39 @@ function loadJson(url) {
         leftTimeline = '-' + leftTimeline + 'px';
         $('.header-timeline__items').css('left', leftTimeline);
 
-        var timelineIntervalCounter = 0;
+        //        var timelineIntervalCounter = 0;
+        //
+        //        timelineInterval = setInterval(function () {
+        //            if (timelineIntervalCounter >= 9999) {
+        //                clearInterval(timelineInterval);
+        //            } else {
+        //                moveTimeline();
+        //                //console.log('counter: ' + timelineIntervalCounter);
+        //                timelineIntervalCounter++;
+        //            }
+        //        }, 3000);
 
-        var timelineInterval = setInterval(function () {
-            if (timelineIntervalCounter >= 9999) {
-                clearInterval(timelineInterval);
-            } else {
-                moveTimeline();
-                //console.log('counter: ' + timelineIntervalCounter);
-                timelineIntervalCounter++;
-            }
-        }, 3000);
+        timelineInterval = startInterval();
 
         mainTime(serverTime);
 
     });
+    //console.log(timelineInterval);
+}
+
+function startInterval() {
+
+    var tInterval = setInterval(function () {
+        if (timelineIntervalCounter >= 9999) {
+            clearInterval(tInterval);
+        } else {
+            moveTimeline();
+
+            timelineIntervalCounter++;
+        }
+    }, 3000);
+
+    return tInterval;
 }
 
 function moveTimeline() {
@@ -414,7 +457,7 @@ function moveTimeline() {
 
     if ($currentElementBeforeWidth < $currentElementWidth) {
         $currentElementBeforeWidth = $currentElementBeforeWidth + 5;
-        console.log('$currentElementBeforeWidth < $currentElementWidth');
+        //console.log('$currentElementBeforeWidth < $currentElementWidth');
         $currentElementAfterWidth = $currentElementAfterWidth - 5;
         $currentElementAfterMargin = $currentElementAfterMargin + 5;
         $currentElementBefore.animate({
@@ -460,7 +503,7 @@ function moveTimeline() {
             timelineItems.animate({
                 'left': timelineItemsLeft
             }, 300, 'linear');
-            console.log('Новая программа');
+            //console.log('Новая программа');
             $('.header-timeline__item-current').animate({
                 'margin-top': '-5px'
             }, 300);
@@ -471,7 +514,7 @@ function moveTimeline() {
             }, 300)
 
         } else if ($('.header-timeline__item-current .before').width() == 0) {
-            console.log('first iteration');
+            //console.log('first iteration');
             $currentElementAfterWidth -= 2;
             $currentElementAfterMargin += 7;
 
@@ -480,7 +523,7 @@ function moveTimeline() {
                 'left': timelineItemsLeft
             }, 300, 'linear');
         } else {
-            console.log('next iteration');
+            //console.log('next iteration');
 
             timelineItems.animate({
                 'left': timelineItemsLeft
@@ -493,9 +536,10 @@ function mainTime(time) {
 
     var mainTimeTimer = setInterval(function () {
         time += 60;
-        var newTime = myTime(time);
+        newTime = myTime(time);
+        newTimeUnix = time;
         $('.header-timeline-time').html(newTime);
-        console.log(myTime(time));
+        //console.log(myTime(time));
     }, 3000);
 }
 
@@ -549,7 +593,7 @@ function moveFullTimeline(direction) {
 
         shift = $items.position();
         shift = shift.left + 267;
-        console.log(shift);
+        //console.log(shift);
 
         $current.prev().addClass('header-timeline-menu-item__current');
         $current.removeClass('header-timeline-menu-item__current');
