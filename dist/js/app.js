@@ -1024,6 +1024,7 @@ function moveFullTimeline(direction) {
 
     }
 }
+
 (function( $ ) {
     var SliderBlock = function(object, options){
 
