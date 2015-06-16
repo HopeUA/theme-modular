@@ -1,5 +1,4 @@
 // out: null
-
 .header-timeline {
     position: relative;
     z-index: 100;
@@ -12,7 +11,7 @@
     display: flex;
     margin-left: 20px;
     width: 5250px;
-    user-select:none;
+    user-select: none;
 }
 
 .header-timeline__item {
@@ -102,10 +101,15 @@
     height: 20px;
     text-align: center;
     color: @headerTimeline__color-time;
-    font: bold 14px @font-Bold;
+    font: bold 12px @font-Bold;
     background: url("../img/activeTime-42x20.svg");
     display: inline-block;
     opacity: 0;
+}
+
+.visibleTime {
+    display: block;
+    opacity: 1!important;
 }
 
 .header-timeline-line::before {

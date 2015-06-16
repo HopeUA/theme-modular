@@ -3,6 +3,8 @@ var timelineIntervalCounter = 0;
 var newTime = null;
 var DateStopUnix = null;
 var newTimeUnix = null;
+var shouldMoveTimeline = true;
+var serverTime = null;
 
 $(function () {
 
@@ -126,7 +128,6 @@ function isAnimated(self) {
 };
 
 function showUnderElement(index) {
-    //console.log(index);
 
     var $items = $('.header-timeline-menu-items');
 
@@ -146,11 +147,10 @@ function toogleTimeline(status, index) {
 
 function hideTimeline() {
 
-    timelineInterval = startInterval();
+    shouldMoveTimeline = true;
     var timeShift = (newTimeUnix - DateStopUnix) / 60;
 
-    console.log(timeShift);
-
+    moveTimelineTo(timeShift);
 
     var timelineMenu = $('.header-timeline-menu');
     var blur = 'blur(6px)';
@@ -166,9 +166,20 @@ function hideTimeline() {
 
     var $items = $('.header-timeline-menu-items .header-timeline-menu-item__current');
 
+    $('.header-timeline-menu-container').animate({
+        'top': '-540px',
+        'opacity': 0
+    }, 500);
+
+    $('.header-timeline-time').animate({
+        'opacity': 0
+    }, 200, function () {
+        $('.header-timeline-time').removeClass('visibleTime');
+    });
+
     timelineMenu.animate({
         opacity: 0
-    }, 200, function () {
+    }, 500, function () {
         timelineMenu.css({
             display: 'none'
         });
@@ -201,8 +212,9 @@ function hideTimeline() {
 
 function showTimeline(index) {
 
+    shouldMoveTimeline = false;
+
     DateStopUnix = newTimeUnix;
-    //console.log(DateStop);
 
     var timelineMenu = $('.header-timeline-menu');
     var blur = 'blur(6px)';
@@ -229,20 +241,17 @@ function showTimeline(index) {
 
     var itemsLeft = 176;
 
-    if (timelineInterval) {
-        clearInterval(timelineInterval);
-    }
+    $('.header-timeline-time').addClass('visibleTime');
+    $('.header-timeline-time').animate({
+        'opacity': 1
+    }, 200);
 
     switch (index) {
     case 0:
-        //itemsLeft = 713;
-        //itemsLeft = 178 + (267 * 2);
         itemsLeft = 397;
         $('.header-timeline-menu-item-full-arrow__right').css('opacity', '0');
         break;
     case 1:
-        //itemsLeft = 445;
-        //itemsLeft = 178 + 267;
         itemsLeft = 124;
         break;
     case 2:
@@ -252,10 +261,7 @@ function showTimeline(index) {
         itemsLeft = -400;
         break;
     default:
-        //itemsLeft = (index - 3) * (-267) - 89;
         itemsLeft = (index - 3 + 1) * (-267) - 150;
-        //itemsLeft = -940;
-        //console.log(itemsLeft);
         break;
     }
 
@@ -267,8 +273,13 @@ function showTimeline(index) {
         display: 'block'
     });
     timelineMenu.animate({
-        opacity: 1
-    }, 200);
+        opacity: 1,
+    }, 500);
+
+    $('.header-timeline-menu-container').animate({
+        'top': 0,
+        'opacity': 1
+    }, 500);
 
     $('.header-banner__item').css('filter', blur)
         .css('webkitFilter', blur)
@@ -301,7 +312,7 @@ function loadJson(url) {
     var $after = self.find('.after');
 
     $.getJSON(url, function (data) {
-        var serverTime = data.serverTime;
+        serverTime = data.serverTime;
         var episodes = data.episodes;
         var str = null;
         var strFull = null;
@@ -405,35 +416,24 @@ function loadJson(url) {
         leftTimeline = '-' + leftTimeline + 'px';
         $('.header-timeline__items').css('left', leftTimeline);
 
-        //        var timelineIntervalCounter = 0;
-        //
-        //        timelineInterval = setInterval(function () {
-        //            if (timelineIntervalCounter >= 9999) {
-        //                clearInterval(timelineInterval);
-        //            } else {
-        //                moveTimeline();
-        //                //console.log('counter: ' + timelineIntervalCounter);
-        //                timelineIntervalCounter++;
-        //            }
-        //        }, 3000);
 
         timelineInterval = startInterval();
 
         mainTime(serverTime);
 
     });
-    //console.log(timelineInterval);
 }
 
 function startInterval() {
 
     var tInterval = setInterval(function () {
         if (timelineIntervalCounter >= 9999) {
-            clearInterval(tInterval);
+            shouldMoveTimeline = false;
         } else {
-            moveTimeline();
-
-            timelineIntervalCounter++;
+            if (shouldMoveTimeline) {
+                moveTimeline();
+                timelineIntervalCounter++;
+            }
         }
     }, 3000);
 
@@ -534,6 +534,8 @@ function moveTimeline() {
 
 function mainTime(time) {
 
+    newTimeUnix = serverTime;
+
     var mainTimeTimer = setInterval(function () {
         time += 60;
         newTime = myTime(time);
@@ -607,5 +609,105 @@ function moveFullTimeline(direction) {
         }, 300);
 
 
+    }
+}
+
+function moveTimelineTo(minutes) {
+
+    var shiftMinutes = minutes * 5;
+    console.log('shiftMinutes: ', shiftMinutes);
+
+    var timelineItems = $('.header-timeline__items');
+    var timelineItemsLeft = timelineItems.position();
+    //timelineItemsLeft = timelineItemsLeft.left - 5;
+    timelineItemsLeft = timelineItemsLeft.left - shiftMinutes;
+
+    var $currentElement = $('.header-timeline__item-current');
+    var $currentElementWidth = $currentElement.width();
+    var $currentElementBefore = $currentElement.find('.before');
+    var $currentElementBeforeWidth = $currentElementBefore.width();
+    var $currentElementAfter = $currentElement.find('.after');
+    var $currentElementAfterWidth = $currentElementAfter.width();
+    var $currentElementAfterMargin = parseInt($currentElementAfter.css('margin-left'));
+
+
+    if ($currentElementBeforeWidth < $currentElementWidth) {
+        //$currentElementBeforeWidth = $currentElementBeforeWidth + 5;
+        $currentElementBeforeWidth = $currentElementBeforeWidth + shiftMinutes;
+        //$currentElementAfterWidth = $currentElementAfterWidth - 5;
+        $currentElementAfterWidth = $currentElementAfterWidth - shiftMinutes;
+        //$currentElementAfterMargin = $currentElementAfterMargin + 5;
+        $currentElementAfterMargin = $currentElementAfterMargin + shiftMinutes;
+        $currentElementBefore.animate({
+            'width': $currentElementBeforeWidth
+        }, 300, 'linear');
+        if ($('.header-timeline__item-current .before').width() == 0) {
+            $currentElementAfter.animate({
+                'width': $currentElementAfterWidth,
+                'margin-left': 12
+            }, 300, 'linear');
+        } else {
+            $currentElementAfter.animate({
+                'width': $currentElementAfterWidth,
+                'margin-left': $currentElementAfterMargin
+            }, 300, 'linear');
+        }
+        if ($currentElementBeforeWidth == $currentElementWidth) {
+            console.log('here');
+            $currentElement = $('.header-timeline__item-current');
+            $currentElement.addClass('header-timeline__item');
+            $currentElement.removeClass('header-timeline__item-current');
+            $currentElement.next().removeClass('header-timeline__item-next');
+            $currentElement.next().addClass('header-timeline__item-current');
+            $currentElement = $('.header-timeline__item-current');
+
+            $currentElementWidth = $currentElement.width();
+            $currentElementBefore = $currentElement.find('.before');
+            $currentElementBeforeWidth = $currentElementBefore.width();
+            $currentElementAfter = $currentElement.find('.after');
+            $currentElementAfterWidth = $currentElementAfter.width();
+            $currentElementAfterMargin = null;
+
+            $currentElementBefore.css('width', 0);
+            //$currentElementAfterWidth = $currentElementWidth - 5;
+            $currentElementAfterWidth = $currentElementWidth - shiftMinutes;
+            $currentElementAfter.css({
+                'width': $currentElementAfterWidth
+            });
+            $currentElementAfter.animate({
+                'margin-left': 5
+            }, 300);
+
+            timelineItemsLeft = timelineItemsLeft - 13;
+            timelineItems.animate({
+                'left': timelineItemsLeft
+            }, 300, 'linear');
+            //console.log('Новая программа');
+            $('.header-timeline__item-current').animate({
+                'margin-top': '-5px'
+            }, 300);
+            setTimeout(function () {
+                $('.header-timeline__item-current').animate({
+                    'margin-top': '0'
+                }, 300);
+            }, 300)
+
+        } else if ($('.header-timeline__item-current .before').width() == 0) {
+            //console.log('first iteration');
+            $currentElementAfterWidth -= 2;
+            //$currentElementAfterMargin += 7;
+            $currentElementAfterMargin += shiftMinutes + 2;
+
+            timelineItemsLeft -= 2;
+            timelineItems.animate({
+                'left': timelineItemsLeft
+            }, 300, 'linear');
+        } else {
+            //console.log('next iteration');
+
+            timelineItems.animate({
+                'left': timelineItemsLeft
+            }, 300, 'linear');
+        }
     }
 }

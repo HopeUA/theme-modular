@@ -1565,10 +1565,14 @@ body {
   height: 20px;
   text-align: center;
   color: #d1d3d4;
-  font: bold 14px PTSansBold;
+  font: bold 12px PTSansBold;
   background: url("../img/activeTime-42x20.svg");
   display: inline-block;
   opacity: 0;
+}
+.visibleTime {
+  display: block;
+  opacity: 1!important;
 }
 .header-timeline-line::before {
   position: relative;
@@ -1622,6 +1626,8 @@ body {
   position: relative;
   width: 1222px;
   margin: 0 auto;
+  top: -540px;
+  opacity: 0;
 }
 .header-timeline-menu-items-container {
   width: 1222px;
@@ -1659,14 +1665,14 @@ body {
 }
 .header-timeline-menu-item-full__left {
   position: absolute;
-  top: 218px;
+  top: 210px;
   left: 395px;
   width: 70px;
   z-index: 111;
 }
 .header-timeline-menu-item-full__right {
   position: absolute;
-  top: 218px;
+  top: 220px;
   left: 800px;
   width: 70px;
   z-index: 111;
@@ -1716,7 +1722,7 @@ body {
 .header-timeline-menu-item__current {
   width: 270px;
   margin-left: 106px;
-  margin-top: 10px;
+  margin-top: 0;
   margin-right: 167px;
   overflow: hidden;
 }
@@ -1732,6 +1738,7 @@ body {
   width: 21px;
   height: 39px;
   display: block;
+  opacity: 0;
 }
 .header-timeline-menu-item-full-arrow__left {
   position: relative;
