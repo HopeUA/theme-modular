@@ -1,0 +1,79 @@
+// out: null
+.header-banner-small {
+    height: 124px;
+}
+
+.header-banner-small__item {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    width: 100%;
+    height: 269px;
+    border-bottom: solid 5px #45707a;
+    background-position: center top;
+    opacity: 0;
+}
+
+.header-banner-small__item__current {
+    opacity: 1;
+}
+
+.header-banner-small__item:after {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 269px;
+    background: @headerBanner__mask repeat-x 0 0;
+    content: "";
+}
+
+.header-banner-small__item .container-content {
+    z-index: 100;
+    height: 50px;
+    margin-top: 206px;
+    margin-left: 235px;
+}
+
+.header-banner-small__item-time {
+    color: @headerBanner__color-time;
+    font: 500 38px @font-Bold;
+    text-align: center;
+    margin-right: 24px;
+}
+
+.header-banner-small__item-day {
+    padding: 4px 10px 4px 9px;
+    height: 24px;
+    margin: 14px 24px 14px 0;
+    background: @headerBanner__color-day__background;
+    color: @headerBanner__color-day;
+    font: bold 12px @font-Bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.header-banner-small__item-title {
+    margin: 15px 20px 0 0;
+    color: @headerBanner__color-title;
+    font: bold 15px @font-Bold;
+}
+
+.header-banner-small__item-description {
+    color: @headerBanner__color-description;
+    font: 14px @font-Regular;
+    line-height: 16px;
+    margin-top: 18px;
+}
+
+.header-banner-small__item-description::before {
+    display: block;
+    float: left;
+    content: "";
+    width: 1px;
+    height: 12px;
+    margin-top: 1px;
+    margin-right: 22px;
+    background: @headerBanner__color-description;
+}

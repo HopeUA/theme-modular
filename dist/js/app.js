@@ -1126,6 +1126,7 @@ function moveTimelineTo(minutes) {
         }
     }
 }
+
 (function( $ ) {
     var SliderBlock = function(object, options){
 
