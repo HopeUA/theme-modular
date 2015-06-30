@@ -1,15 +1,16 @@
 // out: null
-
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-*, *:before, *:after {
-  box-sizing: inherit;
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
 img {
-    user-select:none;
+    user-select: none;
 }
 
 body {
@@ -34,12 +35,30 @@ body {
     transition: all 0.5s ease-out;
 }
 
+.container2 {
+    margin: 0 auto;
+    padding-left: 20px;
+    position: relative;
+    transition: all 0.5s ease-out;
+}
+
 .container-header {
     position: relative;
     display: flex;
 }
 
 .container h2 {
+    font-family: @font-Regular;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #808285;
+    font-weight: 100;
+    margin-top: 38px;
+    margin-bottom: 17px;
+    display: inline-block;
+}
+
+.container2 h2 {
     font-family: @font-Regular;
     font-size: 20px;
     text-transform: uppercase;
@@ -57,7 +76,7 @@ body {
     flex: none;
 }
 
-.clearfix{
+.clearfix {
     clear: both;
 }
 
