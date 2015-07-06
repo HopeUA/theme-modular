@@ -3854,14 +3854,7 @@ h2.page-video-header-show {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-}
-.similar-episodes::after {
-  content: "";
-  display: block;
-  margin-top: 34px;
-  width: 98.4%;
-  height: 1px;
-  background: #cccccd;
+  height: 553px;
 }
 .similar-episodes-item {
   height: 264px;
@@ -3955,7 +3948,7 @@ h2.page-video-header-show {
 }
 .similar-episodes-btn {
   width: 100%;
-  margin-top: 9px;
+  margin-top: 33px;
   text-align: center;
 }
 .similar-episodes-btn__more {
@@ -3965,6 +3958,14 @@ h2.page-video-header-show {
   color: #808285;
   font: 15px PTSansRegular;
   text-align: center;
+}
+.similar-episodes-btn::after {
+  content: "";
+  display: block;
+  margin-top: 34px;
+  width: 98.4%;
+  height: 1px;
+  background: #cccccd;
 }
 .similar-episodes-btn__more::after {
   content: "";
