@@ -848,6 +848,7 @@ body {
   padding-left: 20px;
   padding-right: 20px;
   position: relative;
+  overflow: hidden;
   transition: all 0.5s ease-out;
 }
 .container2 {
@@ -4007,6 +4008,43 @@ h2.page-video-header-show {
   background: url(../img/anons-all-btn.png);
   content: "";
   transition: all 0.1s ease-out;
+}
+.page-video-content-arrow__left {
+  left: 10%;
+  top: 617px;
+  display: block;
+  width: 68px;
+  height: 68px;
+  position: absolute;
+  background: url(../img/page-video-arrow__left.png);
+}
+.page-video-content-arrow__left:hover {
+  background: url(../img/page-video-arrow__right__hover.png);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.page-video-content-arrow__right {
+  right: 10%;
+  top: 617px;
+  display: block;
+  width: 68px;
+  height: 68px;
+  position: absolute;
+  background: url(../img/page-video-arrow__left.png);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.page-video-content-arrow__right:hover {
+  background: url(../img/page-video-arrow__right__hover.png);
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+.page-video-wrap {
+  width: 200%;
+  overflow: hidden;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 .page-article {
   padding-top: 30px;
