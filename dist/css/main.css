@@ -5186,7 +5186,7 @@ h2.page-article-header-show {
 .page-sheduler-content-items {
   list-style: none;
 }
-.page-sheduler-content-item p span:nth-child(2) {
+.page-sheduler-content-item p > span:nth-child(3) {
   color: #939598;
   font-size: 13px;
   display: block;
@@ -5243,6 +5243,18 @@ h2.page-article-header-show {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+}
+.page-sheduler-content-items .link-transform {
+  display: none;
+}
+.page-sheduler-content-items p > span:nth-child(2) {
+  display: block;
+}
+.page-sheduler-content-items .active .link-transform {
+  display: block;
+}
+.page-sheduler-content-items .active p span:nth-child(2) {
+  display: none;
 }
 
 /*# sourceMappingURL=main.css.map */
