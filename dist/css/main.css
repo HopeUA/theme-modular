@@ -5224,6 +5224,15 @@ h2.page-article-header-show {
   height: 26px;
   margin: 19px;
 }
+.page-sheduler-content-items .page-sheduler-content-item-titles::before {
+  content: '';
+  background: red;
+  display: block;
+  width: 26px;
+  height: 26px;
+  margin: 19px;
+  border-radius: 50%;
+}
 .page-sheduler-content-item div {
   display: -webkit-flex;
   display: -ms-flexbox;
