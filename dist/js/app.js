@@ -11353,14 +11353,6 @@ $(function () {
         });
     };
 
-    function timeConverter(time_unix) {
-        var time = new Date(time_unix * 1000);
-        var year = time.getFullYear();
-        var month = time.getMonth();
-        var date = time.getDate();
-        var time = date + '.' + month + '.' + year;
-        return time;
-    }
 });
 
 
@@ -11371,116 +11363,151 @@ $(function () {
 
 
 $(function () {
-    var episodeCashe = [];
-    var currentJson = null;
+    var episodeCache = {};
     var currentCode = null;
-    var currentObject = null;
     var nextCode = null;
     var nextObject = null;
     var prevCode = null;
     var prevObject = null;
     var arrowLeft = $('.page-video-content-arrow__left');
     var arrowRight = $('.page-video-content-arrow__right');
+    var template = null;
 
     var loadJsonByPage = function ($object) {
-        currentJson = JSON.parse($object.html());
-        currentCode = currentJson[0].episode.code;
-        currentObject = currentJson[0];
+        var currentJson = JSON.parse($object.html());
+        currentCode = currentJson.episode.code;
+        var currentObject = currentJson;
 
-        episodeCashe[currentCode] = currentObject;
+        episodeCache[currentCode] = currentObject;
+
+        var next = currentObject.next;
+        var prev = currentObject.prev;
+
+        arrowRight.data('code', next);
+        arrowLeft.data('code', prev);
     };
 
-    var loadJsonByUrl = function (nextUrl, prevUrl) {
-        $.when(
-            $.getJSON(nextUrl), $.getJSON(prevUrl)
-        ).then(function (next, prev) {
-            episodeCashe[next[0][0].episode.code] = next[0][0];
-            episodeCashe[prev[0][0].episode.code] = prev[0][0];
+    var loadJsonByCode = function () {
+
+        $.each(arguments, function (index, item) {
+
+            var url = 'ajax/' + item + '.json';
+
+            $.getJSON(url, function (data) {
+                episodeCache[item] = data;
+            });
+
         });
-    }
+    };
 
-    var renderPage = function (data) {
+    var loadTemplate = function () {
+        template = $('.page-video-wrap > .container').clone();
+        template.addClass('page-video-new');
+    };
 
-        var place = $('.page-video');
+    var hideArrow = function ($object) {
+        $object.animate({
+            'opacity': 0
+        }, 200, function () {
+            $object.css('display', 'none');
+        });
+    };
 
-        var template = '<div class="container-content">' +
-                            '<div class="page-video-links">' +
-                                '<a href="#">Главная</a>' +
-                                '<a href="#">Программы</a>' +
-                                '<a href="#">Що таке кохання</a>' +
-                                '<span>Поспілкуймося</span>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="container-content">' +
-                            '<div class="page-video-header">' +
-                                '<h1 class="page-video-header-title">Що таке кохання</h1>' +
-                                '<span class="page-video-header-divider"> / </span>' +
-                                '<h2 class="page-video-header-show">Поспілкуймося</h2>' +
-                                '<a href="#" class="page-video-header-link">О программе <span> →</span></a>' +
-                            '</div>' +
-                        '</div>' +
+    var showArrow = function ($object) {
+        $object.css('display', 'block');
+        $object.animate({
+            'opacity': 1
+        }, 200);
+    };
 
-                        '<div class="video-page-content">' +
-                            '<div class="video-page-content__left">' +
-                                '<div class="video-page-content__left-video">' +
-                                    '<div class="video-page-content__left-video-play"></div>' +
-                                    '<img src="img/video-page-poster2.jpg" alt="">' +
-                                '</div>' +
-                                '<p class="video-page-content__left-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх.</p>' +
-                            '</div>' +
-                            '<div class="video-page-content__right">' +
-                                '<p class="video-page-content__right-time">29.10.2015</p>' +
-                                '<p class="video-page-content__right-views">9835</p>' +
-                                '<a href="#" class="video-page-content__right-download">Скачать</a>' +
-                                '<div class="video-page-content__right-share">' +
-                                    '<span class="video-page-content__right-share-title">Поделиться:</span>' +
-                                    '<div class="video-page-content__right-share-items">' +
-                                        '<a href="#" class="video-page-content__right-share__tw"></a>' +
-                                        '<a href="#" class="video-page-content__right-share__fb"></a>' +
-                                        '<a href="#" class="video-page-content__right-share__vk"></a>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="video-page-content__right-likes">' +
-                                    '<span class="video-page-content__right-likes-title">Мне нравится:</span>' +
-                                    '<div class="video-page-content__right-likes-vk">' +
-                                        '<a href="#"></a>' +
-                                        '<span class="video-page-content__right-likes-vk-counter">5</span>' +
-                                        '<span class="video-page-content__right-likes-vk-title">vkontakte</span>' +
-                                    '</div>' +
-                                    '<div class="video-page-content__right-likes-google">' +
-                                        '<a href="#"></a>' +
-                                        '<span class="video-page-content__right-likes-google-counter">8</span>' +
-                                        '<span class="video-page-content__right-likes-google-title">google</span>' +
-                                    '</div>' +
-                                    '<div class="video-page-content__right-likes-fb">' +
-                                        '<a href="#"></a>' +
-                                        '<span class="video-page-content__right-likes-fb-counter">3</span>' +
-                                        '<span class="video-page-content__right-likes-fb-title">facebook</span>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>';
+    var movePage = function (place, direction) {
 
-        $('.page-video-new').html(template);
-        $('.page-video-wrap').animate({'margin-left' : '-100%'}, 300);
+        if (direction == 'left') {
+            console.log('left');
+            place.css('margin-left', '-100%');
+            place.animate({
+                'margin-left': '+=100%'
+            }, 300, function () {
+                $('.page-video-new').removeClass('page-video-new');
+                place.find('.container').eq(1).remove();
+            });
+        } else if (direction == 'right') {
+            place.animate({
+                'margin-left': '-=100%'
+            }, 300, function () {
+                $('.page-video-new').removeClass('page-video-new');
+                place.find('.container').eq(0).remove();
+                place.css('margin-left', '0');
+            });
+        }
+    };
+
+    var renderPage = function (code, direction) {
+
+        var place = $('.page-video-wrap');
+
+        var currentObject = episodeCache[code].episode;
+
+        template.find('.pv-episode-title').text(currentObject.title);
+        template.find('.pv-episode-show').text(currentObject.show);
+        var imgSrc = 'img/' + currentObject.img;
+        template.find('.pv-episode-img').attr('src', imgSrc);
+        template.find('.pv-episode-description').text(currentObject.description);
+        template.find('.pv-episode-date').text(moment.unix(currentObject.date).format('DD.MM.YYYY'));
+        template.find('.pv-episode-views').text(currentObject.views);
 
 
-
-
+        if (direction == 'right') {
+            place.append(template.clone());
+            movePage(place, 'right');
+        } else if (direction == 'left') {
+            place.prepend(template.clone());
+            movePage(place, 'left');
+        }
     };
 
     loadJsonByPage($('#dataCurrentJson'));
-    loadJsonByUrl('ajax/MBCU00215.json', 'ajax/MBCU00415.json');
+    loadJsonByCode('MBCU00215', 'MBCU00415');
+    loadTemplate();
 
+    arrowRight.click(function (event) {
 
-    arrowLeft.click(function () {
-        console.log('left');
+        event.preventDefault();
+
+        showArrow(arrowLeft);
+
+        var nextCode = episodeCache[currentCode].next;
+
+        renderPage(nextCode, 'right');
+        currentCode = nextCode;
+
+        if (episodeCache[nextCode].next) {
+            loadJsonByCode(episodeCache[nextCode].next);
+        } else {
+            hideArrow($(this));
+        }
+
     });
 
-    arrowRight.click(function () {
-        renderPage(episodeCashe);
-        console.log('right');
+    arrowLeft.click(function (event) {
+
+        event.preventDefault();
+
+        showArrow(arrowRight);
+
+        var nextCode = episodeCache[currentCode].prev;
+
+        renderPage(nextCode, 'left');
+        currentCode = nextCode;
+
+        if (episodeCache[nextCode].prev) {
+            loadJsonByCode(episodeCache[nextCode].prev);
+        } else {
+            hideArrow($(this));
+        }
+
     });
+
 
 
 
