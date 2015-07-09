@@ -111,7 +111,7 @@ $(function () {
         $.each(arguments, function (index, item) {
 
             if (episodeCache.hasOwnProperty(item)) {
-                return false;
+                return;
             }
 
             var url = 'ajax/' + item + '.json';
