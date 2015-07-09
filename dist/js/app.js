@@ -11449,7 +11449,9 @@ $(function () {
         var currentObject = episodeCache[code].episode;
 
         template.find('.pv-episode-title').text(currentObject.title);
+        $('.pv-episode-title').text(currentObject.title);
         template.find('.pv-episode-show').text(currentObject.show);
+        $('.pv-episode-show').text(currentObject.show);
         var imgSrc = 'img/' + currentObject.img;
         template.find('.pv-episode-img').attr('src', imgSrc);
         template.find('.pv-episode-description').text(currentObject.description);

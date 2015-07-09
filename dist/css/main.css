@@ -3427,7 +3427,7 @@ body {
   right: 0;
 }
 .page-video {
-  padding-top: 30px;
+  padding-top: 3px;
   padding-bottom: 51px;
   background: #fff;
 }
@@ -3435,6 +3435,7 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  background: #fff;
 }
 .page-video-links a {
   color: #808285;
@@ -3443,6 +3444,10 @@ body {
   text-decoration: underline;
   display: block;
   margin-right: 3px;
+  margin-top: 28px;
+}
+.page-video-links a:first-child {
+  margin-left: 20px;
 }
 .page-video-links span {
   color: #808285;
@@ -3451,6 +3456,7 @@ body {
   display: block;
   float: left;
   margin-right: 3px;
+  margin-top: 28px;
 }
 .page-video-links a::after {
   content: "→";
