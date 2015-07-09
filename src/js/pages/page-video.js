@@ -110,6 +110,10 @@ $(function () {
 
         $.each(arguments, function (index, item) {
 
+            if (episodeCache.hasOwnProperty(item)) {
+                return false;
+            }
+
             var url = 'ajax/' + item + '.json';
 
             $.getJSON(url, function (data) {
