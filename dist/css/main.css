@@ -4581,6 +4581,7 @@ h2.page-article-header-show {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  height: 582px;
 }
 .page-article-anons-item_small {
   height: 278px;
@@ -4674,7 +4675,7 @@ h2.page-article-header-show {
 }
 .page-article-anons-btn {
   width: 100%;
-  margin-top: 9px;
+  margin-top: 42px;
   text-align: center;
 }
 .page-article-anons-btn__more {

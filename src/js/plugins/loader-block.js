@@ -19,7 +19,7 @@
     };
 
     function appendBlock(self, data) {
-        var template = self.$object.children('.similar-episodes-item').eq('0').clone();
+        var template = self.$object.children().eq('0').clone();
         var content = self.options.render(template, data);
 
         self.$object.append(content);
@@ -74,7 +74,7 @@
             } else {
 
                 if (counter <= (self.options.max - 2)) {
-                    var url = 'ajax/similar-episodes' + counter + '.json';
+                    var url = self.options.url + counter + '.json';
 
                     loadJson(self, url);
                 }

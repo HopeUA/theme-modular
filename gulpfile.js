@@ -43,7 +43,8 @@ gulp.task('theme-less', function () {
         'src/js/content/popular.js',
         'src/js/content/recomended.js',
         'src/js/content/now.js',
-        'src/js/pages/page-video.js'
+        'src/js/pages/page-video.js',
+        'src/js/pages/page-article.js'
     ])
         .pipe(sourcemaps.init())
         .pipe(concat('app.js'))
