@@ -5,17 +5,7 @@
         this.$object = $(object); // main object
         this.options = $.extend({}, LoaderBlock.DEFAULTS, options);
 
-        this.clickCounter = 0;
-
-        //        this.$arrowLeft = 'arrowLeft' in this.options ? $(this.options.arrowLeft) : $('.' + this.options.name + '-arrow-left');
-        //        this.$arrowRight = 'arrowRight' in this.options ? $(this.options.arrowRight) : $('.' + this.options.name + '-arrow-right');
-
-        this.$btnMore = $('.similar-episodes-btn__more');
-        this.$container = $('.similar-episodes');
-        this.containerHeight = this.$container.css('height');
-        this.itemHeight = parseInt(this.$container.children().css('height')) + parseInt(this.$container.children().css('margin-bottom')) + 'px';
-        this.textShow = this.$btnMore.data('text-show');
-        this.textHide = this.$btnMore.data('text-hide');
+        this.$btnMore = 'btnMore' in this.options ? (this.options.btnMore) : $('.similar-episodes-btn__more');
 
         init(this);
     };
@@ -26,18 +16,12 @@
         tiemDown: 200
     };
 
-    function render(self, data) {
-        var strFull = self.$container.children('.similar-episodes-item').eq('0').clone();
+    function appendBlock(self, data) {
+        var template = self.$object.children('.similar-episodes-item').eq('0').clone();
+        var content = self.options.render(template, data);
 
-        var src = 'img/' + data.episodeImg;
-        strFull.find('.similar-episodes-item-video-image__wide').attr('src', src);
-        strFull.find('.similar-episodes-item-description-time').text(moment.unix(data.episodeDate).format('DD.MM.YYYY'));
-        strFull.find('.similar-episodes-item-description-title').text(data.episodeTitle);
-        strFull.find('.similar-episodes-item-description-show').text(data.episodeShow);
-
-        self.$container.append(strFull);
+        self.$object.append(content);
     }
-
 
     function loadJson(self, url) {
 
@@ -46,7 +30,7 @@
             var episodes = data;
 
             $.each(episodes, function (index, element) {
-                render(self, element);
+                appendBlock(self, element);
             });
         });
     };
@@ -55,13 +39,16 @@
 
         var counter = 0;
 
-        self.$btnMore.click(function () {
+        self.containerHeight = self.$object.css('height');
+        self.itemHeight = parseInt(self.$object.children().css('height')) + parseInt(self.$object.children().css('margin-bottom')) + 'px';
 
-            console.log(counter);
+        self.textShow = self.$btnMore.data('text-show');
+        self.textHide = self.$btnMore.data('text-hide');
+
+        self.$btnMore.click(function () {
 
             if (counter == self.options.max) {
 
-                console.log('True');
                 $(this).text(self.textShow);
 
             } else if (counter == (self.options.max - 1)) {
@@ -70,7 +57,7 @@
 
             if (counter >= self.options.max) {
 
-                self.$container.animate({
+                self.$object.animate({
                     'height': self.containerHeight
                 }, self.options.timeUP);
 
@@ -86,7 +73,7 @@
                     loadJson(self, url);
                 }
 
-                self.$container.animate({
+                self.$object.animate({
                     'height': '+=' + self.itemHeight
                 }, self.options.tiemDown);
                 counter++;
