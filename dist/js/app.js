@@ -11106,6 +11106,8 @@ function moveTimelineTo(minutes) {
         this.$object = $(object); // main object
         this.options = $.extend({}, LoaderBlock.DEFAULTS, options);
 
+        this.loadStatus = true;
+
         this.$btnMore = 'btnMore' in this.options ? (this.options.btnMore) : $('.similar-episodes-btn__more');
 
         init(this);
@@ -11126,14 +11128,16 @@ function moveTimelineTo(minutes) {
 
     function loadJson(self, url) {
 
-        $.getJSON(url, function (data) {
+        if (self.loadStatus) {
+            $.getJSON(url, function (data) {
 
-            var episodes = data;
+                var episodes = data;
 
-            $.each(episodes, function (index, element) {
-                appendBlock(self, element);
+                $.each(episodes, function (index, element) {
+                    appendBlock(self, element);
+                });
             });
-        });
+        };
     };
 
     function init(self) {
@@ -11165,6 +11169,8 @@ function moveTimelineTo(minutes) {
                 counter = 0;
 
                 $(this).text(this.textShow);
+
+                self.loadStatus = false;
 
             } else {
 
@@ -11571,4 +11577,5 @@ $(function () {
 
 
 });
+
 //# sourceMappingURL=app.js.map
