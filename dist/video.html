@@ -117,66 +117,86 @@
     </header>
     <!-- Header END -->
 
-    <section class="page-video">
+    <script id="dataCurrentJson" type="application/json">
+
+        { "episode" : { "code" : "MBCU00315", "title" : "Хитрощі диявола 3", "show" : "Хліб щоденний", "date" : 1436184755, "views" : 1265, "img" : "video-page-poster.jpg", "description" : "Часто мы так зацикливаемся на своём внешнем облике, переживая и волнуясь, как выглядим, что напрочь забываем заботиться о внутренней красоте. Но если внешность можно привести в порядок, причесавшись или подкрасив губы, то как стать привлекательнее внутри? И есть ли она вообще, эта душевная красота? Рассуждают пастор Ярослав Моток и титулованная королева красоты Юлия." }, "prev" : "MBCU00215", "next" : "MBCU00415" }
+
+    </script>
+
+    <a href="#" class="page-video-content-arrow__left"></a>
+
+    <section class="page-video-links">
         <div class="container">
             <div class="container-content">
-                <div class="page-video-links">
-                    <a href="#">Главная</a>
-                    <a href="#">Программы</a>
-                    <a href="#">Хліб щоденний</a>
-                    <span>Хитрощі диявола</span>
-                </div>
-            </div>
-            <div class="container-content">
-                <div class="page-video-header">
-                    <h1 class="page-video-header-title">Хитрощі диявола</h1>
-                    <span class="page-video-header-divider"> / </span>
-                    <h2 class="page-video-header-show">Хліб щоденний</h2>
-                    <a href="#" class="page-video-header-link">О программе <span> →</span></a>
-                </div>
-            </div>
-            <div class="video-page-content">
-                <div class="video-page-content__left">
-                    <div class="video-page-content__left-video">
-                        <div class="video-page-content__left-video-play"></div>
-                        <img src="img/video-page-poster.jpg" alt="">
-                    </div>
-                    <p class="video-page-content__left-description">Часто мы так зацикливаемся на своём внешнем облике, переживая и волнуясь, как выглядим, что напрочь забываем заботиться о внутренней красоте. Но если внешность можно привести в порядок, причесавшись или подкрасив губы, то как стать привлекательнее внутри? И есть ли она вообще, эта душевная красота? Рассуждают пастор Ярослав Моток и титулованная королева красоты Юлия.</p>
-                </div>
-                <div class="video-page-content__right">
-                    <p class="video-page-content__right-time">13.08.2015</p>
-                    <p class="video-page-content__right-views">1265</p>
-                    <a href="#" class="video-page-content__right-download">Скачать</a>
-                    <div class="video-page-content__right-share">
-                        <span class="video-page-content__right-share-title">Поделиться:</span>
-                        <div class="video-page-content__right-share-items">
-                            <a href="#" class="video-page-content__right-share__tw"></a>
-                            <a href="#" class="video-page-content__right-share__fb"></a>
-                            <a href="#" class="video-page-content__right-share__vk"></a>
-                        </div>
-                    </div>
-                    <div class="video-page-content__right-likes">
-                        <span class="video-page-content__right-likes-title">Мне нравится:</span>
-                        <div class="video-page-content__right-likes-vk">
-                            <a href="#"></a>
-                            <span class="video-page-content__right-likes-vk-counter">5</span>
-                            <span class="video-page-content__right-likes-vk-title">vkontakte</span>
-                        </div>
-                        <div class="video-page-content__right-likes-google">
-                            <a href="#"></a>
-                            <span class="video-page-content__right-likes-google-counter">8</span>
-                            <span class="video-page-content__right-likes-google-title">google</span>
-                        </div>
-                        <div class="video-page-content__right-likes-fb">
-                            <a href="#"></a>
-                            <span class="video-page-content__right-likes-fb-counter">3</span>
-                            <span class="video-page-content__right-likes-fb-title">facebook</span>
-                        </div>
-                    </div>
-                </div>
+                <a href="#">Главная</a>
+                <a href="#">Программы</a>
+                <a href="#" class="pv-episode-show">Хліб щоденний</a>
+                <span class="pv-episode-title">Хитрощі диявола 3</span>
             </div>
         </div>
     </section>
+
+    <section class="page-video">
+        <div class="container">
+            <div class="page-video-wrap">
+                <div class="container">
+                    <div class="container-content">
+                        <div class="page-video-header">
+                            <h1 class="page-video-header-title pv-episode-title">Хитрощі диявола 3</h1>
+                            <span class="page-video-header-divider"> / </span>
+                            <h2 class="page-video-header-show pv-episode-show">Хліб щоденний</h2>
+                            <a href="#" class="page-video-header-link">О программе <span> →</span></a>
+                        </div>
+                    </div>
+
+                    <div class="video-page-content">
+                        <div class="video-page-content__left">
+                            <div class="video-page-content__left-video">
+                                <div class="video-page-content__left-video-play"></div>
+                                <img src="img/video-page-poster.jpg" alt="" class="pv-episode-img">
+                            </div>
+                            <p class="video-page-content__left-description pv-episode-description">Часто мы так зацикливаемся на своём внешнем облике, переживая и волнуясь, как выглядим, что напрочь забываем заботиться о внутренней красоте. Но если внешность можно привести в порядок, причесавшись или подкрасив губы, то как стать привлекательнее внутри? И есть ли она вообще, эта душевная красота? Рассуждают пастор Ярослав Моток и титулованная королева красоты Юлия.</p>
+                        </div>
+                        <div class="video-page-content__right">
+                            <p class="video-page-content__right-time pv-episode-date">13.08.2015</p>
+                            <p class="video-page-content__right-views pv-episode-views">1265</p>
+                            <a href="#" class="video-page-content__right-download">Скачать</a>
+                            <div class="video-page-content__right-share">
+                                <span class="video-page-content__right-share-title">Поделиться:</span>
+                                <div class="video-page-content__right-share-items">
+                                    <a href="#" class="video-page-content__right-share__tw"></a>
+                                    <a href="#" class="video-page-content__right-share__fb"></a>
+                                    <a href="#" class="video-page-content__right-share__vk"></a>
+                                </div>
+                            </div>
+                            <div class="video-page-content__right-likes">
+                                <span class="video-page-content__right-likes-title">Мне нравится:</span>
+                                <div class="video-page-content__right-likes-vk">
+                                    <a href="#"></a>
+                                    <span class="video-page-content__right-likes-vk-counter">5</span>
+                                    <span class="video-page-content__right-likes-vk-title">vkontakte</span>
+                                </div>
+                                <div class="video-page-content__right-likes-google">
+                                    <a href="#"></a>
+                                    <span class="video-page-content__right-likes-google-counter">8</span>
+                                    <span class="video-page-content__right-likes-google-title">google</span>
+                                </div>
+                                <div class="video-page-content__right-likes-fb">
+                                    <a href="#"></a>
+                                    <span class="video-page-content__right-likes-fb-counter">3</span>
+                                    <span class="video-page-content__right-likes-fb-title">facebook</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <a href="#" class="page-video-content-arrow__right"></a>
 
     <section class="container2">
         <div class="container-header">
@@ -296,10 +316,66 @@
                         <a href="#" class="similar-episodes-item-description-show">Поспілкуймося <span> →</span></a>
                     </div>
                 </div>
-                <div class="similar-episodes-btn">
-                    <div class="similar-episodes-btn__more">Показать еще</div>
+                <div class="grid__column-1 similar-episodes-item">
+                    <div class="similar-episodes-item-video">
+                        <div class="similar-episodes-item-video-play"></div>
+                        <img src="img/episode-container__large.jpg" class="similar-episodes-item-video-image__wide">
+                    </div>
+                    <div class="similar-episodes-item-description">
+                        <p class="similar-episodes-item-description-time">12.08.2014</p>
+                        <p class="similar-episodes-item-description-title">Закон Божий и закон Христов</p>
+                        <a href="#" class="similar-episodes-item-description-show">Поспілкуймося <span> →</span></a>
+                    </div>
+                </div>
+                <div class="grid__column-1 similar-episodes-item">
+                    <div class="similar-episodes-item-video">
+                        <div class="similar-episodes-item-video-play"></div>
+                        <img src="img/episode-container__large.jpg" class="similar-episodes-item-video-image__wide">
+                    </div>
+                    <div class="similar-episodes-item-description">
+                        <p class="similar-episodes-item-description-time">12.08.2014</p>
+                        <p class="similar-episodes-item-description-title">Закон Божий и закон Христов</p>
+                        <a href="#" class="similar-episodes-item-description-show">Поспілкуймося <span> →</span></a>
+                    </div>
+                </div>
+                <div class="grid__column-1 similar-episodes-item">
+                    <div class="similar-episodes-item-video">
+                        <div class="similar-episodes-item-video-play"></div>
+                        <img src="img/episode-container__large.jpg" class="similar-episodes-item-video-image__wide">
+                    </div>
+                    <div class="similar-episodes-item-description">
+                        <p class="similar-episodes-item-description-time">12.08.2014</p>
+                        <p class="similar-episodes-item-description-title">Закон Божий и закон Христов</p>
+                        <a href="#" class="similar-episodes-item-description-show">Поспілкуймося <span> →</span></a>
+                    </div>
+                </div>
+                <div class="grid__column-1 similar-episodes-item">
+                    <div class="similar-episodes-item-video">
+                        <div class="similar-episodes-item-video-play"></div>
+                        <img src="img/episode-container__large.jpg" class="similar-episodes-item-video-image__wide">
+                    </div>
+                    <div class="similar-episodes-item-description">
+                        <p class="similar-episodes-item-description-time">12.08.2014</p>
+                        <p class="similar-episodes-item-description-title">Закон Божий и закон Христов</p>
+                        <a href="#" class="similar-episodes-item-description-show">Поспілкуймося <span> →</span></a>
+                    </div>
+                </div>
+                <div class="grid__column-1 similar-episodes-item">
+                    <div class="similar-episodes-item-video">
+                        <div class="similar-episodes-item-video-play"></div>
+                        <img src="img/episode-container__large.jpg" class="similar-episodes-item-video-image__wide">
+                    </div>
+                    <div class="similar-episodes-item-description">
+                        <p class="similar-episodes-item-description-time">12.08.2014</p>
+                        <p class="similar-episodes-item-description-title">Закон Божий и закон Христов</p>
+                        <a href="#" class="similar-episodes-item-description-show">Поспілкуймося <span> →</span></a>
+                    </div>
                 </div>
             </div>
+
+        </div>
+        <div class="similar-episodes-btn">
+            <div class="similar-episodes-btn__more" data-text-show="Показать еще" data-text-hide="Скрыть">Показать еще</div>
         </div>
     </section>
 

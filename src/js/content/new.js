@@ -7,6 +7,8 @@ $(function(){
 
     var slider = $('.new').data('hopeSliderBlock');
 
-    slider.setUrl('ajax/new');
+    if (slider) {
+        slider.setUrl('ajax/new');
+    }
 
 });

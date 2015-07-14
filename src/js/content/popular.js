@@ -6,8 +6,9 @@ $(function(){
 
     var slider = $('.popular').data('hopeSliderBlock');
 
-    slider.setUrl('ajax/popular');
-
+    if (slider) {
+        slider.setUrl('ajax/popular');
+    }
 
     var counter = true;
 
