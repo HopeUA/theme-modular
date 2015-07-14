@@ -13,6 +13,8 @@ $(function () {
         url: 'ajax/similar-episodes'
     });
 
+    $('.page-video').hopeSliderPage();
+
 });
 
 
