@@ -11226,14 +11226,14 @@ function moveTimelineTo(minutes) {
         this.$object = $(object); // main object
         this.options = $.extend({}, SliderPage.DEFAULTS, options);
 
-        this.episodeCache = {};
+        this.pageCache = {};
         this.currentCode = null;
         this.nextCode = null;
         this.nextObject = null;
         this.prevCode = null;
         this.prevObject = null;
-        this.$arrowLeft = 'arrowLeft' in this.options ? (this.options.arrowLeft) : $('.page-video-content-arrow__left');
-        this.$arrowRight = 'arrowRight' in this.options ? (this.options.arrowRight) : $('.page-video-content-arrow__right');
+        this.$arrowLeft = 'arrowLeft' in this.options ? (this.options.arrowLeft) : $('.page-content-arrow__left');
+        this.$arrowRight = 'arrowRight' in this.options ? (this.options.arrowRight) : $('.page-content-arrow__right');
         this.template = null;
 
         init(this);
@@ -11242,16 +11242,16 @@ function moveTimelineTo(minutes) {
     SliderPage.DEFAULTS = {
         url: 'ajax/',
         timeArrow: 300,
-        tiemPage: 200
+        timePage: 200
     };
 
     function loadJsonByPage(self, $object) {
 
         var currentJson = JSON.parse($object.html());
-        self.currentCode = currentJson.episode.code;
+        self.currentCode = currentJson.object.code;
         var currentObject = currentJson;
 
-        self.episodeCache[self.currentCode] = currentObject;
+        self.pageCache[self.currentCode] = currentObject;
 
         var next = currentObject.next;
         var prev = currentObject.prev;
@@ -11266,22 +11266,21 @@ function moveTimelineTo(minutes) {
 
         $.each(arguments, function (index, item) {
 
-            if (self.episodeCache.hasOwnProperty(item)) {
+            if (self.pageCache.hasOwnProperty(item)) {
                 return;
             }
 
             var url = self.options.url + item + '.json';
 
             $.getJSON(url, function (data) {
-                self.episodeCache[item] = data;
+                self.pageCache[item] = data;
             });
 
         });
     };
 
-    function loadTemplate() {
-        template = $('.page-video-wrap > .container').clone();
-        template.addClass('page-video-new');
+    function loadTemplate(self) {
+        self.template = self.$object.find('.container .container').clone();
     };
 
     function hideArrow(self, $object) {
@@ -11301,19 +11300,16 @@ function moveTimelineTo(minutes) {
 
     function movePage(self, place, direction) {
         if (direction == 'left') {
-            console.log('left');
             place.css('margin-left', '-100%');
             place.animate({
                 'margin-left': '+=100%'
-            }, self.options.tiemPage, function () {
-                $('.page-video-new').removeClass('page-video-new');
+            }, self.options.timePage, function () {
                 place.find('.container').eq(1).remove();
             });
         } else if (direction == 'right') {
             place.animate({
                 'margin-left': '-=100%'
-            }, self.options.tiemPage, function () {
-                $('.page-video-new').removeClass('page-video-new');
+            }, self.options.timePage, function () {
                 place.find('.container').eq(0).remove();
                 place.css('margin-left', '0');
             });
@@ -11322,26 +11318,17 @@ function moveTimelineTo(minutes) {
 
     function renderPage(self, code, direction) {
 
-        var place = $('.page-video-wrap');
+        var place = $('.page-container-wrap');
 
-        var currentObject = self.episodeCache[code].episode;
+        var currentObject = self.pageCache[code].object;
 
-        template.find('.pv-episode-title').text(currentObject.title);
-        $('.pv-episode-title').text(currentObject.title);
-        template.find('.pv-episode-show').text(currentObject.show);
-        $('.pv-episode-show').text(currentObject.show);
-        var imgSrc = 'img/' + currentObject.img;
-        template.find('.pv-episode-img').attr('src', imgSrc);
-        template.find('.pv-episode-description').text(currentObject.description);
-        template.find('.pv-episode-date').text(moment.unix(currentObject.date).format('DD.MM.YYYY'));
-        template.find('.pv-episode-views').text(currentObject.views);
-
+        self.options.render(self.template, currentObject);
 
         if (direction == 'right') {
-            place.append(template.clone());
+            place.append(self.template.clone());
             movePage(self, place, 'right');
         } else if (direction == 'left') {
-            place.prepend(template.clone());
+            place.prepend(self.template.clone());
             movePage(self, place, 'left');
         }
     };
@@ -11349,23 +11336,21 @@ function moveTimelineTo(minutes) {
     function init(self) {
 
         loadJsonByPage(self, $('#dataCurrentJson'));
-        loadJsonByCode(self, 'MBCU00215', 'MBCU00415');
-        loadTemplate();
+        loadJsonByCode(self, self.$arrowLeft.data('code'), self.$arrowRight.data('code'));
+        loadTemplate(self);
 
         self.$arrowRight.click(function (event) {
             event.preventDefault();
 
             showArrow(self, self.$arrowLeft);
 
-            var nextCode = self.episodeCache[self.currentCode].next;
+            var nextCode = self.pageCache[self.currentCode].next;
 
             renderPage(self, nextCode, 'right');
             self.currentCode = nextCode;
 
-            console.log(self.episodeCache[nextCode].next);
-
-            if (self.episodeCache[nextCode].next) {
-                loadJsonByCode(self, self.episodeCache[nextCode].next);
+            if (self.pageCache[nextCode].next) {
+                loadJsonByCode(self, self.pageCache[nextCode].next);
             } else {
                 hideArrow(self, $(this));
             }
@@ -11378,13 +11363,13 @@ function moveTimelineTo(minutes) {
 
             showArrow(self, self.$arrowRight);
 
-            var nextCode = self.episodeCache[self.currentCode].prev;
+            var nextCode = self.pageCache[self.currentCode].prev;
 
             renderPage(self, nextCode, 'left');
             self.currentCode = nextCode;
 
-            if (self.episodeCache[nextCode].prev) {
-                loadJsonByCode(self, self.episodeCache[nextCode].prev);
+            if (self.pageCache[nextCode].prev) {
+                loadJsonByCode(self, self.pageCache[nextCode].prev);
             } else {
                 hideArrow(self, $(this));
             }
@@ -11605,173 +11590,22 @@ $(function () {
         url: 'ajax/similar-episodes'
     });
 
-    $('.page-video').hopeSliderPage();
+    $('.page-video').hopeSliderPage({
+        render: function (template, data) {
+            template.find('.pv-episode-title').text(data.title);
+            $('.pv-episode-title').text(data.title);
+            template.find('.pv-episode-show').text(data.show);
+            $('.pv-episode-show').text(data.show);
+            var imgSrc = 'img/' + data.img;
+            template.find('.pv-episode-img').attr('src', imgSrc);
+            template.find('.pv-episode-description').text(data.description);
+            template.find('.pv-episode-date').text(moment.unix(data.date).format('DD.MM.YYYY'));
+            template.find('.pv-episode-views').text(data.views);
+        },
+        url: 'ajax/'
+    });
 
 });
-
-
-
-
-
-
-
-
-//$(function () {
-//    var episodeCache = {};
-//    var currentCode = null;
-//    var nextCode = null;
-//    var nextObject = null;
-//    var prevCode = null;
-//    var prevObject = null;
-//    var arrowLeft = $('.page-video-content-arrow__left');
-//    var arrowRight = $('.page-video-content-arrow__right');
-//    var template = null;
-//
-//    var loadJsonByPage = function ($object) {
-//        var currentJson = JSON.parse($object.html());
-//        currentCode = currentJson.episode.code;
-//        var currentObject = currentJson;
-//
-//        episodeCache[currentCode] = currentObject;
-//
-//        var next = currentObject.next;
-//        var prev = currentObject.prev;
-//
-//        arrowRight.data('code', next);
-//        arrowLeft.data('code', prev);
-//    };
-//
-//    var loadJsonByCode = function () {
-//
-//        $.each(arguments, function (index, item) {
-//
-//            if (episodeCache.hasOwnProperty(item)) {
-//                return;
-//            }
-//
-//            var url = 'ajax/' + item + '.json';
-//
-//            $.getJSON(url, function (data) {
-//                episodeCache[item] = data;
-//            });
-//
-//        });
-//    };
-//
-//    var loadTemplate = function () {
-//        template = $('.page-video-wrap > .container').clone();
-//        template.addClass('page-video-new');
-//    };
-//
-//    var hideArrow = function ($object) {
-//        $object.animate({
-//            'opacity': 0
-//        }, 200, function () {
-//            $object.css('display', 'none');
-//        });
-//    };
-//
-//    var showArrow = function ($object) {
-//        $object.css('display', 'block');
-//        $object.animate({
-//            'opacity': 1
-//        }, 200);
-//    };
-//
-//    var movePage = function (place, direction) {
-//
-//        if (direction == 'left') {
-//            console.log('left');
-//            place.css('margin-left', '-100%');
-//            place.animate({
-//                'margin-left': '+=100%'
-//            }, 300, function () {
-//                $('.page-video-new').removeClass('page-video-new');
-//                place.find('.container').eq(1).remove();
-//            });
-//        } else if (direction == 'right') {
-//            place.animate({
-//                'margin-left': '-=100%'
-//            }, 300, function () {
-//                $('.page-video-new').removeClass('page-video-new');
-//                place.find('.container').eq(0).remove();
-//                place.css('margin-left', '0');
-//            });
-//        }
-//    };
-//
-//    var renderPage = function (code, direction) {
-//
-//        var place = $('.page-video-wrap');
-//
-//        var currentObject = episodeCache[code].episode;
-//
-//        template.find('.pv-episode-title').text(currentObject.title);
-//        $('.pv-episode-title').text(currentObject.title);
-//        template.find('.pv-episode-show').text(currentObject.show);
-//        $('.pv-episode-show').text(currentObject.show);
-//        var imgSrc = 'img/' + currentObject.img;
-//        template.find('.pv-episode-img').attr('src', imgSrc);
-//        template.find('.pv-episode-description').text(currentObject.description);
-//        template.find('.pv-episode-date').text(moment.unix(currentObject.date).format('DD.MM.YYYY'));
-//        template.find('.pv-episode-views').text(currentObject.views);
-//
-//
-//        if (direction == 'right') {
-//            place.append(template.clone());
-//            movePage(place, 'right');
-//        } else if (direction == 'left') {
-//            place.prepend(template.clone());
-//            movePage(place, 'left');
-//        }
-//    };
-//
-//    loadJsonByPage($('#dataCurrentJson'));
-//    loadJsonByCode('MBCU00215', 'MBCU00415');
-//    loadTemplate();
-//
-//    arrowRight.click(function (event) {
-//
-//        event.preventDefault();
-//
-//        showArrow(arrowLeft);
-//
-//        var nextCode = episodeCache[currentCode].next;
-//
-//        renderPage(nextCode, 'right');
-//        currentCode = nextCode;
-//
-//        if (episodeCache[nextCode].next) {
-//            loadJsonByCode(episodeCache[nextCode].next);
-//        } else {
-//            hideArrow($(this));
-//        }
-//
-//    });
-//
-//    arrowLeft.click(function (event) {
-//
-//        event.preventDefault();
-//
-//        showArrow(arrowRight);
-//
-//        var nextCode = episodeCache[currentCode].prev;
-//
-//        renderPage(nextCode, 'left');
-//        currentCode = nextCode;
-//
-//        if (episodeCache[nextCode].prev) {
-//            loadJsonByCode(episodeCache[nextCode].prev);
-//        } else {
-//            hideArrow($(this));
-//        }
-//
-//    });
-//
-//
-//
-//
-//});
 $(function () {
 
     $('.page-article-anons').hopeLoaderBlock({
@@ -11788,6 +11622,21 @@ $(function () {
         url: 'ajax/similar-articles'
     });
 
+    $('.page-article').hopeSliderPage({
+        render: function (template, data) {
+            template.find('.pa-article-title').text(data.title);
+            $('.pa-article-title').text(data.title);
+            var imgSrc = 'img/' + data.img;
+            template.find('.pa-article-img').attr('src', imgSrc);
+            template.find('.pa-article-description').html(data.description);
+            template.find('.pa-article-date').text(moment.unix(data.date).format('DD.MM.YYYY'));
+            template.find('.pa-article-views').text(data.views);
+        },
+        arrowLeft: $('.page-article-arrow__left'),
+        arrowRight: $('.page-article-arrow__right'),
+        url: 'ajax/'
+    });
+
     function timeToStr(unixTime, lang) {
         moment.locale(lang);
         var strDate = moment.unix(unixTime).format('D MMMM') + ', ' + '<span>' + moment.unix(unixTime).format('LT') + '</span>';
@@ -11795,5 +11644,4 @@ $(function () {
     }
 
 });
-
 //# sourceMappingURL=app.js.map
