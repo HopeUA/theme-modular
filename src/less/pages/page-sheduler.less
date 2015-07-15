@@ -504,23 +504,29 @@ page-sheduler-content-episode-share {
 
 .page-sheduler-content-items .active .page-sheduler-content-item-titles p {
     margin-top: 3px;
+    position: absolute;
 }
 
 .page-sheduler-content-episode-info {
-    margin-top: 40px;
+    padding-top: 35px;
     position: relative;
-    margin-left: -118px;
+    margin-left: 2px;
 }
 
 .page-sheduler-content-items .active .page-sheduler-content-item-titles {
     height: 30px;
 }
 
-.page-sheduler-content-episode-poster {
+.page-sheduler-content-items .active .page-sheduler-content-episode-poster {
     height: 124px;
     position: relative;
     margin-top: 12px;
     cursor: pointer;
+    display: block;
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-poster {
+    display: none;
 }
 
 .page-sheduler-content-episode-poster::before {
@@ -535,7 +541,7 @@ page-sheduler-content-episode-share {
     position: absolute;
 }
 
-.page-sheduler-content-episode-play {
+.page-sheduler-content-items .active .page-sheduler-content-episode-play {
     position: absolute;
     z-index: 2;
     top: 50%;
@@ -547,6 +553,10 @@ page-sheduler-content-episode-share {
     background: url(../img/header-playButton.svg) no-repeat;
     content: "";
     transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-play {
+    display: none;
 }
 
 .page-sheduler-content-episode-poster:hover .page-sheduler-content-episode-play {
