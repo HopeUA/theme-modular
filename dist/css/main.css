@@ -5191,6 +5191,7 @@ h2.page-article-header-show {
   color: #939598;
   font-size: 13px;
   display: block;
+  margin-top: 3px;
 }
 .page-sheduler-content-item {
   display: -webkit-flex;
@@ -5450,7 +5451,7 @@ page-sheduler-content-episode-share {
   margin-bottom: 0;
 }
 .page-sheduler-content-items .active .page-sheduler-content-item-titles p {
-  margin-top: 3px;
+  top: 5px;
   position: absolute;
 }
 .page-sheduler-content-episode-info {
