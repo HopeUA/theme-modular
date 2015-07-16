@@ -1,11 +1,17 @@
 .page-video {
-    padding-top: 30px;
+    padding-top: 3px;
     padding-bottom: 51px;
     background: #fff;
 }
 
 .page-video-links {
     display: flex;
+    background: #fff;
+    user-select: none;
+}
+
+.page-video-links .container-content {
+    user-select: none;
 }
 
 .page-video-links a {
@@ -15,6 +21,12 @@
     text-decoration: underline;
     display: block;
     margin-right: 3px;
+    margin-top: 28px;
+    user-select: text;
+}
+
+.page-video-links a:first-child {
+    margin-left: 20px;
 }
 
 .page-video-links span {
@@ -24,6 +36,8 @@
     display: block;
     float: left;
     margin-right: 3px;
+    margin-top: 28px;
+    user-select: text;
 }
 
 .page-video-links a::after {
@@ -32,6 +46,7 @@
     font-family: arial;
     float: right;
     margin-left: 3px;
+    user-select: none;
 }
 
 .page-video-header {
@@ -44,6 +59,7 @@
     font-family: 'PTSansRegular';
     font-size: 28px;
     display: block;
+    user-select: text;
 }
 
 .page-video-header-divider {
@@ -53,6 +69,7 @@
     font-size: 22px;
     margin-left: 7px;
     margin-right: 7px;
+    user-select: none;
 }
 
 h2.page-video-header-show {
@@ -62,6 +79,7 @@ h2.page-video-header-show {
     display: block;
     height: 22px;
     margin-top: 25px;
+    user-select: text;
 }
 
 .page-video-header-link {
@@ -73,6 +91,7 @@ h2.page-video-header-show {
     margin-top: 28px;
     margin-left: 23px;
     width: 144px;
+    user-select: none;
 }
 
 .page-video-header-link::after {
@@ -120,6 +139,7 @@ h2.page-video-header-show {
 .video-page-content {
     display: flex;
     margin-top: 23px;
+    user-select: none;
 }
 
 .video-page-content__left {
@@ -160,6 +180,7 @@ h2.page-video-header-show {
     font-family: 'PTSansRegular';
     font-size: 14px;
     margin-top: 37px;
+    user-select: text;
 }
 
 .video-page-content__right {
@@ -177,6 +198,7 @@ h2.page-video-header-show {
     margin-bottom: 0;
     padding-bottom: 22px;
     display: flex;
+    user-select: text;
 }
 
 .video-page-content__right-time::before {
@@ -196,6 +218,7 @@ h2.page-video-header-show {
     display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
+    user-select: text;
 }
 
 .video-page-content__right-views::before {
@@ -219,6 +242,7 @@ h2.page-video-header-show {
     font-size: 22px;
     text-decoration: none;
     padding-top: 13px;
+    user-select: none;
 }
 
 .video-page-content__right-download::before {
@@ -244,6 +268,7 @@ h2.page-video-header-show {
     display: block;
     margin-left: 11px;
     margin-bottom: 14px;
+    user-select: none;
 }
 
 .video-page-content__right-share-items {
@@ -282,6 +307,7 @@ h2.page-video-header-show {
     margin-bottom: 14px;
     margin-top: 21px;
     display: block;
+    user-select: none;
 }
 
 .video-page-content__right-likes-vk {
@@ -302,6 +328,7 @@ h2.page-video-header-show {
     font-size: 14px;
     display: block;
     margin-top: 4px;
+    user-select: none;
 }
 
 .video-page-content__right-likes-google-title {
@@ -310,6 +337,7 @@ h2.page-video-header-show {
     font-size: 14px;
     display: block;
     margin-top: 4px;
+    user-select: none;
 }
 
 .video-page-content__right-likes-fb-title {
@@ -318,6 +346,7 @@ h2.page-video-header-show {
     font-size: 14px;
     display: block;
     margin-top: 4px;
+    user-select: none;
 }
 
 .video-page-content__right-likes-vk a {
@@ -363,6 +392,7 @@ h2.page-video-header-show {
     border-left: none;
     padding: 3px 0 4px 6px;
     margin-right: 11px;
+    user-select: none;
 }
 
 .video-page-content__right-likes-vk-counter::before {
@@ -394,6 +424,7 @@ h2.page-video-header-show {
     border-left: none;
     padding: 3px 0 4px 6px;
     margin-right: 11px;
+    user-select: none;
 }
 
 .video-page-content__right-likes-google-counter::before {
@@ -425,6 +456,7 @@ h2.page-video-header-show {
     border-left: none;
     padding: 3px 0 4px 6px;
     margin-right: 11px;
+    user-select: none;
 }
 
 .video-page-content__right-likes-fb-counter::before {
@@ -446,15 +478,7 @@ h2.page-video-header-show {
 .similar-episodes {
     display: flex;
     flex-wrap: wrap;
-}
-
-.similar-episodes::after {
-    content: "";
-    display: block;
-    margin-top: 34px;
-    width: 98.4%;
-    height: 1px;
-    background: #cccccd;
+    height: 553px;
 }
 
 .similar-episodes-item {
@@ -513,6 +537,7 @@ h2.page-video-header-show {
     margin-top: 15px;
     margin-bottom: 0;
     display: block;
+    user-select: text;
 }
 
 .similar-episodes-item-description-title {
@@ -523,6 +548,7 @@ h2.page-video-header-show {
     margin-top: 10px;
     margin-bottom: 20px;
     display: block;
+    user-select: text;
 }
 
 .similar-episodes-item-description-show {
@@ -533,6 +559,7 @@ h2.page-video-header-show {
     text-decoration: none;
     margin-left: 42px;
     margin-bottom: 23px;
+    user-select: text;
 }
 
 .similar-episodes-item-description-show::before {
@@ -560,7 +587,7 @@ h2.page-video-header-show {
 
 .similar-episodes-btn {
     width: 100%;
-    margin-top: 9px;
+    margin-top: 33px;
     text-align: center;
 }
 
@@ -571,6 +598,15 @@ h2.page-video-header-show {
     color: #808285;
     font: 15px PTSansRegular;
     text-align: center;
+}
+
+.similar-episodes-btn::after {
+    content: "";
+    display: block;
+    margin-top: 34px;
+    width: 98.4%;
+    height: 1px;
+    background: #cccccd;
 }
 
 .similar-episodes-btn__more::after {
@@ -615,3 +651,46 @@ h2.page-video-header-show {
     content: "";
     transition: all 0.1s ease-out;
 }
+
+.page-video-content-arrow__left {
+    left: 10%;
+    top: 617px;
+    display: block;
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    background: url(../img/page-video-arrow__left.png);
+}
+
+.page-video-content-arrow__left:hover {
+    background: url(../img/page-video-arrow__right__hover.png);
+    transform: scaleX(-1);
+}
+
+.page-video-content-arrow__right {
+    right: 10%;
+    top: 617px;
+    display: block;
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    background: url(../img/page-video-arrow__left.png);
+    transform: scaleX(-1);
+}
+
+.page-video-content-arrow__right:hover {
+    background: url(../img/page-video-arrow__right__hover.png);
+    transform: scaleX(+1);
+}
+
+.page-video-wrap {
+    width: 200%;
+    overflow: hidden;
+    display: flex;
+}
+
+.page-video-wrap .container {
+    margin-left: 0;
+}
+
+.page-video-new {}
