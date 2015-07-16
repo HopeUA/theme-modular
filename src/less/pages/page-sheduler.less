@@ -1,3 +1,5 @@
+.sdhg {}
+
 .page-sheduler-header {
     background: #fff;
 }
@@ -243,4 +245,386 @@
     color: #939598;
     display: block;
     margin-left: 20px;
+}
+
+.page-sheduler-content {
+    background: #eeeeee;
+    width: 100%;
+}
+
+.page-sheduler-content-container-selection {
+    width: 1222px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.color {
+    font-size: 15px;
+    color: #939598;
+}
+
+.page-sheduler-content-items {
+    list-style: none;
+    padding: 0;
+}
+
+.page-sheduler-content-item p > span:nth-child(3) {
+    color: #939598;
+    font-size: 13px;
+    display: block;
+    margin-top: 3px;
+}
+
+.page-sheduler-content-item {
+    display: flex;
+    overflow: hidden;
+}
+
+.page-sheduler-content-item:hover {
+    background: #fff;
+    transition: all 0.25s ease-out;
+}
+
+.page-sheduler-content-episode-time {
+    margin: auto;
+    display: block;
+    font-size: 26px;
+    color: #58595b;
+    margin-left: 0;
+    margin-top: 5px;
+}
+
+.page-sheduler-content-item > btn {
+    margin: auto;
+    position: relative;
+    left: 30px;
+}
+
+.page-sheduler-content-items .ru .page-sheduler-content-item-titles::before {
+    content: '';
+    background: url("../img/page-sheduler-content-container-flag__ru.png");
+    display: block;
+    width: 26px;
+    height: 26px;
+    margin: 19px;
+    margin-top: 5px;
+}
+
+.page-sheduler-content-items .ua .page-sheduler-content-item-titles::before {
+    content: '';
+    background: url("../img/page-sheduler-content-container-flag__ua.png");
+    display: block;
+    width: 26px;
+    height: 26px;
+    margin: 19px;
+    margin-top: 5px;
+}
+
+.page-sheduler-content-items .page-sheduler-content-item-titles::before {
+    content: '';
+    background: red;
+    display: block;
+    width: 26px;
+    height: 26px;
+    margin: 19px;
+    border-radius: 50%;
+    margin-top: 5px;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-item-titles::before {
+    margin: 19px;
+    margin-left: 17px;
+    margin-top: 1px;
+}
+
+.page-sheduler-content-item-titles p {
+    margin-top: 6px;
+}
+
+.page-sheduler-content-item div {
+    display: flex;
+}
+
+.content {
+    width: max-content;
+    margin-top: 15px;
+}
+
+.page-sheduler-content-items .live .content::after {
+    content: '';
+    background: #df5c5c;
+    display: block;
+    width: 100%;
+    height: 5px;
+    margin: 13px;
+    margin: 13px;
+    margin-top: 15px;
+    position: absolute;
+}
+
+.page-sheduler-content-items .live .content::before {
+    content: '';
+    background: #df5c5c;
+    display: block;
+    width: 100%;
+    height: 5px;
+    margin: 19px;
+    margin-top: 15px;
+    position: absolute;
+    right: 98%;
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-title {
+    display: none;
+}
+
+.page-sheduler-content-items p > span:nth-child(2) {
+    display: block;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-episode-title {
+    display: block;
+    margin: auto;
+    color: #2f8dca;
+    font: 18px PTSansRegular;
+    text-decoration: none;
+    height: 27px;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-episode-title::after {
+    position: relative;
+    top: -2px;
+    left: 1px;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #7cb0d9;
+    box-shadow: 0 1px 0 0 rgba(216, 230, 242, 0.9);
+    content: "";
+    transition: all 0.1s ease-out;
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-title:hover::after {
+    display: none;
+}
+
+.page-sheduler-content-items .active p span:nth-child(2) {
+    display: none;
+}
+
+.page-sheduler-content-episode-time p {
+    border: none;
+    background-color: #df5c5c;
+    background-position: center;
+    width: 60px;
+    height: 30px;
+    display: block;
+    color: #fff;
+    text-align: right;
+    font-size: 18px;
+    font-family: PT Sans Regular;
+}
+
+.page-sheduler-content-episode-time p::before {
+    content: '';
+    background: #fff;
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    left: 11px;
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-time p {
+    display: none;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-episode-time p {
+    display: block;
+    margin-top: 21px;
+    position: relative;
+    padding-top: 4px;
+    padding-right: 10px;
+}
+
+.page-sheduler-content-items .active {
+    background: #fff;
+    border-top: 5px solid #df5c5c;
+    padding-top: 25px;
+    height: 100%;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.page-sheduler-content-episode-share {
+    box-sizing: border-box;
+    width: 170px;
+    display: flex;
+    border-width: max-content;
+    padding: 0;
+}
+
+.page-sheduler-content-episode-share-tw {
+    background: url("../img/share-tw-Icon.png");
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    background-size: 20px;
+    background-repeat: no-repeat;
+}
+
+.page-sheduler-content-episode-share-fb {
+    background: url("../img/share-fb-Icon.png");
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    background-size: 20px;
+    background-repeat: no-repeat;
+}
+
+.page-sheduler-content-episode-share-vk {
+    background: url("../img/share-vk-Icon.png");
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    background-size: 20px;
+    background-repeat: no-repeat;
+}
+
+.page-sheduler-content-episode-share span {
+    color: #a7a9ab;
+    font-size: 12px;
+    margin: auto;
+    margin-top: 2px;
+}
+
+.page-sheduler-content-episode-share a img {
+    width: 18px;
+    height: 18px;
+}
+
+.page-sheduler-content-episode-share a {
+    margin: auto;
+    text-decoration: none;
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-share {
+    display: none;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-episode-share {
+    display: block;
+    height: 25px;
+    position: absolute;
+    bottom: 0;
+    left: 264px;
+    border-top: 1px solid #a7a9ab;
+    padding-top: 11px;
+    display: flex;
+}
+
+page-sheduler-content-episode-share {
+    width: 510px;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-episode-info-img {
+    width: 226px;
+    height: 124px;
+    display: block;
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-info-img {
+    display: none;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-episode-info-p {
+    font-size: 14px;
+    color: #a7a9ab;
+    display: block;
+    margin-left: 39px;
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-info-p {
+    display: none;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-episode-time {
+    width: 68px;
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-item-titles p {
+    top: 5px;
+    position: absolute;
+}
+
+.page-sheduler-content-episode-info {
+    margin-top: 54px;
+    position: relative;
+    margin-left: 1px;
+    margin-bottom: 25px;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-item-titles {
+    height: 30px;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-episode-poster {
+    height: 124px;
+    position: relative;
+    margin-top: 12px;
+    cursor: pointer;
+    display: block;
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-poster {
+    display: none;
+}
+
+.page-sheduler-content-episode-poster::before {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    height: 124px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 50%, rgba(39, 39, 39, 0.6) 75%, rgba(0, 0, 0, 0.9) 100%);
+    content: "";
+    width: 100%;
+    height: 124px;
+    position: absolute;
+}
+
+.page-sheduler-content-items .active .page-sheduler-content-episode-play {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    background: url(../img/header-playButton.svg) no-repeat;
+    content: "";
+    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.page-sheduler-content-items .page-sheduler-content-episode-play {
+    display: none;
+}
+
+.page-sheduler-content-episode-poster:hover .page-sheduler-content-episode-play {
+    transform: scale(1.25);
+    cursor: pointer;
+}
+
+.page-sheduler-content-items .live .page-sheduler-content-item {
+    background: red;
 }
