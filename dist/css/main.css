@@ -852,7 +852,6 @@ body {
   padding-left: 20px;
   padding-right: 20px;
   position: relative;
-  overflow: hidden;
   transition: all 0.5s ease-out;
 }
 .container2 {
@@ -5346,42 +5345,45 @@ h2.page-article-header-show {
   margin: 0 auto;
   padding: 30px;
 }
-.color {
-  font-size: 15px;
-  color: #939598;
-}
 .page-sheduler-content-items {
   list-style: none;
   padding: 0;
 }
 .page-sheduler-content-item p > span:nth-child(3) {
   color: #939598;
-  font-size: 13px;
+  font: 15px PTSansRegular;
   display: block;
-  margin-top: 3px;
+  margin-top: 0;
 }
 .page-sheduler-content-item {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   overflow: hidden;
+  height: 79px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .page-sheduler-content-item:hover {
   background: #fff;
+  cursor: pointer;
   transition: all 0.25s ease-out;
 }
 .page-sheduler-content-episode-time {
-  margin: auto;
-  display: block;
-  font-size: 26px;
   color: #58595b;
-  margin-left: 0;
-  margin-top: 5px;
+  font: 26px PTSansRegular;
+  line-height: 28px;
+  height: 26px;
+  margin: auto;
 }
 .page-sheduler-content-item > btn {
   margin: auto;
   position: relative;
   left: 30px;
+}
+.page-sheduler-content-item-titles {
+  margin-left: 15px;
+  height: 39px;
 }
 .page-sheduler-content-items .ru .page-sheduler-content-item-titles::before {
   content: '';
@@ -5389,8 +5391,6 @@ h2.page-article-header-show {
   display: block;
   width: 26px;
   height: 26px;
-  margin: 19px;
-  margin-top: 5px;
 }
 .page-sheduler-content-items .ua .page-sheduler-content-item-titles::before {
   content: '';
@@ -5398,8 +5398,6 @@ h2.page-article-header-show {
   display: block;
   width: 26px;
   height: 26px;
-  margin: 19px;
-  margin-top: 5px;
 }
 .page-sheduler-content-items .page-sheduler-content-item-titles::before {
   content: '';
@@ -5407,28 +5405,27 @@ h2.page-article-header-show {
   display: block;
   width: 26px;
   height: 26px;
-  margin: 19px;
   border-radius: 50%;
-  margin-top: 5px;
+  margin: auto;
 }
 .page-sheduler-content-items .active .page-sheduler-content-item-titles::before {
-  margin: 19px;
-  margin-left: 17px;
-  margin-top: 1px;
+  margin-top: 17px;
 }
 .page-sheduler-content-item-titles p {
-  margin-top: 6px;
+  margin-top: 0;
+  margin-left: 15px;
+  height: 45px;
+  margin-bottom: 0;
 }
 .page-sheduler-content-item div {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
-.content {
+.page-sheduler-content-items .content {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  margin-top: 15px;
 }
 .page-sheduler-content-items .live .content::after {
   content: '';
@@ -5456,6 +5453,8 @@ h2.page-article-header-show {
 }
 .page-sheduler-content-items p > span:nth-child(2) {
   display: block;
+  font: 18px PTSansRegular;
+  color: #58595b;
 }
 .page-sheduler-content-items .active .page-sheduler-content-episode-title {
   display: block;
@@ -5491,9 +5490,8 @@ h2.page-article-header-show {
   height: 30px;
   display: block;
   color: #fff;
+  font: 18px PTSansRegular;
   text-align: right;
-  font-size: 18px;
-  font-family: PT Sans Regular;
 }
 .page-sheduler-content-episode-time p::before {
   content: '';
@@ -5519,7 +5517,6 @@ h2.page-article-header-show {
 .page-sheduler-content-items .active {
   background: #fff;
   border-top: 5px solid #df5c5c;
-  padding-top: 25px;
   height: 100%;
   border-bottom: 1px solid #e2e2e2;
 }
@@ -5563,8 +5560,8 @@ h2.page-article-header-show {
   background-repeat: no-repeat;
 }
 .page-sheduler-content-episode-share span {
-  color: #a7a9ab;
-  font-size: 12px;
+  color: #808285;
+  font: 13px PTSansRegular;
   margin: auto;
   margin-top: 2px;
 }
@@ -5585,7 +5582,7 @@ h2.page-article-header-show {
   position: absolute;
   bottom: 0;
   left: 264px;
-  border-top: 1px solid #a7a9ab;
+  border-top: 1px solid #cfcfcf;
   padding-top: 11px;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -5596,17 +5593,17 @@ page-sheduler-content-episode-share {
 }
 .page-sheduler-content-items .active .page-sheduler-content-episode-info-img {
   width: 226px;
-  height: 124px;
   display: block;
 }
 .page-sheduler-content-items .page-sheduler-content-episode-info-img {
   display: none;
 }
 .page-sheduler-content-items .active .page-sheduler-content-episode-info-p {
-  font-size: 14px;
-  color: #a7a9ab;
+  color: #58595b;
+  font: 14px PTSansRegular;
   display: block;
   margin-left: 39px;
+  line-height: 16px;
 }
 .page-sheduler-content-items .page-sheduler-content-episode-info-p {
   display: none;
@@ -5614,7 +5611,7 @@ page-sheduler-content-episode-share {
 .page-sheduler-content-items .active .page-sheduler-content-episode-time {
   width: 68px;
   display: block;
-  margin-top: 0;
+  margin-top: 17px;
   margin-bottom: 0;
 }
 .page-sheduler-content-items .active .page-sheduler-content-item-titles p {
@@ -5624,16 +5621,18 @@ page-sheduler-content-episode-share {
 .page-sheduler-content-episode-info {
   margin-top: 54px;
   position: relative;
-  margin-left: 1px;
+  margin-left: 15px;
   margin-bottom: 25px;
 }
 .page-sheduler-content-items .active .page-sheduler-content-item-titles {
   height: 30px;
 }
 .page-sheduler-content-items .active .page-sheduler-content-episode-poster {
+  width: 240px;
   height: 124px;
+  overflow: hidden;
   position: relative;
-  margin-top: 12px;
+  margin-top: 17px;
   cursor: pointer;
   display: block;
 }
@@ -5672,6 +5671,12 @@ page-sheduler-content-episode-share {
 }
 .page-sheduler-content-items .live .page-sheduler-content-item {
   background: red;
+}
+.page-sheduler-content-items .active .content::after {
+  display: none;
+}
+.page-sheduler-content-items .active .content::before {
+  display: none;
 }
 
 /*# sourceMappingURL=main.css.map */
