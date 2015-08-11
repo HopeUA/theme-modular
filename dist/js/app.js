@@ -10613,6 +10613,217 @@ colors = jQuery.Color.names = {
 
 }( jQuery ));
 
+/*!
+ * jQuery.scrollTo
+ * Copyright (c) 2007-2015 Ariel Flesler - aflesler<a>gmail<d>com | http://flesler.blogspot.com
+ * Licensed under MIT
+ * http://flesler.blogspot.com/2007/10/jqueryscrollto.html
+ * @projectDescription Lightweight, cross-browser and highly customizable animated scrolling with jQuery
+ * @author Ariel Flesler
+ * @version 2.1.1
+ */
+;(function(factory) {
+	'use strict';
+	if (typeof define === 'function' && define.amd) {
+		// AMD
+		define(['jquery'], factory);
+	} else if (typeof module !== 'undefined' && module.exports) {
+		// CommonJS
+		module.exports = factory(require('jquery'));
+	} else {
+		// Global
+		factory(jQuery);
+	}
+})(function($) {
+	'use strict';
+
+	var $scrollTo = $.scrollTo = function(target, duration, settings) {
+		return $(window).scrollTo(target, duration, settings);
+	};
+
+	$scrollTo.defaults = {
+		axis:'xy',
+		duration: 0,
+		limit:true
+	};
+
+	function isWin(elem) {
+		return !elem.nodeName ||
+			$.inArray(elem.nodeName.toLowerCase(), ['iframe','#document','html','body']) !== -1;
+	}
+
+	$.fn.scrollTo = function(target, duration, settings) {
+		if (typeof duration === 'object') {
+			settings = duration;
+			duration = 0;
+		}
+		if (typeof settings === 'function') {
+			settings = { onAfter:settings };
+		}
+		if (target === 'max') {
+			target = 9e9;
+		}
+
+		settings = $.extend({}, $scrollTo.defaults, settings);
+		// Speed is still recognized for backwards compatibility
+		duration = duration || settings.duration;
+		// Make sure the settings are given right
+		var queue = settings.queue && settings.axis.length > 1;
+		if (queue) {
+			// Let's keep the overall duration
+			duration /= 2;
+		}
+		settings.offset = both(settings.offset);
+		settings.over = both(settings.over);
+
+		return this.each(function() {
+			// Null target yields nothing, just like jQuery does
+			if (target === null) return;
+
+			var win = isWin(this),
+				elem = win ? this.contentWindow || window : this,
+				$elem = $(elem),
+				targ = target,
+				attr = {},
+				toff;
+
+			switch (typeof targ) {
+				// A number will pass the regex
+				case 'number':
+				case 'string':
+					if (/^([+-]=?)?\d+(\.\d+)?(px|%)?$/.test(targ)) {
+						targ = both(targ);
+						// We are done
+						break;
+					}
+					// Relative/Absolute selector
+					targ = win ? $(targ) : $(targ, elem);
+					if (!targ.length) return;
+					/* falls through */
+				case 'object':
+					// DOMElement / jQuery
+					if (targ.is || targ.style) {
+						// Get the real position of the target
+						toff = (targ = $(targ)).offset();
+					}
+			}
+
+			var offset = $.isFunction(settings.offset) && settings.offset(elem, targ) || settings.offset;
+
+			$.each(settings.axis.split(''), function(i, axis) {
+				var Pos	= axis === 'x' ? 'Left' : 'Top',
+					pos = Pos.toLowerCase(),
+					key = 'scroll' + Pos,
+					prev = $elem[key](),
+					max = $scrollTo.max(elem, axis);
+
+				if (toff) {// jQuery / DOMElement
+					attr[key] = toff[pos] + (win ? 0 : prev - $elem.offset()[pos]);
+
+					// If it's a dom element, reduce the margin
+					if (settings.margin) {
+						attr[key] -= parseInt(targ.css('margin'+Pos), 10) || 0;
+						attr[key] -= parseInt(targ.css('border'+Pos+'Width'), 10) || 0;
+					}
+
+					attr[key] += offset[pos] || 0;
+
+					if (settings.over[pos]) {
+						// Scroll to a fraction of its width/height
+						attr[key] += targ[axis === 'x'?'width':'height']() * settings.over[pos];
+					}
+				} else {
+					var val = targ[pos];
+					// Handle percentage values
+					attr[key] = val.slice && val.slice(-1) === '%' ?
+						parseFloat(val) / 100 * max
+						: val;
+				}
+
+				// Number or 'number'
+				if (settings.limit && /^\d+$/.test(attr[key])) {
+					// Check the limits
+					attr[key] = attr[key] <= 0 ? 0 : Math.min(attr[key], max);
+				}
+
+				// Don't waste time animating, if there's no need.
+				if (!i && settings.axis.length > 1) {
+					if (prev === attr[key]) {
+						// No animation needed
+						attr = {};
+					} else if (queue) {
+						// Intermediate animation
+						animate(settings.onAfterFirst);
+						// Don't animate this axis again in the next iteration.
+						attr = {};
+					}
+				}
+			});
+
+			animate(settings.onAfter);
+
+			function animate(callback) {
+				var opts = $.extend({}, settings, {
+					// The queue setting conflicts with animate()
+					// Force it to always be true
+					queue: true,
+					duration: duration,
+					complete: callback && function() {
+						callback.call(elem, targ, settings);
+					}
+				});
+				$elem.animate(attr, opts);
+			}
+		});
+	};
+
+	// Max scrolling position, works on quirks mode
+	// It only fails (not too badly) on IE, quirks mode.
+	$scrollTo.max = function(elem, axis) {
+		var Dim = axis === 'x' ? 'Width' : 'Height',
+			scroll = 'scroll'+Dim;
+
+		if (!isWin(elem))
+			return elem[scroll] - $(elem)[Dim.toLowerCase()]();
+
+		var size = 'client' + Dim,
+			doc = elem.ownerDocument || elem.document,
+			html = doc.documentElement,
+			body = doc.body;
+
+		return Math.max(html[scroll], body[scroll]) - Math.min(html[size], body[size]);
+	};
+
+	function both(val) {
+		return $.isFunction(val) || $.isPlainObject(val) ? val : { top:val, left:val };
+	}
+
+	// Add special hooks so that window scroll properties can be animated
+	$.Tween.propHooks.scrollLeft =
+	$.Tween.propHooks.scrollTop = {
+		get: function(t) {
+			return $(t.elem)[t.prop]();
+		},
+		set: function(t) {
+			var curr = this.get(t);
+			// If interrupt is true and user scrolled, stop animating
+			if (t.options.interrupt && t._last && t._last !== curr) {
+				return $(t.elem).stop();
+			}
+			var next = Math.round(t.now);
+			// Don't waste CPU
+			// Browsers don't render floating point scroll
+			if (curr !== next) {
+				$(t.elem)[t.prop](next);
+				t._last = this.get(t);
+			}
+		}
+	};
+
+	// AMD requirement
+	return $scrollTo;
+});
+
 $(function(){
 
     var elementArrowLeft   = $('.header-banner__arrow_left');
@@ -12464,22 +12675,35 @@ $(function () {
 
 $(function () {
 
-    $('.page-sheduler-content-item').click(function () {
-        var current = $('.page-sheduler-content-items .active');
+    var tempIndex = $('.page-sheduler-content-items .active').index();
+    var $pageContent = $('.page-sheduler-content');
+    var daysCache = {};
 
-        current.animate({
-            height: 45,
-            borderWidth: 0
-        }, function () {
-            current.animate({
-                height: 45
-            }, 200)
-        });
+    $('.page-sheduler-content-items').on('click', '.page-sheduler-content-item', function () {
+        var $current = $('.page-sheduler-content-items .active');
+        var $current_live = $('.page-sheduler-content-items .live');
+        var indexCurrent = $(this).index();
+        var tIndex = $('.page-sheduler-content-items .active').index();
 
-        //current.removeClass('active');
+        if ($(this).hasClass('live2')) {
+            $(this).addClass('live');
+        }
+
+        if (tIndex == indexCurrent) {
+            return;
+        }
+
+        $current.removeClass('active');
+        $current_live.removeClass('live').addClass('live2');
+        $current.removeAttr('style');
 
         showItem($(this));
 
+        if (indexCurrent > tempIndex) {
+            $(window).scrollTo('-=180', 0);
+        }
+
+        tempIndex = indexCurrent;
     });
 
     function showItem($item) {
@@ -12492,7 +12716,7 @@ $(function () {
         });
 
         $item.animate({
-            height: 300
+            height: 262
         }, 150, function () {
             $item.find('*').animate({
                 opacity: 1
@@ -12500,6 +12724,306 @@ $(function () {
         });
 
         $item.addClass('active');
+    }
+
+    var $arrowLeft = $('.page-sheduler-header-list-arrow__left');
+    var $arrowRight = $('.page-sheduler-header-list-arrow__right');
+    var $container = $('.page-sheduler-header-list');
+    var $activeElement = $container.find('.selected');
+    var indexActiveElement = $activeElement.index() + 1;
+    var containerWidth = parseInt($('.page-sheduler-header-container').css('width'));
+    var elementWidth = parseInt($('.page-sheduler-header-list li').css('width'));
+    var elementMargin = parseInt($('.page-sheduler-header-list li').css('margin-right'));
+    elementWidth = elementWidth + elementMargin;
+    var counterElementsMain = Math.round(containerWidth / elementWidth);
+    var counterElementsAll = $('.page-sheduler-header-list li').length;
+    var widthElementsAll = (counterElementsAll * elementWidth) - elementMargin;
+    var counterElementsLeft = (indexActiveElement - ((counterElementsMain - 1) / 2) - 1);
+    var counterElementsRight = counterElementsAll - indexActiveElement - (counterElementsMain - 1) / 2;
+    var startPosition = 0 - (counterElementsLeft * elementWidth);
+    var counterElementsInvisible = (counterElementsAll - counterElementsMain) / 2;
+    var counterSlider = 0;
+
+    if ($container) {
+
+        $container.css({
+            width: widthElementsAll,
+            marginLeft: startPosition
+        });
+
+        $container.animate({
+            opacity: 1
+        }, 100);
+    }
+
+    $arrowLeft.click(function () {
+
+        $('.arrow__right__empty').addClass('page-sheduler-header-list-arrow__right');
+        $('.page-sheduler-header-list-arrow__right').removeClass('arrow__right__empty');
+
+        $('.page-sheduler-header-list-arrow__right').animate({
+            opacity: 1
+        }, 200);
+
+        if (counterSlider > (0 - counterElementsLeft)) {
+            $container.animate({
+                marginLeft: '+=' + elementWidth
+            }, 150)
+        }
+
+        if (counterSlider == (0 - (counterElementsLeft - 1))) {
+            $arrowLeft.animate({
+                opacity: 0
+            }, 200, function () {
+                $(this).addClass('arrow__left__empty');
+                $(this).removeClass('page-sheduler-header-list-arrow__left');
+            });
+        }
+
+        counterSlider--;
+    });
+
+    $arrowRight.click(function () {
+
+        if (counterSlider == counterElementsRight) {
+            return;
+        }
+
+        $('.arrow__left__empty').addClass('page-sheduler-header-list-arrow__left');
+        $('.page-sheduler-header-list-arrow__left').removeClass('arrow__left__empty');
+
+        $('.page-sheduler-header-list-arrow__left').animate({
+            opacity: 1
+        }, 200);
+
+        if (counterSlider < counterElementsRight) {
+            $container.animate({
+                marginLeft: '-=' + elementWidth
+            }, 150)
+        }
+
+        if (counterSlider == (counterElementsRight - 1)) {
+            $arrowRight.animate({
+                opacity: 0
+            }, 200, function () {
+                $(this).addClass('arrow__right__empty');
+                $(this).removeClass('page-sheduler-header-list-arrow__right');
+            });
+        }
+
+        counterSlider++;
+    });
+
+    $container.find('li').click(function () {
+        var elementId = $(this).data('id');
+        var contentHeight = $pageContent.css('height');
+        var currentIndex = $(this).index();
+        var prevIndex = $('.page-sheduler-header-list .selected').index();
+
+        if (currentIndex == prevIndex) {
+            return;
+        }
+
+        $('.page-sheduler-header-list .selected').removeClass('selected');
+        $(this).addClass('selected');
+
+        loadJson(elementId);
+
+        setTimeout(function () {
+            if (currentIndex < prevIndex) {
+                renderTemplateBefore(daysCache[elementId].objectsDay);
+            } else {
+                renderTemplateAfter(daysCache[elementId].objectsDay);
+            }
+        }, 200)
+
+    });
+
+    function loadJson(idDay) {
+
+        var url = 'ajax/day' + idDay + '.json';
+
+        if (daysCache.hasOwnProperty(idDay)) {
+            return;
+        }
+
+        $.getJSON(url, function (data) {
+            daysCache[idDay] = data;
+        });
+    }
+
+    function renderTemplateBefore(currentDay) {
+        var template = $('.page-sheduler-content-item').not('.active').not('.live2').eq(0).clone();
+        template.removeClass('ru');
+        template.removeClass('ua');
+        var $container = $('.page-sheduler-content-items');
+        var $defaultElement = $('.page-sheduler-content-item').not('.active').eq(1);
+        var heightDefaultElement = parseInt($defaultElement.css('height'));
+        var countInvisibleElements = currentDay.length;
+        var shiftList = 0 - (countInvisibleElements * heightDefaultElement + 3);
+        var reverseCache = currentDay.slice(0);
+        reverseCache = reverseCache.reverse();
+
+        $container.css({
+            marginTop: shiftList
+        })
+
+        $container.animate({
+            marginTop: 0
+        }, 300);
+
+        $.each(reverseCache, function (index, item) {
+
+            var $temp = template.clone();
+
+            $temp.find('.page-sheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
+            $temp.find('.page-sheduler-content-episode-title').text(item.titleEpisode);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.titleEpisode);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.titleShow);
+            $temp.find('.page-sheduler-content-episode-info-img').attr('src', 'img/' + item.img);
+            $temp.find('.page-sheduler-content-episode-info-p').text(item.description);
+            $temp.addClass(item.language);
+
+            if (item.active == 'true') {
+                $temp.addClass('active');
+                $temp.addClass('live');
+            }
+
+            $container.prepend($temp);
+        })
+
+        var $containerList = $('.page-sheduler-content-items').find('.page-sheduler-content-item');
+        var counterContainerList = $containerList.length;
+        var counter = countInvisibleElements;
+
+        setTimeout(function () {
+            for (counter; counter <= counterContainerList; counter++) {
+                $containerList.eq(counter).remove();
+            }
+        }, 300);
+
+    }
+
+    function renderTemplateAfter(currentDay) {
+        var template = $('.page-sheduler-content-item').not('.active').not('.live2').eq(0).clone();
+        template.removeClass('ru');
+        template.removeClass('ua');
+        var $container = $('.page-sheduler-content-items');
+        var $defaultElement = $('.page-sheduler-content-item').not('.active').eq(1);
+        var heightDefaultElement = parseInt($defaultElement.css('height'));
+        var countInvisibleElements = currentDay.length;
+        var shiftList = 0 - ($container.find('.page-sheduler-content-item').length * heightDefaultElement);
+
+        $container.find('.active').removeClass('active');
+
+        $.each(currentDay, function (index, item) {
+
+            var $temp = template.clone();
+
+            $temp.find('.page-sheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
+            $temp.find('.page-sheduler-content-episode-title').text(item.titleEpisode);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.titleEpisode);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.titleShow);
+            $temp.find('.page-sheduler-content-episode-info-img').attr('src', 'img/' + item.img);
+            $temp.find('.page-sheduler-content-episode-info-p').text(item.description);
+            $temp.addClass(item.language);
+
+            if (item.active == 'true') {
+                $temp.addClass('active');
+                $temp.addClass('live');
+            }
+            console.log($temp);
+
+            $container.append($temp);
+        })
+
+        var $containerList = $('.page-sheduler-content-items').find('.page-sheduler-content-item');
+        var counterContainerList = $containerList.length - currentDay.length;
+        var counter = countInvisibleElements;
+
+        $container.animate({
+            marginTop: shiftList
+        }, 300, function () {
+            for (var i = 0; i < counterContainerList; i++) {
+                $containerList.eq(i).remove();
+            }
+
+            $('.page-sheduler-content-items').css({
+                marginTop: 0
+            })
+
+        });
+
+    }
+
+    $('.page-sheduler-header-now a').click(function () {
+        var current = $('.page-sheduler-content-items .live2');
+        var currentDay = $('.page-sheduler-header-list .current');
+        var selectedDay = $('.page-sheduler-header-list .selected');
+        var currentDayStatus = currentDay.hasClass('selected');
+
+        if (currentDayStatus) {
+
+            $('.page-sheduler-content-items .active').removeAttr('style');
+            $('.page-sheduler-content-items .active').removeClass('active');
+
+            if (current.length == 0) {
+                current = $('.page-sheduler-content-items .live');
+            }
+
+            $(window).scrollTo(current, 400, {
+                over: {
+                    top: -10.347
+                }
+            });
+
+            current.addClass('live');
+            showItem(current);
+
+        } else {
+            var prevIndex = selectedDay.index();
+            var currentIndex = currentDay.index();
+            selectedDay.removeClass('selected');
+            currentDay.addClass('selected');
+
+            var elementId = currentDay.data('id');
+
+            loadJson(elementId);
+
+            setTimeout(function () {
+                if (currentIndex < prevIndex) {
+                    renderTemplateBefore(daysCache[elementId].objectsDay);
+
+                    var currentProgram = $('.page-sheduler-content-items .active');
+                    $(window).scrollTo(currentProgram, 400, {
+                        over: {
+                            top: 1.965
+                        }
+                    });
+
+                } else {
+                    renderTemplateAfter(daysCache[elementId].objectsDay);
+
+                    var currentProgram = $('.page-sheduler-content-items .active');
+                    $(window).scrollTo(currentProgram, 400, {
+                        over: {
+                            top: -5
+                        }
+                    });
+                }
+
+
+
+            }, 200)
+
+        }
+
+    });
+
+    function timeToStr(unixTime, lang) {
+        moment.locale(lang);
+        var strDate = moment.unix(unixTime).format('LT');
+        return strDate;
     }
 
 });
