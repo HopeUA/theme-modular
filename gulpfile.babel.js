@@ -101,3 +101,16 @@ gulp.task('build', done => {
         done
     );
 });
+
+gulp.task('watch', () => {
+    gulp.watch(
+        [
+            'src/less/*.less',
+            'src/less/*.css',
+            'src/less/**/*.less',
+            'src/js/*.js',
+            'src/js/**/*.js',
+            'src/*.html'
+        ], ['build']
+    );
+});

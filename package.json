@@ -14,5 +14,11 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-watch": "^1.0.7",
     "run-sequence": "^1.1.2"
+  },
+  "scripts": {
+    "start": "npm run watch & npm run dev-server",
+    "watch": "gulp watch",
+    "dev-server": "http-server dist/",
+    "build": "gulp build"
   }
 }
