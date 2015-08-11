@@ -584,3 +584,34 @@ h2.page-article-header-show {
     content: "";
     transition: all 0.1s ease-out;
 }
+
+.page-article-arrow__left {
+    left: 10%;
+    top: 510px;
+    display: block;
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    background: url(../img/page-video-arrow__left.png);
+}
+
+.page-article-arrow__left:hover {
+    background: url(../img/page-video-arrow__right__hover.png);
+    transform: scaleX(-1);
+}
+
+.page-article-arrow__right {
+    right: 10%;
+    top: 510px;
+    display: block;
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    background: url(../img/page-video-arrow__left.png);
+    transform: scaleX(-1);
+}
+
+.page-article-arrow__right:hover {
+    background: url(../img/page-video-arrow__right__hover.png);
+    transform: scaleX(+1);
+}

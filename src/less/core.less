@@ -33,7 +33,7 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     position: relative;
-    //overflow: hidden;
+    overflow: hidden;
     transition: all 0.5s ease-out;
 }
 
@@ -120,4 +120,45 @@ body {
 
 .arrow__right__empty:hover {
     cursor: default;
+}
+
+.page-container-wrap {
+    width: 200%;
+    overflow: hidden;
+    display: flex;
+}
+
+.page-container-wrap .container {
+    margin-left: 0;
+}
+
+.page-content-arrow__left {
+    left: 10%;
+    top: 617px;
+    display: block;
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    background: url(../img/page-video-arrow__left.png);
+}
+
+.page-content-arrow__left:hover {
+    background: url(../img/page-video-arrow__right__hover.png);
+    transform: scaleX(-1);
+}
+
+.page-content-arrow__right {
+    right: 10%;
+    top: 617px;
+    display: block;
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    background: url(../img/page-video-arrow__left.png);
+    transform: scaleX(-1);
+}
+
+.page-content-arrow__right:hover {
+    background: url(../img/page-video-arrow__right__hover.png);
+    transform: scaleX(+1);
 }
