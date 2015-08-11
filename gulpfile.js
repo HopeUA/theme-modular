@@ -33,6 +33,8 @@ gulp.task('theme-less', function () {
         'src/js/vendor/jquery.easing.1.3.js',
         'src/js/vendor/jquery.bez.min.js',
         'src/js/vendor/moment-with-locales.js',
+        'src/js/vendor/jquery.color.js',
+        'src/js/vendor/jquery.scrollTo.js',
         'src/js/bannerMain.js',
         'src/js/timeline.js',
         'src/js/plugins/slider-block.js',
@@ -45,7 +47,8 @@ gulp.task('theme-less', function () {
         'src/js/content/recomended.js',
         'src/js/content/now.js',
         'src/js/pages/page-video.js',
-        'src/js/pages/page-article.js'
+        'src/js/pages/page-article.js',
+        'src/js/pages/page-scheduler.js'
     ])
         .pipe(sourcemaps.init())
         .pipe(concat('app.js'))
