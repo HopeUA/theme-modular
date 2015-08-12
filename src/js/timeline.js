@@ -11,7 +11,7 @@ $(function () {
     var status = true;
 
 
-    loadJson('/dist/ajax/timeline.json');
+    loadJson('/ajax/timeline.json');
 
     $('.header-timeline__items').on('click', 'div', function () {
 
