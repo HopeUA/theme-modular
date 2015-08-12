@@ -110,7 +110,9 @@ gulp.task('watch', () => {
             'src/less/**/*.less',
             'src/js/*.js',
             'src/js/**/*.js',
-            'src/*.html'
+            'src/*.html',
+            'src/ajax/*.*',
+            'src/img/*.*'
         ], ['build']
     );
 });
