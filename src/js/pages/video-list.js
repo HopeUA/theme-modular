@@ -24,7 +24,7 @@ $(function () {
                             '<img src="img/' + element.episodeImg + '" alt="">' +
                         '</div>' +
                         '<div class="content-video-list-content">' +
-                            '<p class="content-video-list-content-title">' + element.episodeTitle + '</p>' +
+                            '<a href="#" class="content-video-list-content-title">' + element.episodeTitle + '</a>' +
                             '<p class="content-video-list-content-date">' + timeToStr2(element.episodeDate, 'ru') + '</p>' +
                             '<div class="content-video-list-content-labels">' + labels + '</div>' +
                             '<p class="content-video-list-content-description">' + element.episodeDescription + '</p>' +
@@ -80,7 +80,7 @@ $(function () {
                                 '<img src="img/' + element.episodeImg + '" alt="">' +
                                 '</div>' +
                                 '<div class="content-video-list-content">' +
-                                '<p class="content-video-list-content-title">' + element.episodeTitle + '</p>' +
+                                '<a href="#" class="content-video-list-content-title">' + element.episodeTitle + '</a>' +
                                 '<p class="content-video-list-content-date">' + timeToStr2(element.episodeDate, 'ru') + '</p>' +
                                 '<div class="content-video-list-content-labels">' + labels + '</div>' +
                                 '<p class="content-video-list-content-description">' + element.episodeDescription + '</p>' +
