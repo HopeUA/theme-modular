@@ -24,7 +24,7 @@ $(function () {
                             '<img src="img/' + element.episodeImg + '" alt="">' +
                         '</div>' +
                         '<div class="content-video-list-content">' +
-                            '<a href="#" class="content-video-list-content-title">' + element.episodeTitle + '</a>' +
+                            '<a href="/video.html" class="content-video-list-content-title">' + element.episodeTitle + '</a>' +
                             '<p class="content-video-list-content-date">' + timeToStr2(element.episodeDate, 'ru') + '</p>' +
                             '<div class="content-video-list-content-labels">' + labels + '</div>' +
                             '<p class="content-video-list-content-description">' + element.episodeDescription + '</p>' +
@@ -80,7 +80,7 @@ $(function () {
                                 '<img src="img/' + element.episodeImg + '" alt="">' +
                                 '</div>' +
                                 '<div class="content-video-list-content">' +
-                                '<a href="#" class="content-video-list-content-title">' + element.episodeTitle + '</a>' +
+                                '<a href="/video.html" class="content-video-list-content-title">' + element.episodeTitle + '</a>' +
                                 '<p class="content-video-list-content-date">' + timeToStr2(element.episodeDate, 'ru') + '</p>' +
                                 '<div class="content-video-list-content-labels">' + labels + '</div>' +
                                 '<p class="content-video-list-content-description">' + element.episodeDescription + '</p>' +
@@ -99,4 +99,12 @@ $(function () {
             }
         });
     }, 50);
+
+    var item = $('.content-video-list-items');
+
+    $('.content-video-list-items').on('click', '.content-video-list-item', function(){
+        var link = $(this).find('.content-video-list-content-title');
+        window.location.href = link.attr('href');
+    });
+
 });
