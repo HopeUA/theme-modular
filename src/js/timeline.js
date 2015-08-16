@@ -15,6 +15,10 @@ $(function () {
 
     $('.header-timeline__items').on('click', 'div', function () {
 
+        if ($('header').hasClass('header__small')) {
+            window.location.href = 'http://localhost:8080/sheduler.html';
+        }
+
         var $current = $(this).parent().children();
         var index = $current.index(this);
 
@@ -43,39 +47,65 @@ $(function () {
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
+        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 0.5
         }, 250);
+
+        description.stop().animate({
+            'opacity': 1
+        }, 250);
+
+        console.log('header-timeline__item');
 
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item-current', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
+        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 0.5
         }, 250);
+
+        description.stop().animate({
+            'opacity': 1
+        }, 250);
+
+        console.log('header-timeline__item-current');
 
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item-next', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
+        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 0.5
         }, 250);
+
+        description.stop().animate({
+            'opacity': 1
+        }, 250);
+
+        console.log('header-timeline__item-next');
 
     });
 
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
+        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 1
+        }, 250);
+
+        description.stop().animate({
+            'opacity': 0
         }, 250);
 
     });
@@ -83,9 +113,14 @@ $(function () {
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item-current', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
+        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 1
+        }, 250);
+
+        description.stop().animate({
+            'opacity': 0
         }, 250);
 
     });
@@ -93,9 +128,14 @@ $(function () {
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item-next', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
+        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 1
+        }, 250);
+
+        description.stop().animate({
+            'opacity': 0
         }, 250);
 
     });
