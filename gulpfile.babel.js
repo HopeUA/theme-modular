@@ -30,6 +30,8 @@ gulp.task('build:js', () => {
         'src/js/vendor/moment-with-locales.js',
         'src/js/vendor/jquery.color.js',
         'src/js/vendor/jquery.scrollTo.js',
+        'src/js/config.js',
+        'src/js/config-dev.js',
         'src/js/plugins/*.js',
         'src/js/content/*.js',
         'src/js/pages/*.js',
