@@ -1,18 +1,18 @@
 $(function () {
 
     var place = $('.content-video-list-items');
-    var url = 'ajax/videoList0.json';
+    var url = hopeConfig.api.media.endpoint + '/episodes.json?module=show&show=' + $('.content-video-list-header-content').data('show-code');
     var loadStatus = false;
 
     $.getJSON(url, function (data) {
-        var episodes = data.episodes;
+        var episodes = data.data;
 
         $.each(episodes, function (index, element) {
 
             var labels = '';
 
-            $.each(element.episodeLabels, function (index, element) {
-                var label = '<a href="#" class="content-video-list-content-label">' + element + '</a>';
+            $.each(element.tags, function (index, tag) {
+                var label = '<a href="#" class="content-video-list-content-label">' + tag + '</a>';
                 labels += label;
             });
 
@@ -21,13 +21,13 @@ $(function () {
                     '<div class="container-content">' +
                         '<div class="content-video-list-poster">' +
                             '<div class="content-video-list-poster-play"></div>' +
-                            '<img src="img/' + element.episodeImg + '" alt="">' +
+                            '<img src="' + element.image + '" alt="">' +
                         '</div>' +
                         '<div class="content-video-list-content">' +
-                            '<a href="/video.html" class="content-video-list-content-title">' + element.episodeTitle + '</a>' +
-                            '<p class="content-video-list-content-date">' + timeToStr2(element.episodeDate, 'ru') + '</p>' +
+                            '<a href="' + getEpisodeUrl(element.code) + '" class="content-video-list-content-title">' + element.title + '</a>' +
+                            '<p class="content-video-list-content-date">' + timeToStr2(element.date, 'ru') + '</p>' +
                             '<div class="content-video-list-content-labels">' + labels + '</div>' +
-                            '<p class="content-video-list-content-description">' + element.episodeDescription + '</p>' +
+                            '<p class="content-video-list-content-description">' + element.description + '</p>' +
                         '</div>' +
                     '</div>' +
                 '</div>' +
@@ -39,10 +39,14 @@ $(function () {
         loadStatus = data.next;
     });
 
-    function timeToStr2(unixTime, lang) {
+    function timeToStr2(date, lang) {
         moment.locale(lang);
-        var strDate = moment.unix(unixTime).format('D MMMM') + '<span>, ' + moment.unix(unixTime).format('YYYY') + '</span>';
+        var strDate = moment(date).format('D MMMM') + '<span>, ' + moment(date).format('YYYY') + '</span>';
         return strDate;
+    }
+
+    function getEpisodeUrl(code) {
+        return '/shows/' + code.substring(0, 4) + '/' + code.substring(4);
     }
 
 
@@ -58,17 +62,19 @@ $(function () {
             if ((scrollHeight - $(window).scrollTop()) <= 1851) {
 
                 var place = $('.content-video-list-items');
-                var url = 'ajax/videoList' + counter +'.json';
+                var url = hopeConfig.api.media.endpoint + '/episodes.json?module=show&show=' + $('content-video-list-header-content').data('show-code');
+
+                url += '&offset=' + (counter*10);
 
                 if (loadStatus) {
                     $.getJSON(url, function (data) {
-                        var episodes = data.episodes;
+                        var episodes = data.data;
                         $.each(episodes, function (index, element) {
 
                             var labels = '';
 
-                            $.each(element.episodeLabels, function (index, element) {
-                                var label = '<a href="#" class="content-video-list-content-label">' + element + '</a>';
+                            $.each(element.tags, function (index, tag) {
+                                var label = '<a href="#" class="content-video-list-content-label">' + tag + '</a>';
                                 labels += label;
                             });
 
@@ -77,13 +83,13 @@ $(function () {
                                 '<div class="container-content">' +
                                 '<div class="content-video-list-poster">' +
                                 '<div class="content-video-list-poster-play"></div>' +
-                                '<img src="img/' + element.episodeImg + '" alt="">' +
+                                '<img src="' + element.image + '" alt="">' +
                                 '</div>' +
                                 '<div class="content-video-list-content">' +
-                                '<a href="/video.html" class="content-video-list-content-title">' + element.episodeTitle + '</a>' +
-                                '<p class="content-video-list-content-date">' + timeToStr2(element.episodeDate, 'ru') + '</p>' +
+                                '<a href="' + getEpisodeUrl(element.code) + '" class="content-video-list-content-title">' + element.title + '</a>' +
+                                '<p class="content-video-list-content-date">' + timeToStr2(element.date, 'ru') + '</p>' +
                                 '<div class="content-video-list-content-labels">' + labels + '</div>' +
-                                '<p class="content-video-list-content-description">' + element.episodeDescription + '</p>' +
+                                '<p class="content-video-list-content-description">' + element.description + '</p>' +
                                 '</div>' +
                                 '</div>' +
                                 '</div>' +
