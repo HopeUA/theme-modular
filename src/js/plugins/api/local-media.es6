@@ -8,6 +8,7 @@
  * Methods
  *
  * - episodes(module)    module name
+ * - code(c)             resource code
  * - offset(n)
  * - limit(n)
  * - format(f)           response format (default: json)
@@ -23,6 +24,13 @@
  *         // response - response.status, response.json()
  *     });
  *
+ *     var episodes = media.episodes();
+ *     episodes.code('MBCU00115').fetch().then(function(data){
+ *         // data - episode object
+ *     }).catch(function(response){
+ *         // response - response.status, response.json()
+ *     });
+ *
  */
 (function(Hope){
 
@@ -31,12 +39,23 @@
             this.endpoint = endpoint;
             this.resource = null;
             this.query    = {};
-            this.format   = 'json';
+            this._format   = 'json';
+            this._code     = null;
         }
 
-        episodes(module) {
-            let self = this.param('module', module);
+        episodes(module = '') {
+            let self = clone(this);
+            if (module) {
+                self.module = module;
+            }
             self.resource = 'episodes';
+
+            return self;
+        }
+
+        code(c) {
+            let self = clone(this);
+            self._code = c;
 
             return self;
         }
@@ -51,7 +70,7 @@
 
         format(f) {
             let self = clone(this);
-            self.format = f;
+            self._format = f;
 
             return self;
         }
@@ -64,6 +83,13 @@
         }
 
         fetch() {
+            if (this.endpoint == null) {
+                throw new TypeError('Endpoint is not defined');
+            }
+            if (this.resource == null) {
+                throw new TypeError('API resource is not defined');
+            }
+
             return fetch(this.getUrl()).then((response) => {
                 if (response.status != 200) {
                     throw response;
@@ -80,13 +106,17 @@
         }
 
         getUrl() {
-            let url = URI(this.endpoint + '/' + this.resource);
-            url.suffix(this.format);
+            let parts = [this.endpoint, this.resource];
+            if (this._code != null) {
+                parts.push(this._code);
+            }
+
+            let url = URI(parts.join('/'));
+            url.suffix(this._format);
             url.query(this.query);
 
             return url.toString();
         }
-
     }
 
     function Api(endpoint) {
