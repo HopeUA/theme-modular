@@ -19,13 +19,13 @@ $(function () {
             $('.pv-episode-title').text(data.title);
             template.find('.pv-episode-show').text(data.show);
             $('.pv-episode-show').text(data.show);
-            var imgSrc = 'img/' + data.img;
+            var imgSrc = data.image;
             template.find('.pv-episode-img').attr('src', imgSrc);
             template.find('.pv-episode-description').text(data.description);
-            template.find('.pv-episode-date').text(moment.unix(data.date).format('DD.MM.YYYY'));
+            template.find('.pv-episode-date').text(moment(data.date).format('DD.MM.YYYY'));
             template.find('.pv-episode-views').text(data.views);
         },
-        url: 'ajax/'
+        url: hopeConfig.api.media.endpoint + '/episodes/'
     });
 
 });
