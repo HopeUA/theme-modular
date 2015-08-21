@@ -1,7 +1,7 @@
 $(function () {
 
     var place = $('.content-video-list-items');
-    var url = hopeConfig.api.media.endpoint + '/episodes.json?module=show&show=' + $('.content-video-list-header-content').data('show-code');
+    var url = Hope.Config.Api.Media.Endpoint + '/episodes.json?module=show&show=' + $('.content-video-list-header-content').data('show-code');
     var loadStatus = false;
 
     $.getJSON(url, function (data) {
@@ -62,7 +62,7 @@ $(function () {
             if ((scrollHeight - $(window).scrollTop()) <= 1851) {
 
                 var place = $('.content-video-list-items');
-                var url = hopeConfig.api.media.endpoint + '/episodes.json?module=show&show=' + $('content-video-list-header-content').data('show-code');
+                var url = Hope.Config.Api.Media.Endpoint + '/episodes.json?module=show&show=' + $('content-video-list-header-content').data('show-code');
 
                 url += '&offset=' + (counter*10);
 

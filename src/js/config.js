@@ -6,7 +6,7 @@ var Hope = {};
 Hope.Config = {
     Api: {
         Media: {
-            Endpoint: 'http://tv.hope.ua/api'
+            Endpoint: 'https://dev-tv.hope.ua/api'
         }
     }
 };

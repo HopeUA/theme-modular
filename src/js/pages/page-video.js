@@ -25,7 +25,7 @@ $(function () {
             template.find('.pv-episode-date').text(moment(data.date).format('DD.MM.YYYY'));
             template.find('.pv-episode-views').text(data.views);
         },
-        url: hopeConfig.api.media.endpoint + '/episodes/'
+        url: Hope.Config.Api.Media.Endpoint + '/episodes/'
     });
 
 });

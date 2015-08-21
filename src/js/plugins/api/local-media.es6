@@ -39,8 +39,8 @@
             this.endpoint = endpoint;
             this.resource = null;
             this.query    = {};
-            this._format   = 'json';
-            this._code     = null;
+            this._format  = 'json';
+            this._code    = null;
         }
 
         episodes(module = '') {
