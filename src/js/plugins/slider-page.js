@@ -3,8 +3,14 @@
     var SliderPage = function (object, options) {
 
         this.$object = $(object); // main object
-        this.options = $.extend({}, SliderPage.DEFAULTS, options);
+        this.options = $.extend({}, SliderPage.DEFAULTS, options)
 
+        if (!this.options.loader) {
+            console.error('Loader required');
+            return;
+        }
+
+        this.loader = this.options.loader;
         this.pageCache = {};
         this.currentCode = null;
         this.nextCode = null;
@@ -19,7 +25,6 @@
     };
 
     SliderPage.DEFAULTS = {
-        url: 'ajax/',
         timeArrow: 300,
         timePage: 200
     };
@@ -49,10 +54,10 @@
                 return;
             }
 
-            var url = self.options.url + item + '.json';
-
-            $.getJSON(url, function (data) {
+            self.loader.code(item).fetch().then(function(data) {
                 self.pageCache[item] = data;
+            }).catch(function(response) {
+                console.log(response);
             });
 
         });
