@@ -24,7 +24,7 @@ $(function () {
             $('.pv-episode-show').text(data.show);
             var imgSrc = data.image;
             template.find('.pv-episode-img').attr('src', imgSrc);
-            template.find('.pv-episode-description').text(data.description);
+            template.find('.pv-episode-description').html(data.description);
             template.find('.pv-episode-date').text(moment(data.date).format('DD.MM.YYYY'));
             template.find('.pv-episode-views').text(data.views);
         },
