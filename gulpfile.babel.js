@@ -108,7 +108,6 @@ gulp.task('clean', done => {
 
 gulp.task('build', done => {
     run(
-        'clean',
         'copy',
         ['build:js', 'build:css'],
         done
