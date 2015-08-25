@@ -6,7 +6,7 @@ import run from 'run-sequence';
 const $ = gulpLoadPlugins();
 
 gulp.task('build:css', () => {
-    gulp.src('src/less/main.less')
+    return gulp.src('src/less/main.less')
         .pipe($.sourcemaps.init())
         .pipe($.less())
         .pipe($.autoprefixer({
@@ -23,21 +23,34 @@ gulp.task('build:css', () => {
 });
 
 gulp.task('build:js', () => {
-    gulp.src([
-        'src/js/vendor/jquery-2.1.3.min.js',
-        'src/js/vendor/jquery.easing.1.3.js',
-        'src/js/vendor/jquery.bez.min.js',
-        'src/js/vendor/moment-with-locales.js',
-        'src/js/vendor/jquery.color.js',
-        'src/js/vendor/jquery.scrollTo.js',
-        'src/js/plugins/*.js',
-        'src/js/content/*.js',
-        'src/js/pages/*.js',
-        'src/js/bannerMain.js',
-        'src/js/timeline.js',
-        'src/js/button-up.js'
-    ])
+   return gulp.src([
+       'src/js/vendor/jquery/dist/jquery.min.js',
+       'src/js/vendor/moment/min/moment-with-locales.min.js',
+       'src/js/vendor/es6-promise/promise.min.js',
+       'src/js/vendor/fetch/fetch.js',
+       'src/js/vendor/uri.js/src/URI.min.js',
+
+       'src/js/vendor.manual/jquery.easing.1.3.js',
+       'src/js/vendor.manual/jquery.bez.min.js',
+       'src/js/vendor.manual/jquery.color.js',
+       'src/js/vendor.manual/jquery.scrollTo.js',
+       'src/js/vendor.manual/object-assign.js',
+
+       'src/js/config.js',
+       'src/js/config-dev.js',
+
+       'src/js/plugins/*.js',
+       'src/js/plugins/api/*.es6',
+       'src/js/content/*.js',
+       'src/js/pages/*.js',
+       'src/js/bannerMain.js',
+       'src/js/timeline.js',
+       'src/js/button-up.js'
+   ])
         .pipe($.sourcemaps.init())
+        .pipe($.babel({
+           only: '*.es6'
+       }))
         .pipe($.concat('app.js'))
         .pipe($.sourcemaps.write(
             './', {
@@ -49,7 +62,7 @@ gulp.task('build:js', () => {
 });
 
 gulp.task('copy:html', () => {
-    gulp
+    return gulp
         .src([
             'src/*.html'
         ])
@@ -57,7 +70,7 @@ gulp.task('copy:html', () => {
 });
 
 gulp.task('copy:ajax', () => {
-    gulp
+    return gulp
         .src([
             'src/ajax/*.*'
         ])
@@ -65,7 +78,7 @@ gulp.task('copy:ajax', () => {
 });
 
 gulp.task('copy:images', () => {
-    gulp
+    return gulp
         .src([
             'src/img/**/*.*'
         ])
@@ -73,7 +86,7 @@ gulp.task('copy:images', () => {
 });
 
 gulp.task('copy:fonts', () => {
-    gulp
+    return gulp
         .src([
             'src/fonts/**/*.*'
         ])
@@ -103,13 +116,14 @@ gulp.task('build', done => {
 });
 
 gulp.task('watch', () => {
-    gulp.watch(
+    return gulp.watch(
         [
             'src/less/*.less',
             'src/less/*.css',
             'src/less/**/*.less',
             'src/js/*.js',
             'src/js/**/*.js',
+            'src/js/**/*.es6',
             'src/*.html',
             'src/ajax/*.*',
             'src/img/*.*'

@@ -1,0 +1,12 @@
+{
+  "name": "HopeUA-theme",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "moment": "~2.10.6",
+    "fetch": "~0.9.0",
+    "es6-promise": "~3.0.2",
+    "uri.js": "~1.16.0"
+  }
+}
