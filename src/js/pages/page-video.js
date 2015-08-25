@@ -1,5 +1,7 @@
 $(function () {
 
+    var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
+
     $('.similar-episodes').hopeLoaderBlock({
         render: function (template, data) {
             var src = 'img/' + data.episodeImg;
@@ -10,7 +12,8 @@ $(function () {
 
             return template;
         },
-        url: 'ajax/similar-episodes'
+        url: 'ajax/similar-episodes',
+        loader: LocalMediaAPI.episodes('similar')
     });
 
     $('.page-video').hopeSliderPage({
@@ -25,7 +28,7 @@ $(function () {
             template.find('.pv-episode-date').text(moment(data.date).format('DD.MM.YYYY'));
             template.find('.pv-episode-views').text(data.views);
         },
-        url: Hope.Config.Api.Media.Endpoint + '/episodes/'
+        loader: LocalMediaAPI.episodes()
     });
 
 });
