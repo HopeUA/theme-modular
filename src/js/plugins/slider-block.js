@@ -25,7 +25,8 @@
         shiftSize   : 110,
         shiftTime   : 210,
         shiftEasing : [.28,.11,.17,-0.1],
-        lines       : 1
+        lines       : 1,
+        limit       : {first : 17, default : 10}
     };
 
     function move (self, direction) {
@@ -128,7 +129,7 @@
 
                     if (itemsCurrent < itemsLimit) {
                         var total = self.$object.find('.content-episodes__row').children().length + 1;
-                        self.loader.offset(total+1).limit(10).fetch().then(function(data) {
+                        self.loader.offset(total+1).limit(self.options.limit.default).fetch().then(function(data) {
                             var html = self.options.render(data);
                             self.$object.find('.content-episodes__row').append(html);
                         }).catch(function(response){
@@ -197,11 +198,9 @@
             move(self, 'begin'); // move to begin
         });
 
-        self.loader.limit(17).fetch().then(function(data){
+        self.loader.limit(self.options.limit.first).fetch().then(function(data){
             var html = self.options.render(data, true);
             self.$object.html(html);
-
-
         });
     };
 
@@ -212,9 +211,9 @@
         self.$object.animate({opacity : 0}, 200);
 
         setTimeout(function(){
-            self.loader.fetch().then(function(data) {
-                place.append(data);
-                console.log(data);
+            self.loader.limit(self.options.limit.first).fetch().then(function(data){
+                var html = self.options.render(data, true);
+                self.$object.html(html);
             }).catch(function(response){
                 console.error(response);
             });
