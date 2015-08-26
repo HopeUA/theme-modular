@@ -29,6 +29,7 @@ gulp.task('build:js', () => {
        'src/js/vendor/es6-promise/promise.min.js',
        'src/js/vendor/fetch/fetch.js',
        'src/js/vendor/uri.js/src/URI.min.js',
+       'src/js/vendor/mustache.js/mustache.min.js',
 
        'src/js/vendor.manual/jquery.easing.1.3.js',
        'src/js/vendor.manual/jquery.bez.min.js',

@@ -4,6 +4,12 @@
         this.$object = $(object); // main object
         this.options = $.extend({}, SliderBlock.DEFAULTS, options);
 
+        if (!this.options.loader) {
+            console.error('Loader required1', this.options);
+            return;
+        }
+
+        this.loader = this.options.loader;
         this.clickCounter = 0;
 
         this.$arrowLeft  = 'arrowLeft'  in this.options ? $(this.options.arrowLeft)  : $('.' + this.options.name + '-arrow-left');
@@ -20,7 +26,8 @@
         shiftTime   : 210,
         shiftEasing : [.28,.11,.17,-0.1],
         lines       : 1,
-        loadUrl     : null
+        limit       : {first : 17, default : 10},
+        type        : 'row'
     };
 
     function move (self, direction) {
@@ -122,12 +129,21 @@
                     self.$arrowLeft.animate({'opacity' : 1}, self.options.arrowTime);
 
                     if (itemsCurrent < itemsLimit) {
+                        if (self.options.type == 'column') {
+                            var total = self.$object.children().length + 2;
+                        } else {
+                            var total = self.$object.find('.content-episodes__row').children().length + 2;
+                        }
 
-                        console.log(self.options.loadUrl);
-
-                        $.get(self.options.loadUrl + count + '.html',function(data){
-                        // TODO ajax url
-                            place.append(data);
+                        self.loader.offset(total).limit(self.options.limit.default).fetch().then(function(data) {
+                            var html = self.options.render(data);
+                            if (self.options.type == 'column') {
+                                self.$object.append(html);
+                            } else {
+                                self.$object.find('.content-episodes__row').append(html);
+                            }
+                        }).catch(function(response){
+                            console.error(response);
                         });
                     }
                 }
@@ -192,10 +208,10 @@
             move(self, 'begin'); // move to begin
         });
 
-    };
-
-    SliderBlock.prototype.setUrl = function(url) {
-        this.options.loadUrl = url;
+        self.loader.limit(self.options.limit.first).fetch().then(function(data){
+            var html = self.options.render(data, true);
+            self.$object.html(html);
+        });
     };
 
     SliderBlock.prototype.reload = function() {
@@ -205,8 +221,11 @@
         self.$object.animate({opacity : 0}, 200);
 
         setTimeout(function(){
-            $.get(self.options.loadUrl + '.html',function(data){
-                place.html(data);
+            self.loader.limit(self.options.limit.first).fetch().then(function(data){
+                var html = self.options.render(data, true);
+                self.$object.html(html);
+            }).catch(function(response){
+                console.error(response);
             });
             self.$object.animate({opacity : 1}, 200);
         }, 200)

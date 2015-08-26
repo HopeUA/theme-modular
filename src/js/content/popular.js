@@ -1,14 +1,14 @@
 $(function(){
-    $('.popular').hopeSliderBlock({
-        name: 'popular',
-        lines: 2
-    });
 
-    var slider = $('.popular').data('hopeSliderBlock');
+    var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
 
-    if (slider) {
-        slider.setUrl('ajax/popular');
-    }
+    //$('.popular').hopeSliderBlock({
+    //    name: 'popular',
+    //    lines: 2,
+    //    loader: LocalMediaAPI.episodes('popular')
+    //});
+
+    //var slider = $('.popular').data('hopeSliderBlock');
 
     var counter = true;
 
