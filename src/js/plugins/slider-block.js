@@ -4,6 +4,12 @@
         this.$object = $(object); // main object
         this.options = $.extend({}, SliderBlock.DEFAULTS, options);
 
+        if (!this.options.loader) {
+            console.error('Loader required1', this.options);
+            return;
+        }
+
+        this.loader = this.options.loader;
         this.clickCounter = 0;
 
         this.$arrowLeft  = 'arrowLeft'  in this.options ? $(this.options.arrowLeft)  : $('.' + this.options.name + '-arrow-left');
@@ -19,8 +25,7 @@
         shiftSize   : 110,
         shiftTime   : 210,
         shiftEasing : [.28,.11,.17,-0.1],
-        lines       : 1,
-        loadUrl     : null
+        lines       : 1
     };
 
     function move (self, direction) {
@@ -122,12 +127,12 @@
                     self.$arrowLeft.animate({'opacity' : 1}, self.options.arrowTime);
 
                     if (itemsCurrent < itemsLimit) {
-
-                        console.log(self.options.loadUrl);
-
-                        $.get(self.options.loadUrl + count + '.html',function(data){
-                        // TODO ajax url
-                            place.append(data);
+                        var total = self.$object.find('.content-episodes__row').children().length + 1;
+                        self.loader.offset(total+1).limit(10).fetch().then(function(data) {
+                            var html = self.options.render(data);
+                            self.$object.find('.content-episodes__row').append(html);
+                        }).catch(function(response){
+                            console.error(response);
                         });
                     }
                 }
@@ -192,10 +197,12 @@
             move(self, 'begin'); // move to begin
         });
 
-    };
+        self.loader.limit(17).fetch().then(function(data){
+            var html = self.options.render(data, true);
+            self.$object.html(html);
 
-    SliderBlock.prototype.setUrl = function(url) {
-        this.options.loadUrl = url;
+
+        });
     };
 
     SliderBlock.prototype.reload = function() {
@@ -205,8 +212,11 @@
         self.$object.animate({opacity : 0}, 200);
 
         setTimeout(function(){
-            $.get(self.options.loadUrl + '.html',function(data){
-                place.html(data);
+            self.loader.fetch().then(function(data) {
+                place.append(data);
+                console.log(data);
+            }).catch(function(response){
+                console.error(response);
             });
             self.$object.animate({opacity : 1}, 200);
         }, 200)

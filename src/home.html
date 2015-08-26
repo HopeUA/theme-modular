@@ -268,112 +268,28 @@
         <div class="content-arrow-left new-arrow-left"></div>
 
         <div class="container-content">
-            <div class="new">
+            <div class="new"></div>
+            <script id="template-new" type="x-tmpl-mustache">
+             {{#first}}
                 <div class="content-episode__large grid__column-2">
                     <div class="content-episode__large-play"></div>
-                    <h5 class="content-episode__large-title__episode">Хвороба століття</h5>
-                    <p class="content-episode__large-title__show">Настав час</p>
-                    <img src="img/episode-container__large.jpg" class="content-episode__large-image__wide">
+                    <h5 class="content-episode__large-title__episode">{{ title }}</h5>
+                    <p class="content-episode__large-title__show">{{ show }}</p>
+                    <img src="{{& image }}" class="content-episode__large-image__wide">
                 </div>
-
                 <div class="content-episodes__row">
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
-
-                    <div class="content-episodes__row-item">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-episodes__row-image__wide">
-                    </div>
+            {{/first}}
+            {{#episodes}}
+                <div class="content-episodes__row-item">
+                    <div class="content-episodes__row-item-play"></div>
+                    <p class="content-episodes__row-item-title">{{ title }}</p>
+                    <img src="{{& image }}" class="content-episodes__row-image__wide">
                 </div>
-            </div>
+            {{/episodes}}
+            {{#first}}
+                </div>
+            {{/first}}
+            </script>
         </div>
 
         <div class="content-arrow-right new-arrow-right"></div>
