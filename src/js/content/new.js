@@ -3,8 +3,8 @@ $(function(){
     var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
 
     $('.new').hopeSliderBlock({
-        name: 'new',
-        lines: 2,
+        name:   'new',
+        lines:  2,
         loader: LocalMediaAPI.episodes('new'),
         render: function (response, first) {
             first = first || false;
