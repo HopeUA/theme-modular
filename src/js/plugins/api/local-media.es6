@@ -7,11 +7,11 @@
  *
  * Methods
  *
- * - episodes(module)    module name
+ * - episodes(module)
+ * - shows(module)
  * - code(c)             resource code
  * - offset(n)
  * - limit(n)
- * - format(f)           response format (default: json)
  * - param(name, value)  custom query parameter
  * - getUrl()            return full url for request
  * - fetch()             send api request and return Promise.
@@ -36,26 +36,36 @@
 
     class LocalMedia {
         constructor(endpoint) {
-            this.endpoint = endpoint;
-            this.resource = null;
-            this.query    = {};
-            this._format  = 'json';
-            this._code    = null;
+            this._endpoint = endpoint;
+            this._resource = null;
+            this._query    = {};
+            this._format   = 'json';
+            this._code     = null;
         }
 
         episodes(module = '') {
             let self = clone(this);
             if (module) {
-                self.module = module;
+                self.param('module', module, false);
             }
-            self.resource = 'episodes';
+            self._resource = 'episodes';
 
             return self;
         }
 
-        code(c) {
+        shows(module = '') {
             let self = clone(this);
-            self._code = c;
+            if (module) {
+                self.param('module', module, false);
+            }
+            self._resource = 'show';
+
+            return self;
+        }
+
+        code(code) {
+            let self = clone(this);
+            self._code = code;
 
             return self;
         }
@@ -68,28 +78,14 @@
             return this.param('limit', n);
         }
 
-        format(f) {
-            let self = clone(this);
-            self._format = f;
-
-            return self;
-        }
-
-        param(name, value) {
-            let self = clone(this);
-            self.query[name] = value;
+        param(name, value, createNew = true) {
+            let self = createNew ? clone(this) : this;
+            self._query[name] = value;
 
             return self;
         }
 
         fetch() {
-            if (this.endpoint == null) {
-                throw new TypeError('Endpoint is not defined');
-            }
-            if (this.resource == null) {
-                throw new TypeError('API resource is not defined');
-            }
-
             return fetch(this.getUrl()).then((response) => {
                 if (response.status != 200) {
                     throw response;
@@ -106,14 +102,21 @@
         }
 
         getUrl() {
-            let parts = [this.endpoint, this.resource];
-            if (this._code != null) {
+            if (this._endpoint == null) {
+                throw new TypeError('Endpoint is not defined');
+            }
+            if (this._resource == null) {
+                throw new TypeError('API resource is not defined');
+            }
+
+            let parts = [this._endpoint, this._resource];
+            if (this._code) {
                 parts.push(this._code);
             }
 
             let url = URI(parts.join('/'));
             url.suffix(this._format);
-            url.query(this.query);
+            url.query(this._query);
 
             return url.toString();
         }
@@ -124,7 +127,18 @@
     }
 
     function clone(obj) {
-        return Object.assign(LocalMedia.prototype, obj);
+        let newObj = new obj.constructor();
+
+        for (let prop in obj) {
+            let value = obj[prop];
+            if (value != null && typeof value == 'object') {
+                newObj[prop] = clone(value);
+            } else {
+                newObj[prop] = value;
+            }
+        }
+
+        return newObj;
     }
 
     Hope.Api = Hope.Api || {};

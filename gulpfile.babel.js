@@ -78,6 +78,16 @@ gulp.task('copy:ajax', () => {
         .pipe(gulp.dest('dist/ajax'));
 });
 
+gulp.task('copy:tests', () => {
+    return gulp
+        .src([
+            './node_modules/mocha/mocha.js',
+            './node_modules/mocha/mocha.css',
+            './node_modules/chai/chai.js',
+            'src/js/tests/spec.js'
+        ]).pipe(gulp.dest('dist/tests'));
+});
+
 gulp.task('copy:images', () => {
     return gulp
         .src([
@@ -98,7 +108,8 @@ gulp.task('copy', [
     'copy:html',
     'copy:images',
     'copy:fonts',
-    'copy:ajax'
+    'copy:ajax',
+    'copy:tests'
 ]);
 
 gulp.task('clean', done => {

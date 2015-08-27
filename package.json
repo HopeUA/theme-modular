@@ -5,6 +5,7 @@
   "private": true,
   "devDependencies": {
     "babel-core": "^5.8.22",
+    "chai": "^3.2.0",
     "del": "^1.2.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^1.0.1",
@@ -15,6 +16,7 @@
     "gulp-merge": "^0.1.1",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-watch": "^1.2.1",
+    "mocha": "^2.2.5",
     "run-sequence": "^1.1.2"
   },
   "scripts": {
