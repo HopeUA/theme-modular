@@ -4,6 +4,8 @@
     flex: none;
     background: #fff;
     backface-visibility: hidden; //fix animation visual bug
+    height: 260px;
+    overflow: hidden;
 }
 
 .content-episodes__vertical-link {
@@ -25,8 +27,19 @@
 }
 
 .content-episodes__vertical-link::after {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 21px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 37%, rgba(255, 255, 255, 1) 100%);
+    content: "";
+    transition: all 0.1s ease-out;
+}
+
+.content-episodes__vertical-link::after {
     position: relative;
-    top: -2px;
+    top: -1px;
     left: 1px;
     display: block;
     width: 100%;
@@ -51,4 +64,6 @@
     margin: 12px 17px 17px 17px;
     color: #808285;
     font: 12px @font-Regular;
+    height: 74px;
+    overflow: hidden;
 }
