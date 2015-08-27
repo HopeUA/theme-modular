@@ -13,7 +13,12 @@ $(function(){
             var template = $('#template-recomended').html();
             var view     = {};
 
-            view.episodes = response.data;
+            view.episodes = response.data.map(function(item) {
+                item.description = $('<p>' + item.description + '</p>').text();
+                item.title = $('<p>' + item.title + '</p>').text();
+                item.show = $('<p>' + item.show + '</p>').text();
+                return item;
+            });
 
             return Mustache.render(template, view);
         }
