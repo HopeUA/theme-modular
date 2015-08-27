@@ -4,6 +4,8 @@
     flex: none;
     background: #fff;
     backface-visibility: hidden; //fix animation visual bug
+    height: 260px;
+    overflow: hidden;
 }
 
 .content-episodes__vertical-link {
@@ -12,6 +14,8 @@
     color: #2f8dca;
     font: 14px @font-Regular;
     text-decoration: none;
+    width: 400px;
+    display: flex;
 }
 
 .content-episodes__vertical-link::before {
@@ -25,8 +29,19 @@
 }
 
 .content-episodes__vertical-link::after {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 21px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 37%, rgba(255, 255, 255, 1) 100%);
+    content: "";
+    transition: all 0.1s ease-out;
+}
+
+.content-episodes__vertical-link-text::after {
     position: relative;
-    top: -2px;
+    top: 0px;
     left: 1px;
     display: block;
     width: 100%;
@@ -37,7 +52,7 @@
     transition: all 0.1s ease-out;
 }
 
-.content-episodes__vertical-link:hover::after {
+.content-episodes__vertical-link-text:hover::after {
     cursor: pointer;
     opacity: 0;
 }
@@ -51,4 +66,6 @@
     margin: 12px 17px 17px 17px;
     color: #808285;
     font: 12px @font-Regular;
+    height: 74px;
+    overflow: hidden;
 }
