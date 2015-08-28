@@ -2,13 +2,26 @@ $(function(){
 
     var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
 
-    //$('.popular').hopeSliderBlock({
-    //    name: 'popular',
-    //    lines: 2,
-    //    loader: LocalMediaAPI.episodes('popular')
-    //});
+    $('.popular').hopeSliderBlock({
+        name: 'popular',
+        lines: 2,
+        type: 'column',
+        loader: LocalMediaAPI.shows('popular'),
+        render: function (response, first) {
+            first = first || false;
 
-    //var slider = $('.popular').data('hopeSliderBlock');
+            var template = $('#template-popular').html();
+            var view     = {};
+            if (first) {
+                view.first = [response.data.shift()];
+            }
+            view.shows = response.data;
+
+            return Mustache.render(template, view);
+        }
+    });
+
+    var slider = $('.popular').data('hopeSliderBlock');
 
     var counter = true;
 
@@ -93,7 +106,6 @@ $(function(){
         filterActive.attr('data-type', currentType);
         filterActive.attr('data-order', currentId);
 
-        slider.setUrl('ajax/popular/?type=' + currentType);
         slider.reload();
 
         counter = !counter;
