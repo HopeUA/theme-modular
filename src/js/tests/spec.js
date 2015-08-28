@@ -38,12 +38,6 @@ describe('LocalMedia API', function() {
         expect(api.getUrl()).to.be.equal(endpoint + '/episodes.json?offset=10');
     });
 
-    it('should set response format', function() {
-        var api = Hope.Api.LocalMedia(endpoint).episodes().format('html');
-
-        expect(api.getUrl()).to.be.equal(endpoint + '/episodes.html');
-    });
-
     it('should set Episode Code', function() {
         var api = Hope.Api.LocalMedia(endpoint).episodes().code('someCode');
 
@@ -61,5 +55,51 @@ describe('LocalMedia API', function() {
         expect(api2.getUrl()).to.be.equal(endpoint + '/episodes.json?module=someModule&offset=5&limit=10&key1=val1');
         expect(api3.getUrl()).to.be.equal(endpoint + '/episodes.json?module=someModule&offset=5&limit=5&key2=val2');
         expect(api4.getUrl()).to.be.equal(endpoint + '/episodes.json?module=someModule&offset=5&limit=10&key1=val1&key3=val3');
+    });
+});
+
+describe('Scheduler API', function(){
+    var endpoint = 'http://hope.api/v1';
+
+    it('should be defined', function() {
+        expect(Hope.Api.Scheduler).to.be.a('function');
+    });
+
+    it('should set Events Resource', function() {
+        var api = Hope.Api.Scheduler(endpoint);
+
+        expect(api.getUrl()).to.be.equal(endpoint + '/events.json');
+    });
+
+    it('should add custom query param', function() {
+        var api = Hope.Api.Scheduler(endpoint);
+        var apiParam1 = api.param('key1', 'val1');
+        var apiParam2 = api.param('key2', 'val2');
+
+        expect(apiParam1.getUrl()).to.be.equal(endpoint + '/events.json?key1=val1');
+        expect(apiParam2.getUrl()).to.be.equal(endpoint + '/events.json?key2=val2');
+    });
+
+    it('should add "date" query param', function() {
+        var date = new Date();
+        var api  = Hope.Api.Scheduler(endpoint).from(date);
+
+        expect(api.getUrl()).to.be.equal(endpoint + '/events.json?date=' + encodeURIComponent(date.toISOString()));
+    });
+
+    it('should add "dateEnd" query param', function() {
+        var date = new Date();
+        var api  = Hope.Api.Scheduler(endpoint).to(date);
+
+        expect(api.getUrl()).to.be.equal(endpoint + '/events.json?dateEnd=' + encodeURIComponent(date.toISOString()));
+    });
+
+    it('should throw error on invalid date', function() {
+        var date = 'Invalid date';
+        var api  = Hope.Api.Scheduler(endpoint);
+
+        expect(function() {
+            api.from(date)
+        }).to.throw(TypeError);
     });
 });
