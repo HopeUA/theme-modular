@@ -2,19 +2,22 @@ $(function () {
 
     var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
 
-    //$('.similar-episodes').hopeLoaderBlock({
-    //    render: function (template, data) {
-    //        var src = 'img/' + data.episodeImg;
-    //        template.find('.similar-episodes-item-video-image__wide').attr('src', src);
-    //        template.find('.similar-episodes-item-description-time').text(moment.unix(data.episodeDate).format('DD.MM.YYYY'));
-    //        template.find('.similar-episodes-item-description-title').text(data.episodeTitle);
-    //        template.find('.similar-episodes-item-description-show').text(data.episodeShow);
-    //
-    //        return template;
-    //    },
-    //    url: 'ajax/similar-episodes'
-    //    //loader: LocalMediaAPI.episodes('similar')
-    //});
+    $('.similar-episodes').hopeLoaderBlock({
+        name: 'similar-episodes',
+        loader: LocalMediaAPI.episodes('similar').param('code', 'MBCU00315'),
+        render: function (response, first) {
+            first = first || false;
+
+            var template = $('#template-similar').html();
+            var view     = {};
+            if (first) {
+                view.first = [response.data.shift()];
+            }
+            view.episodes = response.data;
+
+            return Mustache.render(template, view);
+        }
+    });
 
     $('.page-video').hopeSliderPage({
         render: function (template, data) {

@@ -5,6 +5,13 @@
         this.$object = $(object); // main object
         this.options = $.extend({}, LoaderBlock.DEFAULTS, options);
 
+        if (!this.options.loader) {
+            console.error('Loader required1', this.options);
+            return;
+        }
+
+        this.loader = this.options.loader;
+
         this.loadStatus = true;
 
         this.$btnMore = 'btnMore' in this.options ? (this.options.btnMore) : $('.similar-episodes-btn__more');
@@ -28,13 +35,27 @@
     function loadJson(self, url) {
 
         if (self.loadStatus) {
-            $.getJSON(url, function (data) {
+            //$.getJSON(url, function (data) {
+            //
+            //    var episodes = data;
+            //
+            //    $.each(episodes, function (index, element) {
+            //        appendBlock(self, element);
+            //    });
+            //});
+
+            var total = 15;
+
+            self.loader.offset(total).limit(self.options.limit.default).fetch().then(function(data) {
 
                 var episodes = data;
 
                 $.each(episodes, function (index, element) {
                     appendBlock(self, element);
                 });
+
+            }).catch(function(response){
+                console.error(response);
             });
         };
     };
