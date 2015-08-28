@@ -58,7 +58,7 @@
             if (module) {
                 self.param('module', module, false);
             }
-            self._resource = 'shows';
+            self._resource = 'show';
 
             return self;
         }
