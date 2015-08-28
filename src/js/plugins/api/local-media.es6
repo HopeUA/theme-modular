@@ -17,7 +17,7 @@
  * - fetch()             send api request and return Promise.
  *
  * Example
- *     var episodes = media.episodes(module).format('html');
+ *     var episodes = media.episodes('new');
  *     episodes.limit(10).offset(5).fetch().then(function(data){
  *         // data - episode list
  *     }).catch(function(response){
@@ -30,6 +30,14 @@
  *     }).catch(function(response){
  *         // response - response.status, response.json()
  *     });
+ *
+ *     var shows = media.shows('popular');
+ *     shows.fetch().then(function(data){
+ *         // data - episode object
+ *     }).catch(function(response){
+ *         // response - response.status, response.json()
+ *     });
+ *
  *
  */
 (function(Hope){
