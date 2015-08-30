@@ -20,9 +20,10 @@
     };
 
     LoaderBlock.DEFAULTS = {
-        max: 3,
-        timeUP: 400,
-        tiemDown: 200
+        max:      3,
+        timeUP:   400,
+        timeDown: 200,
+        limit:    {first : 15, default : 10}
     };
 
     function appendBlock(self, data) {
@@ -35,14 +36,6 @@
     function loadJson(self, url) {
 
         if (self.loadStatus) {
-            //$.getJSON(url, function (data) {
-            //
-            //    var episodes = data;
-            //
-            //    $.each(episodes, function (index, element) {
-            //        appendBlock(self, element);
-            //    });
-            //});
 
             var total = 15;
 
@@ -116,6 +109,15 @@
             counter = 0;
 
             self.$btnMore.text(this.textShow);
+        });
+
+        self.loader.limit(self.options.limit.first).fetch().then(function(data) {
+
+            var html = self.options.render(data);
+            self.$object.html(html);
+
+        }).catch(function(response){
+            console.error(response);
         });
 
     };
