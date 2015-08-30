@@ -26,26 +26,16 @@
         limit:    {first : 15, default : 10}
     };
 
-    function appendBlock(self, data) {
-        var template = self.$object.children().eq('0').clone();
-        var content = self.options.render(template, data);
-
-        self.$object.append(content);
-    }
-
-    function loadJson(self, url) {
+    function loadJson(self) {
 
         if (self.loadStatus) {
 
-            var total = 15;
+            var total = self.$object.children().length;
 
             self.loader.offset(total).limit(self.options.limit.default).fetch().then(function(data) {
 
-                var episodes = data;
-
-                $.each(episodes, function (index, element) {
-                    appendBlock(self, element);
-                });
+                var html = self.options.render(data);
+                self.$object.append(html);
 
             }).catch(function(response){
                 console.error(response);
@@ -57,13 +47,12 @@
 
         var counter = 0;
 
-        self.containerHeight = self.$object.css('height');
-        self.itemHeight = parseInt(self.$object.children().css('height')) + parseInt(self.$object.children().css('margin-bottom')) + 'px';
-
         self.textShow = self.$btnMore.data('text-show');
         self.textHide = self.$btnMore.data('text-hide');
 
         self.$btnMore.click(function () {
+
+            self.itemHeight = parseInt(self.$object.children().css('height')) + parseInt(self.$object.children().css('margin-bottom')) + 'px';
 
             if (counter == self.options.max) {
 
@@ -88,14 +77,12 @@
             } else {
 
                 if (counter <= (self.options.max - 2)) {
-                    var url = self.options.url + counter + '.json';
-
-                    loadJson(self, url);
+                    loadJson(self);
                 }
 
                 self.$object.animate({
                     'height': '+=' + self.itemHeight
-                }, self.options.tiemDown);
+                }, self.options.timeDown);
                 counter++;
 
             }
@@ -115,6 +102,7 @@
 
             var html = self.options.render(data);
             self.$object.html(html);
+            self.containerHeight = self.$object.css('height');
 
         }).catch(function(response){
             console.error(response);
