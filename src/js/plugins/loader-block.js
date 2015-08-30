@@ -74,6 +74,12 @@
 
                 self.loadStatus = false;
 
+                $(window).scrollTo(self.$object.parents().find('.container-header'), 400, {
+                    over: {
+                        top: 0.8
+                    }
+                });
+
             } else {
 
                 if (counter <= (self.options.max - 2)) {
@@ -85,6 +91,11 @@
                 }, self.options.timeDown);
                 counter++;
 
+                $(window).scrollTo(self.$btnMore, 400, {
+                    over: {
+                        top: -16
+                    }
+                });
             }
         });
 
