@@ -1,9 +1,9 @@
 $(function(){
     // Slider init
-    $('.anons').hopeSliderBlock({
-        loadUrl: 'ajax/anons',
-        name: 'anons'
-    });
+    //$('.anons').hopeSliderBlock({
+    //    loadUrl: 'ajax/anons',
+    //    name: 'anons'
+    //});
 
     // Slider reload
     //var slider = $('.anons').hopeSliderBlock();
