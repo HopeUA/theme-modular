@@ -1,3 +1,28 @@
+/**
+ * Scheduler
+ * @api
+ *
+ * Configure
+ *     var scheduler = Hope.Api.Scheduler(endpoint);
+ *
+ * Methods
+ *
+ * - from(date)          start date and time (*required)
+ * - to(date)            end date and time (default: end of the day)
+ * - param(name, value)  custom query parameter
+ * - getUrl()            return full url for request
+ * - fetch()             send api request and return Promise.
+ *
+ * Examples
+ *     var start = new Date(...);
+ *     var end   = new Date(...);
+ *     scheduler.from(start).to(end).fetch().then(function(data){
+ *         // data - episode list
+ *     }).catch(function(response){
+ *         // response - response.status, response.json()
+ *     });
+ *
+ */
 (function(Hope){
 
     class Scheduler {
