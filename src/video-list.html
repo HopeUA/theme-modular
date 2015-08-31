@@ -115,7 +115,7 @@
         <div class="content-video-list-header-poster">
             <img src="img/videoListPoster.jpg" alt="">
         </div>
-        <div class="content-video-list-header-content" data-show-code="WUCU">
+        <div class="content-video-list-header-content" data-show-code="MBCU">
             <div class="container">
                 <div class="content-video-list-header-date">
                     <p class="content-video-list-header-days">понеділок-середа</p>
@@ -139,8 +139,27 @@
     <!-- Section Content-Video-List-Header END -->
 
     <!-- Section Content-Video-List-Items START -->
-    <section class="content-video-list-items">
-    </section>
+    <section class="content-video-list-items"></section>
+    <script id="template-video-list" type="x-tmpl-mustache">
+        {{#episodes}}
+            <div class="content-video-list-item">
+                <div class="container">
+                    <div class="container-content">
+                        <div class="content-video-list-poster">
+                            <div class="content-video-list-poster-play"></div>
+                            <img src="{{& image }}" alt="">
+                        </div>
+                        <div class="content-video-list-content">
+                            <a href="{{& code }}" class="content-video-list-content-title">{{& title }}</a>
+                            <p class="content-video-list-content-date">{{& date }}</p>
+                            <div class="content-video-list-content-labels">{{& labels }}</div>
+                            <p class="content-video-list-content-description">{{& description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/episodes}}
+    </script>
     <!-- Section Content-Video-List-Items END -->
 
     <section class="banners-wide">
