@@ -1,4 +1,4 @@
-/*
+/**
  * Local Media
  * @api
  *
@@ -76,6 +76,10 @@
             self._code = code;
 
             return self;
+        }
+
+        search(text) {
+            return this.param('search', text);
         }
 
         offset(n) {
