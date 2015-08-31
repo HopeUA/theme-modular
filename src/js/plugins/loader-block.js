@@ -50,15 +50,20 @@
         self.textShow = self.$btnMore.data('text-show');
         self.textHide = self.$btnMore.data('text-hide');
 
+        self.$btnMore.off();
+
         self.$btnMore.click(function () {
 
             self.itemHeight = parseInt(self.$object.children().css('height')) + parseInt(self.$object.children().css('margin-bottom')) + 'px';
 
             if (counter == self.options.max) {
-
+                $(this).removeClass('btn__more__up');
+                $(this).addClass('btn__more__down');
                 $(this).text(self.textShow);
 
             } else if (counter == (self.options.max - 1)) {
+                $(this).removeClass('btn__more__down');
+                $(this).addClass('btn__more__up');
                 $(this).text(self.textHide);
             }
 
@@ -69,9 +74,7 @@
                 }, self.options.timeUP);
 
                 counter = 0;
-
                 $(this).text(this.textShow);
-
                 self.loadStatus = false;
 
                 $(window).scrollTo(self.$object.parents().find('.container-header'), 400, {
@@ -123,15 +126,8 @@
 
     function Plugin(option) {
         return this.each(function () {
-            var $this = $(this);
-            var data = $this.data('hopeLoaderBlock');
             var options = typeof option == 'object' && option; // return false or object option
-
-            if (!data) {
-                data = new LoaderBlock(this, options); // constructor initializating
-                $this.data('hopeLoaderBlock', data);
-            }
-
+            new LoaderBlock(this, options); // constructor initializating
         });
     }
 

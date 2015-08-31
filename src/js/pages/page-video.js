@@ -2,25 +2,38 @@ $(function () {
 
     var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
 
-    $('.similar-episodes').hopeLoaderBlock({
-        name: 'similar-episodes',
-        loader: LocalMediaAPI.episodes('similar').param('code', 'MBCU00315'),
-        render: function (response, first) {
-            first = first || false;
-
-            var template = $('#template-similar').html();
-            var view     = {};
-            if (first) {
-                view.first = [response.data.shift()];
-            }
-            view.episodes = response.data;
-
-            return Mustache.render(template, view);
+    document.addEventListener('episodeChanged', function (e) {
+        if (e.detail == null) {
+            return;
         }
+
+        $('.similar-episodes').hopeLoaderBlock({
+            name: 'similar-episodes',
+            loader: LocalMediaAPI.episodes('similar').param('code', e.detail.code),
+            render: function (response, first) {
+                first = first || false;
+
+                var template = $('#template-similar').html();
+                var view     = {};
+                if (first) {
+                    view.first = [response.data.shift()];
+                }
+                view.episodes = response.data;
+
+                return Mustache.render(template, view);
+            }
+        });
+    }, false);
+
+    var episodeChangedEvent = new CustomEvent('episodeChanged', {
+        detail: { code: $('.page-video').data('video-code') }
     });
+    document.dispatchEvent(episodeChangedEvent);
 
     $('.page-video').hopeSliderPage({
         render: function (template, data) {
+            $('.page-video').data('video-code', data.code);
+
             template.find('.pv-episode-title').text(data.title);
             $('.pv-episode-title').text(data.title);
             template.find('.pv-episode-show').text(data.show);
