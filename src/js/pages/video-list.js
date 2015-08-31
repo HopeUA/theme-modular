@@ -9,11 +9,9 @@ $(function () {
 
         var loadStatus = false;
 
-        var VideoTotal = 1;
-        var VideoLimit = 10;
-
-        var loadVideo = function (VideoTotal, VideoLimit) {
-            Api.offset(VideoTotal).limit(VideoLimit).fetch().then(function (response) {
+        var loadVideo = function (videoTotal, videoLimit) {
+            loadStatus = true;
+            Api.offset(videoTotal).limit(videoLimit).fetch().then(function (response) {
 
                 var template = $('#template-video-list').html();
                 var view     = {};
@@ -38,12 +36,14 @@ $(function () {
 
                 var html = Mustache.render(template, view);
                 place.append(html);
+                loadStatus = false;
+
             }).catch(function (response) {
                 console.error(response);
             });
         }
 
-        loadVideo(VideoTotal, VideoLimit);
+        loadVideo(0, 10);
     }
 
     function timeToStr2(date, lang) {
@@ -56,62 +56,27 @@ $(function () {
         return '/shows/' + code.substring(0, 4) + '/' + code.substring(4);
     }
 
-    //setTimeout(function() {
-    //
-    //    var counter = 1;
-    //
-    //    $(window).scroll(function () {
-    //
-    //        var scrollHeight = $(document).height() - $(window).height();
-    //
-    //        if ((scrollHeight - $(window).scrollTop()) <= 1851) {
-    //
-    //            var place = $('.content-video-list-items');
-    //            var url = Hope.Config.Api.Media.Endpoint + '/episodes.json?module=show&show=' + $('content-video-list-header-content').data('show-code');
-    //
-    //            url += '&offset=' + (counter*10);
-    //
-    //            if (loadStatus) {
-    //                $.getJSON(url, function (data) {
-    //                    var episodes = data.data;
-    //                    $.each(episodes, function (index, element) {
-    //
-    //                        var labels = '';
-    //
-    //                        $.each(element.tags, function (index, tag) {
-    //                            var label = '<a href="#" class="content-video-list-content-label">' + tag + '</a>';
-    //                            labels += label;
-    //                        });
-    //
-    //                        var template = '<div class="content-video-list-item">' +
-    //                            '<div class="container">' +
-    //                            '<div class="container-content">' +
-    //                            '<div class="content-video-list-poster">' +
-    //                            '<div class="content-video-list-poster-play"></div>' +
-    //                            '<img src="' + element.image + '" alt="">' +
-    //                            '</div>' +
-    //                            '<div class="content-video-list-content">' +
-    //                            '<a href="' + getEpisodeUrl(element.code) + '" class="content-video-list-content-title">' + element.title + '</a>' +
-    //                            '<p class="content-video-list-content-date">' + timeToStr2(element.date, 'ru') + '</p>' +
-    //                            '<div class="content-video-list-content-labels">' + labels + '</div>' +
-    //                            '<p class="content-video-list-content-description">' + element.description + '</p>' +
-    //                            '</div>' +
-    //                            '</div>' +
-    //                            '</div>' +
-    //                            '</div>';
-    //
-    //                        place.append(template);
-    //                    });
-    //                    loadStatus = data.next;
-    //                });
-    //            }
-    //
-    //            counter++;
-    //        }
-    //    });
-    //}, 50);
+    setTimeout(function() {
 
-    //var item = $('.content-video-list-items');
+        var counter = 1;
+
+        $(window).scroll(function () {
+            if (loadStatus) {
+                return;
+            }
+
+            var scrollHeight = $(document).height() - $(window).height();
+
+            if ((scrollHeight - $(window).scrollTop()) <= 1851) {
+
+                var videoTotal = $('.content-video-list-items').children().length;
+                loadVideo(videoTotal, 10);
+
+                counter++;
+            }
+        });
+    }, 50);
+
 
     place.on('click', '.content-video-list-item', function(){
         var link = $(this).find('.content-video-list-content-title');
