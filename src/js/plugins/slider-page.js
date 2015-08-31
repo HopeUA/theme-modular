@@ -135,6 +135,10 @@
 
             if (self.pageCache[nextCode].next) {
                 loadJsonByCode(self, self.pageCache[nextCode].next);
+                var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                    detail: { code: self.currentCode }
+                });
+                document.dispatchEvent(episodeChangedEvent);
             } else {
                 hideArrow(self, $(this));
             }
@@ -154,6 +158,10 @@
 
             if (self.pageCache[nextCode].prev) {
                 loadJsonByCode(self, self.pageCache[nextCode].prev);
+                var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                    detail: { code: self.currentCode }
+                });
+                document.dispatchEvent(episodeChangedEvent);
             } else {
                 hideArrow(self, $(this));
             }

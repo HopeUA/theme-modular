@@ -50,6 +50,8 @@
         self.textShow = self.$btnMore.data('text-show');
         self.textHide = self.$btnMore.data('text-hide');
 
+        self.$btnMore.off();
+
         self.$btnMore.click(function () {
 
             self.itemHeight = parseInt(self.$object.children().css('height')) + parseInt(self.$object.children().css('margin-bottom')) + 'px';
@@ -127,10 +129,10 @@
             var data = $this.data('hopeLoaderBlock');
             var options = typeof option == 'object' && option; // return false or object option
 
-            if (!data) {
+            //if (!data) {
                 data = new LoaderBlock(this, options); // constructor initializating
                 $this.data('hopeLoaderBlock', data);
-            }
+            //}
 
         });
     }
