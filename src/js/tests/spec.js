@@ -44,6 +44,12 @@ describe('LocalMedia API', function() {
         expect(api.getUrl()).to.be.equal(endpoint + '/episodes/someCode.json');
     });
 
+    it('should set "search" query param', function() {
+        var api = Hope.Api.LocalMedia(endpoint).episodes().search('some text string');
+
+        expect(api.getUrl()).to.be.equal(endpoint + '/episodes.json?search=some+text+string');
+    });
+
     it('should pass different tests', function() {
         var api = Hope.Api.LocalMedia(endpoint).episodes('someModule');
         var api1 = api.offset(10).limit(5).offset(5);
