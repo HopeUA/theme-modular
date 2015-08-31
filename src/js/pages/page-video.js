@@ -1,10 +1,11 @@
 $(function () {
 
     var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
+    var pageVideo = $('.page-video').data('video-code');
 
     $('.similar-episodes').hopeLoaderBlock({
         name: 'similar-episodes',
-        loader: LocalMediaAPI.episodes('similar').param('code', 'MBCU00315'),
+        loader: LocalMediaAPI.episodes('similar').param('code', pageVideo),
         render: function (response, first) {
             first = first || false;
 
