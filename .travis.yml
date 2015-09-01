@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "iojs"
+branches:
+  only:
+    - master
+addons:
+  apt:
+    packages:
+      - sshpass
+before_script:
+  - npm install -g bower gulp
+after_success:
+  - tar -czf package.tgz dist
+  - export SSHPASS=$DEPLOY_PASS
+  - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+  - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh

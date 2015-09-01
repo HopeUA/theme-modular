@@ -25,6 +25,7 @@
     "dev-server": "http-server dist/",
     "clean": "gulp clean",
     "build": "gulp build",
-    "setup": "npm install && bower install"
+    "setup": "npm install && bower install",
+    "test": "npm run build"
   }
 }
