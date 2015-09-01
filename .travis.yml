@@ -13,5 +13,5 @@ before_script:
 after_success:
   - tar -cvzf package.tgz dist
   - export SSHPASS=$DEPLOY_PASS
-  - sshpass -e scp -v -P $DEPLOY_PORT package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+  - sshpass -e scp -v -o stricthostkeychecking=no -P $DEPLOY_PORT package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
   - sshpass -e ssh -v -p $DEPLOY_PORT $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/deploy.sh
