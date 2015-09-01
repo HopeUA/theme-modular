@@ -9,7 +9,7 @@ $(function () {
 
         var loadStatus = false;
 
-        var loadVideo = function (videoTotal, videoLimit, Api) {
+        var loadVideo = function (videoTotal, videoLimit, Api, status) {
             loadStatus = true;
             Api.offset(videoTotal).limit(videoLimit).fetch().then(function (response) {
 
@@ -35,11 +35,29 @@ $(function () {
                 view.episodes = response.data;
 
                 var html = Mustache.render(template, view);
-                place.append(html);
+                if (status == 'new') {
+                    place.html(html);
+                } else {
+                    place.append(html);
+                }
+                $('.content-video-list-label').html('');
                 loadStatus = false;
 
             }).catch(function (response) {
-                console.error(response);
+
+                var labelPlace = $('.content-video-list-label');
+                var elements = $('.content-video-list-items').children().length;
+
+                if (response.status == 404 && elements == 0) {
+                    var viewLabelEmpty = $('#template-video-list-label-empty').html();
+                    var htmlBlock = Mustache.render(viewLabelEmpty);
+                    labelPlace.html(htmlBlock);
+                } else if (elements == 0) {
+                    var viewLabelServerError = $('#template-video-list-label-error').html();
+                    var htmlBlock = Mustache.render(viewLabelServerError);
+                    labelPlace.html(htmlBlock);
+                }
+                console.log(response);
             });
         }
 
@@ -70,7 +88,9 @@ $(function () {
             if ((scrollHeight - $(window).scrollTop()) <= 1851) {
 
                 var videoTotal = $('.content-video-list-items').children().length;
-                loadVideo(videoTotal, 10);
+                var currentInputVal = $('.content-video-list-header-search-input').val();
+                var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentInputVal);
+                loadVideo(videoTotal, 10, ApiSearch);
 
                 counter++;
             }
@@ -90,13 +110,13 @@ $(function () {
         changeInput = true;
         setTimeout(function(){
             var currentVal = $input.val();
-            if (changeInput && currentVal !='') {
-                console.log(currentVal);
-                var ApiSearch = LocalMediaAPI.episodes('show').param('show', 'MBCP');
-                loadVideo(0, 10, ApiSearch);
+            if (changeInput) {
+                var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentVal);
+                place.html('');
+                loadVideo(0, 10, ApiSearch, 'new');
                 changeInput = false;
             }
-        }, 2000);
+        }, 700);
     });
 
 });
