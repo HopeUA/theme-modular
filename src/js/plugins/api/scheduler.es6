@@ -57,18 +57,20 @@
         }
 
         fetch() {
-            return fetch(this.getUrl()).then((response) => {
-                if (response.status != 200) {
-                    throw response;
-                }
+            return new Promise((resolve, reject) => {
+                fetch(this.getUrl()).then((response) => {
+                    if (response.status != 200) {
+                        return reject(response);
+                    }
 
-                let type = response.headers.get('Content-Type').replace(/([^;]+).*/, '$1');
+                    let type = response.headers.get('Content-Type').replace(/([^;]+).*/, '$1');
 
-                if (type == 'application/json') {
-                    return response.json();
-                } else {
-                    return response.text();
-                }
+                    if (type == 'application/json') {
+                        return resolve(response.json());
+                    } else {
+                        return resolve(response.text());
+                    }
+                });
             });
         }
 
