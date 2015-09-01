@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - "iojs"
+
 branches:
   only:
     - master
@@ -8,8 +9,12 @@ addons:
   apt:
     packages:
       - sshpass
-before_script:
+
+install:
   - npm install -g bower gulp
+  - npm install
+  - bower install
+
 after_success:
   - tar -cvzf package.tgz dist
   - export SSHPASS=$DEPLOY_PASS
