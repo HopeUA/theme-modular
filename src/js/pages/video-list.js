@@ -9,7 +9,7 @@ $(function () {
 
         var loadStatus = false;
 
-        var loadVideo = function (videoTotal, videoLimit) {
+        var loadVideo = function (videoTotal, videoLimit, Api) {
             loadStatus = true;
             Api.offset(videoTotal).limit(videoLimit).fetch().then(function (response) {
 
@@ -43,7 +43,7 @@ $(function () {
             });
         }
 
-        loadVideo(0, 10);
+        loadVideo(0, 10, Api);
     }
 
     function timeToStr2(date, lang) {
@@ -81,6 +81,22 @@ $(function () {
     place.on('click', '.content-video-list-item', function(){
         var link = $(this).find('.content-video-list-content-title');
         window.location.href = link.attr('href');
+    });
+
+    var $input = $('.content-video-list-header-search-input');
+    var changeInput = false;
+
+    $input.keyup(function(){
+        changeInput = true;
+        setTimeout(function(){
+            var currentVal = $input.val();
+            if (changeInput && currentVal !='') {
+                console.log(currentVal);
+                var ApiSearch = LocalMediaAPI.episodes('show').param('show', 'MBCP');
+                loadVideo(0, 10, ApiSearch);
+                changeInput = false;
+            }
+        }, 2000);
     });
 
 });
