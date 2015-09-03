@@ -45,17 +45,14 @@ $(function () {
 
             }).catch(function (response) {
 
-                var labelPlace = $('.content-video-list-label');
-                var elements = $('.content-video-list-items').children().length;
-
-                if (response.status == 404 && elements == 0) {
+                if (response.status == 404 && videoTotal == 0) {
                     var viewLabelEmpty = $('#template-video-list-label-empty').html();
                     var htmlBlock = Mustache.render(viewLabelEmpty);
-                    labelPlace.html(htmlBlock);
-                } else if (elements == 0) {
+                    place.html(htmlBlock);
+                } else if (videoTotal == 0) {
                     var viewLabelServerError = $('#template-video-list-label-error').html();
                     var htmlBlock = Mustache.render(viewLabelServerError);
-                    labelPlace.html(htmlBlock);
+                    place.html(htmlBlock);
                 }
                 console.log(response);
             });
@@ -112,7 +109,7 @@ $(function () {
             var currentVal = $input.val();
             if (changeInput) {
                 var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentVal);
-                place.html('');
+                //place.html('');
                 loadVideo(0, 10, ApiSearch, 'new');
                 changeInput = false;
             }
