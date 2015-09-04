@@ -140,8 +140,8 @@ $(function () {
     });
 
     $container.find('li').click(function () {
-        var elementId = $(this).data('id');
-        var contentHeight = $pageContent.css('height');
+        var dayDate = $(this).data('scheduler-date');
+        //var contentHeight = $pageContent.css('height');
         var currentIndex = $(this).index();
         var prevIndex = $('.page-sheduler-header-list .selected').index();
 
@@ -152,29 +152,36 @@ $(function () {
         $('.page-sheduler-header-list .selected').removeClass('selected');
         $(this).addClass('selected');
 
-        loadJson(elementId);
+        loadJson(dayDate);
 
         setTimeout(function () {
             if (currentIndex < prevIndex) {
-                renderTemplateBefore(daysCache[elementId].objectsDay);
+                renderTemplateBefore(daysCache[dayDate].data);
             } else {
-                renderTemplateAfter(daysCache[elementId].objectsDay);
+                renderTemplateAfter(daysCache[dayDate].data);
             }
         }, 200)
 
     });
 
-    function loadJson(idDay) {
+    function loadJson(dayDate) {
 
-        var url = 'ajax/day' + idDay + '.json';
+        var scheduler = Hope.Api.Scheduler(Hope.Config.Api.Scheduler.Endpoint);
 
-        if (daysCache.hasOwnProperty(idDay)) {
+        if (daysCache.hasOwnProperty(dayDate)) {
             return;
         }
 
-        $.getJSON(url, function (data) {
-            daysCache[idDay] = data;
-        });
+        var start = moment(dayDate).set('hour', 0).set('minute', 0).set('second', 0).utc().toDate();
+        var end = moment(dayDate).set('hour', 23).set('minute', 59).set('second', 59).utc().toDate();
+
+        scheduler.from(start).to(end).fetch().then(function(data){
+            daysCache[dayDate] = data;
+            console.log(daysCache);
+        }).catch(function(response){
+             console.log(response);
+         });
+
     }
 
     function renderTemplateBefore(currentDay) {
@@ -200,14 +207,26 @@ $(function () {
         $.each(reverseCache, function (index, item) {
 
             var $temp = template.clone();
+            var description = null;
+            var image = null;
 
             $temp.find('.page-sheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
-            $temp.find('.page-sheduler-content-episode-title').text(item.titleEpisode);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.titleEpisode);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.titleShow);
-            $temp.find('.page-sheduler-content-episode-info-img').attr('src', 'img/' + item.img);
-            $temp.find('.page-sheduler-content-episode-info-p').text(item.description);
-            $temp.addClass(item.language);
+            $temp.find('.page-sheduler-content-episode-title').text(item.episode.title);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.episode.title);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.show.title);
+            if (item.episode.image == '') {
+                image = item.show.image.cover;
+            } else {
+                image = item.episode.image;
+            }
+            $temp.find('.page-sheduler-content-episode-info-img').attr('src', image);
+            if (item.episode.description == '') {
+                description = item.show.description.short;
+            } else {
+                description = item.episode.description;
+            }
+            $temp.find('.page-sheduler-content-episode-info-p').text(description);
+            $temp.addClass(item.show.language);
 
             if (item.active == 'true') {
                 $temp.addClass('active');
@@ -244,20 +263,31 @@ $(function () {
         $.each(currentDay, function (index, item) {
 
             var $temp = template.clone();
+            var description = null;
+            var image = null;
 
             $temp.find('.page-sheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
-            $temp.find('.page-sheduler-content-episode-title').text(item.titleEpisode);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.titleEpisode);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.titleShow);
-            $temp.find('.page-sheduler-content-episode-info-img').attr('src', 'img/' + item.img);
-            $temp.find('.page-sheduler-content-episode-info-p').text(item.description);
-            $temp.addClass(item.language);
+            $temp.find('.page-sheduler-content-episode-title').text(item.episode.title);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.episode.title);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.show.title);
+            if (item.episode.image == '') {
+                image = item.show.image.cover;
+            } else {
+                image = item.episode.image;
+            }
+            $temp.find('.page-sheduler-content-episode-info-img').attr('src', image);
+            if (item.episode.description == '') {
+                description = item.show.description.short;
+            } else {
+                description = item.episode.description;
+            }
+            $temp.find('.page-sheduler-content-episode-info-p').text(description);
+            $temp.addClass(item.show.language);
 
             if (item.active == 'true') {
                 $temp.addClass('active');
                 $temp.addClass('live');
             }
-            console.log($temp);
 
             $container.append($temp);
         })
@@ -345,9 +375,9 @@ $(function () {
 
     });
 
-    function timeToStr(unixTime, lang) {
+    function timeToStr(schedulerDate, lang) {
         moment.locale(lang);
-        var strDate = moment.unix(unixTime).format('LT');
+        var strDate = moment(schedulerDate).format('LT');
         return strDate;
     }
 

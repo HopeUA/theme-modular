@@ -27,7 +27,6 @@
 
     class Scheduler {
         constructor(endpoint) {
-            this._format   = 'json';
             this._endpoint = endpoint;
             this._resource = 'events';
             this._query    = {};
@@ -85,7 +84,6 @@
             let parts = [this._endpoint, this._resource];
 
             let url = URI(parts.join('/'));
-            url.suffix(this._format);
             url.query(this._query);
 
             return url.toString();
