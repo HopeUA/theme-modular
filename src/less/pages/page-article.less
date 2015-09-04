@@ -1,7 +1,20 @@
 .page-article {
-    padding-top: 30px;
-    padding-bottom: 51px;
-    background: #fff;
+    background: #f3f4f4;
+    width: 100%;
+    overflow: hidden;
+}
+.page-article::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 4px;
+    margin-top: 55px;
+    background: url("/img/articlePageBorder.png") repeat-x;
+}
+
+
+.articles-block {
+    background: #f3f4f4;
 }
 
 .page-article-links {
@@ -34,9 +47,30 @@
     margin-left: 3px;
 }
 
+.page-article-header-wrap {
+    overflow: hidden;
+    height: 286px;
+}
+
 .page-article-header {
     display: flex;
-    height: 51px;
+    height: 307px;
+    width: 101%;
+    padding: 0;
+    //margin: 0;
+    margin-left: -10px;
+    margin-top: -10px;
+}
+
+.page-article-header-wrap::before {
+    content: "";
+    display: block;
+    width: 101%;
+    height: 286px;
+    position: absolute;
+    background: #0b2226;
+    opacity: 0.5;
+    z-index: 1;
 }
 
 .page-article-header-title {
@@ -133,10 +167,20 @@ h2.page-article-header-show {
 }
 
 .page-article-content__left-description {
-    color: #a7a9ac;
+    color: #6e7b7d;
     font-family: 'PTSansRegular';
-    font-size: 14px;
+    font-size: 18px;
     margin-top: 37px;
+    line-height: 26px;
+}
+
+.page-article-content__left-description p {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.page-article-content__left-description p:last-child {
+    margin-bottom: 0;
 }
 
 .page-article-content__right {
@@ -587,12 +631,13 @@ h2.page-article-header-show {
 
 .page-article-arrow__left {
     left: 10%;
-    top: 510px;
+    top: 355px;
     display: block;
     width: 68px;
     height: 68px;
     position: absolute;
     background: url(../img/page-video-arrow__left.png);
+    z-index: 2;
 }
 
 .page-article-arrow__left:hover {
@@ -602,13 +647,14 @@ h2.page-article-header-show {
 
 .page-article-arrow__right {
     right: 10%;
-    top: 510px;
+    top: 355px;
     display: block;
     width: 68px;
     height: 68px;
     position: absolute;
     background: url(../img/page-video-arrow__left.png);
     transform: scaleX(-1);
+    z-index: 2;
 }
 
 .page-article-arrow__right:hover {
