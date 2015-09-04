@@ -140,8 +140,8 @@ $(function () {
     });
 
     $container.find('li').click(function () {
-        var elementId = $(this).data('id');
-        var contentHeight = $pageContent.css('height');
+        var dayDate = $(this).data('scheduler-date');
+        //var contentHeight = $pageContent.css('height');
         var currentIndex = $(this).index();
         var prevIndex = $('.page-sheduler-header-list .selected').index();
 
@@ -152,29 +152,36 @@ $(function () {
         $('.page-sheduler-header-list .selected').removeClass('selected');
         $(this).addClass('selected');
 
-        loadJson(elementId);
+        loadJson(dayDate);
 
         setTimeout(function () {
             if (currentIndex < prevIndex) {
-                renderTemplateBefore(daysCache[elementId].objectsDay);
+                renderTemplateBefore(daysCache[dayDate].data);
             } else {
-                renderTemplateAfter(daysCache[elementId].objectsDay);
+                renderTemplateAfter(daysCache[dayDate].data);
             }
         }, 200)
 
     });
 
-    function loadJson(idDay) {
+    function loadJson(dayDate) {
 
-        var url = 'ajax/day' + idDay + '.json';
+        var scheduler = Hope.Api.Scheduler(Hope.Config.Api.Scheduler.Endpoint);
 
-        if (daysCache.hasOwnProperty(idDay)) {
+        if (daysCache.hasOwnProperty(dayDate)) {
             return;
         }
 
-        $.getJSON(url, function (data) {
-            daysCache[idDay] = data;
-        });
+        var start = moment(dayDate).set('hour', 0).set('minute', 0).set('second', 0).utc().toDate();
+        var end = moment(dayDate).set('hour', 23).set('minute', 59).set('second', 59).utc().toDate();
+
+        scheduler.from(start).to(end).fetch().then(function(data){
+            daysCache[dayDate] = data;
+            console.log(daysCache);
+        }).catch(function(response){
+             console.log(response);
+         });
+
     }
 
     function renderTemplateBefore(currentDay) {
@@ -257,7 +264,6 @@ $(function () {
                 $temp.addClass('active');
                 $temp.addClass('live');
             }
-            console.log($temp);
 
             $container.append($temp);
         })
