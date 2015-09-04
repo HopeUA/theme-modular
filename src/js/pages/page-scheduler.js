@@ -207,14 +207,26 @@ $(function () {
         $.each(reverseCache, function (index, item) {
 
             var $temp = template.clone();
+            var description = null;
+            var image = null;
 
             $temp.find('.page-sheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
-            $temp.find('.page-sheduler-content-episode-title').text(item.titleEpisode);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.titleEpisode);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.titleShow);
-            $temp.find('.page-sheduler-content-episode-info-img').attr('src', 'img/' + item.img);
-            $temp.find('.page-sheduler-content-episode-info-p').text(item.description);
-            $temp.addClass(item.language);
+            $temp.find('.page-sheduler-content-episode-title').text(item.episode.title);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.episode.title);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.show.title);
+            if (item.episode.image == '') {
+                image = item.show.image.cover;
+            } else {
+                image = item.episode.image;
+            }
+            $temp.find('.page-sheduler-content-episode-info-img').attr('src', image);
+            if (item.episode.description == '') {
+                description = item.show.description.short;
+            } else {
+                description = item.episode.description;
+            }
+            $temp.find('.page-sheduler-content-episode-info-p').text(description);
+            $temp.addClass(item.show.language);
 
             if (item.active == 'true') {
                 $temp.addClass('active');
@@ -251,14 +263,26 @@ $(function () {
         $.each(currentDay, function (index, item) {
 
             var $temp = template.clone();
+            var description = null;
+            var image = null;
 
             $temp.find('.page-sheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
-            $temp.find('.page-sheduler-content-episode-title').text(item.titleEpisode);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.titleEpisode);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.titleShow);
-            $temp.find('.page-sheduler-content-episode-info-img').attr('src', 'img/' + item.img);
-            $temp.find('.page-sheduler-content-episode-info-p').text(item.description);
-            $temp.addClass(item.language);
+            $temp.find('.page-sheduler-content-episode-title').text(item.episode.title);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.episode.title);
+            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.show.title);
+            if (item.episode.image == '') {
+                image = item.show.image.cover;
+            } else {
+                image = item.episode.image;
+            }
+            $temp.find('.page-sheduler-content-episode-info-img').attr('src', image);
+            if (item.episode.description == '') {
+                description = item.show.description.short;
+            } else {
+                description = item.episode.description;
+            }
+            $temp.find('.page-sheduler-content-episode-info-p').text(description);
+            $temp.addClass(item.show.language);
 
             if (item.active == 'true') {
                 $temp.addClass('active');
@@ -351,9 +375,9 @@ $(function () {
 
     });
 
-    function timeToStr(unixTime, lang) {
+    function timeToStr(schedulerDate, lang) {
         moment.locale(lang);
-        var strDate = moment.unix(unixTime).format('LT');
+        var strDate = moment(schedulerDate).format('LT');
         return strDate;
     }
 
