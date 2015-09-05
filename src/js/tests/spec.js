@@ -74,7 +74,7 @@ describe('Scheduler API', function(){
     it('should set Events Resource', function() {
         var api = Hope.Api.Scheduler(endpoint);
 
-        expect(api.getUrl()).to.be.equal(endpoint + '/events.json');
+        expect(api.getUrl()).to.be.equal(endpoint + '/events');
     });
 
     it('should add custom query param', function() {
@@ -82,22 +82,22 @@ describe('Scheduler API', function(){
         var apiParam1 = api.param('key1', 'val1');
         var apiParam2 = api.param('key2', 'val2');
 
-        expect(apiParam1.getUrl()).to.be.equal(endpoint + '/events.json?key1=val1');
-        expect(apiParam2.getUrl()).to.be.equal(endpoint + '/events.json?key2=val2');
+        expect(apiParam1.getUrl()).to.be.equal(endpoint + '/events?key1=val1');
+        expect(apiParam2.getUrl()).to.be.equal(endpoint + '/events?key2=val2');
     });
 
     it('should add "date" query param', function() {
         var date = new Date();
         var api  = Hope.Api.Scheduler(endpoint).from(date);
 
-        expect(api.getUrl()).to.be.equal(endpoint + '/events.json?date=' + encodeURIComponent(date.toISOString()));
+        expect(api.getUrl()).to.be.equal(endpoint + '/events?date=' + encodeURIComponent(date.toISOString()));
     });
 
     it('should add "dateEnd" query param', function() {
         var date = new Date();
         var api  = Hope.Api.Scheduler(endpoint).to(date);
 
-        expect(api.getUrl()).to.be.equal(endpoint + '/events.json?dateEnd=' + encodeURIComponent(date.toISOString()));
+        expect(api.getUrl()).to.be.equal(endpoint + '/events?dateEnd=' + encodeURIComponent(date.toISOString()));
     });
 
     it('should throw error on invalid date', function() {
@@ -107,5 +107,17 @@ describe('Scheduler API', function(){
         expect(function() {
             api.from(date)
         }).to.throw(TypeError);
+    });
+});
+
+describe('Hope Chrono', function(){
+    it('should return current time as Date instance', function(){
+        var currentDate = Hope.Chrono.getDate();
+        expect(currentDate).to.be.an.instanceof(Date);
+    });
+
+    it('should handle offset', function(){
+        var offset = Math.ceil(Hope.Chrono.getOffset() / 1000);
+        expect(offset).to.be.equal(-600);
     });
 });
