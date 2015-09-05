@@ -40,6 +40,7 @@ gulp.task('build:js', () => {
        'src/js/config.js',
        'src/js/config-dev.js',
 
+       'src/js/plugins/*.es6',
        'src/js/plugins/*.js',
        'src/js/plugins/api/*.es6',
        'src/js/content/*.js',
