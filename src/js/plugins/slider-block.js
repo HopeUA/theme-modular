@@ -167,7 +167,7 @@
                     self.$arrowLeft.css({'display' : 'none'});
                 }, self.options.arrowTime)
 
-                self.$arrowRight.css({'display' : 'block'});
+                //self.$arrowRight.css({'display' : 'block'});
                 self.$arrowRight.animate({'opacity' : 1}, self.options.arrowTime);
 
                 self.$object.animate({'left' : 0}, self.options.time);
