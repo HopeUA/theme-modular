@@ -1,14 +1,14 @@
 $(function () {
 
-    var tempIndex = $('.page-sheduler-content-items .active').index();
-    var $pageContent = $('.page-sheduler-content');
+    var tempIndex = $('.page-scheduler-content-items .active').index();
+    var $pageContent = $('.page-scheduler-content');
     var daysCache = {};
 
-    $('.page-sheduler-content-items').on('click', '.page-sheduler-content-item', function () {
-        var $current = $('.page-sheduler-content-items .active');
-        var $current_live = $('.page-sheduler-content-items .live');
+    $('.page-scheduler-content-items').on('click', '.page-scheduler-content-item', function () {
+        var $current = $('.page-scheduler-content-items .active');
+        var $current_live = $('.page-scheduler-content-items .live');
         var indexCurrent = $(this).index();
-        var tIndex = $('.page-sheduler-content-items .active').index();
+        var tIndex = $('.page-scheduler-content-items .active').index();
 
         if ($(this).hasClass('live2')) {
             $(this).addClass('live');
@@ -51,17 +51,17 @@ $(function () {
         $item.addClass('active');
     }
 
-    var $arrowLeft = $('.page-sheduler-header-list-arrow__left');
-    var $arrowRight = $('.page-sheduler-header-list-arrow__right');
-    var $container = $('.page-sheduler-header-list');
+    var $arrowLeft = $('.page-scheduler-header-list-arrow__left');
+    var $arrowRight = $('.page-scheduler-header-list-arrow__right');
+    var $container = $('.page-scheduler-header-list');
     var $activeElement = $container.find('.selected');
     var indexActiveElement = $activeElement.index() + 1;
-    var containerWidth = parseInt($('.page-sheduler-header-container').css('width'));
-    var elementWidth = parseInt($('.page-sheduler-header-list li').css('width'));
-    var elementMargin = parseInt($('.page-sheduler-header-list li').css('margin-right'));
+    var containerWidth = parseInt($('.page-scheduler-header-container').css('width'));
+    var elementWidth = parseInt($('.page-scheduler-header-list li').css('width'));
+    var elementMargin = parseInt($('.page-scheduler-header-list li').css('margin-right'));
     elementWidth = elementWidth + elementMargin;
     var counterElementsMain = Math.round(containerWidth / elementWidth);
-    var counterElementsAll = $('.page-sheduler-header-list li').length;
+    var counterElementsAll = $('.page-scheduler-header-list li').length;
     var widthElementsAll = (counterElementsAll * elementWidth) - elementMargin;
     var counterElementsLeft = (indexActiveElement - ((counterElementsMain - 1) / 2) - 1);
     var counterElementsRight = counterElementsAll - indexActiveElement - (counterElementsMain - 1) / 2;
@@ -70,7 +70,6 @@ $(function () {
     var counterSlider = 0;
 
     if ($container) {
-
         $container.css({
             width: widthElementsAll,
             marginLeft: startPosition
@@ -83,10 +82,10 @@ $(function () {
 
     $arrowLeft.click(function () {
 
-        $('.arrow__right__empty').addClass('page-sheduler-header-list-arrow__right');
-        $('.page-sheduler-header-list-arrow__right').removeClass('arrow__right__empty');
+        $('.arrow__right__empty').addClass('page-scheduler-header-list-arrow__right');
+        $('.page-scheduler-header-list-arrow__right').removeClass('arrow__right__empty');
 
-        $('.page-sheduler-header-list-arrow__right').animate({
+        $('.page-scheduler-header-list-arrow__right').animate({
             opacity: 1
         }, 200);
 
@@ -101,7 +100,7 @@ $(function () {
                 opacity: 0
             }, 200, function () {
                 $(this).addClass('arrow__left__empty');
-                $(this).removeClass('page-sheduler-header-list-arrow__left');
+                $(this).removeClass('page-scheduler-header-list-arrow__left');
             });
         }
 
@@ -114,10 +113,10 @@ $(function () {
             return;
         }
 
-        $('.arrow__left__empty').addClass('page-sheduler-header-list-arrow__left');
-        $('.page-sheduler-header-list-arrow__left').removeClass('arrow__left__empty');
+        $('.arrow__left__empty').addClass('page-scheduler-header-list-arrow__left');
+        $('.page-scheduler-header-list-arrow__left').removeClass('arrow__left__empty');
 
-        $('.page-sheduler-header-list-arrow__left').animate({
+        $('.page-scheduler-header-list-arrow__left').animate({
             opacity: 1
         }, 200);
 
@@ -132,7 +131,7 @@ $(function () {
                 opacity: 0
             }, 200, function () {
                 $(this).addClass('arrow__right__empty');
-                $(this).removeClass('page-sheduler-header-list-arrow__right');
+                $(this).removeClass('page-scheduler-header-list-arrow__right');
             });
         }
 
@@ -143,13 +142,13 @@ $(function () {
         var dayDate = $(this).data('scheduler-date');
         //var contentHeight = $pageContent.css('height');
         var currentIndex = $(this).index();
-        var prevIndex = $('.page-sheduler-header-list .selected').index();
+        var prevIndex = $('.page-scheduler-header-list .selected').index();
 
         if (currentIndex == prevIndex) {
             return;
         }
 
-        $('.page-sheduler-header-list .selected').removeClass('selected');
+        $('.page-scheduler-header-list .selected').removeClass('selected');
         $(this).addClass('selected');
 
         loadJson(dayDate).then(function(data){
@@ -185,11 +184,11 @@ $(function () {
     }
 
     function renderTemplateBefore(currentDay) {
-        var template = $('.page-sheduler-content-item').not('.active').not('.live2').eq(0).clone();
+        var template = $('.page-scheduler-content-item').not('.active').not('.live2').eq(0).clone();
         template.removeClass('ru');
         template.removeClass('ua');
-        var $container = $('.page-sheduler-content-items');
-        var $defaultElement = $('.page-sheduler-content-item').not('.active').eq(1);
+        var $container = $('.page-scheduler-content-items');
+        var $defaultElement = $('.page-scheduler-content-item').not('.active').eq(1);
         var heightDefaultElement = parseInt($defaultElement.css('height'));
         var countInvisibleElements = currentDay.length;
         var shiftList = 0 - (countInvisibleElements * heightDefaultElement + 3);
@@ -210,22 +209,22 @@ $(function () {
             var description = null;
             var image = null;
 
-            $temp.find('.page-sheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
-            $temp.find('.page-sheduler-content-episode-title').text(item.episode.title);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.episode.title);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.show.title);
+            $temp.find('.page-scheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
+            $temp.find('.page-scheduler-content-episode-title').text(item.episode.title);
+            $temp.find('.page-scheduler-content-item-titles p span').eq(0).text(item.episode.title);
+            $temp.find('.page-scheduler-content-item-titles p span').eq(1).text(item.show.title);
             if (item.episode.image == '') {
                 image = item.show.image.cover;
             } else {
                 image = item.episode.image;
             }
-            $temp.find('.page-sheduler-content-episode-info-img').attr('src', image);
+            $temp.find('.page-scheduler-content-episode-info-img').attr('src', image);
             if (item.episode.description == '') {
                 description = item.show.description.short;
             } else {
                 description = item.episode.description;
             }
-            $temp.find('.page-sheduler-content-episode-info-p').text(description);
+            $temp.find('.page-.page-scheduler-header-list-content-episode-info-p').text(description);
             $temp.addClass(item.show.language);
 
             if (item.active == 'true') {
@@ -236,7 +235,7 @@ $(function () {
             $container.prepend($temp);
         })
 
-        var $containerList = $('.page-sheduler-content-items').find('.page-sheduler-content-item');
+        var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
         var counterContainerList = $containerList.length;
         var counter = countInvisibleElements;
 
@@ -249,14 +248,14 @@ $(function () {
     }
 
     function renderTemplateAfter(currentDay) {
-        var template = $('.page-sheduler-content-item').not('.active').not('.live2').eq(0).clone();
+        var template = $('.page-scheduler-content-item').not('.active').not('.live2').eq(0).clone();
         template.removeClass('ru');
         template.removeClass('ua');
-        var $container = $('.page-sheduler-content-items');
-        var $defaultElement = $('.page-sheduler-content-item').not('.active').eq(1);
+        var $container = $('.page-scheduler-content-items');
+        var $defaultElement = $('.page-scheduler-content-item').not('.active').eq(1);
         var heightDefaultElement = parseInt($defaultElement.css('height'));
         var countInvisibleElements = currentDay.length;
-        var shiftList = 0 - ($container.find('.page-sheduler-content-item').length * heightDefaultElement);
+        var shiftList = 0 - ($container.find('.page-scheduler-content-item').length * heightDefaultElement);
 
         $container.find('.active').removeClass('active');
 
@@ -269,22 +268,22 @@ $(function () {
                 var title = item.episode.title || '';
             }
 
-            $temp.find('.page-sheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
-            $temp.find('.page-sheduler-content-episode-title').text(item.episode.title);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.episode.title);
-            $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.show.title);
+            $temp.find('.page-scheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
+            $temp.find('.page-scheduler-content-episode-title').text(item.episode.title);
+            $temp.find('.page-scheduler-content-item-titles p span').eq(0).text(item.episode.title);
+            $temp.find('.page-scheduler-content-item-titles p span').eq(1).text(item.show.title);
             if (item.episode.image == '') {
                 image = item.show.images.cover;
             } else {
                 image = item.episode.image;
             }
-            $temp.find('.page-sheduler-content-episode-info-img').attr('src', image);
+            $temp.find('.page-scheduler-content-episode-info-img').attr('src', image);
             if (item.episode.description == '') {
                 description = item.show.description.short;
             } else {
                 description = item.episode.description;
             }
-            $temp.find('.page-sheduler-content-episode-info-p').text(description);
+            $temp.find('.page-scheduler-content-episode-info-p').text(description);
             $temp.addClass(item.episode.language);
 
             if (item.active == 'true') {
@@ -299,7 +298,7 @@ $(function () {
             }
         });
 
-        var $containerList = $('.page-sheduler-content-items').find('.page-sheduler-content-item');
+        var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
         var counterContainerList = $containerList.length - currentDay.length;
         var counter = countInvisibleElements;
 
@@ -310,7 +309,7 @@ $(function () {
                 $containerList.eq(i).remove();
             }
 
-            $('.page-sheduler-content-items').css({
+            $('.page-scheduler-content-items').css({
                 marginTop: 0
             })
 
@@ -318,19 +317,19 @@ $(function () {
 
     }
 
-    $('.page-sheduler-header-now a').click(function () {
-        var current = $('.page-sheduler-content-items .live2');
-        var currentDay = $('.page-sheduler-header-list .current');
-        var selectedDay = $('.page-sheduler-header-list .selected');
+    $('.page-scheduler-header-now a').click(function () {
+        var current = $('.page-scheduler-content-items .live2');
+        var currentDay = $('.page-scheduler-header-list .current');
+        var selectedDay = $('.page-scheduler-header-list .selected');
         var currentDayStatus = currentDay.hasClass('selected');
 
         if (currentDayStatus) {
 
-            $('.page-sheduler-content-items .active').removeAttr('style');
-            $('.page-sheduler-content-items .active').removeClass('active');
+            $('.page-scheduler-content-items .active').removeAttr('style');
+            $('.page-scheduler-content-items .active').removeClass('active');
 
             if (current.length == 0) {
-                current = $('.page-sheduler-content-items .live');
+                current = $('.page-scheduler-content-items .live');
             }
 
             $(window).scrollTo(current, 400, {
@@ -354,17 +353,16 @@ $(function () {
                 if (currentIndex < prevIndex) {
                     renderTemplateBefore(data);
 
-                    var currentProgram = $('.page-sheduler-content-items .active');
+                    var currentProgram = $('.page-scheduler-content-items .active');
                     $(window).scrollTo(currentProgram, 400, {
                         over: {
                             top: 1.965
                         }
                     });
-
                 } else {
                     renderTemplateAfter(data);
 
-                    var currentProgram = $('.page-sheduler-content-items .active');
+                    var currentProgram = $('.page-scheduler-content-items .active');
                     $(window).scrollTo(currentProgram, 400, {
                         over: {
                             top: -5
@@ -372,16 +370,7 @@ $(function () {
                     });
                 }
             });
-
-            //setTimeout(function () {
-
-
-
-
-            //}, 200)
-
         }
-
     });
 
     function timeToStr(schedulerDate, lang) {
