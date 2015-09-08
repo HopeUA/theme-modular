@@ -152,36 +152,36 @@ $(function () {
         $('.page-sheduler-header-list .selected').removeClass('selected');
         $(this).addClass('selected');
 
-        loadJson(dayDate);
-
-        setTimeout(function () {
+        loadJson(dayDate).then(function(data){
             if (currentIndex < prevIndex) {
-                renderTemplateBefore(daysCache[dayDate].data);
+                renderTemplateBefore(data);
             } else {
-                renderTemplateAfter(daysCache[dayDate].data);
+                renderTemplateAfter(data);
             }
-        }, 200)
-
+        });
     });
 
     function loadJson(dayDate) {
 
-        var scheduler = Hope.Api.Scheduler(Hope.Config.Api.Scheduler.Endpoint);
+        return new Promise(function(resolve, reject){
+            if (daysCache.hasOwnProperty(dayDate)) {
+                return resolve(daysCache[dayDate]);
+            }
 
-        if (daysCache.hasOwnProperty(dayDate)) {
-            return;
-        }
+            var scheduler = Hope.Api.Scheduler(Hope.Config.Api.Scheduler.Endpoint);
 
-        var start = moment(dayDate).set('hour', 0).set('minute', 0).set('second', 0).utc().toDate();
-        var end = moment(dayDate).set('hour', 23).set('minute', 59).set('second', 59).utc().toDate();
+            var start = moment(dayDate).set('hour', 0).set('minute', 0).set('second', 0).utc().toDate();
+            var end = moment(dayDate).set('hour', 23).set('minute', 59).set('second', 59).utc().toDate();
 
-        scheduler.from(start).to(end).fetch().then(function(data){
-            daysCache[dayDate] = data;
-            console.log(daysCache);
-        }).catch(function(response){
-             console.log(response);
-         });
-
+            scheduler.from(start).to(end).fetch().then(function(result){
+                daysCache[dayDate] = result.data;
+                console.log(daysCache);
+                resolve(result.data);
+            }).catch(function(response){
+                console.log(response);
+                reject(response);
+            });
+        });
     }
 
     function renderTemplateBefore(currentDay) {
@@ -261,17 +261,20 @@ $(function () {
         $container.find('.active').removeClass('active');
 
         $.each(currentDay, function (index, item) {
-
+            console.log('step 2.1', index);
             var $temp = template.clone();
             var description = null;
             var image = null;
+            if (item.episode) {
+                var title = item.episode.title || '';
+            }
 
             $temp.find('.page-sheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
             $temp.find('.page-sheduler-content-episode-title').text(item.episode.title);
             $temp.find('.page-sheduler-content-item-titles p span').eq(0).text(item.episode.title);
             $temp.find('.page-sheduler-content-item-titles p span').eq(1).text(item.show.title);
             if (item.episode.image == '') {
-                image = item.show.image.cover;
+                image = item.show.images.cover;
             } else {
                 image = item.episode.image;
             }
@@ -282,7 +285,7 @@ $(function () {
                 description = item.episode.description;
             }
             $temp.find('.page-sheduler-content-episode-info-p').text(description);
-            $temp.addClass(item.show.language);
+            $temp.addClass(item.episode.language);
 
             if (item.active == 'true') {
                 $temp.addClass('active');
@@ -290,7 +293,11 @@ $(function () {
             }
 
             $container.append($temp);
-        })
+
+            if (index == 21) {
+                console.log(item);
+            }
+        });
 
         var $containerList = $('.page-sheduler-content-items').find('.page-sheduler-content-item');
         var counterContainerList = $containerList.length - currentDay.length;
@@ -343,11 +350,9 @@ $(function () {
 
             var elementId = currentDay.data('id');
 
-            loadJson(elementId);
-
-            setTimeout(function () {
+            loadJson(elementId).then(function(data){
                 if (currentIndex < prevIndex) {
-                    renderTemplateBefore(daysCache[elementId].objectsDay);
+                    renderTemplateBefore(data);
 
                     var currentProgram = $('.page-sheduler-content-items .active');
                     $(window).scrollTo(currentProgram, 400, {
@@ -357,7 +362,7 @@ $(function () {
                     });
 
                 } else {
-                    renderTemplateAfter(daysCache[elementId].objectsDay);
+                    renderTemplateAfter(data);
 
                     var currentProgram = $('.page-sheduler-content-items .active');
                     $(window).scrollTo(currentProgram, 400, {
@@ -366,10 +371,14 @@ $(function () {
                         }
                     });
                 }
+            });
+
+            //setTimeout(function () {
 
 
 
-            }, 200)
+
+            //}, 200)
 
         }
 
