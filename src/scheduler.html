@@ -224,41 +224,41 @@
 
     <section class="page-scheduler-content">
         <ul class="page-scheduler-content-items">
-            <li class="page-scheduler-content-item ua active live">
-                <div class="container">
-                    <div class="content">
-                        <div class="page-scheduler-content-episode-time">
-                            <span>08:00</span>
-                            <p>live</p>
-                        </div>
-                        <div class="page-scheduler-content-item-titles">
-                            <p>
-                                <a class="page-scheduler-content-episode-title" href="#">Прощающий вину и преступление и грех<span> →</span></a>
-                                <span>Прощающий вину и преступление и грех</span>
-                                <span>непростое состояние (судоперевод)</span>
-                            </p>
-                        </div>
-                        <div class="page-scheduler-content-episode-info">
-                            <div class="page-scheduler-content-episode-poster">
-                                <div class="page-scheduler-content-episode-play"></div>
-                                <img class="page-scheduler-content-episode-info-img" src="img/episode-container__large.jpg">
+        </ul>
+        <script id="scheduler-list__vertical" type="x-tmpl-mustache">
+            {{#episodes}}
+                <li class="page-scheduler-content-item {{language}} active live">
+                    <div class="container">
+                        <div class="content">
+                            <div class="page-scheduler-content-episode-time">
+                                <span>{{date}}</span>
+                                <p>live</p>
                             </div>
-                            <p class="page-scheduler-content-episode-info-p">
-                                У сучасному світі читати Біблію — заняття не надто популярне. Більшість людей, які беруться за її
-                                <br> прочитання, зазвичай не ідуть далі першої сторінки. Давайте розглянемо декілька порад, як
-                                <br> краще ознайомитися з цією дивовижною Книгою.
-                            </p>
-                            <div class="page-scheduler-content-episode-share">
-                                <span>Поделиться:</span>
-                                <a class="page-scheduler-content-episode-share-tw" href="#"></a>
-                                <a class="page-scheduler-content-episode-share-fb" href="#"></a>
-                                <a class="page-scheduler-content-episode-share-vk" href="#"></a>
+                            <div class="page-scheduler-content-item-titles">
+                                <p>
+                                    <a class="page-scheduler-content-episode-title" href="#">{{ title }}<span> →</span></a>
+                                    <span>{{ title }}</span>
+                                    <span>{{ title }}</span>
+                                </p>
+                            </div>
+                            <div class="page-scheduler-content-episode-info">
+                                <div class="page-scheduler-content-episode-poster">
+                                    <div class="page-scheduler-content-episode-play"></div>
+                                    <img class="page-scheduler-content-episode-info-img" src="{{& image}}">
+                                </div>
+                                <p class="page-scheduler-content-episode-info-p">{{& description}}</p>
+                                <div class="page-scheduler-content-episode-share">
+                                    <span>Поделиться:</span>
+                                    <a class="page-scheduler-content-episode-share-tw" href="#"></a>
+                                    <a class="page-scheduler-content-episode-share-fb" href="#"></a>
+                                    <a class="page-scheduler-content-episode-share-vk" href="#"></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
-        </ul>
+                </li>
+            {{/episodes}}
+        </script>
     </section>
 
     <section class="page-scheduler-footer">

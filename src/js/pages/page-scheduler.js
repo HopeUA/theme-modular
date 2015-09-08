@@ -155,7 +155,7 @@ $(function () {
             if (currentIndex < prevIndex) {
                 renderTemplateBefore(data);
             } else {
-                renderTemplateAfter(data);
+                renderTemplateAfter(data, currentIndex);
             }
         });
     });
@@ -174,7 +174,6 @@ $(function () {
 
             scheduler.from(start).to(end).fetch().then(function(result){
                 daysCache[dayDate] = result.data;
-                console.log(daysCache);
                 resolve(result.data);
             }).catch(function(response){
                 console.log(response);
@@ -247,56 +246,42 @@ $(function () {
 
     }
 
-    function renderTemplateAfter(currentDay) {
-        var template = $('.page-scheduler-content-item').not('.active').not('.live2').eq(0).clone();
-        template.removeClass('ru');
-        template.removeClass('ua');
+    function renderTemplateAfter(currentDay, index) {
+        //var template = $('.page-scheduler-content-item').not('.active').not('.live2').eq(0).clone();
+        //template.removeClass('ru');
+        //template.removeClass('ua');
         var $container = $('.page-scheduler-content-items');
-        var $defaultElement = $('.page-scheduler-content-item').not('.active').eq(1);
-        var heightDefaultElement = parseInt($defaultElement.css('height'));
+        //var $defaultElement = $('.page-scheduler-content-item').not('.active').eq(1);
+        //var heightDefaultElement = parseInt($defaultElement.css('height'));
+        var heightDefaultElement = 40;
         var countInvisibleElements = currentDay.length;
         var shiftList = 0 - ($container.find('.page-scheduler-content-item').length * heightDefaultElement);
 
         $container.find('.active').removeClass('active');
 
-        $.each(currentDay, function (index, item) {
-            console.log('step 2.1', index);
-            var $temp = template.clone();
-            var description = null;
-            var image = null;
-            if (item.episode) {
-                var title = item.episode.title || '';
-            }
+        var data = {};
+        data.title = currentDay[index].episode.title;
+        data.show = currentDay[index].show.title;
+        data.date = timeToStr(currentDay[index].date, 'ru');
+        data.language = currentDay[index].episode.language;
+        if (currentDay[index].episode.description) {
+            data.description = currentDay[index].episode.description;
+        } else {
+            data.description = currentDay[index].show.description.short;
+        }
+        if (currentDay[index].episode.image) {
+            data.image = currentDay[index].episode.image;
+        } else {
+            data.image = currentDay[index].show.images.cover;
+        }
 
-            $temp.find('.page-scheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
-            $temp.find('.page-scheduler-content-episode-title').text(item.episode.title);
-            $temp.find('.page-scheduler-content-item-titles p span').eq(0).text(item.episode.title);
-            $temp.find('.page-scheduler-content-item-titles p span').eq(1).text(item.show.title);
-            if (item.episode.image == '') {
-                image = item.show.images.cover;
-            } else {
-                image = item.episode.image;
-            }
-            $temp.find('.page-scheduler-content-episode-info-img').attr('src', image);
-            if (item.episode.description == '') {
-                description = item.show.description.short;
-            } else {
-                description = item.episode.description;
-            }
-            $temp.find('.page-scheduler-content-episode-info-p').text(description);
-            $temp.addClass(item.episode.language);
+        var template = $('#scheduler-list__vertical').html();
+        var view     = {};
+        view.episodes = data;
+        var renderTemplate = Mustache.render(template, view);
+        $container.append(renderTemplate);
 
-            if (item.active == 'true') {
-                $temp.addClass('active');
-                $temp.addClass('live');
-            }
-
-            $container.append($temp);
-
-            if (index == 21) {
-                console.log(item);
-            }
-        });
+        console.log(currentDay);
 
         var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
         var counterContainerList = $containerList.length - currentDay.length;
