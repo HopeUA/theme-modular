@@ -245,7 +245,7 @@ $(function () {
         return strDate;
     }
 
-    function renderTemplate(currentDay, dirrection) {
+    function renderTemplate(currentDay, dirrection, first) {
 
         var $container = $('.page-scheduler-content-items');
         var heightDefaultElement = 40;
@@ -290,8 +290,14 @@ $(function () {
 
         var template = $('#scheduler-list__vertical').html();
         var view     = {};
+        if (dirrection == 'next' && first != true) {
+            var episodesNew = episodes.slice(0);
+            episodes = episodesNew.reverse();
+        }
         view.episodes = episodes;
         var renderTemplate = Mustache.render(template, view);
+        var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
+        var counterContainerList = $containerList.length - currentDay.length;
 
         if (dirrection == 'next') {
             $container.append(renderTemplate);
@@ -299,13 +305,12 @@ $(function () {
             $container.prepend(renderTemplate);
         }
 
-        var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
+        if (dirrection == 'next' && first != true) {
 
-        if (dirrection == 'next') {
-            var counterContainerList = $containerList.length - currentDay.length;
-
+            var test = 0 - episodes.length * 158.95122;
+            console.log(test);
             $container.animate({
-                marginTop: shiftList
+                marginTop: test
             }, 300, function () {
                 for (var i = 0; i < counterContainerList; i++) {
                     $containerList.eq(i).remove();
@@ -320,9 +325,11 @@ $(function () {
             var counterContainerList = $containerList.length;
             var counter = countInvisibleElements;
 
+            //console.log(currentDay.length);
+
             setTimeout(function () {
                 for (counter; counter <= counterContainerList; counter++) {
-                    $containerList.eq(counter).remove();
+                    //$containerList.eq(counter).remove();
                 }
             }, 300);
         }
@@ -332,7 +339,7 @@ $(function () {
         var elementId = '2015-09-04';
 
         loadJson(elementId).then(function(data) {
-            renderTemplate(data, 'next');
+            renderTemplate(data, 'next', true);
             var $container = $('.page-scheduler-content-items');
             $container.animate({
                 opacity : 1,
