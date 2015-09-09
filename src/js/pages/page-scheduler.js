@@ -4,6 +4,8 @@ $(function () {
     var $pageContent = $('.page-scheduler-content');
     var daysCache = {};
 
+    init();
+
     $('.page-scheduler-content-items').on('click', '.page-scheduler-content-item', function () {
         var $current = $('.page-scheduler-content-items .active');
         var $current_live = $('.page-scheduler-content-items .live');
@@ -140,7 +142,6 @@ $(function () {
 
     $container.find('li').click(function () {
         var dayDate = $(this).data('scheduler-date');
-        //var contentHeight = $pageContent.css('height');
         var currentIndex = $(this).index();
         var prevIndex = $('.page-scheduler-header-list .selected').index();
 
@@ -153,9 +154,9 @@ $(function () {
 
         loadJson(dayDate).then(function(data){
             if (currentIndex < prevIndex) {
-                renderTemplateBefore(data);
+                renderTemplate(data, 'prev');
             } else {
-                renderTemplateAfter(data, currentIndex);
+                renderTemplate(data, 'next');
             }
         });
     });
@@ -180,126 +181,6 @@ $(function () {
                 reject(response);
             });
         });
-    }
-
-    function renderTemplateBefore(currentDay) {
-        var template = $('.page-scheduler-content-item').not('.active').not('.live2').eq(0).clone();
-        template.removeClass('ru');
-        template.removeClass('ua');
-        var $container = $('.page-scheduler-content-items');
-        var $defaultElement = $('.page-scheduler-content-item').not('.active').eq(1);
-        var heightDefaultElement = parseInt($defaultElement.css('height'));
-        var countInvisibleElements = currentDay.length;
-        var shiftList = 0 - (countInvisibleElements * heightDefaultElement + 3);
-        var reverseCache = currentDay.slice(0);
-        reverseCache = reverseCache.reverse();
-
-        $container.css({
-            marginTop: shiftList
-        })
-
-        $container.animate({
-            marginTop: 0
-        }, 300);
-
-        $.each(reverseCache, function (index, item) {
-
-            var $temp = template.clone();
-            var description = null;
-            var image = null;
-
-            $temp.find('.page-scheduler-content-episode-time span').text(timeToStr(item.date, 'ru'));
-            $temp.find('.page-scheduler-content-episode-title').text(item.episode.title);
-            $temp.find('.page-scheduler-content-item-titles p span').eq(0).text(item.episode.title);
-            $temp.find('.page-scheduler-content-item-titles p span').eq(1).text(item.show.title);
-            if (item.episode.image == '') {
-                image = item.show.image.cover;
-            } else {
-                image = item.episode.image;
-            }
-            $temp.find('.page-scheduler-content-episode-info-img').attr('src', image);
-            if (item.episode.description == '') {
-                description = item.show.description.short;
-            } else {
-                description = item.episode.description;
-            }
-            $temp.find('.page-.page-scheduler-header-list-content-episode-info-p').text(description);
-            $temp.addClass(item.show.language);
-
-            if (item.active == 'true') {
-                $temp.addClass('active');
-                $temp.addClass('live');
-            }
-
-            $container.prepend($temp);
-        })
-
-        var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
-        var counterContainerList = $containerList.length;
-        var counter = countInvisibleElements;
-
-        setTimeout(function () {
-            for (counter; counter <= counterContainerList; counter++) {
-                $containerList.eq(counter).remove();
-            }
-        }, 300);
-
-    }
-
-    function renderTemplateAfter(currentDay, index) {
-        //var template = $('.page-scheduler-content-item').not('.active').not('.live2').eq(0).clone();
-        //template.removeClass('ru');
-        //template.removeClass('ua');
-        var $container = $('.page-scheduler-content-items');
-        //var $defaultElement = $('.page-scheduler-content-item').not('.active').eq(1);
-        //var heightDefaultElement = parseInt($defaultElement.css('height'));
-        var heightDefaultElement = 40;
-        var countInvisibleElements = currentDay.length;
-        var shiftList = 0 - ($container.find('.page-scheduler-content-item').length * heightDefaultElement);
-
-        $container.find('.active').removeClass('active');
-
-        var data = {};
-        data.title = currentDay[index].episode.title;
-        data.show = currentDay[index].show.title;
-        data.date = timeToStr(currentDay[index].date, 'ru');
-        data.language = currentDay[index].episode.language;
-        if (currentDay[index].episode.description) {
-            data.description = currentDay[index].episode.description;
-        } else {
-            data.description = currentDay[index].show.description.short;
-        }
-        if (currentDay[index].episode.image) {
-            data.image = currentDay[index].episode.image;
-        } else {
-            data.image = currentDay[index].show.images.cover;
-        }
-
-        var template = $('#scheduler-list__vertical').html();
-        var view     = {};
-        view.episodes = data;
-        var renderTemplate = Mustache.render(template, view);
-        $container.append(renderTemplate);
-
-        console.log(currentDay);
-
-        var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
-        var counterContainerList = $containerList.length - currentDay.length;
-        var counter = countInvisibleElements;
-
-        $container.animate({
-            marginTop: shiftList
-        }, 300, function () {
-            for (var i = 0; i < counterContainerList; i++) {
-                $containerList.eq(i).remove();
-            }
-
-            $('.page-scheduler-content-items').css({
-                marginTop: 0
-            })
-
-        });
-
     }
 
     $('.page-scheduler-header-now a').click(function () {
@@ -336,7 +217,7 @@ $(function () {
 
             loadJson(elementId).then(function(data){
                 if (currentIndex < prevIndex) {
-                    renderTemplateBefore(data);
+                    renderTemplate(data, 'prev');
 
                     var currentProgram = $('.page-scheduler-content-items .active');
                     $(window).scrollTo(currentProgram, 400, {
@@ -345,7 +226,7 @@ $(function () {
                         }
                     });
                 } else {
-                    renderTemplateAfter(data);
+                    renderTemplate(data, 'next');
 
                     var currentProgram = $('.page-scheduler-content-items .active');
                     $(window).scrollTo(currentProgram, 400, {
@@ -362,6 +243,101 @@ $(function () {
         moment.locale(lang);
         var strDate = moment(schedulerDate).format('LT');
         return strDate;
+    }
+
+    function renderTemplate(currentDay, dirrection) {
+
+        var $container = $('.page-scheduler-content-items');
+        var heightDefaultElement = 40;
+        var countInvisibleElements = currentDay.length;
+
+        if (dirrection == 'next') {
+            var shiftList = 0 - ($container.find('.page-scheduler-content-item').length * heightDefaultElement);
+            $container.find('.active').removeClass('active');
+        } else {
+            var shiftList = 0 - (countInvisibleElements * heightDefaultElement + 3);
+
+            $container.css({
+                marginTop: shiftList
+            })
+
+            $container.animate({
+                marginTop: 0
+            }, 300);
+        }
+
+        var episodes = [];
+        for (var i = 0; i < currentDay.length; i++) {
+            var episode = {
+                title : currentDay[i].episode.title,
+                show :  currentDay[i].show.title,
+                date :  timeToStr(currentDay[i].date, 'ru'),
+                language : currentDay[i].episode.language
+            };
+            if (currentDay[i].episode.description) {
+                episode.description = currentDay[i].episode.description;
+            } else {
+                episode.description = currentDay[i].show.description.short;
+            }
+            if (currentDay[i].episode.image) {
+                episode.image = currentDay[i].episode.image;
+            } else {
+                episode.image = currentDay[i].show.images.cover;
+            }
+
+            episodes.push(episode);
+        }
+
+        var template = $('#scheduler-list__vertical').html();
+        var view     = {};
+        view.episodes = episodes;
+        var renderTemplate = Mustache.render(template, view);
+
+        if (dirrection == 'next') {
+            $container.append(renderTemplate);
+        } else {
+            $container.prepend(renderTemplate);
+        }
+
+        var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
+
+        if (dirrection == 'next') {
+            var counterContainerList = $containerList.length - currentDay.length;
+
+            $container.animate({
+                marginTop: shiftList
+            }, 300, function () {
+                for (var i = 0; i < counterContainerList; i++) {
+                    $containerList.eq(i).remove();
+                }
+
+                $('.page-scheduler-content-items').css({
+                    marginTop: 0
+                })
+
+            });
+        } else {
+            var counterContainerList = $containerList.length;
+            var counter = countInvisibleElements;
+
+            setTimeout(function () {
+                for (counter; counter <= counterContainerList; counter++) {
+                    $containerList.eq(counter).remove();
+                }
+            }, 300);
+        }
+    }
+
+    function init() {
+        var elementId = '2015-09-04';
+
+        loadJson(elementId).then(function(data) {
+            renderTemplate(data, 'next');
+            var $container = $('.page-scheduler-content-items');
+            $container.animate({
+                opacity : 1
+            }, 200);
+        });
     }
 
 });
