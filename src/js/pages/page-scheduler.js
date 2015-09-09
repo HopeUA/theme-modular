@@ -335,7 +335,8 @@ $(function () {
             renderTemplate(data, 'next');
             var $container = $('.page-scheduler-content-items');
             $container.animate({
-                opacity : 1
+                opacity : 1,
+                height : '100%'
             }, 200);
         });
     }
