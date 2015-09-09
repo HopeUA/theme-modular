@@ -403,9 +403,6 @@
     .content-shows-list{
         display: none;
     }
-    .header__small{
-        display: none;
-    }
     .content-video-list-content-description{
         display: none;
     }
@@ -425,11 +422,12 @@
         margin-right: 24px;
     }
     .content-episode__large {
-        width: 100%;
+        width: 96.4%;
         height: 160px;
     }
     .content-sheduler__vertical {
         height: 250px;
+        margin-right: 10px;
     }
     .content-episode-info__right {
       display: none;
@@ -493,6 +491,7 @@
     }
     .new{
         display: block;
+        margin-right: 0;
     }
     .content-episodes__row {
         height: 75px;
@@ -504,7 +503,7 @@
     }
     .flex-none .container-content{
         display: block;
-        margin-right: 10px;
+        margin-right: -1px;
     }
     .flex-none .grid__column-1{
         width: 100%;
@@ -535,5 +534,23 @@
     }
     .form__default-textarea{
         -webkit-appearance: none;
+    }
+    .header__small{
+        display: none;
+    }
+    .content-sheduler__vertical-current{
+        height: 56.25%;
+        width: 100%;
+    }
+    .content-sheduler__vertical-current::before{
+        height: 100%;
+    }
+    .content-sheduler__vertical-current-title{
+        top: 100px;
+    }
+    .content-sheduler__vertical-current-image__skwere{
+        top: -43.75%;
+        position: absolute;
+        width: 100%;
     }
 }
