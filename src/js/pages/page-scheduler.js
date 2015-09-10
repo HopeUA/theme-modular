@@ -3,6 +3,7 @@ $(function () {
     var tempIndex = $('.page-scheduler-content-items .active').index();
     var $pageContent = $('.page-scheduler-content');
     var daysCache = {};
+    var oldCounter = null;
 
     init();
 
@@ -252,10 +253,14 @@ $(function () {
         var countInvisibleElements = currentDay.length;
 
         if (dirrection == 'next') {
-            var shiftList = 0 - ($container.find('.page-scheduler-content-item').length * heightDefaultElement);
+            oldCounter = currentDay.length;
+            //console.log(oldCounter);
+            var shiftList = 0 - (oldCounter * heightDefaultElement);
             $container.find('.active').removeClass('active');
         } else {
-            var shiftList = 0 - (countInvisibleElements * heightDefaultElement + 3);
+            oldCounter = currentDay.length;
+            //console.log(oldCounter);
+            var shiftList = 0 - (oldCounter * heightDefaultElement + 3);
 
             $container.css({
                 marginTop: shiftList
@@ -291,45 +296,51 @@ $(function () {
         var template = $('#scheduler-list__vertical').html();
         var view     = {};
         if (dirrection == 'next' && first != true) {
-            var episodesNew = episodes.slice(0);
-            episodes = episodesNew.reverse();
+            //var episodesNew = episodes.slice(0);
+            //episodes = episodesNew.reverse();
         }
         view.episodes = episodes;
         var renderTemplate = Mustache.render(template, view);
         var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
         var counterContainerList = $containerList.length - currentDay.length;
 
+        var newHeight = currentDay.length * 80;
         if (dirrection == 'next') {
+            var beginLoop = $containerList.length;
             $container.append(renderTemplate);
+            console.log(newHeight);
+            $container.css({
+                height: newHeight
+            });
         } else {
             $container.prepend(renderTemplate);
+            console.log(newHeight);
+            $container.css({
+                height: newHeight
+            });
         }
 
         if (dirrection == 'next' && first != true) {
-
             var test = 0 - episodes.length * 158.95122;
-            console.log(test);
+            var i = 0;
             $container.animate({
                 marginTop: test
             }, 300, function () {
-                for (var i = 0; i < counterContainerList; i++) {
+                for (i; i < beginLoop; i++) {
                     $containerList.eq(i).remove();
                 }
-
                 $('.page-scheduler-content-items').css({
                     marginTop: 0
                 })
-
             });
         } else {
-            var counterContainerList = $containerList.length;
-            var counter = countInvisibleElements;
-
-            //console.log(currentDay.length);
 
             setTimeout(function () {
+                var counterContainerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item').length;
+                var counter = oldCounter;
+                var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
                 for (counter; counter <= counterContainerList; counter++) {
-                    //$containerList.eq(counter).remove();
+                    $containerList.eq(counter).remove();
                 }
             }, 300);
         }
@@ -339,11 +350,12 @@ $(function () {
         var elementId = '2015-09-04';
 
         loadJson(elementId).then(function(data) {
+            oldCounter = data.length;
             renderTemplate(data, 'next', true);
             var $container = $('.page-scheduler-content-items');
             $container.animate({
                 opacity : 1,
-                height : '100%'
+                //height : '100%'
             }, 200);
         });
     }
