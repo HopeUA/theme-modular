@@ -309,12 +309,14 @@ $(function () {
             var beginLoop = $containerList.length;
             $container.append(renderTemplate);
             console.log(newHeight);
+            newHeight -= 1;
             $container.css({
                 height: newHeight
             });
         } else {
             $container.prepend(renderTemplate);
             console.log(newHeight);
+            //newHeight -= 6;
             $container.css({
                 height: newHeight
             });
