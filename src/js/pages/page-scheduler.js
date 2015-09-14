@@ -249,23 +249,25 @@ $(function () {
     function renderTemplate(currentDay, dirrection, first) {
 
         var $container = $('.page-scheduler-content-items');
-        var heightDefaultElement = 40;
-        var countInvisibleElements = currentDay.length;
 
         if (dirrection == 'next') {
             oldCounter = currentDay.length;
-            //console.log(oldCounter);
-            var shiftList = 0 - (oldCounter * heightDefaultElement);
             $container.find('.active').removeClass('active');
+
         } else {
             oldCounter = currentDay.length;
-            //console.log(oldCounter);
-            var shiftList = 0 - (oldCounter * heightDefaultElement + 3);
+            $container.find('.active').removeClass('active');
+            var shiftList = 0 - (currentDay.length - 2) * 79 + 200;
+            var tempHeightFirst = shiftList * (-2);
 
+            console.log(tempHeightFirst);
+            $container.css({
+                'height': tempHeightFirst
+            });
             $container.css({
                 marginTop: shiftList
             })
-
+            $container.css('height','inherit');
             $container.animate({
                 marginTop: 0
             }, 300);
@@ -295,42 +297,37 @@ $(function () {
 
         var template = $('#scheduler-list__vertical').html();
         var view     = {};
-        if (dirrection == 'next' && first != true) {
-            //var episodesNew = episodes.slice(0);
-            //episodes = episodesNew.reverse();
-        }
         view.episodes = episodes;
         var renderTemplate = Mustache.render(template, view);
         var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
-        var counterContainerList = $containerList.length - currentDay.length;
 
-        var newHeight = currentDay.length * 80;
+        var newHeight = (currentDay.length - 2) * 79 + 200 - 2;
         if (dirrection == 'next') {
             var beginLoop = $containerList.length;
             $container.append(renderTemplate);
-            console.log(newHeight);
-            newHeight -= 1;
+            console.log($container.css('height'));
             $container.css({
                 height: newHeight
             });
         } else {
             $container.prepend(renderTemplate);
-            console.log(newHeight);
-            //newHeight -= 6;
             $container.css({
-                height: newHeight
+                //height: newHeight
             });
         }
 
         if (dirrection == 'next' && first != true) {
-            var test = 0 - episodes.length * 158.95122;
+            var shiftUP = 0 - (currentDay.length - 2) * 79 + 200;
+            var tempHeight = shiftUP * (-2);
             var i = 0;
+            $container.css('height', tempHeight);
             $container.animate({
-                marginTop: test
+                marginTop: shiftUP
             }, 300, function () {
                 for (i; i < beginLoop; i++) {
                     $containerList.eq(i).remove();
                 }
+                $container.css('height','inherit');
                 $('.page-scheduler-content-items').css({
                     marginTop: 0
                 })
@@ -356,8 +353,7 @@ $(function () {
             renderTemplate(data, 'next', true);
             var $container = $('.page-scheduler-content-items');
             $container.animate({
-                opacity : 1,
-                //height : '100%'
+                opacity : 1
             }, 200);
         });
     }
