@@ -5,8 +5,6 @@ $(function () {
     var daysCache = {};
     var oldCounter = null;
 
-    init();
-
     $('.page-scheduler-content-items').on('click', '.page-scheduler-content-item', function () {
         var $current = $('.page-scheduler-content-items .active');
         var $current_live = $('.page-scheduler-content-items .live');
@@ -65,14 +63,61 @@ $(function () {
     elementWidth = elementWidth + elementMargin;
     var counterElementsMain = Math.round(containerWidth / elementWidth);
     var counterElementsAll = $('.page-scheduler-header-list li').length;
-    var widthElementsAll = (counterElementsAll * elementWidth) - elementMargin;
+
     var counterElementsLeft = (indexActiveElement - ((counterElementsMain - 1) / 2) - 1);
     var counterElementsRight = counterElementsAll - indexActiveElement - (counterElementsMain - 1) / 2;
-    var startPosition = 0 - (counterElementsLeft * elementWidth);
-    var counterElementsInvisible = (counterElementsAll - counterElementsMain) / 2;
     var counterSlider = 0;
 
     if ($container) {
+
+        var serverTime = Hope.Chrono.getDate();
+        var year = moment(serverTime).format('YYYY');
+        var day = moment(serverTime).format('DD');
+        var month = moment(serverTime).format('MM');
+        var dateFull = year + '-' + month + '-' + day;
+
+        moment.locale('ru');
+
+        var displayDays = [
+            moment(serverTime).subtract(5, 'days'),
+            moment(serverTime).subtract(4, 'days'),
+            moment(serverTime).subtract(3, 'days'),
+            moment(serverTime).subtract(2, 'days'),
+            moment(serverTime).subtract(1, 'day'),
+            moment(serverTime),
+            moment(serverTime).add(1, 'day'),
+            moment(serverTime).add(2, 'days'),
+            moment(serverTime).add(3, 'days'),
+            moment(serverTime).add(4, 'days'),
+            moment(serverTime).add(5, 'days')
+        ];
+
+        var $containerCalendar = $('.page-scheduler-header-list');
+        for (var i = 0; i < displayDays.length; i++) {
+            var itemYear = displayDays[i].format('YYYY');
+            var itemMonth = displayDays[i].format('MM');
+            var itemMonthName = displayDays[i].format('MMM');
+            itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
+            var itemDate = displayDays[i].format('DD');
+            var itemWeekDay = displayDays[i].format('ddd');
+            var item = itemYear + '-' + itemMonth + '-' + itemDate;
+            var itemStyle = '';
+
+            if (itemDate == day) {
+                itemStyle = 'selected current';
+            }
+
+            var template = '<li class="' + itemStyle + '" data-scheduler-date="' + item + '">'
+                                + '<span>' + itemWeekDay + '</span>'
+                                + '<span>' + itemDate + '</span>'
+                                + '<span>' + itemMonthName + '</span>'
+                            + '</li>';
+            $containerCalendar.append(template);
+        }
+
+        var widthElementsAll = (displayDays * 64) - 31;
+        var startPosition = 0 - (2 * 64) + 33;
+
         $container.css({
             width: widthElementsAll,
             marginLeft: startPosition
@@ -81,6 +126,8 @@ $(function () {
         $container.animate({
             opacity: 1
         }, 100);
+
+        init(dateFull);
     }
 
     $arrowLeft.click(function () {
@@ -345,10 +392,9 @@ $(function () {
         }
     }
 
-    function init() {
-        var elementId = '2015-09-04';
+    function init(day) {
 
-        loadJson(elementId).then(function(data) {
+        loadJson(day).then(function(data) {
             oldCounter = data.length;
             renderTemplate(data, 'next', true);
             var $container = $('.page-scheduler-content-items');
