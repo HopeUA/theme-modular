@@ -35,4 +35,16 @@ $(function () {
         return strDate;
     }
 
+    articleBlock = $('.page-article').length;
+
+    if (articleBlock != 0) {
+        $poster = $('.page-article-header');
+        $poster.css({
+            backgroundSize: '163%',
+            backgroundPosition: '38% 38%',
+            height: '106%',
+            width: '104%'
+        });
+    }
+
 });
