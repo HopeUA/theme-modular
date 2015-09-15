@@ -1,4 +1,4 @@
-@media only screen and (max-device-width : 667px) and (orientation : portrait) {
+@media only screen and (max-width : 667px) {
   .container {
     width: 99vw;
     padding-left: 10px;
@@ -8,6 +8,9 @@
   .grid__column-2 {
     width: 100%;
     margin-right: 3px;
+  }
+  .header__large{
+    display: none;
   }
   .grid-form__column-2 {
     width: 396px;
@@ -38,7 +41,7 @@
   }
   .grid__column-flex{
     display: block;
-    margin-right: 10px;
+    margin-right: 0;
 
   }
   .form__default-label{
@@ -110,9 +113,6 @@
     -webkit-appearance: none;
   }
   .text .container-content{
-    margin-right: 10px;
-  }
-  .form__default-block{
     margin-right: 10px;
   }
   .content-pray-us-submit{
@@ -201,5 +201,78 @@
   }
   .content-shows__row-container{
     height: 384px;
+  }
+  .header__small{
+    display: none;
+  }
+  .content-video-list-header-show__title::before{
+    display: none;
+  }
+  .content-video-list-header-show__title::after{
+    display: none;
+  }
+  .content-video-list-header-show__title{
+    font-size: 27px;
+    margin-top: 20px;
+  }
+  .content-video-list-header-show__category{
+    font-size: 13px;
+    line-height: 8px;
+    margin-top: 5px;
+  }
+  .content-video-list-header-controls{
+    display: block;
+    text-align: left;
+  }
+  .content-video-list-header-about{
+    display: none;
+  }
+  .content-video-list-header-subscribe{
+    display: none;
+  }
+  .content-video-list-header-search{
+    width: 100%;
+  }
+  .content-video-list-content-labels{
+    display: none;
+  }
+  .content-video-list-items .block-box{
+    display: block;
+    margin-right: 12px;
+  }
+  .content-shows-list{
+    display: none;
+  }
+  .content-video-list-header-search-input{
+    width: 100%;
+  }
+  .content-video-list-content {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+  .content-video-list-content-description{
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .content-video-list-poster{
+    width: 100%;
+  }
+  .form__default{
+    margin-right: 12px;
+  }
+  .content-video-list-item{
+    padding-top: 30px;
+  }
+  .content-video-list-header {
+    height: 255px;
+  }
+  .content-video-list-header-poster{
+    height: 255px;
+  }
+  .content-video-list-item .container-content{
+    padding-bottom: 20px;
+  }
+  .content-video-list-header .one{
+    padding-left: 0;
   }
 }
