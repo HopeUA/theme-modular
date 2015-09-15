@@ -30,6 +30,19 @@
             this._endpoint = endpoint;
             this._resource = 'events';
             this._query    = {};
+            this._method   = 'GET';
+            this._body     = {};
+        }
+
+        count(dates) {
+            let self = clone(this);
+            self._method   = 'POST';
+            self._resource = 'events/count';
+            self._body     = {
+                dates
+            };
+
+            return self;
         }
 
         from(date) {
@@ -57,7 +70,17 @@
 
         fetch() {
             return new Promise((resolve, reject) => {
-                fetch(this.getUrl()).then((response) => {
+                let options = {
+                    method: this._method
+                };
+                let headers = new Headers();
+                if (this._method == 'POST') {
+                    headers.append('Content-type', 'application/json');
+                    options.body = JSON.stringify(this._body);
+                }
+                options.headers = headers;
+
+                fetch(this.getUrl(), options).then((response) => {
                     if (response.status != 200) {
                         return reject(response);
                     }
