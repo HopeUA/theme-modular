@@ -65,7 +65,7 @@ describe('LocalMedia API', function() {
 });
 
 describe('Scheduler API', function(){
-    var endpoint = 'http://hope.api/v1';
+    var endpoint = 'https://scheduler.s.hope.ua/v1';
 
     it('should be defined', function() {
         expect(Hope.Api.Scheduler).to.be.a('function');
@@ -107,6 +107,22 @@ describe('Scheduler API', function(){
         expect(function() {
             api.from(date)
         }).to.throw(TypeError);
+    });
+
+    it('should construct "count" url', function(done) {
+        var dates = [
+            '2015-09-05',
+            '2015-09-06'
+        ];
+        var api = Hope.Api.Scheduler(endpoint).count(dates);
+
+        expect(api.getUrl()).to.be.equal(endpoint + '/events/count');
+        api.fetch().then(function(result){
+            expect(result.dates).to.be.an('object');
+            done();
+        }).catch(function(error){
+            done(error);
+        });
     });
 });
 
