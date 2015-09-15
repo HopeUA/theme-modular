@@ -26,13 +26,13 @@ $(function () {
     }, false);
 
     var episodeChangedEvent = new CustomEvent('episodeChanged', {
-        detail: { code: $('.page-video').data('video-code') }
+        detail: { code: $('.page-episode').data('episode-code') }
     });
     document.dispatchEvent(episodeChangedEvent);
 
     $('.page-video').hopeSliderPage({
         render: function (template, data) {
-            $('.page-video').data('video-code', data.code);
+            $('.page-episode').data('episode-code', data.code);
 
             template.find('.pv-episode-title').text(data.title);
             $('.pv-episode-title').text(data.title);
