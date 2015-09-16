@@ -14,8 +14,10 @@ $(function(){
             var view     = {};
 
             view.episodes = response.data.map(function (item) {
-                item.title = text_trim(item.title, 25);
-                item.show = text_trim (item.show, 23);
+                //console.log(item);
+                item.title = textTrim(item.title, 25);
+                item.show = textTrim(item.show, 23);
+                //item.description = textTrim(item.description, 130);
                 return item;
             });
 
