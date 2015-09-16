@@ -43,7 +43,7 @@ $(function () {
             backgroundSize: '163%',
             backgroundPosition: '38% 38%',
             height: '106%',
-            width: '104%'
+            width: '105%'
         });
     }
 
