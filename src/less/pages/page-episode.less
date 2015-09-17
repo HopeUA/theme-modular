@@ -10,7 +10,7 @@
     width: 100%;
     height: 4px;
     margin-top: 55px;
-    background: url("/img/articlePageBorder.png") repeat-x;
+    background: url("../img/articlePageBorder.png") repeat-x;
 }
 
 .container-oh {
@@ -448,4 +448,52 @@
     background: url(../img/anons-all-btn.png);
     content: "";
     transition: all 0.1s ease-out;
+}
+
+.page-episode-content-date {
+    color: #6e7b7d;
+    font-family: 'PTSansRegular';
+    font-size: 15px;
+    display: flex;
+    margin-top: 16px;
+    margin-bottom: 0;
+    position: absolute;
+    left: 10px;
+}
+
+.page-episode-content-date::before {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 15px;
+    margin-top: 1px;
+    margin-right: 19px;
+    background: url(../img/episodePageDate.png);
+    background-size: 100%;
+}
+
+
+.page-episode-content-views {
+    color: #6e7b7d;
+    font-family: 'PTSansRegular';
+    font-size: 15px;
+    display: flex;
+    margin-top: 16px;
+    margin-bottom: 0;
+    position: absolute;
+    right: 9px;
+}
+
+.page-episode-content-views::before {
+    content: '';
+    display: block;
+    width: 17px;
+    height: 13px;
+    margin-top: 4px;
+    margin-right: 12px;
+    background: url(../img/episodePageViews.png);
+    background-size: 100%;
+}
+.page-episode-content-info{
+    display: none;
 }
