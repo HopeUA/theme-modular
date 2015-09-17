@@ -139,6 +139,24 @@
     border: solid 1px rgba(0, 0, 0, 0);
 }
 
+.page-scheduler-header-list li.disabled span {
+    color: rgba(88, 89, 91, 0.3)!important;
+}
+
+.page-scheduler-header-list li.disabled:hover {
+    cursor: default;
+    background: none;
+}
+
+.page-scheduler-header-list li.disabled:hover span:first-child::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin-top: 1px;
+    background: url(../img/page-scheduler-page-scheduler-header-list-border.png) repeat-x;
+}
+
 .page-scheduler-header-list li.selected:hover {
     cursor: default;
 }

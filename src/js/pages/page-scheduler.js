@@ -75,6 +75,8 @@ $(function () {
         var day = moment(serverTime).format('DD');
         var month = moment(serverTime).format('MM');
         var dateFull = year + '-' + month + '-' + day;
+        var daysFormatted = [];
+        var $containerCalendar = $('.page-scheduler-header-list');
 
         moment.locale('ru');
 
@@ -92,28 +94,52 @@ $(function () {
             moment(serverTime).add(5, 'days')
         ];
 
-        var $containerCalendar = $('.page-scheduler-header-list');
         for (var i = 0; i < displayDays.length; i++) {
             var itemYear = displayDays[i].format('YYYY');
             var itemMonth = displayDays[i].format('MM');
-            var itemMonthName = displayDays[i].format('MMM');
-            itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
             var itemDate = displayDays[i].format('DD');
-            var itemWeekDay = displayDays[i].format('ddd');
-            var item = itemYear + '-' + itemMonth + '-' + itemDate;
-            var itemStyle = '';
 
-            if (itemDate == day) {
-                itemStyle = 'selected current';
+            var item = itemYear + '-' + itemMonth + '-' + itemDate;
+
+            daysFormatted.push(item);
+        }
+
+        var scheduler = Hope.Api.Scheduler(Hope.Config.Api.Scheduler.Endpoint);
+        scheduler.count(daysFormatted).fetch().then(function(result){
+
+            for (var i = 0; i < displayDays.length; i++) {
+                var itemYear = displayDays[i].format('YYYY');
+                var itemMonth = displayDays[i].format('MM');
+                var itemMonthName = displayDays[i].format('MMM');
+                itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
+                var itemDate = displayDays[i].format('DD');
+                var itemWeekDay = displayDays[i].format('ddd');
+                var item = itemYear + '-' + itemMonth + '-' + itemDate;
+                var itemStyle = [];
+
+                if (itemDate == day) {
+                    itemStyle.push('selected');
+                    itemStyle.push('current');
+                }
+
+                if (result.dates[item] == 0) {
+                    itemStyle.push('disabled');
+                }
+
+                var template = '<li class="' + itemStyle.join(' ') + '" data-scheduler-date="' + item + '">'
+                    + '<span>' + itemWeekDay + '</span>'
+                    + '<span>' + itemDate + '</span>'
+                    + '<span>' + itemMonthName + '</span>'
+                    + '</li>';
+                $containerCalendar.append(template);
             }
 
-            var template = '<li class="' + itemStyle + '" data-scheduler-date="' + item + '">'
-                                + '<span>' + itemWeekDay + '</span>'
-                                + '<span>' + itemDate + '</span>'
-                                + '<span>' + itemMonthName + '</span>'
-                            + '</li>';
-            $containerCalendar.append(template);
-        }
+        });
+
+
+
+
+
 
         var widthElementsAll = (displayDays * 64) - 31;
         var startPosition = 0 - (2 * 64) + 33;
@@ -159,9 +185,15 @@ $(function () {
 
     $arrowRight.click(function () {
 
+        console.log('work');
+        counterElementsRight = 3;
+        elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
+
         if (counterSlider == counterElementsRight) {
             return;
         }
+
+        console.log('work2');
 
         $('.arrow__left__empty').addClass('page-scheduler-header-list-arrow__left');
         $('.page-scheduler-header-list-arrow__left').removeClass('arrow__left__empty');
@@ -169,6 +201,9 @@ $(function () {
         $('.page-scheduler-header-list-arrow__left').animate({
             opacity: 1
         }, 200);
+
+        console.log('counterSlider', counterSlider);
+        console.log('counterElementsRight', counterElementsRight);
 
         if (counterSlider < counterElementsRight) {
             $container.animate({
