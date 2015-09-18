@@ -175,7 +175,7 @@ $(function () {
         queryData[1] = queryDay.subtract(1, 'days').format('YYYY-MM-DD');
 
         $container.animate({
-            //left: '+=95'
+            left: '+=95'
         }, 150, function() {
             scheduler.count(queryData).fetch().then(function (result) {
 
@@ -212,11 +212,14 @@ $(function () {
                             + '</li>';
 
 
-                        $container.animate({
-                            width: '+=95'
-                        }, 150);
-
+                        $container.css({
+                            width: '+=95',
+                            left: '-=95'
+                        });
                         $containerCalendar.prepend(template);
+                        $container.css({
+                            width: '-=95'
+                        });
                     }
                 }
             });
