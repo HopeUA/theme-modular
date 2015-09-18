@@ -172,56 +172,44 @@ $(function () {
         var queryData = [];
 
         queryData[0] = queryDay.subtract(1, 'day').format('YYYY-MM-DD');
-        queryData[1] = queryDay.subtract(1, 'days').format('YYYY-MM-DD');
 
         $container.animate({
             left: '+=95'
         }, 150, function() {
             scheduler.count(queryData).fetch().then(function (result) {
 
-                for (var l = 0; l < 1; l++) {
-                    var count = result.dates[queryData[l]];
+                var queryString = queryData[0];
+                var count = result.dates[queryString];
 
-                    if (count == 0) {
-                        $arrowLeft.animate({
-                            opacity: 0
-                        }, 200, function () {
-                            $(this).css('display', 'none');
-                        });
-                    } else {
-                        var momentData = moment(queryData[l]);
-                        var itemYear = momentData.format('YYYY');
-                        var itemMonth = momentData.format('MM');
-                        var itemMonthName = momentData.format('MMM');
-                        itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
-                        var itemDate = momentData.format('DD');
-                        var itemWeekDay = momentData.format('ddd');
-                        var item = itemYear + '-' + itemMonth + '-' + itemDate;
-                        var itemStyle = [];
+                var momentData = moment(queryString);
+                var itemYear = momentData.format('YYYY');
+                var itemMonth = momentData.format('MM');
+                var itemMonthName = momentData.format('MMM');
+                itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
+                var itemDate = momentData.format('DD');
+                var itemWeekDay = momentData.format('ddd');
+                var item = itemYear + '-' + itemMonth + '-' + itemDate;
+                var itemStyle = [];
 
-                        console.log(item);
-
-                        if (count == 0) {
-                            itemStyle.push('disabled');
-                        }
-
-                        var template = '<li class="' + itemStyle.join(' ') + '" data-scheduler-date="' + item + '">'
-                            + '<span>' + itemWeekDay + '</span>'
-                            + '<span>' + itemDate + '</span>'
-                            + '<span>' + itemMonthName + '</span>'
-                            + '</li>';
-
-
-                        $container.css({
-                            width: '+=95',
-                            left: '-=95'
-                        });
-                        $containerCalendar.prepend(template);
-                        $container.css({
-                            width: '-=95'
-                        });
-                    }
+                console.log(count);
+                if (count == 0) {
+                    itemStyle.push('disabled');
                 }
+
+                var template = '<li class="' + itemStyle.join(' ') + '" data-scheduler-date="' + item + '">'
+                    + '<span>' + itemWeekDay + '</span>'
+                    + '<span>' + itemDate + '</span>'
+                    + '<span>' + itemMonthName + '</span>'
+                    + '</li>';
+
+                $container.css({
+                    width: '+=95',
+                    left: '-=95'
+                });
+                $containerCalendar.prepend(template);
+                $container.css({
+                    width: '-=95'
+                });
             });
         });
 
