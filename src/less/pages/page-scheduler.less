@@ -51,16 +51,18 @@
 .page-scheduler-header-container {
     overflow: hidden;
     width: 824px;
+    margin-left: 48px;
+    position: relative;
+    height: 171px;
 }
 
 .page-scheduler-header-list {
-    width: 19200px;
     display: flex;
     padding-left: 0;
     margin-top: 30px;
     margin-bottom: 34px;
-    //margin-left: -285px;
     opacity: 0;
+    position: absolute;
 }
 
 .page-scheduler-header-list .current {
@@ -79,6 +81,7 @@
     margin-top: 60px;
     background: url(../img/page-scheduler-page-scheduler-header-list-arrow__left.png);
     cursor: pointer;
+    position: absolute;
 }
 
 .page-scheduler-header-list-arrow__left:hover {
@@ -93,6 +96,8 @@
     background: url(../img/page-scheduler-page-scheduler-header-list-arrow__left.png);
     transform: scaleX(-1);
     cursor: pointer;
+    display: none;
+    opacity: 0;
 }
 
 .page-scheduler-header-list-arrow__right:hover {
@@ -227,6 +232,8 @@
     height: 77px;
     margin-left: 67px;
     margin-top: 54px;
+    position: absolute;
+    right: 0;
 }
 
 .page-scheduler-header-now a {
@@ -793,6 +800,8 @@ page-scheduler-content-episode-share {
     background: url(../img/page-scheduler-page-scheduler-header-list-arrow__left.png);
     transform: scaleX(-1);
     cursor: pointer;
+    display: none;
+    opacity: 0;
 }
 
 .page-scheduler-footer-list-arrow__right:hover {

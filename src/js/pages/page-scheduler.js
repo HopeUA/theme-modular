@@ -134,66 +134,115 @@ $(function () {
                 $containerCalendar.append(template);
             }
 
+            var preLastElementIndex = $('.page-scheduler-header-list li').length - 2;
+            var preLastElement = $('.page-scheduler-header-list li').eq(preLastElementIndex);
+
+            if (!preLastElement.hasClass('disabled')) {
+                console.log('test1');
+                $arrowRight.css({
+                    display : 'block',
+                    opacity : 1
+                });
+            }
+
         });
 
 
 
+        init(dateFull);
 
+        var widthElementsAll = displayDays.length * 95;
 
-
-        var widthElementsAll = (displayDays * 64) - 31;
-        var startPosition = 0 - (2 * 64) + 33;
-
+        console.log(widthElementsAll);
         $container.css({
             width: widthElementsAll,
-            marginLeft: startPosition
+            left: '-95px'
         });
 
         $container.animate({
             opacity: 1
         }, 100);
-
-        init(dateFull);
     }
 
     $arrowLeft.click(function () {
 
-        $('.arrow__right__empty').addClass('page-scheduler-header-list-arrow__right');
-        $('.page-scheduler-header-list-arrow__right').removeClass('arrow__right__empty');
+        elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
 
-        $('.page-scheduler-header-list-arrow__right').animate({
-            opacity: 1
-        }, 200);
+        var queryDay = moment($('.page-scheduler-header-list li').eq(0).data('scheduler-date'));
+        var queryData = [];
 
-        if (counterSlider > (0 - counterElementsLeft)) {
-            $container.animate({
-                marginLeft: '+=' + elementWidth
-            }, 150)
-        }
+        queryData[0] = queryDay.subtract(1, 'day').format('YYYY-MM-DD');
+        queryData[1] = queryDay.subtract(1, 'days').format('YYYY-MM-DD');
 
-        if (counterSlider == (0 - (counterElementsLeft - 1))) {
-            $arrowLeft.animate({
-                opacity: 0
-            }, 200, function () {
-                $(this).addClass('arrow__left__empty');
-                $(this).removeClass('page-scheduler-header-list-arrow__left');
+        $container.animate({
+            //left: '+=95'
+        }, 150, function() {
+            scheduler.count(queryData).fetch().then(function (result) {
+
+                for (var l = 0; l < 1; l++) {
+                    var count = result.dates[queryData[l]];
+
+                    if (count == 0) {
+                        $arrowLeft.animate({
+                            opacity: 0
+                        }, 200, function () {
+                            $(this).css('display', 'none');
+                        });
+                    } else {
+                        var momentData = moment(queryData[l]);
+                        var itemYear = momentData.format('YYYY');
+                        var itemMonth = momentData.format('MM');
+                        var itemMonthName = momentData.format('MMM');
+                        itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
+                        var itemDate = momentData.format('DD');
+                        var itemWeekDay = momentData.format('ddd');
+                        var item = itemYear + '-' + itemMonth + '-' + itemDate;
+                        var itemStyle = [];
+
+                        console.log(item);
+
+                        if (count == 0) {
+                            itemStyle.push('disabled');
+                        }
+
+                        var template = '<li class="' + itemStyle.join(' ') + '" data-scheduler-date="' + item + '">'
+                            + '<span>' + itemWeekDay + '</span>'
+                            + '<span>' + itemDate + '</span>'
+                            + '<span>' + itemMonthName + '</span>'
+                            + '</li>';
+
+
+                        $container.animate({
+                            width: '+=95'
+                        }, 150);
+
+                        $containerCalendar.prepend(template);
+                    }
+                }
             });
-        }
+        });
 
-        counterSlider--;
     });
 
     $arrowRight.click(function () {
 
-        console.log('work');
         counterElementsRight = 3;
         elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
 
         if (counterSlider == counterElementsRight) {
-            return;
+            //return;
         }
 
-        console.log('work2');
+        var preLastElementIndex = $('.page-scheduler-header-list li').length - 1;
+        var preLastElement = $('.page-scheduler-header-list li').eq(preLastElementIndex);
+
+        if (preLastElement.hasClass('disabled')) {
+            $arrowRight.animate({
+                opacity: 0
+            }, 200, function () {
+                $(this).css('display', 'none');
+            });
+        }
 
         $('.arrow__left__empty').addClass('page-scheduler-header-list-arrow__left');
         $('.page-scheduler-header-list-arrow__left').removeClass('arrow__left__empty');
@@ -223,12 +272,12 @@ $(function () {
         counterSlider++;
     });
 
-    $container.find('li').click(function () {
+    $container.on('click', 'li', function () {
         var dayDate = $(this).data('scheduler-date');
         var currentIndex = $(this).index();
         var prevIndex = $('.page-scheduler-header-list .selected').index();
 
-        if (currentIndex == prevIndex) {
+        if (currentIndex == prevIndex || $(this).hasClass('disabled')) {
             return;
         }
 
@@ -433,8 +482,9 @@ $(function () {
             oldCounter = data.length;
             renderTemplate(data, 'next', true);
             var $container = $('.page-scheduler-content-items');
+
             $container.animate({
-                opacity : 1
+                opacity: 1
             }, 200);
         });
     }
