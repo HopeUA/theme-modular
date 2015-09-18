@@ -70,7 +70,8 @@ $(function () {
 
     if ($container) {
 
-        var serverTime = Hope.Chrono.getDate();
+        //var serverTime = Hope.Chrono.getDate();
+        var serverTime = 'Fri Sep 15 2015 17:14:58 GMT+0300 (EEST)';
         var year = moment(serverTime).format('YYYY');
         var day = moment(serverTime).format('DD');
         var month = moment(serverTime).format('MM');
@@ -191,7 +192,6 @@ $(function () {
                 var item = itemYear + '-' + itemMonth + '-' + itemDate;
                 var itemStyle = [];
 
-                console.log(count);
                 if (count == 0) {
                     itemStyle.push('disabled');
                 }
@@ -217,15 +217,17 @@ $(function () {
 
     $arrowRight.click(function () {
 
-        counterElementsRight = 3;
         elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
-
-        if (counterSlider == counterElementsRight) {
-            //return;
-        }
 
         var preLastElementIndex = $('.page-scheduler-header-list li').length - 1;
         var preLastElement = $('.page-scheduler-header-list li').eq(preLastElementIndex);
+
+        var currentElementIndex = $('.page-scheduler-header-list .current').index();
+        var lastElementIndex = $('.page-scheduler-header-list li').length - 1;
+        var difference = lastElementIndex - currentElementIndex;
+
+        console.log('currentElementIndex: ', currentElementIndex);
+        console.log('lastElementIndex: ', lastElementIndex);
 
         if (preLastElement.hasClass('disabled')) {
             $arrowRight.animate({
@@ -235,32 +237,58 @@ $(function () {
             });
         }
 
-        $('.arrow__left__empty').addClass('page-scheduler-header-list-arrow__left');
-        $('.page-scheduler-header-list-arrow__left').removeClass('arrow__left__empty');
+        if (difference >= 5) {
+            $container.animate({
+                left: '-=95'
+            }, 150, function(){
 
-        $('.page-scheduler-header-list-arrow__left').animate({
-            opacity: 1
-        }, 200);
+                var queryDay = moment($('.page-scheduler-header-list li').eq(lastElementIndex).data('scheduler-date'));
+                var queryData = [];
 
-        console.log('counterSlider', counterSlider);
-        console.log('counterElementsRight', counterElementsRight);
+                queryData[0] = queryDay.add(1, 'day').format('YYYY-MM-DD');
+                console.log(difference);
 
-        if (counterSlider < counterElementsRight) {
+                scheduler.count(queryData).fetch().then(function (result) {
+
+                    var queryString = queryData[0];
+                    var count = result.dates[queryString];
+
+                    var momentData = moment(queryString);
+                    var itemYear = momentData.format('YYYY');
+                    var itemMonth = momentData.format('MM');
+                    var itemMonthName = momentData.format('MMM');
+                    itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
+                    var itemDate = momentData.format('DD');
+                    var itemWeekDay = momentData.format('ddd');
+                    var item = itemYear + '-' + itemMonth + '-' + itemDate;
+                    var itemStyle = [];
+
+                    if (count == 0) {
+                        itemStyle.push('disabled');
+                        $arrowRight.animate({
+                            opacity: 0
+                        }, 200, function () {
+                            $(this).css('display', 'none');
+                        });
+                    }
+
+                    var template = '<li class="' + itemStyle.join(' ') + '" data-scheduler-date="' + item + '">'
+                        + '<span>' + itemWeekDay + '</span>'
+                        + '<span>' + itemDate + '</span>'
+                        + '<span>' + itemMonthName + '</span>'
+                        + '</li>';
+
+                    $containerCalendar.append(template);
+                });
+
+            });
+        } else {
+            console.log(difference);
             $container.animate({
                 marginLeft: '-=' + elementWidth
-            }, 150)
+            }, 150);
         }
 
-        if (counterSlider == (counterElementsRight - 1)) {
-            $arrowRight.animate({
-                opacity: 0
-            }, 200, function () {
-                $(this).addClass('arrow__right__empty');
-                $(this).removeClass('page-scheduler-header-list-arrow__right');
-            });
-        }
-
-        counterSlider++;
     });
 
     $container.on('click', 'li', function () {
