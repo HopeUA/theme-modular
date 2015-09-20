@@ -70,8 +70,8 @@ $(function () {
 
     if ($container) {
 
-        //var serverTime = Hope.Chrono.getDate();
-        var serverTime = 'Fri Sep 15 2015 17:14:58 GMT+0300 (EEST)';
+        var serverTime = Hope.Chrono.getDate();
+        //var serverTime = 'Fri Sep 15 2015 17:14:58 GMT+0300 (EEST)';
         var year = moment(serverTime).format('YYYY');
         var day = moment(serverTime).format('DD');
         var month = moment(serverTime).format('MM');
@@ -170,8 +170,17 @@ $(function () {
 
         var currentIndex = 0 - $('.page-scheduler-header-list .current').index();
         var indexDifference = currentIndex - shiftCounter;
+        var $preLastElement = $('.page-scheduler-header-list li').index() - 2;
+        $preLastElement = $('.page-scheduler-header-list li').eq($preLastElement);
+        var lastShowElement = $('.page-scheduler-header-list li').not('.disabled').length - 1;
+        lastShowElement = 0 - $('.page-scheduler-header-list li').eq(lastShowElement).index();
+        var visibleDifference = lastShowElement - shiftCounter;
 
-        if ($arrowRight.css('display') == 'none') {
+        console.log('lastShowElement: ', lastShowElement);
+        console.log('shiftCounter: ', shiftCounter);
+        console.log('visibleDifference: ', visibleDifference);
+
+        if ($arrowRight.css('display') == 'none' && !$preLastElement.hasClass('disabled') || (shiftCounter == -3 && visibleDifference == -6) || visibleDifference == -7) {
             $arrowRight.css('display', 'block');
             $arrowRight.animate({
                 opacity : 1
@@ -244,7 +253,12 @@ $(function () {
         var currentElementIndex = $('.page-scheduler-header-list .current').index();
         var lastElementIndex = $('.page-scheduler-header-list li').length - 1;
 
+        var lastShowElement = $('.page-scheduler-header-list li').not('.disabled').length - 1;
+        lastShowElement = 0 - $('.page-scheduler-header-list li').eq(lastShowElement).index();
+        var visibleDifference = lastShowElement - shiftCounter;
+
         if (shiftCounter >= 0 && !preLastElement.hasClass('disabled')) {
+
             $container.animate({
                 left: '-=95'
             }, 150, function(){
@@ -303,8 +317,13 @@ $(function () {
 
             var lastElement = $('.page-scheduler-header-list li').length - 1;
             lastElement = $('.page-scheduler-header-list li').eq(lastElement);
+            console.log('i am here');
 
-            if (lastElement.hasClass('disabled') && shiftCounter == 1) {
+            console.log('lastShowElement: ', lastShowElement);
+            console.log('shiftCounter: ', shiftCounter);
+            console.log('visibleDifference: ', visibleDifference);
+
+            if (lastElement.hasClass('disabled') && shiftCounter == 1 || (shiftCounter == -4 && visibleDifference == -6) || visibleDifference == -9) {
                 console.log('This is true', shiftCounter)
                 $arrowRight.animate({
                     opacity: 0
