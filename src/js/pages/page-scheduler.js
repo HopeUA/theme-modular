@@ -71,7 +71,6 @@ $(function () {
     if ($container) {
 
         var serverTime = Hope.Chrono.getDate();
-        //var serverTime = 'Fri Sep 15 2015 17:14:58 GMT+0300 (EEST)';
         var year = moment(serverTime).format('YYYY');
         var day = moment(serverTime).format('DD');
         var month = moment(serverTime).format('MM');
@@ -94,6 +93,8 @@ $(function () {
             moment(serverTime).add(4, 'days'),
             moment(serverTime).add(5, 'days')
         ];
+
+        var ajaxRunning = false;
 
         for (var i = 0; i < displayDays.length; i++) {
             var itemYear = displayDays[i].format('YYYY');
@@ -148,8 +149,6 @@ $(function () {
 
         });
 
-
-
         init(dateFull);
 
         var widthElementsAll = displayDays.length * 95;
@@ -167,26 +166,12 @@ $(function () {
     }
 
     $arrowLeft.click(function () {
+        if (ajaxRunning) {
+            return;
+        }
 
         var currentIndex = 0 - $('.page-scheduler-header-list .current').index();
         var indexDifference = currentIndex - shiftCounter;
-        var $preLastElement = $('.page-scheduler-header-list li').index() - 2;
-        $preLastElement = $('.page-scheduler-header-list li').eq($preLastElement);
-        var lastShowElement = $('.page-scheduler-header-list li').not('.disabled').length - 1;
-        lastShowElement = 0 - $('.page-scheduler-header-list li').eq(lastShowElement).index();
-        var visibleDifference = lastShowElement - shiftCounter;
-
-        console.log('lastShowElement: ', lastShowElement);
-        console.log('shiftCounter: ', shiftCounter);
-        console.log('visibleDifference: ', visibleDifference);
-        console.log('indexDifference', indexDifference);
-
-        //if ($arrowRight.css('display') == 'none' && !$preLastElement.hasClass('disabled') || (shiftCounter == -3 && visibleDifference == -6) || visibleDifference == -7) {
-        //    $arrowRight.css('display', 'block');
-        //    $arrowRight.animate({
-        //        opacity : 1
-        //    }, 150);
-        //}
 
         elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
 
@@ -196,9 +181,11 @@ $(function () {
         queryData[0] = queryDay.subtract(1, 'day').format('YYYY-MM-DD');
 
         if (shiftCounter <= 0 && indexDifference == -5) {
+            ajaxRunning = true;
             $container.animate({
                 left: '+=95'
             }, 150, function () {
+
                 scheduler.count(queryData).fetch().then(function (result) {
 
                     var queryString = queryData[0];
@@ -232,6 +219,7 @@ $(function () {
                     $container.css({
                         width: '-=95'
                     });
+                    ajaxRunning = false;
                 });
                 shiftCounter--;
             });
@@ -246,6 +234,10 @@ $(function () {
 
     $arrowRight.click(function () {
 
+        if (ajaxRunning) {
+            return;
+        }
+
         elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
 
         var lastElementIndex = $('.page-scheduler-header-list li').length - 1;
@@ -253,7 +245,7 @@ $(function () {
         var startPosition = lastElementIndex - $('.page-scheduler-header-list .current').index();
 
         if (shiftCounter >= 0 && (startPosition - shiftCounter == 5)) {
-
+            ajaxRunning = true;
             $container.animate({
                 left: '-=95'
             }, 150, function(){
@@ -289,19 +281,7 @@ $(function () {
                         + '</li>';
 
                     $containerCalendar.append(template);
-
-                    var lastElement = $('.page-scheduler-header-list li').length - 1;
-                    lastElement = $('.page-scheduler-header-list li').eq(lastElement);
-
-                    //if (lastElement.hasClass('disabled') && shiftCounter == 2) {
-                    //    console.log('This is true', shiftCounter)
-                    //    $arrowRight.animate({
-                    //        opacity: 0
-                    //    }, 200, function () {
-                    //        $(this).css('display', 'none');
-                    //    });
-                    //}
-
+                    ajaxRunning = false;
                 });
                 shiftCounter++;
             });
@@ -309,18 +289,6 @@ $(function () {
             $container.animate({
                 left: '-=95'
             }, 150);
-
-            var lastElement = $('.page-scheduler-header-list li').length - 1;
-            lastElement = $('.page-scheduler-header-list li').eq(lastElement);
-
-            //if (lastElement.hasClass('disabled') && shiftCounter == 1 || (shiftCounter == -4 && visibleDifference == -6) || visibleDifference == -9) {
-            //    console.log('This is true', shiftCounter)
-            //    $arrowRight.animate({
-            //        opacity: 0
-            //    }, 200, function () {
-            //        $(this).css('display', 'none');
-            //    });
-            //}
 
             shiftCounter++;
         }
