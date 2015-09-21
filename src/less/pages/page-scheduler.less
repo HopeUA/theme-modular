@@ -969,3 +969,32 @@ page-scheduler-content-episode-share {
     display: block;
     margin-left: 20px;
 }
+
+.page-scheduler-header-loader {
+    position: relative;
+}
+
+.page-scheduler-header-loader::before {
+    content: '';
+    position: absolute;
+    width: 852px;
+    height: 144px;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 1;
+    left: 20%;
+    top: 74px;
+}
+
+.page-scheduler-header-loader::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 64px;
+    background: url(../img/ajax-loader.gif);
+    position: absolute;
+    left: 50%;
+    top: 63%;
+    margin-left: -180px;
+    margin-top: -32px;
+    z-index: 2;
+}

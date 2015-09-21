@@ -165,6 +165,16 @@ $(function () {
         }, 100);
     }
 
+    var ajaxStatus = function(status) {
+        if (status) {
+            ajaxRunning = true;
+            $('.page-scheduler-header').addClass('page-scheduler-header-loader');
+        } else {
+            ajaxRunning = false;
+            $('.page-scheduler-header').removeClass('page-scheduler-header-loader');
+        }
+    };
+
     $arrowLeft.click(function () {
         if (ajaxRunning) {
             return;
@@ -181,7 +191,7 @@ $(function () {
         queryData[0] = queryDay.subtract(1, 'day').format('YYYY-MM-DD');
 
         if (shiftCounter <= 0 && indexDifference == -5) {
-            ajaxRunning = true;
+            ajaxStatus(true);
             $container.animate({
                 left: '+=95'
             }, 150, function () {
@@ -219,7 +229,8 @@ $(function () {
                     $container.css({
                         width: '-=95'
                     });
-                    ajaxRunning = false;
+
+                    ajaxStatus(false);
                 });
                 shiftCounter--;
             });
@@ -245,7 +256,7 @@ $(function () {
         var startPosition = lastElementIndex - $('.page-scheduler-header-list .current').index();
 
         if (shiftCounter >= 0 && (startPosition - shiftCounter == 5)) {
-            ajaxRunning = true;
+            ajaxStatus(true);
             $container.animate({
                 left: '-=95'
             }, 150, function(){
@@ -281,7 +292,7 @@ $(function () {
                         + '</li>';
 
                     $containerCalendar.append(template);
-                    ajaxRunning = false;
+                    ajaxStatus(false);
                 });
                 shiftCounter++;
             });
