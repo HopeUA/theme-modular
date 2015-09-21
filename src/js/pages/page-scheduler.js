@@ -179,13 +179,14 @@ $(function () {
         console.log('lastShowElement: ', lastShowElement);
         console.log('shiftCounter: ', shiftCounter);
         console.log('visibleDifference: ', visibleDifference);
+        console.log('indexDifference', indexDifference);
 
-        if ($arrowRight.css('display') == 'none' && !$preLastElement.hasClass('disabled') || (shiftCounter == -3 && visibleDifference == -6) || visibleDifference == -7) {
-            $arrowRight.css('display', 'block');
-            $arrowRight.animate({
-                opacity : 1
-            }, 150);
-        }
+        //if ($arrowRight.css('display') == 'none' && !$preLastElement.hasClass('disabled') || (shiftCounter == -3 && visibleDifference == -6) || visibleDifference == -7) {
+        //    $arrowRight.css('display', 'block');
+        //    $arrowRight.animate({
+        //        opacity : 1
+        //    }, 150);
+        //}
 
         elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
 
@@ -247,17 +248,11 @@ $(function () {
 
         elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
 
-        var preLastElementIndex = $('.page-scheduler-header-list li').length - 1;
-        var preLastElement = $('.page-scheduler-header-list li').eq(preLastElementIndex);
-
-        var currentElementIndex = $('.page-scheduler-header-list .current').index();
         var lastElementIndex = $('.page-scheduler-header-list li').length - 1;
 
-        var lastShowElement = $('.page-scheduler-header-list li').not('.disabled').length - 1;
-        lastShowElement = 0 - $('.page-scheduler-header-list li').eq(lastShowElement).index();
-        var visibleDifference = lastShowElement - shiftCounter;
+        var startPosition = lastElementIndex - $('.page-scheduler-header-list .current').index();
 
-        if (shiftCounter >= 0 && !preLastElement.hasClass('disabled')) {
+        if (shiftCounter >= 0 && (startPosition - shiftCounter == 5)) {
 
             $container.animate({
                 left: '-=95'
@@ -298,14 +293,14 @@ $(function () {
                     var lastElement = $('.page-scheduler-header-list li').length - 1;
                     lastElement = $('.page-scheduler-header-list li').eq(lastElement);
 
-                    if (lastElement.hasClass('disabled') && shiftCounter == 2) {
-                        console.log('This is true', shiftCounter)
-                        $arrowRight.animate({
-                            opacity: 0
-                        }, 200, function () {
-                            $(this).css('display', 'none');
-                        });
-                    }
+                    //if (lastElement.hasClass('disabled') && shiftCounter == 2) {
+                    //    console.log('This is true', shiftCounter)
+                    //    $arrowRight.animate({
+                    //        opacity: 0
+                    //    }, 200, function () {
+                    //        $(this).css('display', 'none');
+                    //    });
+                    //}
 
                 });
                 shiftCounter++;
@@ -317,20 +312,15 @@ $(function () {
 
             var lastElement = $('.page-scheduler-header-list li').length - 1;
             lastElement = $('.page-scheduler-header-list li').eq(lastElement);
-            console.log('i am here');
 
-            console.log('lastShowElement: ', lastShowElement);
-            console.log('shiftCounter: ', shiftCounter);
-            console.log('visibleDifference: ', visibleDifference);
-
-            if (lastElement.hasClass('disabled') && shiftCounter == 1 || (shiftCounter == -4 && visibleDifference == -6) || visibleDifference == -9) {
-                console.log('This is true', shiftCounter)
-                $arrowRight.animate({
-                    opacity: 0
-                }, 200, function () {
-                    $(this).css('display', 'none');
-                });
-            }
+            //if (lastElement.hasClass('disabled') && shiftCounter == 1 || (shiftCounter == -4 && visibleDifference == -6) || visibleDifference == -9) {
+            //    console.log('This is true', shiftCounter)
+            //    $arrowRight.animate({
+            //        opacity: 0
+            //    }, 200, function () {
+            //        $(this).css('display', 'none');
+            //    });
+            //}
 
             shiftCounter++;
         }
