@@ -75,6 +75,8 @@ $(function () {
         var day = moment(serverTime).format('DD');
         var month = moment(serverTime).format('MM');
         var dateFull = year + '-' + month + '-' + day;
+        var daysFormatted = [];
+        var $containerCalendar = $('.page-scheduler-header-list');
 
         moment.locale('ru');
 
@@ -92,108 +94,224 @@ $(function () {
             moment(serverTime).add(5, 'days')
         ];
 
-        var $containerCalendar = $('.page-scheduler-header-list');
+        var ajaxRunning = false;
+
         for (var i = 0; i < displayDays.length; i++) {
             var itemYear = displayDays[i].format('YYYY');
             var itemMonth = displayDays[i].format('MM');
-            var itemMonthName = displayDays[i].format('MMM');
-            itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
             var itemDate = displayDays[i].format('DD');
-            var itemWeekDay = displayDays[i].format('ddd');
+
             var item = itemYear + '-' + itemMonth + '-' + itemDate;
-            var itemStyle = '';
 
-            if (itemDate == day) {
-                itemStyle = 'selected current';
-            }
-
-            var template = '<li class="' + itemStyle + '" data-scheduler-date="' + item + '">'
-                                + '<span>' + itemWeekDay + '</span>'
-                                + '<span>' + itemDate + '</span>'
-                                + '<span>' + itemMonthName + '</span>'
-                            + '</li>';
-            $containerCalendar.append(template);
+            daysFormatted.push(item);
         }
 
-        var widthElementsAll = (displayDays * 64) - 31;
-        var startPosition = 0 - (2 * 64) + 33;
+        var scheduler = Hope.Api.Scheduler(Hope.Config.Api.Scheduler.Endpoint);
+        scheduler.count(daysFormatted).fetch().then(function(result){
 
+            for (var i = 0; i < displayDays.length; i++) {
+                var itemYear = displayDays[i].format('YYYY');
+                var itemMonth = displayDays[i].format('MM');
+                var itemMonthName = displayDays[i].format('MMM');
+                itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
+                var itemDate = displayDays[i].format('DD');
+                var itemWeekDay = displayDays[i].format('ddd');
+                var item = itemYear + '-' + itemMonth + '-' + itemDate;
+                var itemStyle = [];
+
+                if (itemDate == day) {
+                    itemStyle.push('selected');
+                    itemStyle.push('current');
+                }
+
+                if (result.dates[item] == 0) {
+                    itemStyle.push('disabled');
+                }
+
+                var template = '<li class="' + itemStyle.join(' ') + '" data-scheduler-date="' + item + '">'
+                    + '<span>' + itemWeekDay + '</span>'
+                    + '<span>' + itemDate + '</span>'
+                    + '<span>' + itemMonthName + '</span>'
+                    + '</li>';
+                $containerCalendar.append(template);
+            }
+
+            var preLastElementIndex = $('.page-scheduler-header-list li').length - 2;
+            var preLastElement = $('.page-scheduler-header-list li').eq(preLastElementIndex);
+
+            if (!preLastElement.hasClass('disabled')) {
+                console.log('test1');
+                $arrowRight.css({
+                    display : 'block',
+                    opacity : 1
+                });
+            }
+
+        });
+
+        init(dateFull);
+
+        var widthElementsAll = displayDays.length * 95;
+        var shiftCounter = null;
+
+        console.log(widthElementsAll);
         $container.css({
             width: widthElementsAll,
-            marginLeft: startPosition
+            left: '-95px'
         });
 
         $container.animate({
             opacity: 1
         }, 100);
-
-        init(dateFull);
     }
 
+    var ajaxStatus = function(status) {
+        if (status) {
+            ajaxRunning = true;
+            $('.page-scheduler-header').addClass('page-scheduler-header-loader');
+        } else {
+            ajaxRunning = false;
+            $('.page-scheduler-header').removeClass('page-scheduler-header-loader');
+        }
+    };
+
     $arrowLeft.click(function () {
+        if (ajaxRunning) {
+            return;
+        }
 
-        $('.arrow__right__empty').addClass('page-scheduler-header-list-arrow__right');
-        $('.page-scheduler-header-list-arrow__right').removeClass('arrow__right__empty');
+        var currentIndex = 0 - $('.page-scheduler-header-list .current').index();
+        var indexDifference = currentIndex - shiftCounter;
 
-        $('.page-scheduler-header-list-arrow__right').animate({
-            opacity: 1
-        }, 200);
+        elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
 
-        if (counterSlider > (0 - counterElementsLeft)) {
+        var queryDay = moment($('.page-scheduler-header-list li').eq(0).data('scheduler-date'));
+        var queryData = [];
+
+        queryData[0] = queryDay.subtract(1, 'day').format('YYYY-MM-DD');
+
+        if (shiftCounter <= 0 && indexDifference == -5) {
+            ajaxStatus(true);
             $container.animate({
-                marginLeft: '+=' + elementWidth
-            }, 150)
-        }
+                left: '+=95'
+            }, 150, function () {
 
-        if (counterSlider == (0 - (counterElementsLeft - 1))) {
-            $arrowLeft.animate({
-                opacity: 0
-            }, 200, function () {
-                $(this).addClass('arrow__left__empty');
-                $(this).removeClass('page-scheduler-header-list-arrow__left');
+                scheduler.count(queryData).fetch().then(function (result) {
+
+                    var queryString = queryData[0];
+                    var count = result.dates[queryString];
+
+                    var momentData = moment(queryString);
+                    var itemYear = momentData.format('YYYY');
+                    var itemMonth = momentData.format('MM');
+                    var itemMonthName = momentData.format('MMM');
+                    itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
+                    var itemDate = momentData.format('DD');
+                    var itemWeekDay = momentData.format('ddd');
+                    var item = itemYear + '-' + itemMonth + '-' + itemDate;
+                    var itemStyle = [];
+
+                    if (count == 0) {
+                        itemStyle.push('disabled');
+                    }
+
+                    var template = '<li class="' + itemStyle.join(' ') + '" data-scheduler-date="' + item + '">'
+                        + '<span>' + itemWeekDay + '</span>'
+                        + '<span>' + itemDate + '</span>'
+                        + '<span>' + itemMonthName + '</span>'
+                        + '</li>';
+
+                    $container.css({
+                        width: '+=95',
+                        left: '-=95'
+                    });
+                    $containerCalendar.prepend(template);
+                    $container.css({
+                        width: '-=95'
+                    });
+
+                    ajaxStatus(false);
+                });
+                shiftCounter--;
             });
+        } else {
+            $container.animate({
+                left: '+=95'
+            }, 150);
+            shiftCounter--;
         }
 
-        counterSlider--;
     });
 
     $arrowRight.click(function () {
 
-        if (counterSlider == counterElementsRight) {
+        if (ajaxRunning) {
             return;
         }
 
-        $('.arrow__left__empty').addClass('page-scheduler-header-list-arrow__left');
-        $('.page-scheduler-header-list-arrow__left').removeClass('arrow__left__empty');
+        elementWidth = parseInt($('.page-scheduler-header-list li').css('width')) + parseInt($('.page-scheduler-header-list li').css('margin-right'));
 
-        $('.page-scheduler-header-list-arrow__left').animate({
-            opacity: 1
-        }, 200);
+        var lastElementIndex = $('.page-scheduler-header-list li').length - 1;
 
-        if (counterSlider < counterElementsRight) {
+        var startPosition = lastElementIndex - $('.page-scheduler-header-list .current').index();
+
+        if (shiftCounter >= 0 && (startPosition - shiftCounter == 5)) {
+            ajaxStatus(true);
             $container.animate({
-                marginLeft: '-=' + elementWidth
-            }, 150)
-        }
+                left: '-=95'
+            }, 150, function(){
 
-        if (counterSlider == (counterElementsRight - 1)) {
-            $arrowRight.animate({
-                opacity: 0
-            }, 200, function () {
-                $(this).addClass('arrow__right__empty');
-                $(this).removeClass('page-scheduler-header-list-arrow__right');
+                var queryDay = moment($('.page-scheduler-header-list li').eq(lastElementIndex).data('scheduler-date'));
+                var queryData = [];
+
+                queryData[0] = queryDay.add(1, 'day').format('YYYY-MM-DD');
+
+                scheduler.count(queryData).fetch().then(function (result) {
+
+                    var queryString = queryData[0];
+                    var count = result.dates[queryString];
+
+                    var momentData = moment(queryString);
+                    var itemYear = momentData.format('YYYY');
+                    var itemMonth = momentData.format('MM');
+                    var itemMonthName = momentData.format('MMM');
+                    itemMonthName = itemMonthName.charAt(0).toUpperCase() + itemMonthName.slice(1);
+                    var itemDate = momentData.format('DD');
+                    var itemWeekDay = momentData.format('ddd');
+                    var item = itemYear + '-' + itemMonth + '-' + itemDate;
+                    var itemStyle = [];
+
+                    if (count == 0) {
+                        itemStyle.push('disabled');
+                    }
+
+                    var template = '<li class="' + itemStyle.join(' ') + '" data-scheduler-date="' + item + '">'
+                        + '<span>' + itemWeekDay + '</span>'
+                        + '<span>' + itemDate + '</span>'
+                        + '<span>' + itemMonthName + '</span>'
+                        + '</li>';
+
+                    $containerCalendar.append(template);
+                    ajaxStatus(false);
+                });
+                shiftCounter++;
             });
+        } else {
+            $container.animate({
+                left: '-=95'
+            }, 150);
+
+            shiftCounter++;
         }
 
-        counterSlider++;
     });
 
-    $container.find('li').click(function () {
+    $container.on('click', 'li', function () {
         var dayDate = $(this).data('scheduler-date');
         var currentIndex = $(this).index();
         var prevIndex = $('.page-scheduler-header-list .selected').index();
 
-        if (currentIndex == prevIndex) {
+        if (currentIndex == prevIndex || $(this).hasClass('disabled')) {
             return;
         }
 
@@ -398,8 +516,9 @@ $(function () {
             oldCounter = data.length;
             renderTemplate(data, 'next', true);
             var $container = $('.page-scheduler-content-items');
+
             $container.animate({
-                opacity : 1
+                opacity: 1
             }, 200);
         });
     }
