@@ -95,6 +95,7 @@ $(function () {
         ];
 
         var ajaxRunning = false;
+        var ajaxListRunning = false;
 
         for (var i = 0; i < displayDays.length; i++) {
             var itemYear = displayDays[i].format('YYYY');
@@ -148,6 +149,16 @@ $(function () {
             }
 
         });
+
+        var ajaxListStatus = function(status) {
+            if (status) {
+                ajaxListRunning = true;
+                $('.page-scheduler-content').addClass('page-scheduler-list-loader');
+            } else {
+                ajaxListRunning = false;
+                $('.page-scheduler-content').removeClass('page-scheduler-list-loader');
+            }
+        };
 
         init(dateFull);
 
@@ -317,13 +328,14 @@ $(function () {
 
         $('.page-scheduler-header-list .selected').removeClass('selected');
         $(this).addClass('selected');
-
+        ajaxListStatus(true);
         loadJson(dayDate).then(function(data){
             if (currentIndex < prevIndex) {
                 renderTemplate(data, 'prev');
             } else {
                 renderTemplate(data, 'next');
             }
+            ajaxListStatus(false);
         });
     });
 
@@ -512,6 +524,7 @@ $(function () {
 
     function init(day) {
 
+        ajaxListStatus(true);
         loadJson(day).then(function(data) {
             oldCounter = data.length;
             renderTemplate(data, 'next', true);
@@ -520,6 +533,7 @@ $(function () {
             $container.animate({
                 opacity: 1
             }, 200);
+            ajaxListStatus(false);
         });
     }
 
