@@ -141,7 +141,6 @@ $(function () {
             var preLastElement = $('.page-scheduler-header-list li').eq(preLastElementIndex);
 
             if (!preLastElement.hasClass('disabled')) {
-                console.log('test1');
                 $arrowRight.css({
                     display : 'block',
                     opacity : 1
@@ -165,7 +164,6 @@ $(function () {
         var widthElementsAll = displayDays.length * 95;
         var shiftCounter = null;
 
-        console.log(widthElementsAll);
         $container.css({
             width: widthElementsAll,
             left: '-95px'
