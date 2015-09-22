@@ -126,6 +126,32 @@ describe('Scheduler API', function(){
     });
 });
 
+describe('LocalArticles API', function(){
+    var endpoint = 'http://hope.api/v1';
+
+    it('should be defined', function() {
+        expect(Hope.Api.LocalArticles).to.be.a('function');
+    });
+
+    it('should set Articles Resource', function() {
+        var api = Hope.Api.LocalArticles(endpoint);
+
+        expect(api.getUrl()).to.be.equal(endpoint + '/articles.json');
+    });
+
+    it('should set category for Article Resource', function() {
+        var api = Hope.Api.LocalArticles(endpoint).category('someCategory');
+
+        expect(api.getUrl()).to.be.equal(endpoint + '/articles.json?category=someCategory');
+    });
+
+    it('should set "search" query param', function() {
+        var api = Hope.Api.LocalArticles(endpoint).search('some text string');
+
+        expect(api.getUrl()).to.be.equal(endpoint + '/articles.json?search=some+text+string');
+    });
+});
+
 describe('Hope Chrono', function(){
     it('should return current time as Date instance', function(){
         var currentDate = Hope.Chrono.getDate();
