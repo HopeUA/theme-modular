@@ -14,10 +14,10 @@ $(function(){
             if (first) {
                 view.first = [response.data.shift()];
             }
-            //console.log(response.data);
+
             view.episodes = response.data.map(function (item) {
-                //item.title = text_trim(item.title, 25);
-                //item.show = text_trim (item.show, 23);
+                item.title = text_trim(item.title, 25);
+                item.show = text_trim (item.show, 23);
                 return item;
             });
 
