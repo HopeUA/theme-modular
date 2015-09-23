@@ -696,6 +696,13 @@ $(function () {
         var $currentElementAfterWidth = $currentElementAfter.width();
         var $currentElementAfterMargin = parseInt($currentElementAfter.css('margin-left'));
 
+        console.log('Function start');
+        console.log('$currentElementBeforeWidth', $currentElementBeforeWidth);
+
+        //if ($currentElementBeforeWidth > 0) {
+        //    console.log('Before > 0');
+        //    //$('.header-timeline__item-current .after').css('left', 0);
+        //}
 
         if ($currentElementBeforeWidth < $currentElementWidth) {
             //$currentElementBeforeWidth = $currentElementBeforeWidth + 5;
@@ -763,13 +770,21 @@ $(function () {
                 $currentElementAfterWidth -= 2;
                 //$currentElementAfterMargin += 7;
                 $currentElementAfterMargin += shiftMinutes + 2;
+                //$('.header-timeline__item-current .after').css({
+                //    marginLeft: 14,
+                //    left: 0
+                //});
+                //$('.header-timeline__item-current .after').css({
+                //    marginLeft: 12
+                //});
 
-                timelineItemsLeft -= 2;
+                console.log('timelineItemsLeft: ', timelineItemsLeft);
+                //timelineItemsLeft -= 2;
                 timelineItems.animate({
                     'left': timelineItemsLeft
                 }, 300, 'linear');
             } else {
-                //console.log('next iteration');
+                //console.log('next iteration!!!');
 
                 timelineItems.animate({
                     'left': timelineItemsLeft
