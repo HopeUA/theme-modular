@@ -41,6 +41,11 @@ $(function () {
 
         hideTimeline();
 
+        var $items = $('.header-timeline__items');
+        $items.animate({
+            opacity: 0.5
+        }, 150);
+
         status = !status;
 
     });
@@ -57,65 +62,39 @@ $(function () {
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
-        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 0.5
         }, 250);
-
-        description.stop().animate({
-            'opacity': 1
-        }, 250);
-
-        console.log('header-timeline__item');
 
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item-current', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
-        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 0.5
         }, 250);
-
-        description.stop().animate({
-            'opacity': 1
-        }, 250);
-
-        console.log('header-timeline__item-current');
 
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item-next', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
-        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 0.5
         }, 250);
-
-        description.stop().animate({
-            'opacity': 1
-        }, 250);
-
-        console.log('header-timeline__item-next');
 
     });
 
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
-        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 1
-        }, 250);
-
-        description.stop().animate({
-            'opacity': 0
         }, 250);
 
     });
@@ -123,14 +102,9 @@ $(function () {
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item-current', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
-        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 1
-        }, 250);
-
-        description.stop().animate({
-            'opacity': 0
         }, 250);
 
     });
@@ -138,14 +112,9 @@ $(function () {
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item-next', function () {
 
         var self = $('.header-timeline__items > div').not($(this));
-        var description = $(this).find('.header-timeline__description');
 
         self.stop().animate({
             'opacity': 1
-        }, 250);
-
-        description.stop().animate({
-            'opacity': 0
         }, 250);
 
     });
@@ -189,8 +158,14 @@ $(function () {
 
     function toogleTimeline(status, index) {
         if (status) {
+            console.log('show');
+            var $items = $('.header-timeline__items');
+            $items.animate({
+                opacity: 0
+            }, 150);
             showTimeline(index);
         } else {
+            console.log('hide');
             hideTimeline();
         }
     };
@@ -220,12 +195,6 @@ $(function () {
             'top': '-540px',
             'opacity': 0
         }, 500);
-
-        $('.header-timeline-time').animate({
-            'opacity': 0
-        }, 200, function () {
-            $('.header-timeline-time').removeClass('visibleTime');
-        });
 
         timelineMenu.animate({
             opacity: 0
@@ -290,11 +259,6 @@ $(function () {
         var itemesBeginPoint = 176;
 
         var itemsLeft = 176;
-
-        $('.header-timeline-time').addClass('visibleTime');
-        $('.header-timeline-time').animate({
-            'opacity': 1
-        }, 200);
 
         switch (index) {
             case 0:
@@ -385,7 +349,7 @@ $(function () {
             var counterElements = null;
             var minWidth = 100;
 
-            var currentTime = serverTime.format('H:mm');
+            currentTime = serverTime.format('H:mm');
             $('.header-timeline-time').html(currentTime);
 
             var limit = episodes.length - 1;
@@ -492,21 +456,20 @@ $(function () {
     }
 
     function startInterval() {
-        var tInterval = setInterval(syncTime, 2000);
+        var tInterval = setInterval(syncTime, 1000);
         return tInterval;
     }
 
     function syncTime() {
-        var serverTime = moment(Hope.Chrono.getDate());
-        if (currentTime != null) {
-            //var shift2 = (serverTime.diff(currentTime) / 1000) / 60; // Правильно посчитать shift
-            //console.log(shift2);
+        if (currentTime === null) {
+            return;
         }
 
-        var shift = 1;
-        if (shift > 0) {
-            moveTimelineTo(shift); // Пофиксить переезд с элемента на элемент если больше 1 минуты
+        var serverTime = moment(Hope.Chrono.getDate());
+
+        if (serverTime.format('mm') != currentTime.format('mm')) {
             currentTime = serverTime;
+            moveTimelineTo(1);
         }
     }
 
@@ -685,6 +648,8 @@ $(function () {
 
     function moveTimelineTo(minutes) {
 
+        var timeString = currentTime.format('H:mm');
+        $('.header-timeline-time').html(timeString);
         var shiftMinutes = minutes * 5;
         //console.log('shiftMinutes: ', shiftMinutes);
 
@@ -701,8 +666,8 @@ $(function () {
         var $currentElementAfterWidth = $currentElementAfter.width();
         var $currentElementAfterMargin = parseInt($currentElementAfter.css('margin-left'));
 
-        console.log('Function start');
-        console.log('$currentElementBeforeWidth', $currentElementBeforeWidth);
+        //console.log('Function start');
+        //console.log('$currentElementBeforeWidth', $currentElementBeforeWidth);
 
         //if ($currentElementBeforeWidth > 0) {
         //    console.log('Before > 0');
@@ -783,7 +748,7 @@ $(function () {
                 //    marginLeft: 12
                 //});
 
-                console.log('timelineItemsLeft: ', timelineItemsLeft);
+                //console.log('timelineItemsLeft: ', timelineItemsLeft);
                 //if (before !=0) {
                     //timelineItemsLeft -= 0;
                 //}
