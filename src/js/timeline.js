@@ -424,7 +424,11 @@ $(function () {
 
                     currentBefore = 5 * before;
                     currentAfter = (width - 7) - currentBefore;
-                    leftAfter = currentBefore + 7;
+                    if (before == 0) {
+                        leftAfter = 5;
+                    } else {
+                        leftAfter = currentBefore + 7;
+                    }
 
                     if (startTimeString == serverTimeString) {
                         leftTimeline += 0;
@@ -471,8 +475,8 @@ $(function () {
 
             $('.header-timeline__item-current .before').css('width', currentBefore);
             $('.header-timeline__item-current .after').css({
-                'width': currentAfter,
-                'left': leftAfter
+                width: currentAfter,
+                marginLeft: leftAfter
             });
 
             leftTimeline += currentBefore + 2;
@@ -565,7 +569,8 @@ $(function () {
                     'margin-left': 5
                 }, 300);
 
-                timelineItemsLeft = timelineItemsLeft - 13;
+                //timelineItemsLeft = timelineItemsLeft - 12;
+                console.log('Work!!!!!!');
                 timelineItems.animate({
                     'left': timelineItemsLeft
                 }, 300, 'linear');
@@ -584,7 +589,7 @@ $(function () {
                 $currentElementAfterWidth -= 2;
                 $currentElementAfterMargin += 7;
 
-                timelineItemsLeft -= 2;
+                //timelineItemsLeft -= 2;
                 timelineItems.animate({
                     'left': timelineItemsLeft
                 }, 300, 'linear');
@@ -751,7 +756,7 @@ $(function () {
                     'margin-left': 5
                 }, 300);
 
-                timelineItemsLeft = timelineItemsLeft - 13;
+                timelineItemsLeft = timelineItemsLeft - 15;
                 timelineItems.animate({
                     'left': timelineItemsLeft
                 }, 300, 'linear');
@@ -779,7 +784,9 @@ $(function () {
                 //});
 
                 console.log('timelineItemsLeft: ', timelineItemsLeft);
-                //timelineItemsLeft -= 2;
+                //if (before !=0) {
+                    //timelineItemsLeft -= 0;
+                //}
                 timelineItems.animate({
                     'left': timelineItemsLeft
                 }, 300, 'linear');
