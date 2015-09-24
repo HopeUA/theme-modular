@@ -119,27 +119,6 @@ $(function () {
 
     });
 
-    $('.header-timeline__items').on('mouseenter', '.header-timeline__item-current', function () {
-
-        var self = $('.header-timeline-time');
-
-        self.stop().animate({
-            'opacity': 1
-        }, 250);
-
-    });
-
-    $('.header-timeline__items').on('mouseleave', '.header-timeline__item-current', function () {
-
-        var self = $('.header-timeline-time');
-
-        self.stop().animate({
-            'opacity': 0
-        }, 250);
-
-    });
-
-
     function isAnimated(self) {
 
         return self.is(':animated');
