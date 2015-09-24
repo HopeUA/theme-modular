@@ -42,7 +42,7 @@ $(function () {
         });
 
         $item.animate({
-            height: 262
+            height: 'auto'
         }, 150, function () {
             $item.find('*').animate({
                 opacity: 1
