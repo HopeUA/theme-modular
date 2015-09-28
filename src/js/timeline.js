@@ -41,9 +41,9 @@ $(function () {
 
         hideTimeline();
 
-        var $items = $('.header-timeline__items');
+        var $items = $('.header-timeline');
         $items.animate({
-            opacity: 0.5
+            opacity: 1
         }, 150);
 
         status = !status;
@@ -52,11 +52,42 @@ $(function () {
 
 
     $('.header-timeline-menu-item-full__left').on('click', function () {
-        moveFullTimeline('left');
+        var current = $('.header-timeline-menu-item__current').index();
+
+        $('.header-timeline-menu-item-full-arrow__right').css('display', 'block');
+        $('.header-timeline-menu-item-full-arrow__right').animate({
+            opacity: 1
+        }, 150);
+
+        if (current == 4) {
+            $('.header-timeline-menu-item-full-arrow__left').animate({
+                opacity: 0
+            }, 150, function(){
+                $('.header-timeline-menu-item-full-arrow__left').css('display', 'none');
+            });
+        }
+
+        moveFullTimeline('right');
     });
 
     $('.header-timeline-menu-item-full-arrow__right').on('click', function () {
-        moveFullTimeline('right');
+        var last = $('.header-timeline__items > div').length - 5;
+        var current = $('.header-timeline-menu-item__current').index();
+
+        $('.header-timeline-menu-item-full-arrow__left').css('display', 'block');
+        $('.header-timeline-menu-item-full-arrow__left').animate({
+            opacity: 1
+        }, 150);
+
+        if (current == last) {
+            $('.header-timeline-menu-item-full-arrow__right').animate({
+                opacity: 0
+            }, 150, function(){
+                $('.header-timeline-menu-item-full-arrow__right').css('display', 'none');
+            });
+        }
+
+        moveFullTimeline('left');
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item', function () {
@@ -138,7 +169,7 @@ $(function () {
     function toogleTimeline(status, index) {
         if (status) {
             console.log('show');
-            var $items = $('.header-timeline__items');
+            var $items = $('.header-timeline');
             $items.animate({
                 opacity: 0
             }, 150);
@@ -383,7 +414,7 @@ $(function () {
 
                 var episodeDescription = null;
                 if (episodes[i].episode.description != '') {
-                    episodeDescription = episodes[i].episode.description;
+                    episodeDescription = episodes[i].episode.description.slice(0, 220);
                 } else {
                     episodeDescription = episodes[i].show.description.short;
                 }
@@ -393,22 +424,37 @@ $(function () {
                             '<div class="header-timeline-menu-item-full">' +
 
                             '<div class="header-timeline-menu-item-full__content">' +
-                            '<h1 class="header-timeline-menu-item-full-episode">' + episodes[i].episode.title + '</h1>' +
-                            '<h2 class="header-timeline-menu-item-full-shows">' + episodes[i].show.title + '</h2>' +
-                            '<div class="header-timeline-menu-item-full-video"><img src="img/' + episodes[i].episode.image + '"></div>' +
+                            '<a href="/episode.html" class="header-timeline-menu-item-full-episode">' + episodes[i].episode.title.slice(0, 21) + '</a>' +
+                            '<a href="/show.html" class="header-timeline-menu-item-full-shows">' + episodes[i].show.title.slice(0, 30) + '</a>' +
+                            '<div class="header-timeline-menu-item-full-video"><img src="' + episodes[i].episode.image + '"></div>' +
                             '<p class="header-timeline-menu-item-full-description">' + episodeDescription + '</p>' +
+                            '<div class="header-timeline-menu-item-full-share">' +
+                                '<ul class="header-timeline-menu-item-full-share-items">' +
+                                    '<li class="header-timeline-menu-item-full-share-item">' +
+                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_fb" href="#"></a>' +
+                                    '</li>' +
+                                    '<li class="header-timeline-menu-item-full-share-item">' +
+                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_vk" href="#"></a>' +
+                                    '</li>' +
+                                    '<li class="header-timeline-menu-item-full-share-item">' +
+                                        '<a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_tw" href="#"></a>' +
+                                    '</li>' +
+                                '</ul>' +
+                            '</div>'+
+                            '<a class="header-timeline-menu-item-full-calendar" href="#">' +
+                                '<span class="header-timeline-menu-item-full-calendar-text">Напомнить</span>' +
+                            '</a>' +
                             '</div>' +
 
                             '</div>' +
 
                             '<div class="header-timeline-menu-item-small">' +
-                            '<h1 class="header-timeline-menu-item-episode">' + episodes[i].episode.title + '</h1>' +
-                            '<h2 class="header-timeline-menu-item-shows">' + episodes[i].show.title + '</h2>' +
+                            '<h1 class="header-timeline-menu-item-episode">' + episodes[i].episode.title.slice(0, 21) + '</h1>' +
+                            '<h2 class="header-timeline-menu-item-shows">' + episodes[i].show.title.slice(0, 30) + '</h2>' +
                             '<span class="header-timeline-menu-item-time">' + start.format('H:mm') + '</span>' +
                             '<span class="header-timeline-menu-item-label">' + 'live' + '</span>' +
                             '<p class="header-timeline-menu-item-description">' + episodeDescription + '</p>' +
                             '</div>' +
-
                             '</div>';
                 placeFull.append(strFull);
 
