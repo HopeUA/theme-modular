@@ -60,7 +60,7 @@
 .header-timeline-menu-item-full__left {
     position: absolute;
     top: 161px;
-    left: 395px;
+    left: 387px;
     width: 70px;
     z-index: 111;
 }
@@ -119,6 +119,7 @@
     margin: 0 0 3px 0;
     color: #d1d3d4;
     font-size: 18px;
+    text-decoration: none;
 }
 
 .header-timeline-menu-item-shows {
@@ -126,10 +127,11 @@
     width: 120px;
     height: 13px;
     padding: 0;
-    margin: 0 0 38px 0;
+    margin: 0 0 21px 0;
     color: #bcbec0;
     font-size: 13px;
     line-height: 17px;
+    text-decoration: none;
 }
 
 .header-timeline-menu-item-time {
@@ -163,7 +165,7 @@
     width: 393px;
     margin-left: 53px;
     margin-top: 24px;
-    margin-right: 167px;
+    margin-right: 124px;
     padding-left: 51px;
     padding-right: 26px;
     overflow: hidden;
@@ -371,13 +373,24 @@
     height: 100%;
 }
 
+.header-timeline-menu-item-full-time-container {
+    display: flex;
+    overflow: hidden;
+    width: 185px;
+    margin-left: -124px;
+}
+
 .header-timeline-menu-item-full-time {
     display: block;
     height: 26px;
     padding: 0;
-    margin: 22px 0 0 3px;
+    margin: 22px 0 0 0;
     color: #2f8dca;
     font-size: 26px;
+}
+.header-timeline-menu-item-full-time:first-child {
+    margin-right: 62px;
+    opacity: 0;
 }
 
 .header-timeline-menu-item-full-label {

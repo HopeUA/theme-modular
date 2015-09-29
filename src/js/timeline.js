@@ -261,7 +261,8 @@ $(function () {
         var current = $items.find('.header-timeline-menu-item').eq(index);
 
         var timeData = current.find('.header-timeline-menu-item-small .header-timeline-menu-item-time').text();
-        var timeContainer = $('.header-timeline-menu-item-full-time').text(timeData);
+        var timeContainer = $('.header-timeline-menu-item-full-time').eq(1).text(timeData);
+        $('.header-timeline-menu-item-full-time').eq(0).text(current.prev().find('.header-timeline-menu-item-small .header-timeline-menu-item-time').text());
 
         var labelData = current.find('.header-timeline-menu-item-small .header-timeline-menu-item-label').text();
         var labelContainer = $('.header-timeline-menu-item-full-label').text(labelData);
@@ -449,8 +450,8 @@ $(function () {
                             '</div>' +
 
                             '<div class="header-timeline-menu-item-small">' +
-                            '<h1 class="header-timeline-menu-item-episode">' + episodes[i].episode.title.slice(0, 21) + '</h1>' +
-                            '<h2 class="header-timeline-menu-item-shows">' + episodes[i].show.title.slice(0, 30) + '</h2>' +
+                            '<a href="/episode.html" class="header-timeline-menu-item-episode">' + episodes[i].episode.title.slice(0, 21) + '</a>' +
+                            '<a href="/show.html" class="header-timeline-menu-item-shows">' + episodes[i].show.title.slice(0, 30) + '</a>' +
                             '<span class="header-timeline-menu-item-time">' + start.format('H:mm') + '</span>' +
                             '<span class="header-timeline-menu-item-label">' + 'live' + '</span>' +
                             '<p class="header-timeline-menu-item-description">' + episodeDescription + '</p>' +
@@ -666,6 +667,61 @@ $(function () {
             $items.animate({
                 'left': shift
             }, 300);
+
+            var $timePlaceBefore = $('.header-timeline-menu-item-full-time-container span').eq(0);
+            var $timePlace = $('.header-timeline-menu-item-full-time-container span').eq(1);
+
+
+            var timeInit = function(){
+                console.log('all done');
+
+                var timeEpisodeBeforeInd = $('.header-timeline-menu-item__current').index() - 1;
+                var timeEpisodeBefore = $('.header-timeline-menu-item').eq(timeEpisodeBeforeInd).find('.header-timeline-menu-item-time').text();
+                var timeEpisode = $('.header-timeline-menu-item__current').find('.header-timeline-menu-item-time').text();
+
+                console.log('timeEpisodeBefore', timeEpisodeBefore);
+                console.log('timeEpisode', timeEpisode);
+
+                $('.header-timeline-menu-item-full-time-container').css('margin-left', '-124px');
+                $timePlaceBefore.css('opacity', 0);
+                $timePlace.css('opacity', 1);
+                $timePlaceBefore.html(timeEpisodeBefore);
+                $timePlace.html(timeEpisode);
+
+            };
+
+            var blockAnimation = 3;
+            $('.header-timeline-menu-item-full-time-container').animate({
+                marginLeft: 2
+            }, 550, function() {
+                blockAnimation = blockAnimation - 1;
+                console.log('1: ' + blockAnimation);
+                if (blockAnimation == 0) {
+                    timeInit();
+                }
+            });
+            setTimeout(function (){
+                $timePlace.animate({
+                    opacity: 0
+                }, 200, function(){
+                    blockAnimation = blockAnimation - 1;
+                    console.log('2: ' + blockAnimation);
+                    if (blockAnimation == 0) {
+                        timeInit();
+                    }
+                });
+            }, 100);
+
+            $timePlaceBefore.animate({
+                opacity: 1
+            }, 550, function(){
+                blockAnimation = blockAnimation - 1;
+                console.log('3: ' + blockAnimation);
+                if (blockAnimation == 0) {
+                    timeInit();
+                }
+            });
+
 
 
         }
