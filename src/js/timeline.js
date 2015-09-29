@@ -701,16 +701,17 @@ $(function () {
                 }
             });
             setTimeout(function (){
+                //$timePlace.css('opacity', 0); // immediately
                 $timePlace.animate({
-                    opacity: 0
-                }, 200, function(){
+                    opacity: 0 // slowly
+                }, 100, function(){
                     blockAnimation = blockAnimation - 1;
                     console.log('2: ' + blockAnimation);
                     if (blockAnimation == 0) {
                         timeInit();
                     }
                 });
-            }, 100);
+            }, 40);
 
             $timePlaceBefore.animate({
                 opacity: 1
