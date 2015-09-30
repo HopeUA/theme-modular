@@ -138,4 +138,128 @@
         </div>
     </div>
 </section>
-<!-- Section Content-Video-List-Header END -->
+<!-- Section Content-Brand-Header END -->
+
+<div class="bgr">
+<section class="container flex-none">
+    <div class="container-header align">
+        <h2>Новые выпуски</h2>
+        <button class="archive">Архив выпусков</button>
+    </div>
+
+    <div class="content-arrow-left new-arrow-left"></div>
+
+    <div class="container-content">
+        <div class="new"></div>
+        <script id="template-new" type="x-tmpl-mustache">
+             {{#first}}
+                <div class="content-episode__large grid__column-2">
+                    <div class="content-episode__large-play"></div>
+                    <h5 class="content-episode__large-title__episode">{{ title }}</h5>
+                    <p class="content-episode__large-title__show">{{ show }}</p>
+                    <img src="{{& image }}" class="content-episode__large-image__wide">
+                </div>
+                <div class="content-episodes__row">
+            {{/first}}
+            {{#episodes}}
+                <div class="content-episodes__row-item">
+                    <div class="content-episodes__row-item-play"></div>
+                    <p class="content-episodes__row-item-title">{{ title }}</p>
+                    <img src="{{& image }}" class="content-episodes__row-image__wide">
+                </div>
+            {{/episodes}}
+            {{#first}}
+                </div>
+            {{/first}}
+            </script>
+    </div>
+
+    <div class="content-arrow-right new-arrow-right"></div>
+</section>
+    </div>
+<!-- Section Container END -->
+    <div class="bgr">
+        <div class="container">
+            <div class="container-header align">
+                <h2>Фото с программы</h2>
+                <button class="archive">Подписаться+</button>
+            </div>
+            <div class="container-content align">
+                <div class="photo-block">
+                    <img src="img/api1.jpg" alt="">
+                    <span class="photo-block-footer align">
+                        <span></span>
+                        <span>1 день назад</span>
+                    </span>
+                </div>
+                <div class="photo-block">
+                    <img src="img/api2.jpg" alt="">
+                    <span class="photo-block-footer align">
+                        <span></span>
+                        <span>2 день назад</span>
+                    </span>
+                </div>
+                <div class="photo-block">
+                    <img src="img/api3.jpg" alt="">
+                    <span class="photo-block-footer align">
+                        <span></span>
+                        <span>3 день назад</span>
+                    </span>
+                </div>
+                <div class="photo-block">
+                    <img src="img/api1.jpg" alt="">
+                    <span class="photo-block-footer align">
+                        <span></span>
+                        <span>4 день назад</span>
+                    </span>
+                </div>
+                <div class="photo-block">
+                    <img src="img/api2.jpg" alt="">
+                    <span class="photo-block-footer align">
+                        <span></span>
+                        <span>5 день назад</span>
+                    </span>
+                </div>
+            </div>
+            <div class="photo-block-show-more">
+                <div class="photo-block-show">
+                     <div class="show-more">Показать еще</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Section-photo-album-END -->
+<div class="twiter">
+<div class="container">
+    <div class="container-header align pl">
+        <a class="twit-lab">TWITTER</a>
+        <button class="archive">Подписаться+</button>
+    </div>
+    <div class="tw-info">
+        <a class="tw-name">John Markovich <span>@coolMan</span></a>
+    </div>
+</div>
+</div>
+<div class="bgr">
+    <div class="container">
+        <div class="container-header align">
+            <h2>О программе</h2>
+            <div class="container-content">
+                <p class="days-week">понеділок-середа</p>
+                <p class="block-about-time">13:30<span> та </span>19:00</p>
+            </div>
+        </div>
+        <span class="about-ellipse">Ведущие</span>
+        <div class="leadings">
+            <div class="leading">
+                <span class="photo-leading"><img src="img/photogirl.png"></span>
+                <span class="info-leading"></span>
+            </div>
+            <div class="second-leading"></div>
+        </div>
+    </div>
+</div>
+<script src="js/app.js"></script>
+<!-- Main JavaScript file -->
+</body>
+</html>
