@@ -452,7 +452,7 @@ $(function () {
                             '<div class="header-timeline-menu-item-small">' +
                             '<a href="/episode.html" class="header-timeline-menu-item-episode">' + episodes[i].episode.title.slice(0, 21) + '</a>' +
                             '<a href="/show.html" class="header-timeline-menu-item-shows">' + episodes[i].show.title.slice(0, 30) + '</a>' +
-                            '<span class="header-timeline-menu-item-time">' + start.format('H:mm') + '</span>' +
+                            '<span class="header-timeline-menu-item-time">' + start.format('HH:mm') + '</span>' +
                             '<span class="header-timeline-menu-item-label">' + 'live' + '</span>' +
                             '<p class="header-timeline-menu-item-description">' + episodeDescription + '</p>' +
                             '</div>' +

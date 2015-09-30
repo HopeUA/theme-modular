@@ -5,11 +5,21 @@
     display: none;
     opacity: 0;
     width: 100%;
-    height: 540px;
+    height: 554px;
     background: rgba(0, 0, 0, 0.75);
     color: #bcbec0;
     font: 13px @font-Regular;
     z-index: 111;
+}
+
+.header-timeline-menu-blur-fix::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 30px;
+    background: #f3f4f4;
+    position: absolute;
+    top: 540px;
 }
 
 .header-timeline-menu-container {
