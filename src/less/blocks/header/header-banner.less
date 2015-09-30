@@ -1,5 +1,3 @@
-// out: null
-
 .header-banner {
     height: 390px;
 }
@@ -8,10 +6,13 @@
     position: absolute;
     z-index: 0;
     top: 0;
-    width: 100%;
-    height: 540px;
+    width: 102%;
+    height: 570px;
+    margin-top: -30px;
+    margin-left: -10px;
     border-bottom: solid 5px @headerBanner__color-loader;
     background-position: center top;
+    background-size: cover;
     opacity: 0;
 }
 
@@ -22,9 +23,10 @@
 .header-banner__item:after {
     position: absolute;
     z-index: -1;
-    top: 0;
+    top: 30px;
     left: 0;
-    width: 100%;
+    width: 101%;
+    margin-left: -10px;
     height: 530px;
     background: @headerBanner__mask repeat-x 0 0;
     content: "";
@@ -153,7 +155,7 @@
 
 .header-banner__controls {
     position: relative;
-    top: 363px;
+    top: 343px;
     display: flex;
     width: 112px;
     height: 8px;

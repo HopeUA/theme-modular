@@ -90,7 +90,7 @@
         <section class="header-timeline">
             <div class="container">
                 <div class="container-content header-timeline-line">
-                    <div class="header-timeline-time">11:77</div>
+                    <div class="header-timeline-time"></div>
                 </div>
             </div>
 
@@ -154,36 +154,22 @@
         <!-- Section Header-Banner END -->
 
         <!-- Section Header-Timeline-Menu START -->
-        <section class="header-timeline-menu">
+        <section class="header-timeline-menu header-timeline-menu-blur-fix">
             <div class="header-timeline-menu-container">
 
                 <div class="header-timeline-menu-item-full__left">
-                    <span class="header-timeline-menu-item-full-time"></span>
+                    <div class="header-timeline-menu-item-full-time-container">
+                        <span class="header-timeline-menu-item-full-time"></span>
+                        <span class="header-timeline-menu-item-full-time"></span>
+                        <span class="header-timeline-menu-item-full-time"></span>
+                    </div>
                     <span class="header-timeline-menu-item-full-label">live</span>
                     <div class="header-timeline-menu-item-full-arrow__left"></div>
-                    <a class="header-timeline-menu-item-full-calendar" href="#">Напомнить</a>
                 </div>
 
                 <div class="header-timeline-menu-item-full__right">
                     <div class="header-timeline-menu-item-full-close"></div>
                     <div class="header-timeline-menu-item-full-arrow__right"></div>
-                    <div class="header-timeline-menu-item-full-share">
-                        <span class="header-timeline-menu-item-full-share-text">Поделиться:</span>
-
-                        <ul class="header-timeline-menu-item-full-share-items">
-                            <li class="header-timeline-menu-item-full-share-item">
-                                <a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_fb" href="#"></a>
-                            </li>
-
-                            <li class="header-timeline-menu-item-full-share-item">
-                                <a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_vk" href="#"></a>
-                            </li>
-
-                            <li class="header-timeline-menu-item-full-share-item">
-                                <a class="header-timeline-menu-item-full-share-link header-timeline-menu-item-full-share-item_tw" href="#"></a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
 
                 <div class="header-timeline-menu-items-container">
@@ -737,6 +723,7 @@
 
     <script>
         var HopeUATime = new Date();
+        //HopeUATime = new Date(2015, 8, 22, 15, 59, 0);
     </script>
     <script src="js/app.js"></script>
     <!-- Main JavaScript file -->

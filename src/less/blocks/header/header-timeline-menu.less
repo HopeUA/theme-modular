@@ -4,11 +4,23 @@
     overflow: hidden;
     display: none;
     opacity: 0;
-    width: 100%;
-    height: 540px;
+    width: 101%;
+    margin-left: -10px;
+    height: 554px;
     background: rgba(0, 0, 0, 0.75);
     color: #bcbec0;
     font: 13px @font-Regular;
+    z-index: 111;
+}
+
+.header-timeline-menu-blur-fix::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 30px;
+    background: #f3f4f4;
+    position: absolute;
+    top: 540px;
 }
 
 .header-timeline-menu-container {
@@ -29,7 +41,7 @@
 .header-timeline-menu-items {
     position: absolute;
     z-index: 10;
-    top: 209px;
+    top: 160px;
     left: 0;
     display: flex;
 }
@@ -37,7 +49,7 @@
 .header-timeline-menu-item {
     position: relative;
     width: 190px;
-    margin: 45px 77px 0 0;
+    margin: 58px 77px 0 0;
 }
 
 .header-timeline-menu-item .header-timeline-menu-item-full {
@@ -58,15 +70,15 @@
 
 .header-timeline-menu-item-full__left {
     position: absolute;
-    top: 210px;
-    left: 395px;
+    top: 161px;
+    left: 387px;
     width: 70px;
     z-index: 111;
 }
 
 .header-timeline-menu-item-full__right {
     position: absolute;
-    top: 220px;
+    top: 161px;
     left: 800px;
     width: 70px;
     z-index: 111;
@@ -118,6 +130,7 @@
     margin: 0 0 3px 0;
     color: #d1d3d4;
     font-size: 18px;
+    text-decoration: none;
 }
 
 .header-timeline-menu-item-shows {
@@ -125,10 +138,11 @@
     width: 120px;
     height: 13px;
     padding: 0;
-    margin: 0 0 38px 0;
+    margin: 0 0 21px 0;
     color: #bcbec0;
     font-size: 13px;
     line-height: 17px;
+    text-decoration: none;
 }
 
 .header-timeline-menu-item-time {
@@ -159,15 +173,27 @@
 }
 
 .header-timeline-menu-item__current {
-    width: 270px;
-    margin-left: 106px;
-    margin-top: 0;
-    margin-right: 167px;
+    width: 393px;
+    margin-left: 53px;
+    margin-top: 24px;
+    margin-right: 124px;
+    padding-left: 51px;
+    padding-right: 26px;
     overflow: hidden;
 }
 
+.header-timeline-menu-item__current:hover .header-timeline-menu-item-full-share-items {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.header-timeline-menu-item__current:hover .header-timeline-menu-item-full-calendar {
+    cursor: pointer;
+    opacity: 1;
+}
+
 .header-timeline-menu-item-full {
-    height: 315px;
+    height: 330px;
 }
 
 .header-timeline-menu-item-full__left::before {
@@ -183,11 +209,12 @@
 }
 
 .header-timeline-menu-item-full-arrow__left {
-    position: relative;
+    position: absolute;
     width: 86px;
     height: 167px;
     margin-right: 20px;
     margin-left: 3px;
+    margin-top: 11px;
 }
 
 .header-timeline-menu-item-full-arrow__left:hover {
@@ -217,13 +244,28 @@
     margin-top: 20px;
     margin-left: 3px;
     width: 64px;
+    height: 92px;
     color: #bcbec0;
     font: 13px @font-Italic;
     text-decoration: none;
+    position: absolute;
+    top: 209px;
+    right: 0;
+    z-index: 114;
+    opacity: 0;
+    transition: all 0.1s;
 }
 
-.header-timeline-menu-item-full-calendar:hover {
-    text-decoration: underline;
+.header-timeline-menu-item-full-calendar-text {
+    color: #bcbec0;
+    font: 13px @font-Italic;
+    opacity: 0;
+    transition: all 0.1s;
+}
+
+.header-timeline-menu-item-full-calendar:hover .header-timeline-menu-item-full-calendar-text {
+    opacity: 1;
+    cursor: pointer;
 }
 
 .header-timeline-menu-item-full-calendar::before {
@@ -236,16 +278,17 @@
 }
 
 .header-timeline-menu-item-full-arrow__right {
-    position: relative;
+    position: absolute;
     width: 76px;
     height: 184px;
-    margin-top: 60px;
+    top: 60px;
+    margin-top: 11px;
 }
 
 .header-timeline-menu-item-full-close {
     position: absolute;
     right: -3px;
-    margin-top: 17px;
+    margin-top: 0;
     width: 28px;
     height: 28px;
     background: url("@{img}/close.png") no-repeat;
@@ -312,9 +355,10 @@
     display: block;
     height: 22px;
     padding: 0;
-    margin: 24px 0 3px 0;
+    margin: 0 0 3px 0;
     color: #d1d3d4;
     font-size: 20px;
+    text-decoration: none;
 }
 
 .header-timeline-menu-item-full-shows {
@@ -323,22 +367,52 @@
     padding: 0;
     margin: 0 0 22px 0;
     font-size: 13px;
+    color: #bcbec0;
+    text-decoration: none;
 }
 
 .header-timeline-menu-item-full-video {
     position: relative;
     width: 265px;
-    height: 139px;
+    height: 149px;
     border: solid 3px #bbbdbf;
+    overflow: hidden;
+}
+
+.header-timeline-menu-item-full-video img {
+    width: 100%;
+    height: auto;
+}
+
+.header-timeline-menu-item-full-time-container {
+    display: flex;
+    overflow: hidden;
+    width: 320px;
+    margin-left: -124px;
 }
 
 .header-timeline-menu-item-full-time {
     display: block;
     height: 26px;
+    width: 62px;
     padding: 0;
-    margin: 22px 0 0 3px;
+    margin: 22px 0 0 0;
     color: #2f8dca;
     font-size: 26px;
+}
+
+.header-timeline-menu-item-full-time:first-child {
+    margin-right: 62px;
+    opacity: 0;
+}
+
+.header-timeline-menu-item-full-time:nth-child(2) {
+    margin-right: 62px;
+    opacity: 1;
+}
+
+.header-timeline-menu-item-full-time:nth-child(3) {
+    opacity: 0;
 }
 
 .header-timeline-menu-item-full-label {
@@ -359,7 +433,9 @@
 }
 
 .header-timeline-menu-item-full-share {
-    margin-top: -2px;
+    position: absolute;
+    top: 236px;
+    left: 0;
 }
 
 .header-timeline-menu-item-full-share-text {
@@ -367,15 +443,19 @@
 }
 
 .header-timeline-menu-item-full-share-items {
-    display: flex;
-    padding: 12px 0 0 1px;
+    padding: 0;
     margin: 0;
+    opacity: 0;
+    transition: 0.1s;
 }
 
 .header-timeline-menu-item-full-share-item {
-    margin-right: 10px;
     list-style-type: none;
-    opacity: 0.8;
+    margin-bottom: 11px;
+}
+
+.header-timeline-menu-item-full-share-item:hover {
+    cursor: pointer;
 }
 
 .header-timeline-menu-item-full-share-item:last-child {
@@ -395,15 +475,17 @@
 }
 
 .header-timeline-menu-item-full-share-item_vk {
-    width: 24px;
+    width: 21px;
+    height: 20px;
 }
 
 .header-timeline-menu-item-full-share-item_vk::before {
     position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
-    background: @headerTop__vk no-repeat;
+    width: 21px;
+    height: 20px;
+    background: url(../img/articleInfoVkPicture.png) no-repeat;
+    background-size: cover;
     content: "";
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -412,24 +494,27 @@
 .header-timeline-menu-item-full-share-item_vk::after {
     position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
-    background: @headerTop__vk no-repeat;
+    width: 21px;
+    height: 20px;
+    background: url(../img/articleInfoVkPicture.png) no-repeat;
+    background-size: cover;
     content: "";
     transform: rotateY(180deg);
     backface-visibility: hidden;
 }
 
 .header-timeline-menu-item-full-share-item_fb {
-    width: 7px;
+    width: 21px;
+    height: 20px;
 }
 
 .header-timeline-menu-item-full-share-item_fb::before {
     position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
-    background: @headerTop__fb no-repeat;
+    width: 21px;
+    height: 20px;
+    background: url(../img/articleInfoFbPicture.png) no-repeat;
+    background-size: cover;
     content: "";
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -438,24 +523,27 @@
 .header-timeline-menu-item-full-share-item_fb::after {
     position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
-    background: @headerTop__fb no-repeat;
+    width: 21px;
+    height: 20px;
+    background: url(../img/articleInfoFbPicture.png) no-repeat;
+    background-size: cover;
     content: "";
     transform: rotateY(180deg);
     backface-visibility: hidden;
 }
 
 .header-timeline-menu-item-full-share-item_tw {
-    width: 17px;
+    width: 21px;
+    height: 20px;
 }
 
 .header-timeline-menu-item-full-share-item_tw::before {
     position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
-    background: @headerTop__tw no-repeat;
+    width: 21px;
+    height: 20px;
+    background: url(../img/articleInfoTwPicture.png) no-repeat;
+    background-size: cover;
     content: "";
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -464,9 +552,10 @@
 .header-timeline-menu-item-full-share-item_tw::after {
     position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
-    background: @headerTop__tw no-repeat;
+    width: 21px;
+    height: 20px;
+    background: url(../img/articleInfoTwPicture.png) no-repeat;
+    background-size: cover;
     content: "";
     transform: rotateY(180deg);
     backface-visibility: hidden;
