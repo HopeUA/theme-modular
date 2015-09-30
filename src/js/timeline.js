@@ -649,31 +649,33 @@ $(function () {
                 'left': shift
             }, 300);
 
-            var $timePlaceBefore = $('.header-timeline-menu-item-full-time-container span').eq(2);
+            var $timePlaceBefore = $('.header-timeline-menu-item-full-time-container span').eq(0);
             var $timePlace = $('.header-timeline-menu-item-full-time-container span').eq(1);
-
+            var $timePlaceAfter = $('.header-timeline-menu-item-full-time-container span').eq(2);
 
             var timeInit = function(){
                 console.log('all done');
 
-                var timeEpisodeBeforeInd = $('.header-timeline-menu-item__current').index() + 1;
+                var timeEpisodeBeforeInd = $('.header-timeline-menu-item__current').index() - 1;
                 var timeEpisodeBefore = $('.header-timeline-menu-item').eq(timeEpisodeBeforeInd).find('.header-timeline-menu-item-time').text();
                 var timeEpisode = $('.header-timeline-menu-item__current').find('.header-timeline-menu-item-time').text();
-
-                console.log('timeEpisodeBefore', timeEpisodeBefore);
-                console.log('timeEpisode', timeEpisode);
+                var timeEpisodeAfterInd = $('.header-timeline-menu-item__current').index() + 1;
+                var timeEpisodeAfter = $('.header-timeline-menu-item').eq(timeEpisodeAfterInd).find('.header-timeline-menu-item-time').text();
 
                 $('.header-timeline-menu-item-full-time-container').css('margin-left', '-124px');
+
                 $timePlaceBefore.css('opacity', 0);
+                $timePlaceBefore.text(timeEpisodeBefore);
                 $timePlace.css('opacity', 1);
-                $timePlaceBefore.html(timeEpisodeBefore);
-                $timePlace.html(timeEpisode);
+                $timePlace.text(timeEpisode);
+                $timePlaceAfter.css('opacity', 0);
+                $timePlaceAfter.text(timeEpisodeAfter);
 
             };
 
-            var blockAnimation = 3;
+            var blockAnimation = 4;
             $('.header-timeline-menu-item-full-time-container').animate({
-                marginLeft: 2
+                marginLeft: -249
             }, 550, function() {
                 blockAnimation = blockAnimation - 1;
                 console.log('1: ' + blockAnimation);
@@ -692,13 +694,22 @@ $(function () {
                         timeInit();
                     }
                 });
+                $timePlaceBefore.animate({
+                    opacity: 0 // slowly
+                }, 100, function(){
+                    blockAnimation = blockAnimation - 1;
+                    console.log('3: ' + blockAnimation);
+                    if (blockAnimation == 0) {
+                        timeInit();
+                    }
+                });
             }, 40);
 
-            $timePlaceBefore.animate({
+            $timePlaceAfter.animate({
                 opacity: 1
             }, 550, function(){
                 blockAnimation = blockAnimation - 1;
-                console.log('3: ' + blockAnimation);
+                console.log('4: ' + blockAnimation);
                 if (blockAnimation == 0) {
                     timeInit();
                 }
@@ -723,7 +734,7 @@ $(function () {
 
             var $timePlaceBefore = $('.header-timeline-menu-item-full-time-container span').eq(0);
             var $timePlace = $('.header-timeline-menu-item-full-time-container span').eq(1);
-
+            var $timePlaceAfter = $('.header-timeline-menu-item-full-time-container span').eq(2);
 
             var timeInit = function(){
                 console.log('all done');
@@ -731,21 +742,34 @@ $(function () {
                 var timeEpisodeBeforeInd = $('.header-timeline-menu-item__current').index() - 1;
                 var timeEpisodeBefore = $('.header-timeline-menu-item').eq(timeEpisodeBeforeInd).find('.header-timeline-menu-item-time').text();
                 var timeEpisode = $('.header-timeline-menu-item__current').find('.header-timeline-menu-item-time').text();
-
-                console.log('timeEpisodeBefore', timeEpisodeBefore);
-                console.log('timeEpisode', timeEpisode);
+                var timeEpisodeAfterInd = $('.header-timeline-menu-item__current').index() + 1;
+                var timeEpisodeAfter = $('.header-timeline-menu-item').eq(timeEpisodeAfterInd).find('.header-timeline-menu-item-time').text();
 
                 $('.header-timeline-menu-item-full-time-container').css('margin-left', '-124px');
+
                 $timePlaceBefore.css('opacity', 0);
+                $timePlaceBefore.text(timeEpisodeBefore);
                 $timePlace.css('opacity', 1);
-                $timePlaceBefore.html(timeEpisodeBefore);
-                $timePlace.html(timeEpisode);
+                $timePlace.text(timeEpisode);
+                $timePlaceAfter.css('opacity', 0);
+                $timePlaceAfter.text(timeEpisodeAfter);
 
             };
 
             var blockAnimation = 3;
+
+            $timePlaceBefore.animate({
+                opacity: 1
+            }, 550, function(){
+                blockAnimation = blockAnimation - 1;
+                console.log('4: ' + blockAnimation);
+                if (blockAnimation == 0) {
+                    timeInit();
+                }
+            });
+
             $('.header-timeline-menu-item-full-time-container').animate({
-                marginLeft: 2
+                marginLeft: 0
             }, 550, function() {
                 blockAnimation = blockAnimation - 1;
                 console.log('1: ' + blockAnimation);
@@ -754,7 +778,7 @@ $(function () {
                 }
             });
             setTimeout(function (){
-                //$timePlace.css('opacity', 0); // immediately
+            //    //$timePlace.css('opacity', 0); // immediately
                 $timePlace.animate({
                     opacity: 0 // slowly
                 }, 100, function(){
@@ -766,15 +790,6 @@ $(function () {
                 });
             }, 40);
 
-            $timePlaceBefore.animate({
-                opacity: 1
-            }, 550, function(){
-                blockAnimation = blockAnimation - 1;
-                console.log('3: ' + blockAnimation);
-                if (blockAnimation == 0) {
-                    timeInit();
-                }
-            });
         }
     }
 
