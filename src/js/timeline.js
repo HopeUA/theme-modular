@@ -263,6 +263,7 @@ $(function () {
         var timeData = current.find('.header-timeline-menu-item-small .header-timeline-menu-item-time').text();
         var timeContainer = $('.header-timeline-menu-item-full-time').eq(1).text(timeData);
         $('.header-timeline-menu-item-full-time').eq(0).text(current.prev().find('.header-timeline-menu-item-small .header-timeline-menu-item-time').text());
+        $('.header-timeline-menu-item-full-time').eq(2).text(current.next().find('.header-timeline-menu-item-small .header-timeline-menu-item-time').text());
 
         var labelData = current.find('.header-timeline-menu-item-small .header-timeline-menu-item-label').text();
         var labelContainer = $('.header-timeline-menu-item-full-label').text(labelData);
@@ -640,8 +641,6 @@ $(function () {
                 //$current.removeClass('header-timeline-menu-item__current');
             }, 460);
 
-
-
             $current.animate({
                 'opacity': 1
             }, 300);
@@ -650,6 +649,60 @@ $(function () {
                 'left': shift
             }, 300);
 
+            var $timePlaceBefore = $('.header-timeline-menu-item-full-time-container span').eq(2);
+            var $timePlace = $('.header-timeline-menu-item-full-time-container span').eq(1);
+
+
+            var timeInit = function(){
+                console.log('all done');
+
+                var timeEpisodeBeforeInd = $('.header-timeline-menu-item__current').index() + 1;
+                var timeEpisodeBefore = $('.header-timeline-menu-item').eq(timeEpisodeBeforeInd).find('.header-timeline-menu-item-time').text();
+                var timeEpisode = $('.header-timeline-menu-item__current').find('.header-timeline-menu-item-time').text();
+
+                console.log('timeEpisodeBefore', timeEpisodeBefore);
+                console.log('timeEpisode', timeEpisode);
+
+                $('.header-timeline-menu-item-full-time-container').css('margin-left', '-124px');
+                $timePlaceBefore.css('opacity', 0);
+                $timePlace.css('opacity', 1);
+                $timePlaceBefore.html(timeEpisodeBefore);
+                $timePlace.html(timeEpisode);
+
+            };
+
+            var blockAnimation = 3;
+            $('.header-timeline-menu-item-full-time-container').animate({
+                marginLeft: 2
+            }, 550, function() {
+                blockAnimation = blockAnimation - 1;
+                console.log('1: ' + blockAnimation);
+                if (blockAnimation == 0) {
+                    timeInit();
+                }
+            });
+            setTimeout(function (){
+                //$timePlace.css('opacity', 0); // immediately
+                $timePlace.animate({
+                    opacity: 0 // slowly
+                }, 100, function(){
+                    blockAnimation = blockAnimation - 1;
+                    console.log('2: ' + blockAnimation);
+                    if (blockAnimation == 0) {
+                        timeInit();
+                    }
+                });
+            }, 40);
+
+            $timePlaceBefore.animate({
+                opacity: 1
+            }, 550, function(){
+                blockAnimation = blockAnimation - 1;
+                console.log('3: ' + blockAnimation);
+                if (blockAnimation == 0) {
+                    timeInit();
+                }
+            });
 
         } else if (direction == 'right') {
 
@@ -722,9 +775,6 @@ $(function () {
                     timeInit();
                 }
             });
-
-
-
         }
     }
 
