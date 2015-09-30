@@ -276,8 +276,8 @@
              {{#first}}
                 <div class="content-episode__large grid__column-2">
                     <div class="content-episode__large-play"></div>
-                    <h5 class="content-episode__large-title__episode">{{ title }}</h5>
-                    <p class="content-episode__large-title__show">{{ show }}</p>
+                    <h5 class="content-episode__large-title__episode">{{& title }}</h5>
+                    <p class="content-episode__large-title__show">{{& show }}</p>
                     <img src="{{& image }}" class="content-episode__large-image__wide">
                 </div>
                 <div class="content-episodes__row">
@@ -285,7 +285,7 @@
             {{#episodes}}
                 <div class="content-episodes__row-item">
                     <div class="content-episodes__row-item-play"></div>
-                    <p class="content-episodes__row-item-title">{{ title }}</p>
+                    <p class="content-episodes__row-item-title">{{& title }}</p>
                     <img src="{{& image }}" class="content-episodes__row-image__wide">
                 </div>
             {{/episodes}}
