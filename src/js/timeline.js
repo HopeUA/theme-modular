@@ -378,6 +378,7 @@ $(function () {
                 if (width < minWidth) {
                     width = minWidth;
                 }
+                var timelineTitleLength = Math.floor(width * 0.15);
 
                 if (end <= serverTime) {
                     before = duration;
@@ -411,14 +412,21 @@ $(function () {
                     }
                 }
 
-                str = '<div class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + start.format('H:mm') + '</span><span class="header-timeline__live">' + 'live' + '</span><p class="header-timeline__description">' + episodes[i].episode.title.slice(0, 10) + '</p><div class="after"></div></div>'
+                str = '<div class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + start.format('H:mm') + '</span><span class="header-timeline__live">' + 'live' + '</span><p class="header-timeline__description">' + Hope.Utils.textTrim(episodes[i].episode.title, timelineTitleLength) + '</p><div class="after"></div></div>'
                 place.append(str);
 
                 var episodeDescription = null;
                 if (episodes[i].episode.description != '') {
-                    episodeDescription = episodes[i].episode.description.slice(0, 220);
+                    episodeDescription = Hope.Utils.textTrim(episodes[i].episode.description, 220);
                 } else {
-                    episodeDescription = episodes[i].show.description.short;
+                    episodeDescription = Hope.Utils.textTrim(episodes[i].show.description.short, 220);
+                }
+
+                var episodeImage = null;
+                if (episodes[i].episode.hasOwnProperty('image') && episodes[i].episode.image != '') {
+                    episodeImage = episodes[i].episode.image;
+                } else {
+                    episodeImage = episodes[i].show.images.cover;
                 }
 
                 strFull = '<div class="header-timeline-menu-item">' +
@@ -426,9 +434,9 @@ $(function () {
                             '<div class="header-timeline-menu-item-full">' +
 
                             '<div class="header-timeline-menu-item-full__content">' +
-                            '<a href="/episode.html" class="header-timeline-menu-item-full-episode">' + episodes[i].episode.title.slice(0, 21) + '</a>' +
-                            '<a href="/show.html" class="header-timeline-menu-item-full-shows">' + episodes[i].show.title.slice(0, 30) + '</a>' +
-                            '<div class="header-timeline-menu-item-full-video"><img src="' + episodes[i].episode.image + '"></div>' +
+                            '<a href="/episode.html" class="header-timeline-menu-item-full-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 10) + '</a>' +
+                            '<a href="/show.html" class="header-timeline-menu-item-full-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 30) + '</a>' +
+                            '<div class="header-timeline-menu-item-full-video"><img src="' + episodeImage + '"></div>' +
                             '<p class="header-timeline-menu-item-full-description">' + episodeDescription + '</p>' +
                             '<div class="header-timeline-menu-item-full-share">' +
                                 '<ul class="header-timeline-menu-item-full-share-items">' +
@@ -451,8 +459,8 @@ $(function () {
                             '</div>' +
 
                             '<div class="header-timeline-menu-item-small">' +
-                            '<a href="/episode.html" class="header-timeline-menu-item-episode">' + episodes[i].episode.title.slice(0, 21) + '</a>' +
-                            '<a href="/show.html" class="header-timeline-menu-item-shows">' + episodes[i].show.title.slice(0, 30) + '</a>' +
+                            '<a href="/episode.html" class="header-timeline-menu-item-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 21) + '</a>' +
+                            '<a href="/show.html" class="header-timeline-menu-item-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 20) + '</a>' +
                             '<span class="header-timeline-menu-item-time">' + start.format('HH:mm') + '</span>' +
                             '<span class="header-timeline-menu-item-label">' + 'live' + '</span>' +
                             '<p class="header-timeline-menu-item-description">' + episodeDescription + '</p>' +
@@ -678,7 +686,7 @@ $(function () {
                 marginLeft: -248
             }, 550, function() {
                 blockAnimation = blockAnimation - 1;
-                console.log('1: ' + blockAnimation);
+                //console.log('1: ' + blockAnimation);
                 if (blockAnimation == 0) {
                     timeInit();
                 }
@@ -689,7 +697,7 @@ $(function () {
                     opacity: 0 // slowly
                 }, 100, function(){
                     blockAnimation = blockAnimation - 1;
-                    console.log('2: ' + blockAnimation);
+                    //console.log('2: ' + blockAnimation);
                     if (blockAnimation == 0) {
                         timeInit();
                     }
@@ -698,7 +706,7 @@ $(function () {
                     opacity: 0 // slowly
                 }, 100, function(){
                     blockAnimation = blockAnimation - 1;
-                    console.log('3: ' + blockAnimation);
+                    //console.log('3: ' + blockAnimation);
                     if (blockAnimation == 0) {
                         timeInit();
                     }
@@ -709,7 +717,7 @@ $(function () {
                 opacity: 1
             }, 550, function(){
                 blockAnimation = blockAnimation - 1;
-                console.log('4: ' + blockAnimation);
+                //console.log('4: ' + blockAnimation);
                 if (blockAnimation == 0) {
                     timeInit();
                 }
@@ -762,7 +770,7 @@ $(function () {
                 opacity: 1
             }, 550, function(){
                 blockAnimation = blockAnimation - 1;
-                console.log('4: ' + blockAnimation);
+                //console.log('4: ' + blockAnimation);
                 if (blockAnimation == 0) {
                     timeInit();
                 }
@@ -772,7 +780,7 @@ $(function () {
                 marginLeft: 0
             }, 550, function() {
                 blockAnimation = blockAnimation - 1;
-                console.log('1: ' + blockAnimation);
+                //console.log('1: ' + blockAnimation);
                 if (blockAnimation == 0) {
                     timeInit();
                 }
@@ -783,7 +791,7 @@ $(function () {
                     opacity: 0 // slowly
                 }, 100, function(){
                     blockAnimation = blockAnimation - 1;
-                    console.log('2: ' + blockAnimation);
+                    //console.log('2: ' + blockAnimation);
                     if (blockAnimation == 0) {
                         timeInit();
                     }

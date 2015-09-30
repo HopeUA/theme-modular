@@ -21,6 +21,12 @@
         return text;
     };
 
+    const symbolWeight = {
+        large: ['m', 'w', 'ю', 'ж', 'ф', 'ш', 'щ', 'ы', 'м', 'д', 'ъ', '—', '…'],
+        small: ['l', 'i', 'j', 'f', 't', 'r', 'ґ', 'г', 'і', 'ї', '!', '?', ',', '.', ':', ';', ' ', '\"', '\'', '\(', '\)', '\{', '\}', '\[', '\]', '-']
+    };
+    const symbolWeightValues = {small: 1, medium: 2, large: 3};
+
     var getWeight = function (symbol) {
         if (typeof symbol !== 'string') {
             console.error('type error');
@@ -51,11 +57,6 @@
             string = hyphenate(string);
         }
 
-        const symbolWeight = {
-            large: ['m', 'w', 'ю', 'ж', 'ф', 'ш', 'щ', 'ы', 'м', 'д', 'ъ', '—', '…'],
-            small: ['l', 'i', 'j', 'f', 't', 'r', 'ґ', 'г', 'і', 'ї', '!', '?', ',', '.', ':', ';', ' ', '\"', '\'', '\(', '\)', '\{', '\}', '\[', '\]', '-']
-        };
-        const symbolWeightValues = {small: 1, medium: 2, large: 3};
         var reg = /[а-яёіїА-Яa-zA-Z]/;
         var total = 0;
         var limitDescriptionWeight = 183;
