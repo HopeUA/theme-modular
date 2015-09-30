@@ -21,9 +21,36 @@
         return text;
     };
 
-    var textTrim = function (string, number, symbols) {
+    var getWeight = function (symbol) {
+        if (typeof symbol !== 'string') {
+            console.error('type error');
+        } else {
+            symbol = symbol.toLowerCase();
+
+            if (symbolWeight.large.indexOf(symbol) != -1) {
+                return symbolWeightValues.large;
+            }
+            else if (symbolWeight.small.indexOf(symbol) != -1) {
+                return symbolWeightValues.small;
+            } else {
+                return symbolWeightValues.medium;
+            }
+        }
+    };
+
+    var defaultOptions = {
+        hyphenate: true,
+        symbols: '&hellip;'
+    };
+
+    var textTrim = function (string, number, options = {}) {
+        options = Object.assign(defaultOptions, options);
+
         string = string.trim();
-        string = hyphenate(string);
+        if (options.hyphenate) {
+            string = hyphenate(string);
+        }
+
         const symbolWeight = {
             large: ['m', 'w', 'ю', 'ж', 'ф', 'ш', 'щ', 'ы', 'м', 'д', 'ъ', '—', '…'],
             small: ['l', 'i', 'j', 'f', 't', 'r', 'ґ', 'г', 'і', 'ї', '!', '?', ',', '.', ':', ';', ' ', '\"', '\'', '\(', '\)', '\{', '\}', '\[', '\]', '-']
@@ -46,11 +73,7 @@
                 }
             }
 
-            if (typeof symbols !== 'undefined') {
-                string += symbols;
-            } else {
-                string += '...';
-            }
+            string += options.symbols;
         }
 
         var arrayOfString = string.split('');
@@ -59,23 +82,6 @@
         string = string.replace(/\n/gi, ' ');
         string = string.replace(/\&para\;/gi, ' ');
         string = string.replace(/\&sect\;/gi, ' ');
-
-        var getWeight = function (symbol) {
-            if (typeof symbol !== 'string') {
-                console.error('type error');
-            } else {
-                symbol = symbol.toLowerCase();
-
-                if (symbolWeight.large.indexOf(symbol) != -1) {
-                    return symbolWeightValues.large;
-                }
-                else if (symbolWeight.small.indexOf(symbol) != -1) {
-                    return symbolWeightValues.small;
-                } else {
-                    return symbolWeightValues.medium;
-                }
-            }
-        };
 
         for (var i = 0; i < arrayOfString.length; i++) {
             total += getWeight(arrayOfString[i]);
@@ -95,12 +101,12 @@
                 }
             }
 
-            var summLastLetters = String(string).substring(String(string).lastIndexOf(" ")).trim().replace(/\-\–[ ]\,\./gi, '');
+            var summLastLetters = String(string).substring(String(string).lastIndexOf(' ')).trim().replace(/\-\–[ ]\,\./gi, '');
             if (summLastLetters.length <= 1) {
                 string = string.substring(0, string.length - summLastLetters.length);
-                string += '&hellip;';
+                string += options.symbols;
             } else {
-                string += '&hellip;';
+                string += options.symbols;
             }
         }
 
