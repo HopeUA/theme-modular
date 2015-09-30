@@ -675,7 +675,7 @@ $(function () {
 
             var blockAnimation = 4;
             $('.header-timeline-menu-item-full-time-container').animate({
-                marginLeft: -249
+                marginLeft: -248
             }, 550, function() {
                 blockAnimation = blockAnimation - 1;
                 console.log('1: ' + blockAnimation);
