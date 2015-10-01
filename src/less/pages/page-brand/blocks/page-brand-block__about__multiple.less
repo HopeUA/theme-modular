@@ -15,6 +15,7 @@
   height: 120px;
   display: block;
   border-radius: 50%;
+  border: 5px solid #707c7e;
 }
 .photo-leading img{
   width: 100%;
@@ -23,19 +24,88 @@
 .about-ellipse{
   font-family: PTSansitalic;
   color:  #838f91;
-  margin-left: 15px;
+  margin-left: 50px;
+  position: relative;
+  margin-top: 32px;
+  display: inline-block;
 }
 .about-ellipse::before{
   position: absolute;
-  z-index: 3;
-  opacity: 0;
-  width: 57px;
-  height: 57px;
-  background: url(../img/expand.png);
+  width: 12px;
+  height: 12px;
+  background: #c44db2;
   content: "";
-  transition: all 0.2s cubic-bezier(0.8, 0, 0.3, 1);
-  top: 50%;
-  left: 50%;
-  margin-left: -28.5px;
-  margin-top: -28.5px;
+  top: 2px;
+  left: -24px;
+  border-radius: 50%;
+}
+.brand-share-fb{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url(../img/share-fb-Icon.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.brand-share-vk{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url(../img/share-vk-Icon.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.brand-share-tw{
+   display: inline-block;
+   width: 30px;
+   height: 30px;
+   background: url(../img/share-tw-Icon.png);
+   background-size: 100%;
+   background-repeat: no-repeat;
+ }
+.info-leading-name{
+  color:  #c44db2;
+  font-size: 18px;
+  font-family: PTSansBold;
+}
+.info-leading-info{
+  width: 209px;
+  font-family: PTSansRegular;
+  color:  #a7a9ac;
+  font-size: 14px;
+}
+.leading{
+  display: flex;
+  margin: auto;
+  width: max-content;
+  position: relative;
+}
+.info-leading{
+  margin-left: 30px;
+  margin-top: 15px;
+}
+.leadings{
+  display: flex;
+  width: max-content;
+  margin: auto;
+  padding-bottom: 35px;
+  border-bottom: 1px solid #687071;
+  margin-top: 50px;
+}
+.divider-horizontal{
+  width: 1px;
+  background: url(../img/divider-horizontal.png);
+  margin: 0 20px;
+}
+.about-description{
+  width: 760px;
+  margin: auto;
+  margin-top: 30px;
+  color: #a7a9ac;
+  font-size: 18px;
+  font-family: PTSansRegular;
+  line-height: 16px;
+}
+.page-brand-block__about__multiple{
+  display: none;
 }
