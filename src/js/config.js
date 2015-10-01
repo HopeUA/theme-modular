@@ -10,6 +10,9 @@ Hope.Config = {
         },
         Scheduler: {
             Endpoint: 'https://scheduler.s.hope.ua/v1'
+        },
+        Articles: {
+            Endpoint: 'https://dev-tv.hope.ua/api'
         }
     }
 };
