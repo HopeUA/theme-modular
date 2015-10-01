@@ -1,17 +1,27 @@
 $(function () {
 
-    $('.page-article-anons').hopeLoaderBlock({
-        render: function (template, data) {
-            var src = 'img/' + data.articleImg;
-            template.find('.content-article__small-image').attr('src', src);
-            template.find('.content-article__small-date').html(timeToStr(data.articleDate, 'ru'));
-            template.find('.content-article__small-title').text(data.articleTitle);
-            template.find('.content-article__small-description').text(data.articleDescription);
+    var LocalArticlesAPI = Hope.Api.LocalArticles(Hope.Config.Api.Articles.Endpoint);
 
-            return template;
-        },
+    $('.page-article-anons').hopeLoaderBlock({
+        name:   'anons',
+        lines:  2,
         btnMore: $('.page-article-anons-btn__more'),
-        url: 'ajax/similar-articles'
+        loader: LocalArticlesAPI.category('news'),
+        render: function (response) {
+
+            var template = $('#template-article-loader-block').html();
+            var view     = {};
+
+            view.articles = response.data.map(function (item) {
+                item.title = Hope.Utils.textTrim(item.title, 29);
+                item.description = Hope.Utils.textTrim(item.description.short, 210);
+                return item;
+            });
+
+            console.log(view);
+
+            return Mustache.render(template, view);
+        }
     });
 
     $('.page-article').hopeSliderPage({
