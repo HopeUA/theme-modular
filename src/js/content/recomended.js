@@ -14,9 +14,9 @@ $(function () {
             var view = {};
 
             view.episodes = response.data.map(function (item) {
-                item.title = textTrim(item.title, 32);
-                item.show = textTrim(item.show, 27);
-                item.description = textTrim(item.description);
+                item.title = Hope.Utils.textTrim(item.title, 32);
+                item.show = Hope.Utils.textTrim(item.show, 27);
+                item.description = Hope.Utils.textTrim(item.description);
                 return item;
             });
 
