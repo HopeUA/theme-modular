@@ -256,8 +256,7 @@
 
         <div class="content-arrow-left new-arrow-left"></div>
 
-        <div class="container-content">
-            <div class="new"></div>
+        <div class="container-content new">
             <script id="template-new" type="x-tmpl-mustache">
              {{#first}}
                 <div class="content-episode__large grid__column-2">
@@ -280,7 +279,6 @@
             {{/first}}
             </script>
         </div>
-
         <div class="content-arrow-right new-arrow-right"></div>
     </section>
     <!-- Section Container END -->
@@ -294,105 +292,19 @@
 
         <div class="container-content">
             <div class="anons">
+                <script id="template-article" type="x-tmpl-mustache">
+                {{#articles}}
                 <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
+                    <img src="{{& image }}" class="content-article__small-image">
                     <div class="content-article__small-info">
                         <p class="content-article__small-date">20 августа, <span>18:27</span>
                         </p>
-                        <a href="#" class="content-article__small-title">«Помолитесь»</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность.</p>
+                        <a href="#" class="content-article__small-title">{{& title }}</a>
+                        <p class="content-article__small-description">{{& description }}</p>
                     </div>
                 </article>
-
-                <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
-                    <div class="content-article__small-info">
-                        <p class="content-article__small-date">20 августа, <span>18:27</span>
-                        </p>
-                        <a href="#" class="content-article__small-title">«Восточный ангел»: позитивно про негативне</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх.</p>
-                    </div>
-                </article>
-
-                <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
-                    <div class="content-article__small-info">
-                        <p class="content-article__small-date">20 августа, <span>18:27</span>
-                        </p>
-                        <a href="#" class="content-article__small-title">«Помолитесь за меня»: Побег</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх.</p>
-                    </div>
-                </article>
-
-                <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
-                    <div class="content-article__small-info">
-                        <p class="content-article__small-date">20 августа, <span>18:27</span>
-                        </p>
-                        <a href="#" class="content-article__small-title">«Восточный ангел»: позитивно про негативне</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх.</p>
-                    </div>
-                </article>
-
-                <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
-                    <div class="content-article__small-info">
-                        <p class="content-article__small-date">20 августа, <span>18:27</span>
-                        </p>
-                        <a href="#" class="content-article__small-title">«Помолитесь за меня»: Побег</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх.</p>
-                    </div>
-                </article>
-
-                <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
-                    <div class="content-article__small-info">
-                        <p class="content-article__small-date">20 августа, <span>18:27</span>
-                        </p>
-                        <a href="#" class="content-article__small-title">«Помолитесь за меня»: Побег</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность.</p>
-                    </div>
-                </article>
-
-                <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
-                    <div class="content-article__small-info">
-                        <p class="content-article__small-date">20 августа, <span>18:27</span>
-                        </p>
-                        <a href="#" class="content-article__small-title">«Восточный ангел»: позитивно про негативне</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх.</p>
-                    </div>
-                </article>
-
-                <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
-                    <div class="content-article__small-info">
-                        <p class="content-article__small-date">20 августа, <span>18:27</span>
-                        </p>
-                        <a href="#" class="content-article__small-title">«Помолитесь за меня»: Побег</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх.</p>
-                    </div>
-                </article>
-
-                <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
-                    <div class="content-article__small-info">
-                        <p class="content-article__small-date">20 августа, <span>18:27</span>
-                        </p>
-                        <a href="#" class="content-article__small-title">«Восточный ангел»: позитивно про негативне</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх.</p>
-                    </div>
-                </article>
-
-                <article class="grid__column-1 content-article__small">
-                    <img src="img/episode-container__large.jpg" class="content-article__small-image">
-                    <div class="content-article__small-info">
-                        <p class="content-article__small-date">20 августа, <span>18:27</span>
-                        </p>
-                        <a href="#" class="content-article__small-title">«Помолитесь за меня»: Побег</a>
-                        <p class="content-article__small-description">Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх. Если вы знаете, что такое война, вы понимаете, что такое опасность и настоящий человеческий страх.</p>
-                    </div>
-                </article>
+                {{/articles}}
+                </script>
             </div>
         </div>
 
