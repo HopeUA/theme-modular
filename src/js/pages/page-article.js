@@ -1,5 +1,10 @@
 $(function () {
 
+    var page = $('.page-article');
+    if (!page.length) {
+        return;
+    }
+
     var LocalArticlesAPI = Hope.Api.LocalArticles(Hope.Config.Api.Articles.Endpoint);
 
     $('.page-article-anons').hopeLoaderBlock({
@@ -24,7 +29,7 @@ $(function () {
         }
     });
 
-    $('.page-article').hopeSliderPage({
+    page.hopeSliderPage({
         render: function (template, data) {
             template.find('.pa-article-title').text(data.title);
             $('.pa-article-title').text(data.title);
@@ -45,16 +50,12 @@ $(function () {
         return strDate;
     }
 
-    var articleBlock = $('.page-article').length;
-
-    if (articleBlock != 0) {
-        $poster = $('.page-article-header');
-        $poster.css({
-            backgroundSize: '100%',
-            backgroundPosition: '38% 38%',
-            height: '106%',
-            width: '105%'
-        });
-    }
+    $poster = $('.page-article-header');
+    $poster.css({
+        backgroundSize: '100%',
+        backgroundPosition: '38% 38%',
+        height: '106%',
+        width: '105%'
+    });
 
 });
