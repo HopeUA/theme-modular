@@ -1,5 +1,10 @@
 $(function () {
 
+    var page = $('.page-episode');
+    if (!page.length) {
+        return;
+    }
+
     var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
 
     document.addEventListener('episodeChanged', function (e) {
@@ -26,11 +31,11 @@ $(function () {
     }, false);
 
     var episodeChangedEvent = new CustomEvent('episodeChanged', {
-        detail: { code: $('.page-episode').data('episode-code') }
+        detail: { code: page.data('episode-code') }
     });
     document.dispatchEvent(episodeChangedEvent);
 
-    $('.page-video').hopeSliderPage({
+    page.hopeSliderPage({
         render: function (template, data) {
             $('.page-episode').data('episode-code', data.code);
 
