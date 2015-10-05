@@ -188,7 +188,7 @@
                 <h2>Актуальное видео</h2>
                 <div class="content-episode__large">
                     <div class="content-episode__large-play"></div>
-                    <img src="img/episode-container__large.jpg" class="content-episode__large-image__wide">
+                    <div class="content-episode__large-image" style="background-image: url(img/episode-container__large.jpg)"></div>
                 </div>
             </div>
 
@@ -222,7 +222,7 @@
                     <div class="content-sheduler__vertical-current">
                         <div class="content-sheduler__vertical-current-play"></div>
                         <p class="content-sheduler__vertical-current-title"><span>13:25</span>Закон Божий и закон Христов</p>
-                        <img src="img/episode-container__large.jpg" class="content-sheduler__vertical-current-image">
+                        <div class="content-sheduler__vertical-current-image" style="background-image: url(img/episode-container__large.jpg)"></div>
                     </div>
 
                     <a class="content-sheduler__vertical-link" href="#">Дальше в эфире <span> →</span></a>
@@ -263,15 +263,15 @@
                     <div class="content-episode__large-play"></div>
                     <h5 class="content-episode__large-title__episode">{{& title }}</h5>
                     <p class="content-episode__large-title__show">{{& show }}</p>
-                    <img src="{{& image }}" class="content-episode__large-image__wide">
+                    <div class="content-episode__large-image" style="background-image: url({{& image }})"></div>
                 </div>
                 <div class="content-episodes__row">
             {{/first}}
             {{#episodes}}
-                <div class="content-episodes__row-item">
+                <div class="content-episodes__row-item content-episodes__row-item-fix-height">
                     <div class="content-episodes__row-item-play"></div>
                     <p class="content-episodes__row-item-title">{{& title }}</p>
-                    <img src="{{& image }}" class="content-episodes__row-image__wide">
+                    <div class="content-episodes__row-image" style="background-image: url({{& image }})"></div>
                 </div>
             {{/episodes}}
             {{#first}}
@@ -295,7 +295,9 @@
                 <script id="template-article" type="x-tmpl-mustache">
                 {{#articles}}
                 <article class="grid__column-1 content-article__small">
-                    <img src="{{& image }}" class="content-article__small-image">
+                    <div class="content-article__small-image-container">
+                        <div class="content-article__small-image" style="background-image: url({{& image }})"></div>
+                    </div>
                     <div class="content-article__small-info">
                         <p class="content-article__small-date">20 августа, <span>18:27</span>
                         </p>
@@ -334,7 +336,7 @@
                     <div class="content-shows__row-item">
                         <div class="content-shows__row-item-card">
                             <div class="content-shows__row-item-card__face">
-                                <img src="{{& images.cover }}" class="content-shows__row-image">
+                                <div class="content-shows__row-image" style="background-image: url({{& images.cover }})"></div>
                             </div>
                             <div class="content-shows__row-item-card__face content-shows__row-item-card__back">
                                 <p class="title">{{ title }}</p>
@@ -364,7 +366,9 @@
                     <div class="content-episodes__row-item">
                         <div class="content-episodes__row-item-play"></div>
                         <p class="content-episodes__row-item-title">{{& title }}</p>
-                        <img src="{{& image }}" class="content-episodes__row-image__wide">
+                        <div class="content-episodes__row-image-container">
+                            <div class="content-episodes__row-image" style="background-image: url({{& image }})"></div>
+                        </div>
                     </div>
                     <div class="content-episodes__vertical-info">
                         <a href="{{ url }}" class="content-episodes__vertical-link">{{& show }} <span> →</span></a>
@@ -388,17 +392,19 @@
         <div class="container-content now"></div>
         <script id="template-now" type="x-tmpl-mustache">
              {{#first}}
-                <div class="content-episode__large grid__column-2" style="background-image: url({{& image }})">
+                <div class="content-episode__large grid__column-2">
                     <div class="content-episode__large-play"></div>
                     <h5 class="content-episode__large-title__episode">{{& title }}</h5>
                     <p class="content-episode__large-title__show">{{ show }}</p>
+                    <div class="content-episode__large-image" style="background-image: url({{& image }})"></div>
                 </div>
                 <div class="content-episodes__row">
             {{/first}}
             {{#episodes}}
-                <div class="content-episodes__row-item" style="background-image: url({{& image }})">
+                <div class="content-episodes__row-item content-episodes__row-item-fix-height">
                     <div class="content-episodes__row-item-play"></div>
                     <p class="content-episodes__row-item-title">{{& title }}</p>
+                    <div class="content-episodes__row-image" style="background-image: url({{& image }})"></div>
                 </div>
             {{/episodes}}
             {{#first}}
