@@ -1,11 +1,15 @@
 $(function () {
 
-    var currentVideo = $('.content-video-list-header-content').data('show-code');
-    var place = $('.content-video-list-items');
+    //var currentVideo = $('.content-video-list-header-content').data('show-code');
+    var page = $('.page-articles');
 
-    if (currentVideo) {
-        var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
-        var Api = LocalMediaAPI.episodes('show').param('show', currentVideo);
+    if (page.length == 1) {
+        var place = $('.page-articles-items');
+
+        //var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
+        //var Api = LocalMediaAPI.episodes('show').param('show', currentVideo);
+
+        var Api = Hope.Api.LocalArticles(Hope.Config.Api.Articles.Endpoint).category('news');
 
         var loadStatus = false;
 
@@ -13,26 +17,25 @@ $(function () {
             loadStatus = true;
             Api.offset(videoTotal).limit(videoLimit).fetch().then(function (response) {
 
-                var template = $('#template-video-list').html();
+                var template = $('#template-article-list').html();
                 var view     = {};
 
-                response.data.map(function(item){
-                    item.date = timeToStr2(item.date, 'ru');
+                response.data.map(function(item, key){
+                    item.date = moment(item.date).format('DD.MM.YYYY');
                     item.code = getEpisodeUrl(item.code);
-                    item.labels = '';
+                    item.description = Hope.Utils.textTrim(item.description.full, 520);
+                    item.views = item.views || 0;
 
-                    $.each(item.tags, function (index, tag) {
-                        if (index < 4) {
-                            var label = '<a href="#" class="content-video-list-content-label">' + tag + '</a>';
-                            item.labels += label;
-                        } else {
-                            return;
-                        }
-                    });
+                    if (status == 'new' && key == 0) {
+                        item.class = 'page-articles-article-last';
+                    } else {
+                        item.class = '';
+                    }
+
                     return item;
                 });
 
-                view.episodes = response.data;
+                view.articles = response.data;
 
                 var html = Mustache.render(template, view);
                 if (status == 'new') {
@@ -40,7 +43,7 @@ $(function () {
                 } else {
                     place.append(html);
                 }
-                $('.content-video-list-label').html('');
+
                 loadStatus = false;
 
             }).catch(function (response) {
@@ -58,7 +61,7 @@ $(function () {
             });
         }
 
-        loadVideo(0, 10, Api);
+        loadVideo(0, 3, Api, 'new');
 
         setTimeout(function() {
 
@@ -73,9 +76,9 @@ $(function () {
 
                 if ((scrollHeight - $(window).scrollTop()) <= 1851) {
 
-                    var videoTotal = $('.content-video-list-items').children().length;
-                    var currentInputVal = $('.content-video-list-header-search-input').val();
-                    var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentInputVal);
+                    var videoTotal = $('.page-articles-article').length;
+                    var currentInputVal = $('.page-articles-header-search-input').val();
+                    var ApiSearch = Api.search(currentInputVal);
                     loadVideo(videoTotal, 10, ApiSearch);
 
                     counter++;
@@ -83,12 +86,21 @@ $(function () {
             });
         }, 50);
 
-        place.on('click', '.content-video-list-item', function(){
-            var link = $(this).find('.content-video-list-content-title');
+
+        place.on('click', '.page-articles-article', function(){
+            if ($(this).hasClass('page-articles-article-last')) {
+                return;
+            }
+            var link = $(this).find('.page-articles-article-content-title');
             window.location.href = link.attr('href');
         });
 
-        var $input = $('.content-video-list-header-search-input');
+        place.on('click', '.page-articles-article-last .container-content', function(){
+            var link = $(this).find('.page-articles-article-content-title');
+            window.location.href = link.attr('href');
+        });
+
+        var $input = $('.page-articles-header-search-input');
         var changeInput = false;
 
         $input.keyup(function(){
@@ -96,19 +108,15 @@ $(function () {
             setTimeout(function(){
                 var currentVal = $input.val();
                 if (changeInput) {
-                    var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentVal);
+                    console.log(currentVal);
+                    //var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentVal);
+                    var ApiSearch = Api.search(currentVal);
                     //place.html('');
                     loadVideo(0, 10, ApiSearch, 'new');
                     changeInput = false;
                 }
             }, 700);
         });
-    }
-
-    function timeToStr2(date, lang) {
-        moment.locale(lang);
-        var strDate = moment(date).format('D MMMM') + '<span>, ' + moment(date).format('YYYY') + '</span>';
-        return strDate;
     }
 
     function getEpisodeUrl(code) {

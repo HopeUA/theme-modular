@@ -59,7 +59,6 @@
 
         var reg = /[а-яёіїА-Яa-zA-Z]/;
         var total = 0;
-        var limitDescriptionWeight = 183;
 
         if (string.length > number) {
 
@@ -88,9 +87,9 @@
             total += getWeight(arrayOfString[i]);
         }
 
-        if (total > limitDescriptionWeight) {
+        if (total > number) {
 
-            string = string.substring(0, limitDescriptionWeight).trim();
+            string = string.substring(0, number).trim();
 
             for (var i = string.length - 1; i > 0; i--) {
                 var desc = string.charAt(i);
