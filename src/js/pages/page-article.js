@@ -50,12 +50,4 @@ $(function () {
         return strDate;
     }
 
-    $poster = $('.page-article-header');
-    $poster.css({
-        backgroundSize: '100%',
-        backgroundPosition: '38% 38%',
-        height: '106%',
-        width: '105%'
-    });
-
 });
