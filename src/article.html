@@ -125,7 +125,7 @@
             <div class="page-article-header-content">
                 <div class="container">
                     <div class="container-content">
-                        <div class="page-article-header-content-poster" style='background: url("img/articleNewsPicture.jpg") 50% no-repeat;'></div>
+                        <div class="page-article-header-content-poster" style='background-image: url("img/articleNewsPicture.jpg");'></div>
                         <div class="page-article-header-content-head">
                             <p class="page-article-header-content-head-category">Актуальная статья</p>
                             <h1 class="page-article-header-content-head-title">Почему люди лучше запоминают информацию, когда видят её, а не когда слышат?</h1>
@@ -146,7 +146,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page-article-header" style='background-image: url("img/articleNewsPicture.jpg"); background-size: 100%; -webkit-filter:blur(4px)'></div>
+            <div class="page-article-header" style='background-image: url("img/articleNewsPicture.jpg");'></div>
         </div>
         <div class="container container-oh">
             <div class="page-container-wrap">
@@ -214,14 +214,17 @@
                 <div class="anons page-article-anons">
                     <script id="template-article-loader-block" type="x-tmpl-mustache">
                     {{#articles}}
-                    <article class="grid__column-1 content-article__small page-article-anons-item_small">
-                        <img src="{{& image }}" class="content-article__small-image">
-                        <div class="content-article__small-info">
-                            <p class="content-article__small-date">20 августа, <span>18:27</span></p>
-                            <a href="#" class="content-article__small-title">{{& title }}</a>
-                            <p class="content-article__small-description">{{& description }}</p>
-                        </div>
-                    </article>
+                        <article class="grid__column-1 content-article__small">
+                            <div class="content-article__small-image-container">
+                                <div class="content-article__small-image" style="background-image: url({{& image }})"></div>
+                            </div>
+                            <div class="content-article__small-info">
+                                <p class="content-article__small-date">20 августа, <span>18:27</span>
+                                </p>
+                                <a href="#" class="content-article__small-title">{{& title }}</a>
+                                <p class="content-article__small-description">{{& description }}</p>
+                            </div>
+                        </article>
                     {{/articles}}
                     </script>
                 </div>
@@ -368,7 +371,9 @@
                         <div class="content-episodes__row-item">
                             <div class="content-episodes__row-item-play"></div>
                             <p class="content-episodes__row-item-title">{{& title }}</p>
-                            <img src="{{& image }}" class="content-episodes__row-image__wide">
+                            <div class="content-episodes__row-image-container">
+                                <div class="content-episodes__row-image" style="background-image: url({{& image }})"></div>
+                            </div>
                         </div>
                         <div class="content-episodes__vertical-info">
                             <a href="{{ url }}" class="content-episodes__vertical-link">{{& show }} <span> →</span></a>

@@ -115,9 +115,7 @@
 
     <!-- Section Content-Video-List-Header START -->
     <section class="content-video-list-header">
-        <div class="content-video-list-header-poster">
-            <img src="img/videoListPoster.jpg" alt="">
-        </div>
+        <div class="content-video-list-header-poster" style="background-image: url(img/videoListPoster.jpg)"></div>
         <div class="content-video-list-header-content" data-show-code="MBCU">
             <div class="container one">
                 <div class="content-video-list-header-date">
@@ -150,7 +148,9 @@
                     <div class="container-content block-box">
                         <div class="content-video-list-poster">
                             <div class="content-video-list-poster-play"></div>
-                            <img src="{{& image }}" alt="">
+                            <div class="content-video-list-poster-container">
+                                <div class="content-video-list-poster-image" style="background-image: url({{& image }})"></div>
+                            </div>
                         </div>
                         <div class="content-video-list-content">
                             <a href="/episode.html?{{& code }}" class="content-video-list-content-title">{{& title }}</a>
