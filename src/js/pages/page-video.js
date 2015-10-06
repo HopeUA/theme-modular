@@ -25,6 +25,12 @@ $(function () {
                 }
                 view.episodes = response.data;
 
+                view.episodes = response.data.map(function (item) {
+                    item.title = Hope.Utils.textTrim(item.title, 20);
+                    item.show = Hope.Utils.textTrim(item.show, 20);
+                    return item;
+                });
+
                 return Mustache.render(template, view);
             }
         });
