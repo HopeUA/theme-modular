@@ -461,6 +461,7 @@ $(function () {
             } else {
                 episode.description = currentDay[i].show.description.short;
             }
+            episode.description = Hope.Utils.textTrim(episode.description, 800);
             if (currentDay[i].episode.image) {
                 episode.image = currentDay[i].episode.image;
             } else {
