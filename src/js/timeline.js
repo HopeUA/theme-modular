@@ -417,9 +417,9 @@ $(function () {
 
                 var episodeDescription = null;
                 if (episodes[i].episode.description != '') {
-                    episodeDescription = Hope.Utils.textTrim(episodes[i].episode.description, 220);
+                    episodeDescription = episodes[i].episode.description;
                 } else {
-                    episodeDescription = Hope.Utils.textTrim(episodes[i].show.description.short, 220);
+                    episodeDescription = episodes[i].show.description.short;
                 }
 
                 var episodeImage = null;
@@ -434,10 +434,10 @@ $(function () {
                             '<div class="header-timeline-menu-item-full">' +
 
                             '<div class="header-timeline-menu-item-full__content">' +
-                            '<a href="/episode.html" class="header-timeline-menu-item-full-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 10) + '</a>' +
-                            '<a href="/show.html" class="header-timeline-menu-item-full-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 30) + '</a>' +
+                            '<a href="/episode.html" class="header-timeline-menu-item-full-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 30) + '</a>' +
+                            '<a href="/show.html" class="header-timeline-menu-item-full-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 40) + '</a>' +
                             '<div class="header-timeline-menu-item-full-video"><img src="' + episodeImage + '"></div>' +
-                            '<p class="header-timeline-menu-item-full-description">' + episodeDescription + '</p>' +
+                            '<p class="header-timeline-menu-item-full-description">' + Hope.Utils.textTrim(episodeDescription, 250) + '</p>' +
                             '<div class="header-timeline-menu-item-full-share">' +
                                 '<ul class="header-timeline-menu-item-full-share-items">' +
                                     '<li class="header-timeline-menu-item-full-share-item">' +
@@ -459,11 +459,11 @@ $(function () {
                             '</div>' +
 
                             '<div class="header-timeline-menu-item-small">' +
-                            '<a href="/episode.html" class="header-timeline-menu-item-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 21) + '</a>' +
+                            '<a href="/episode.html" class="header-timeline-menu-item-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 20) + '</a>' +
                             '<a href="/show.html" class="header-timeline-menu-item-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 20) + '</a>' +
                             '<span class="header-timeline-menu-item-time">' + start.format('HH:mm') + '</span>' +
                             '<span class="header-timeline-menu-item-label">' + 'live' + '</span>' +
-                            '<p class="header-timeline-menu-item-description">' + episodeDescription + '</p>' +
+                            '<p class="header-timeline-menu-item-description">' + Hope.Utils.textTrim(episodeDescription, 310) + '</p>' +
                             '</div>' +
                             '</div>';
                 placeFull.append(strFull);
