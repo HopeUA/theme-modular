@@ -13,5 +13,5 @@
         }
     }
 
-    //Hope.Chrono = new Chrono(HopeUATime);
+    Hope.Chrono = new Chrono(HopeUATime);
 })(Hope);
