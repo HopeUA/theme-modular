@@ -47,24 +47,24 @@
     function loadJsonByCode() {
 
         var self = [].shift.apply(arguments);
+        var code = arguments[0];
 
-        $.each(arguments, function (index, item) {
+        return new Promise(function(resolve) {
 
-            if (self.pageCache.hasOwnProperty(item)) {
+            if (self.pageCache.hasOwnProperty(code)) {
                 return;
             }
 
-            self.loader.code(item).fetch().then(function(data) {
-                self.pageCache[item] = data;
-            }).catch(function(response) {
-                console.log(response);
+            self.loader.code(code).fetch().then(function (data) {
+                self.pageCache[code] = data;
+                resolve();
             });
-
         });
+
     };
 
     function loadTemplate(self) {
-        self.template = self.$object.find('.container .container').clone();
+        self.tsemplate = self.$object.find('.container .container').clone();
     };
 
     function hideArrow(self, $object) {
@@ -117,10 +117,49 @@
         }
     };
 
+    function render(self, code, position) {
+        var data = self.pageCache[code];
+        var renderHtml = self.options.render(data);
+        var place = self.$object.find('.container .page-container-wrap');
+
+        if (!position) {
+            place.html(renderHtml);
+        } else if (position == 'prev') {
+            place.prepend(renderHtml);
+        } else if (position == 'next') {
+            place.append(renderHtml);
+        }
+    }
+
     function init(self) {
 
-        loadJsonByPage(self, $('#dataCurrentJson'));
-        loadJsonByCode(self, self.$arrowLeft.data('code'), self.$arrowRight.data('code'));
+        var currentEpisodeCode = self.$object.data('episode-code');
+        loadJsonByCode(self, currentEpisodeCode).then(function(){
+            var prevEpisodeCode = self.pageCache[currentEpisodeCode].prev;
+            var nextEpisodeCode = self.pageCache[currentEpisodeCode].next;
+
+            render(self, currentEpisodeCode);
+
+            loadJsonByCode(self, prevEpisodeCode).then(function(){
+                render(self, prevEpisodeCode, 'prev');
+            });
+
+            loadJsonByCode(self, nextEpisodeCode).then(function(){
+                render(self, nextEpisodeCode, 'next');
+            });
+
+        });
+
+
+
+
+
+
+
+
+
+
+        //loadJsonByCode(self, self.$arrowLeft.data('code'), self.$arrowRight.data('code'));
         loadTemplate(self);
 
         self.$arrowRight.click(function (event) {

@@ -22,8 +22,6 @@ $(function(){
         loader: LocalArticlesAPI.category('news'),
         render: function (response) {
 
-            console.log(response);
-
             var template = $('#template-article').html();
             var view     = {};
 
@@ -32,8 +30,6 @@ $(function(){
                 item.description = Hope.Utils.textTrim(item.description.short, 210);
                 return item;
             });
-
-            console.log(view);
 
             return Mustache.render(template, view);
         }
