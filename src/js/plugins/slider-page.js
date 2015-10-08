@@ -19,6 +19,7 @@
         this.prevObject = null;
         this.$arrowLeft = 'arrowLeft' in this.options ? (this.options.arrowLeft) : $('.page-content-arrow__left');
         this.$arrowRight = 'arrowRight' in this.options ? (this.options.arrowRight) : $('.page-content-arrow__right');
+        this.container = this.$object.find('.page-container-wrap');
         this.template = null;
 
         init(this);
@@ -100,6 +101,19 @@
         }
     };
 
+    function changePage(self, direction) {
+        console.log(direction);
+        if (direction == 'right') {
+            self.container.animate({
+                marginLeft: '+=100%'
+            }, 800);
+        } else if (direction == 'left') {
+            self.container.animate({
+                marginLeft: '-=100%'
+            }, 800);
+        }
+    }
+
     function renderPage(self, code, direction) {
 
         var place = $('.page-container-wrap');
@@ -120,25 +134,27 @@
     function render(self, code, position) {
         var data = self.pageCache[code];
         var renderHtml = self.options.render(data);
-        var place = self.$object.find('.container .page-container-wrap');
+        var placePrev = self.$object.find('.page-episode-prev');
+        var placeCurrent = self.$object.find('.page-episode-current');
+        var placeNext = self.$object.find('.page-episode-next');
 
         if (!position) {
-            place.html(renderHtml);
+            placeCurrent.html(renderHtml);
         } else if (position == 'prev') {
-            place.prepend(renderHtml);
+            placePrev.html(renderHtml);
         } else if (position == 'next') {
-            place.append(renderHtml);
+            placeNext.html(renderHtml);
         }
     }
 
     function init(self) {
 
-        var currentEpisodeCode = self.$object.data('episode-code');
-        loadJsonByCode(self, currentEpisodeCode).then(function(){
-            var prevEpisodeCode = self.pageCache[currentEpisodeCode].prev;
-            var nextEpisodeCode = self.pageCache[currentEpisodeCode].next;
+        self.currentCode = self.$object.data('episode-code');
+        loadJsonByCode(self, self.currentCode).then(function(){
+            var prevEpisodeCode = self.pageCache[self.currentCode].prev;
+            var nextEpisodeCode = self.pageCache[self.currentCode].next;
 
-            render(self, currentEpisodeCode);
+            render(self, self.currentCode);
 
             loadJsonByCode(self, prevEpisodeCode).then(function(){
                 render(self, prevEpisodeCode, 'prev');
@@ -150,30 +166,32 @@
 
         });
 
-
-
-
-
-
-
-
-
-
-        //loadJsonByCode(self, self.$arrowLeft.data('code'), self.$arrowRight.data('code'));
-        loadTemplate(self);
-
         self.$arrowRight.click(function (event) {
             event.preventDefault();
 
             showArrow(self, self.$arrowLeft);
 
             var nextCode = self.pageCache[self.currentCode].next;
+            var prevCode = self.pageCache[self.currentCode].prev;
 
-            renderPage(self, nextCode, 'right');
+            changePage(self, 'right');
+
+            setTimeout(function(){
+                //self.container.find('.page-episode-next').remove();
+                //self.container.find('.page-episode-current').removeClass('page-episode-current').addClass('container page-episode-next');
+                //self.container.find('.page-episode-prev').removeClass('page-episode-prev').addClass('container page-episode-current');
+                //self.container.find('.page-episode-current').before('<div class="container page-episode-prev"></div>');
+            }, 820);
+
+            //
+            //loadJsonByCode(self, prevCode).then(function(){
+            //    render(self, prevCode, 'prev');
+            //});
+
             self.currentCode = nextCode;
 
             if (self.pageCache[nextCode].next) {
-                loadJsonByCode(self, self.pageCache[nextCode].next);
+                //loadJsonByCode(self, self.pageCache[nextCode].next);
                 var episodeChangedEvent = new CustomEvent('episodeChanged', {
                     detail: { code: self.currentCode }
                 });
