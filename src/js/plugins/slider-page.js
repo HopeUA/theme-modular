@@ -13,9 +13,6 @@
         this.loader = this.options.loader;
         this.pageCache = {};
         this.currentCode = null;
-        this.nextCode = null;
-        this.nextObject = null;
-        this.prevCode = null;
         this.prevObject = null;
         this.$arrowLeft = 'arrowLeft' in this.options ? (this.options.arrowLeft) : $('.page-content-arrow__left');
         this.$arrowRight = 'arrowRight' in this.options ? (this.options.arrowRight) : $('.page-content-arrow__right');
@@ -30,21 +27,6 @@
         timePage: 200
     };
 
-    function loadJsonByPage(self, $object) {
-
-        var currentJson = JSON.parse($object.html());
-        self.currentCode = currentJson.object.code;
-        var currentObject = currentJson;
-
-        self.pageCache[self.currentCode] = currentObject;
-
-        var next = currentObject.next;
-        var prev = currentObject.prev;
-
-        self.$arrowRight.data('code', next);
-        self.$arrowLeft.data('code', prev);
-    };
-
     function loadJsonByCode() {
 
         var self = [].shift.apply(arguments);
@@ -53,6 +35,7 @@
         return new Promise(function(resolve) {
 
             if (self.pageCache.hasOwnProperty(code)) {
+                resolve();
                 return;
             }
 
@@ -62,10 +45,6 @@
             });
         });
 
-    };
-
-    function loadTemplate(self) {
-        self.tsemplate = self.$object.find('.container .container').clone();
     };
 
     function hideArrow(self, $object) {
@@ -83,68 +62,23 @@
         }, self.options.timeArrow);
     };
 
-    function movePage(self, place, direction) {
-        if (direction == 'left') {
-            place.css('margin-left', '-100%');
-            place.animate({
-                'margin-left': '+=100%'
-            }, self.options.timePage, function () {
-                place.find('.container').eq(1).remove();
-            });
-        } else if (direction == 'right') {
-            place.animate({
-                'margin-left': '-=100%'
-            }, self.options.timePage, function () {
-                place.find('.container').eq(0).remove();
-                place.css('margin-left', '0');
-            });
-        }
-    };
-
     function changePage(self, direction) {
         console.log(direction);
         if (direction == 'right') {
             self.container.animate({
                 marginLeft: '+=100%'
-            }, 800);
+            }, self.options.timePage);
         } else if (direction == 'left') {
             self.container.animate({
                 marginLeft: '-=100%'
-            }, 800);
+            }, self.options.timePage);
         }
     }
 
-    function renderPage(self, code, direction) {
-
-        var place = $('.page-container-wrap');
-
-        var currentObject = self.pageCache[code].object;
-
-        self.options.render(self.template, currentObject);
-
-        if (direction == 'right') {
-            place.append(self.template.clone());
-            movePage(self, place, 'right');
-        } else if (direction == 'left') {
-            place.prepend(self.template.clone());
-            movePage(self, place, 'left');
-        }
-    };
-
-    function render(self, code, position) {
+    function render(self, code, place) {
         var data = self.pageCache[code];
         var renderHtml = self.options.render(data);
-        var placePrev = self.$object.find('.page-episode-prev');
-        var placeCurrent = self.$object.find('.page-episode-current');
-        var placeNext = self.$object.find('.page-episode-next');
-
-        if (!position) {
-            placeCurrent.html(renderHtml);
-        } else if (position == 'prev') {
-            placePrev.html(renderHtml);
-        } else if (position == 'next') {
-            placeNext.html(renderHtml);
-        }
+        place.html(renderHtml);
     }
 
     function init(self) {
@@ -154,14 +88,17 @@
             var prevEpisodeCode = self.pageCache[self.currentCode].prev;
             var nextEpisodeCode = self.pageCache[self.currentCode].next;
 
-            render(self, self.currentCode);
+            var place = self.container.find('.page-episode-current');
+            render(self, self.currentCode, place);
 
             loadJsonByCode(self, prevEpisodeCode).then(function(){
-                render(self, prevEpisodeCode, 'prev');
+                var place = self.container.find('.page-episode-prev');
+                render(self, prevEpisodeCode, place);
             });
 
             loadJsonByCode(self, nextEpisodeCode).then(function(){
-                render(self, nextEpisodeCode, 'next');
+                var place = self.container.find('.page-episode-next');
+                render(self, nextEpisodeCode, place);
             });
 
         });
@@ -171,58 +108,76 @@
 
             showArrow(self, self.$arrowLeft);
 
-            var nextCode = self.pageCache[self.currentCode].next;
             var prevCode = self.pageCache[self.currentCode].prev;
 
             changePage(self, 'right');
+            var timer = self.options.timePage + 100;
 
             setTimeout(function(){
-                //self.container.find('.page-episode-next').remove();
-                //self.container.find('.page-episode-current').removeClass('page-episode-current').addClass('container page-episode-next');
-                //self.container.find('.page-episode-prev').removeClass('page-episode-prev').addClass('container page-episode-current');
-                //self.container.find('.page-episode-current').before('<div class="container page-episode-prev"></div>');
-            }, 820);
+                self.container.find('.page-episode-next').html('');
+                self.container.find('.page-episode-current').addClass('page-episode-next').removeClass('page-episode-current');
+                self.container.find('.page-episode-prev').addClass('page-episode-current').removeClass('page-episode-prev');
+                self.container.find('.page-episode-next').eq(1).remove();
+                self.container.find('.page-episode-current').before('<div class="page-episode-prev"></div>');
+                self.container.css('margin-left', '-100%');
 
-            //
-            //loadJsonByCode(self, prevCode).then(function(){
-            //    render(self, prevCode, 'prev');
-            //});
+                self.currentCode = prevCode;
+                prevCode = self.pageCache[self.currentCode].prev;
 
-            self.currentCode = nextCode;
+                if (prevCode) {
+                    loadJsonByCode(self, prevCode).then(function(){
+                        var place = self.container.find('.page-episode-prev');
+                        render(self, prevCode, place);
+                    });
 
-            if (self.pageCache[nextCode].next) {
-                //loadJsonByCode(self, self.pageCache[nextCode].next);
-                var episodeChangedEvent = new CustomEvent('episodeChanged', {
-                    detail: { code: self.currentCode }
-                });
-                document.dispatchEvent(episodeChangedEvent);
-            } else {
-                hideArrow(self, $(this));
-            }
-
+                    var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                        detail: { code: self.currentCode }
+                    });
+                    document.dispatchEvent(episodeChangedEvent);
+                } else {
+                    hideArrow(self, $(this));
+                }
+            }, timer);
         });
 
         self.$arrowLeft.click(function (event) {
-
             event.preventDefault();
 
             showArrow(self, self.$arrowRight);
 
-            var nextCode = self.pageCache[self.currentCode].prev;
+            var nextCode = self.pageCache[self.currentCode].next;
+            var prevCode = null;
 
-            renderPage(self, nextCode, 'left');
-            self.currentCode = nextCode;
+            changePage(self, 'left');
+            var timer = self.options.timePage + 100;
 
-            if (self.pageCache[nextCode].prev) {
-                loadJsonByCode(self, self.pageCache[nextCode].prev);
-                var episodeChangedEvent = new CustomEvent('episodeChanged', {
-                    detail: { code: self.currentCode }
-                });
-                document.dispatchEvent(episodeChangedEvent);
-            } else {
-                hideArrow(self, $(this));
-            }
+            setTimeout(function(){
+                self.currentCode = nextCode;
+                nextCode = self.pageCache[self.currentCode].next;
+                prevCode = self.pageCache[self.currentCode].next;
 
+                self.container.find('.page-episode-prev').html('');
+                self.container.find('.page-episode-current').addClass('page-episode-prev').removeClass('page-episode-current');
+                self.container.find('.page-episode-next').addClass('page-episode-current').removeClass('page-episode-next');
+                self.container.find('.page-episode-prev').eq(0).remove();
+                self.container.find('.page-episode-current').after('<div class="page-episode-next"></div>');
+
+                self.container.css('margin-left', '-100%');
+
+                if (nextCode) {
+                    loadJsonByCode(self, nextCode).then(function(){
+                        var place = self.container.find('.page-episode-next');
+                        render(self, nextCode, place);
+                    });
+
+                    var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                        detail: { code: self.currentCode }
+                    });
+                    document.dispatchEvent(episodeChangedEvent);
+                } else {
+                    hideArrow(self, $(this));
+                }
+            }, timer);
         });
     };
 

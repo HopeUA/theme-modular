@@ -50,7 +50,8 @@ $(function () {
 
             return Mustache.render(template, view);
         },
-        loader: LocalMediaAPI.episodes()
+        loader: LocalMediaAPI.episodes(),
+        timePage: 800
     });
 
 });
