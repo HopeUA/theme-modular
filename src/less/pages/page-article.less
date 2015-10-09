@@ -3,6 +3,13 @@
     width: 100%;
     overflow: hidden;
 }
+
+.page-article-text {
+    margin-top: 150px;
+    opacity: 0;
+    overflow: hidden;
+}
+
 .page-article::after {
     content: "";
     display: block;
@@ -86,6 +93,8 @@
     position: absolute;
     z-index: 3;
     width: 100%;
+    opacity: 0.4;
+    top: -100%;
 }
 
 .page-article-header-content-poster {
@@ -711,14 +720,15 @@
 }
 
 .page-article-arrow__left {
-    left: 10%;
+    left: 15%;
     top: 355px;
     display: block;
     width: 68px;
     height: 68px;
     position: absolute;
     background: url(../img/page-video-arrow__left.png);
-    z-index: 2;
+    z-index: 10;
+    opacity: 0;
 }
 
 .page-article-arrow__left:hover {
@@ -727,7 +737,7 @@
 }
 
 .page-article-arrow__right {
-    right: 10%;
+    right: 15%;
     top: 355px;
     display: block;
     width: 68px;
@@ -735,7 +745,8 @@
     position: absolute;
     background: url(../img/page-video-arrow__left.png);
     transform: scaleX(-1);
-    z-index: 2;
+    z-index: 10;
+    opacity: 0;
 }
 
 .page-article-arrow__right:hover {
