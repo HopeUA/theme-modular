@@ -17,7 +17,6 @@
         this.$arrowLeft = 'arrowLeft' in this.options ? (this.options.arrowLeft) : $('.page-content-arrow__left');
         this.$arrowRight = 'arrowRight' in this.options ? (this.options.arrowRight) : $('.page-content-arrow__right');
         this.container = this.$object.find('.page-container-wrap');
-        this.loading = false;
         this.ready = true;
 
         init(this);
@@ -46,16 +45,6 @@
             });
         });
 
-    };
-
-    function pageLoading(self, status) {
-        if (status) {
-            self.loading = true;
-            self.$object.addClass('page-episode-loader');
-        } else {
-            self.loading = false;
-            self.$object.removeClass('page-episode-loader');
-        }
     };
 
     function hideArrow(self, $object) {
@@ -97,16 +86,28 @@
     }
 
     function init(self) {
-
-        pageLoading(self, true);
         self.currentCode = self.$object.data('episode-code');
         loadJsonByCode(self, self.currentCode).then(function(){
-            pageLoading(self, false);
             var prevEpisodeCode = self.pageCache[self.currentCode].prev;
             var nextEpisodeCode = self.pageCache[self.currentCode].next;
 
             var place = self.container.find('.page-episode-current');
             render(self, self.currentCode, place);
+            self.$object.animate({
+                marginTop: 0,
+                opacity: 1
+            }, 400, function() {
+                self.$object.css('height', 'auto');
+                self.$object.addClass('page-episode-loaded');
+                $('.page-episode-arrow__left').animate({
+                    left: '10%',
+                    opacity: 1
+                }, 200);
+                $('.page-episode-arrow__right').animate({
+                    right: '10%',
+                    opacity: 1
+                }, 200);
+            });
 
             loadJsonByCode(self, prevEpisodeCode).then(function(){
                 var place = self.container.find('.page-episode-prev');
