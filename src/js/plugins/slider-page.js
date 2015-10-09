@@ -17,7 +17,8 @@
         this.$arrowLeft = 'arrowLeft' in this.options ? (this.options.arrowLeft) : $('.page-content-arrow__left');
         this.$arrowRight = 'arrowRight' in this.options ? (this.options.arrowRight) : $('.page-content-arrow__right');
         this.container = this.$object.find('.page-container-wrap');
-        this.template = null;
+        this.loading = false;
+        this.ready = true;
 
         init(this);
     };
@@ -47,6 +48,16 @@
 
     };
 
+    function pageLoading(self, status) {
+        if (status) {
+            self.loading = true;
+            self.$object.addClass('page-episode-loader');
+        } else {
+            self.loading = false;
+            self.$object.removeClass('page-episode-loader');
+        }
+    };
+
     function hideArrow(self, $object) {
         $object.animate({
             'opacity': 0
@@ -63,15 +74,19 @@
     };
 
     function changePage(self, direction) {
-        console.log(direction);
+        self.ready = false;
         if (direction == 'right') {
             self.container.animate({
                 marginLeft: '+=100%'
-            }, self.options.timePage);
+            }, self.options.timePage, function() {
+                self.ready = true;
+            });
         } else if (direction == 'left') {
             self.container.animate({
                 marginLeft: '-=100%'
-            }, self.options.timePage);
+            }, self.options.timePage, function() {
+                self.ready = true;
+            });
         }
     }
 
@@ -83,8 +98,10 @@
 
     function init(self) {
 
+        pageLoading(self, true);
         self.currentCode = self.$object.data('episode-code');
         loadJsonByCode(self, self.currentCode).then(function(){
+            pageLoading(self, false);
             var prevEpisodeCode = self.pageCache[self.currentCode].prev;
             var nextEpisodeCode = self.pageCache[self.currentCode].next;
 
@@ -105,6 +122,10 @@
 
         self.$arrowRight.click(function (event) {
             event.preventDefault();
+
+            if (!self.ready) {
+                return;
+            }
 
             showArrow(self, self.$arrowLeft);
 
@@ -142,6 +163,10 @@
 
         self.$arrowLeft.click(function (event) {
             event.preventDefault();
+
+            if (!self.ready) {
+                return;
+            }
 
             showArrow(self, self.$arrowRight);
 

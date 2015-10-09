@@ -518,3 +518,30 @@
 .page-episode-content-info{
     display: none;
 }
+
+.page-episode-loader {
+    position: relative;
+}
+
+.page-episode-loader::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 1;
+    top: 1px;
+}
+
+.page-episode-loader::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 64px;
+    background: url(../img/ajax-loader.gif);
+    position: absolute;
+    left: 50%;
+    top: 4%;
+    margin-left: -30px;
+    z-index: 2;
+}
