@@ -32,13 +32,14 @@
 
 .content-video-list-header-days {
   color: #eddbbf;
-  font: 18px PTSansRegular;
+  font-size: 18px;
+  font-family: @font__main;
   line-height: 18px;
   margin: 0;
 }
 .content-video-list-header-time {
   color: #f9ca0e;
-  font: 22px PTSansBold;
+  font: bold 22px @font__main;
   line-height: 22px;
   margin-top: 9px;
   margin-bottom: 0;
@@ -46,7 +47,8 @@
 
 .content-video-list-header-time span {
   color: #eddbbf;
-  font: 18px PTSansRegular;
+  font-size: 18px;
+  font-family: @font__main;
   line-height: 18px;
 }
 
@@ -56,7 +58,8 @@
 
 .content-video-list-header-show__title {
   color: #fff;
-  font: 32px PTSansRegular;
+  font-size: 32px;
+  font-family: @font__main;
   line-height: 32px;
   margin-top: 33px;
   margin-bottom: 0;
@@ -86,7 +89,7 @@
 
 .content-video-list-header-show__category {
   color: #eddbbf;
-  font: 14px PTSansBold;
+  font: bold 14px @font__main;
   line-height: 14px;
   margin-top: 8px;
   margin-bottom: 0;
@@ -100,7 +103,8 @@
 
 .content-video-list-header-about {
   color: #f9ca0e;
-  font: 16px PTSansRegular;
+  font-size: 16px;
+  font-family: @font__main;
   line-height: 16px;
   text-decoration: none;
   border: solid 1px #f9ca0e;
@@ -116,7 +120,8 @@
 
 .content-video-list-header-subscribe {
   color: #9cc3f6;
-  font: 16px PTSansRegular;
+  font-size: 16px;
+  font-family: @font__main;
   line-height: 16px;
   text-decoration: none;
   border: solid 1px #9cc3f6;
@@ -145,7 +150,8 @@
   width: 444px;
   height: 38px;
   color: #fff;
-  font: 16px PTSansRegular;
+  font-size: 16px;
+  font-family: @font__main;
   line-height: 16px;
   background: rgba(0,0,0,0);
   border: none;
@@ -154,10 +160,10 @@
   outline: none;
 }
 
-.content-video-list-header-search-input::-webkit-input-placeholder {font-family: PTSansItalic;}
-.content-video-list-header-search-input::-moz-placeholder          {font-family: PTSansItalic;}/* Firefox 19+ */
-.content-video-list-header-search-input:-moz-placeholder           {font-family: PTSansItalic;}/* Firefox 18- */
-.content-video-list-header-search-input:-ms-input-placeholder      {font-family: PTSansItalic;}
+.content-video-list-header-search-input::-webkit-input-placeholder {font-style: italic; font-family: @font__main;}
+.content-video-list-header-search-input::-moz-placeholder          {font-style: italic; font-family: @font__main;}/* Firefox 19+ */
+.content-video-list-header-search-input:-moz-placeholder           {font-style: italic; font-family: @font__main;}/* Firefox 18- */
+.content-video-list-header-search-input:-ms-input-placeholder      {font-style: italic; font-family: @font__main;}
 
 .content-video-list-header-search-icon {
   position: absolute;

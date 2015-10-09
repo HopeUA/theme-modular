@@ -27,7 +27,7 @@
 
 .page-article-links a {
     color: #808285;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 14px;
     text-decoration: underline;
     display: block;
@@ -36,7 +36,7 @@
 
 .page-article-links span {
     color: #808285;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 14px;
     display: block;
     float: left;
@@ -113,7 +113,7 @@
     margin-top: 53px;
     margin-bottom: 0;
     color: #fff;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 14px;
     line-height: 15px;
     opacity: 0.5;
@@ -124,7 +124,7 @@
     margin-top: 22px;
     margin-bottom: 0;
     color: #fff;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 32px;
     line-height: 39px;
 }
@@ -134,8 +134,7 @@
     margin-left: 3px;
     margin-top: 17px;
     color: #fff;
-    font-family: 'PTSansBold';
-    font-size: 16px;
+    font: bold 16px @font__main;
     line-height: 17px;
     letter-spacing: -1px;
     opacity: 0.9;
@@ -143,7 +142,7 @@
 
 .page-article-header-content-head-author span{
     color: #fff;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 14px;
     line-height: 15px;
     letter-spacing: 0;
@@ -162,7 +161,7 @@
 
 .page-article-header-content-info-date {
     color: #fff;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 18px;
     line-height: 19px;
     display: flex;
@@ -195,7 +194,7 @@
 
 .page-article-header-content-info-views {
     color: #fff;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 18px;
     line-height: 19px;
     display: flex;
@@ -251,7 +250,8 @@
     display: inline-block;
     margin-left: 10px;
     color: #2f8dca;
-    font: 15px 'PTSansRegular';
+    font-family: @font__main;
+    font-size: 15px;
     text-decoration: none;
     margin-left: 50px;
     margin-top: 10px;
@@ -259,7 +259,7 @@
 
 .page-article-content-controls-link__comments-info {
     color: #6e7b7d;
-    font: 14px 'PTSansBold';
+    font: bold 14px @font__main;
     font-style: italic;
     position: relative;
 }
@@ -306,7 +306,7 @@
 
 .page-article-content-description {
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 18px;
     margin-top: 37px;
     line-height: 26px;
@@ -332,7 +332,7 @@
 
 .page-articles-header-title {
     color: #fff;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 32px;
     line-height: 33px;
     letter-spacing: 1.6px;
@@ -382,7 +382,8 @@
     width: 100%;
     height: 38px;
     color: #fff;
-    font: 16px 'PTSansRegular';
+    font-family: @font__main;
+    font-size: 16px;
     line-height: 16px;
     background: rgba(0, 0, 0, 0);
     border: none;
@@ -391,10 +392,10 @@
     outline: none;
 }
 
-.page-articles-header-search-input::-webkit-input-placeholder {font-family: PTSansItalic;}
-.page-articles-header-search-input::-moz-placeholder          {font-family: PTSansItalic;}/* Firefox 19+ */
-.page-articles-header-search-input:-moz-placeholder           {font-family: PTSansItalic;}/* Firefox 18- */
-.page-articles-header-search-input:-ms-input-placeholder      {font-family: PTSansItalic;}
+.page-articles-header-search-input::-webkit-input-placeholder {font-family: @font__main; font-style: italic}
+.page-articles-header-search-input::-moz-placeholder          {font-family: @font__main; font-style: italic}/* Firefox 19+ */
+.page-articles-header-search-input:-moz-placeholder           {font-family: @font__main; font-style: italic}/* Firefox 18- */
+.page-articles-header-search-input:-ms-input-placeholder      {font-family: @font__main; font-style: italic}
 
 .page-articles-header-search-icon {
     position: absolute;
@@ -418,7 +419,7 @@
     text-decoration: none;
     color: #9dc4f6;
     font-size: 16px;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
 }
 
 .page-articles-article {
@@ -527,8 +528,7 @@
 .page-articles-article-content-author {
     display: block;
     color: #f9ca0e;
-    font-family: 'PTSansBold';
-    font-size: 16px;
+    font: bold 16px @font__main;
     line-height: 17px;
     margin-top: 0;
     margin-bottom: 0;
@@ -541,7 +541,7 @@
 .page-articles-article-content-author span {
     display: block;
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 14px;
     line-height: 15px;
     margin-bottom: 4px;
@@ -555,7 +555,7 @@
 .page-articles-article-content-date {
     display: block;
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 18px;
     line-height: 19px;
     position: relative;
@@ -605,7 +605,7 @@
 .page-articles-article-content-views {
     display: block;
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 18px;
     line-height: 19px;
     position: relative;
@@ -655,8 +655,9 @@
     position: absolute;
     right: 0;
     color: #6e7b7d;
-    font-family: 'PTSansItalic';
+    font-family: @font__main;
     font-size: 13px;
+    font-style: italic;
     line-height: 14px;
     text-decoration: none;
     display: inline-flex;
@@ -690,15 +691,14 @@
     margin-top: 24px;
     margin-bottom: 0;
     color: #6e7b7d;
-    font-family: 'PTSansBold';
-    font-size: 28px;
+    font: bold 28px @font__main;
     line-height: 30px;
     width: 80%;
     text-decoration: none;
 }
 
 .page-articles-article-last .page-articles-article-content-title {
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     color: #fff;
 }
 
@@ -707,7 +707,7 @@
     margin-top: 24px;
     margin-bottom: 0;
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
+    font-family: @font__main;
     font-size: 14px;
     line-height: 15px;
     width: 80%;

@@ -101,7 +101,7 @@
     height: 20px;
     text-align: center;
     color: @headerTimeline__color-time;
-    font: bold 12px @font-Bold;
+    font: bold 12px @font__main;
     background: url("../img/activeTime-42x20.svg");
     display: inline-block;
     //opacity: 0;
@@ -129,7 +129,7 @@
     height: 20px;
     margin-top: 4px;
     color: @headerTimeline__color-time;
-    font: bold 14px @font-Bold;
+    font: bold 14px @font__main;
 }
 
 .header-timeline__live {
@@ -138,7 +138,7 @@
     height: 20px;
     margin-top: 4px;
     color: @headerTimeline__color-live;
-    font: bold 14px @font-Bold;
+    font: bold 14px @font__main;
     backface-visibility: hidden; //fix animation visual bug
 }
 
@@ -147,6 +147,8 @@
     display: block;
     margin: 0;
     color: @headerTimeline__color-description;
-    font: 13px @font-Italic;
+    font-size: 13px;
+    font-style: italic;
+    font-family: @font__main;
     line-height: 16px;
 }
