@@ -8,6 +8,7 @@
             this._method   = 'GET';
             this._body     = {};
             this._format   = 'json';
+            this._code     = null;
         }
 
         category(cat) {
@@ -16,6 +17,13 @@
 
         search(text) {
             return this.param('search', text);
+        }
+
+        single(code) {
+            let self = clone(this);
+            self._code = code;
+
+            return self;
         }
 
         offset(n) {
