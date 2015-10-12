@@ -16,7 +16,7 @@
     margin-bottom: 0;
     font-family: @font__main;
     font-weight: 500;
-    font-size: 20px;
+    .font-size(20);
     color: #58595b;
     text-transform: uppercase;
 }
@@ -30,8 +30,7 @@
     font-family: @font__main;
     font-style: italic;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 14px;
+    .font-size(14);
     text-decoration: none;
 }
 
@@ -176,7 +175,9 @@
 
 .page-scheduler-header-list li span:first-child {
     color: #58595b;
-    font: bold 22px @font__main;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(22);
     text-transform: uppercase;
 }
 
@@ -206,7 +207,7 @@
     color: #939598;
     font-family: @font__main;
     font-style: italic;
-    font-size: 18px;
+    .font-size(18);
     margin-top: 8px;
 }
 
@@ -218,7 +219,7 @@
     color: #939598;
     font-family: @font__main;
     font-style: italic;
-    font-size: 14px;
+    .font-size(14);
 }
 
 .page-scheduler-header-list li.selected span:nth-child(3) {
@@ -241,7 +242,7 @@
     height: 19px;
     color: #2f8dca;
     font-family: @font__main;
-    font-size: 16px;
+    .font-size(16);
     text-decoration: none;
 }
 
@@ -269,7 +270,7 @@
 .page-scheduler-header-now-time {
     font-family: @font__main;
     font-weight: 500;
-    font-size: 26px;
+    .font-size(26);
     color: #58595b;
     display: block;
     height: 26px;
@@ -279,7 +280,7 @@
 .page-scheduler-header-now-episode {
     font-family: @font__main;
     font-weight: 500;
-    font-size: 15px;
+    .font-size(15);
     color: #58595b;
     display: block;
     margin-left: 20px;
@@ -289,7 +290,7 @@
 .page-scheduler-header-now-show {
     font-family: @font__main;
     font-weight: 500;
-    font-size: 13px;
+    .font-size(13);
     color: #939598;
     display: block;
     margin-left: 20px;
@@ -324,7 +325,7 @@
 .page-scheduler-content-item p > span:nth-child(3) {
     color: #939598;
     font-family: @font__main;
-    font-size: 15px;
+    .font-size(15);
     display: block;
     margin-top: 0;
 }
@@ -359,8 +360,7 @@
 .page-scheduler-content-episode-time {
     color: #58595b;
     font-family: @font__main;
-    font-size: 26px;
-    line-height: 28px;
+    .font-size(26);
     height: 26px;
     margin: auto;
 }
@@ -451,7 +451,7 @@
 .page-scheduler-content-items p > span:nth-child(2) {
     display: block;
     font-family: @font__main;
-    font-size: 18px;
+    .font-size(18);
     color: #58595b;
 }
 
@@ -460,7 +460,7 @@
     margin: auto;
     color: #2f8dca;
     font-family: @font__main;
-    font-size: 18px;
+    .font-size(18);
     text-decoration: none;
     height: 27px;
 }
@@ -495,7 +495,7 @@
     display: block;
     color: #fff;
     font-family: @font__main;
-    font-size: 18px;
+    .font-size(18);
     text-align: right;
 }
 
@@ -584,7 +584,7 @@
 .page-scheduler-content-episode-share span {
     color: #808285;
     font-family: @font__main;
-    font-size: 13px;
+    .font-size(13);
     margin-top: 1px;
     margin-right: 12px;
 }
@@ -623,12 +623,10 @@
     position: absolute;
     z-index: 2;
     display: block;
-    height: 124px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(77, 77, 77, 0) 50%, rgba(39, 39, 39, 0.6) 75%, rgba(0, 0, 0, 0.9) 100%);
     content: "";
     width: 100%;
     height: 100%;
-    position: absolute;
 }
 
 .page-scheduler-content-items .active .page-scheduler-content-episode-info-img {
@@ -642,10 +640,9 @@
 .page-scheduler-content-items .active .page-scheduler-content-episode-info-p {
     color: #58595b;
     font-family: @font__main;
-    font-size: 14px;
+    .font-size(14, 16);
     display: block;
     margin-left: 39px;
-    line-height: 16px;
     height: 90px;
     margin: auto;
     margin-left: 38px;
@@ -743,12 +740,11 @@
 }
 
 .page-scheduler-footer-title-text {
-    line-height: 20px;
     margin-top: 43px;
     margin-bottom: 0;
     font-family: @font__main;
     font-weight: 500;
-    font-size: 20px;
+    .font-size(20);
     color: #58595b;
     text-transform: uppercase;
 }
@@ -762,8 +758,7 @@
     font-family: @font__main;
     font-style: italic;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 14px;
+    .font-size(14);
     text-decoration: none;
 }
 
@@ -865,7 +860,9 @@
 
 .page-scheduler-footer-list li span:first-child {
     color: #58595b;
-    font: bold 22px @font__main;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(22);
     text-transform: uppercase;
 }
 
@@ -895,7 +892,7 @@
     color: #939598;
     font-family: @font__main;
     font-style: italic;
-    font-size: 18px;
+    .font-size(18);
     margin-top: 8px;
 }
 
@@ -907,7 +904,7 @@
     color: #939598;
     font-family: @font__main;
     font-style: italic;
-    font-size: 14px;
+    .font-size(14);
 }
 
 .page-scheduler-footer-list li.selected span:nth-child(3) {
@@ -928,7 +925,7 @@
     height: 19px;
     color: #2f8dca;
     font-family: @font__main;
-    font-size: 16px;
+    .font-size(16);
     text-decoration: none;
 }
 
@@ -956,7 +953,7 @@
 .page-scheduler-footer-now-time {
     font-family: @font__main;
     font-weight: 500;
-    font-size: 26px;
+    .font-size(26);
     color: #58595b;
     display: block;
     height: 26px;
@@ -966,7 +963,7 @@
 .page-scheduler-footer-now-episode {
     font-family: @font__main;
     font-weight: 500;
-    font-size: 15px;
+    .font-size(15);
     color: #58595b;
     display: block;
     margin-left: 20px;
@@ -976,7 +973,7 @@
 .page-scheduler-footer-now-show {
     font-family: @font__main;
     font-weight: 500;
-    font-size: 13px;
+    .font-size(13);
     color: #939598;
     display: block;
     margin-left: 20px;
