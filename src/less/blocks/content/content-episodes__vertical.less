@@ -10,7 +10,7 @@
     display: inline-block;
     margin: 0 0 0 29px;
     color: #2f8dca;
-    font-size: 14px;
+    .font-size(14);
     font-family: @font__main;
     text-decoration: none;
 }
@@ -56,13 +56,14 @@
 .content-episodes__vertical-link span {
     position: relative;
     right: -1px;
-    font: 13px Arial;
+    font-family: Arial;
+    .font-size(13);
 }
 
 .content-episodes__vertical-description {
     margin: 12px 17px 17px 17px;
     color: #808285;
-    font-size: 12px;
+    .font-size(12, 15);
     font-family: @font__main;
     height: 74px;
     overflow: hidden;
