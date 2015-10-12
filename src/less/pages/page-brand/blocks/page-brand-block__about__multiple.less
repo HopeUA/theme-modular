@@ -66,13 +66,15 @@
  }
 .info-leading-name{
     color:  #c44db2;
-    font: bold 18px @font__main;
+    font-family: @font__main;
+  font-weight: bold;
+  .font-size(18);
 }
 .info-leading-info{
   width: 209px;
     font-family: @font__main;
   color:  #a7a9ac;
-  font-size: 14px;
+  .font-size(14);
 }
 .leading{
   display: flex;
@@ -102,9 +104,8 @@
   margin: auto;
   margin-top: 30px;
   color: #a7a9ac;
-  font-size: 18px;
+  .font-size(18);
     font-family: @font__main;
-  line-height: 16px;
 }
 .leadings{
   display: block;
