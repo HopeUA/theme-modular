@@ -1,3 +1,14 @@
+.font-size(@font){
+    @font-rem: (@font / 16);
+    @line-rem: (@font / 16);
+    @font-px: @font;
+    @line-px: @font;
+    line-height: ~"@{line-px}px";
+    line-height: ~"@{line-rem}rem";
+    font-size: ~"@{font-px}px";
+    font-size: ~"@{font-rem}rem";
+}
+
 .font-size(@font, @line){
     @font-rem: (@font / 16);
     @line-rem: (@line / 16);

@@ -69,7 +69,7 @@
     margin: 12px 17px 20px 17px;
     color: #808285;
     font-family: @font__main;
-    font-size: 12px;
+    .font-size(12, 15);
     transition: all 0.1s ease-out;
     user-select: text;
 }
@@ -78,7 +78,9 @@
     display: block;
     margin: 0 14px;
     color: #4d4d4f;
-    font: bold 12px @font__main;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(12);
     text-decoration: none;
     user-select: text;
 }
@@ -97,11 +99,12 @@
     margin: 12px 0 12px 17px;
     color: #808285;
     font-family: @font__main;
-    font-size: 12px;
+    .font-size(12);
     user-select: text;
 }
 
 .content-article__small-date span {
     color: #bcbec0;
-    font: 500 11px @font__main;
+    font-family: @font__main;
+    .font-size(11);
 }
