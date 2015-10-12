@@ -3,7 +3,7 @@
     z-index: 112;
     height: 41px;
     color: @headerTop__color-element;
-    font-size: 13px;
+    .font-size(13);
     font-family: @font__main;
     text-decoration: none;
 }
@@ -18,11 +18,10 @@
     display: flex;
     width: 200px;
     color: @headerTop__color-element;
-    font-size: 12px;
+    .font-size(12);
     font-style: italic;
     font-family: @font__main;
     text-decoration: none;
-    line-height: 20px;
     transition: @headerTop__animations-all;
 }
 
@@ -54,7 +53,8 @@
 .header-top__watch-us div {
     margin-left: 3px;
     color: @headerTop__color-element__important;
-    font: 13px Arial;
+    font-family: Arial;
+    .font-size(13);
     text-decoration: none;
 }
 
@@ -79,7 +79,7 @@
 
 .header-top__menu-item {
     color: @headerTop__color-element;
-    font-size: 13px;
+    .font-size(13);
     font-family: @font__main;
     text-decoration: none;
     transition: @headerTop__animations-all;
@@ -279,7 +279,7 @@
     text-decoration: none;
     transition: @headerTop__animations-all;
     font-family: @font__main;
-    font-size: 13px;
+    .font-size(13);
 }
 
 .header-top__user:hover {
