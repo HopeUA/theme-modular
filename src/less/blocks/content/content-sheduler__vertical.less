@@ -92,8 +92,10 @@
     top: 76px;
     width: 100%;
     color: #fff;
-    font: bold 12px @font__main;
-    line-height: 14px;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(12, 14);
+
 }
 
 .content-sheduler__vertical-current-title span {
@@ -103,7 +105,9 @@
     padding-bottom: 15px;
     margin-top: 2px;
     color: #fff;
-    font: bold 18px @font__main;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(18);
     text-align: center;
 }
 
@@ -113,7 +117,7 @@
     padding-bottom: 0;
     margin: 16px 0 0 22px;
     color: #2f8dca;
-    font-size: 14px;
+    .font-size(14, 20);
     font-family: @font__main;
     text-decoration: none;
 }
@@ -145,7 +149,8 @@
 .content-sheduler__vertical-link span {
     position: relative;
     right: -1px;
-    font: 13px Arial;
+    font-family: Arial;
+    .font-size(13);
 }
 
 .content-sheduler__vertical-list-item {
@@ -155,7 +160,7 @@
     border-bottom: dotted 1px #b2b2b3;
     margin-top: 8px;
     color: #808285;
-    font-size: 11px;
+    .font-size(11);
     font-family: @font__main;
     list-style-image: url(../img/content-episode-arrowIcon.svg);
 }
@@ -177,7 +182,9 @@
     top: 1px;
     margin-right: 10px;
     color: #58595b;
-    font: bold 14px @font__main;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(14);
 }
 
 .content-sheduler__vertical-link__more {
@@ -191,8 +198,8 @@
     color: #fff;
     font-family: Arial;
     font-weight: 900;
+    .font-size(8);
     text-decoration: none;
-    line-height: 8px;
     text-align: center;
     transition: all 0.1s ease-out;
 }
