@@ -6,26 +6,29 @@
 
 .content-episode-info__right-date {
     color: #808285;
-    font-size: 12px;
+    .font-size(12);
     font-family: @font__main;
 }
 
 .content-episode-info__right-date span {
     color: #bcbec0;
-    font: 500 12px @font__main;
+    font-family: @font__main;
+    .font-size(12);
 }
 
 .content-episode-info__right-title {
     margin: 21px 0 3px 0;
     color: #4d4d4f;
-    font: bold 16px @font__main;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(16);
 }
 
 .content-episode-info__right-category {
     display: inline-block;
     margin-left: 10px;
     color: #2f8dca;
-    font-size: 14px;
+    .font-size(14, 20);
     font-family: @font__main;
     text-decoration: none;
 }
@@ -60,21 +63,22 @@
 .content-episode-info__right-category span {
     position: relative;
     right: -1px;
-    font: 13px Arial;
+    font-family: Arial;
+    .font-size(13);
 }
 
 .content-episode-info__right-description {
     width: 175px;
     margin: 28px 0 14px 0;
     color: #939598;
-    font-size: 13px;
+    .font-size(13, 15);
     font-family: @font__main;
 }
 
 .content-episode-info__right-share span {
     float: left;
     color: #808285;
-    font-size: 13px;
+    .font-size(13);
     font-family: @font__main;
     font-style: italic;
 }
