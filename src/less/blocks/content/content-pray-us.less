@@ -4,7 +4,7 @@
     border-bottom: solid @prayUs__size-border-element @prayUs__color-border-element;
     background: @prayUs__color-element;
     color: @prayUs__color-text;
-    font-size: @prayUs__size-text;
+    .font-size(13, 15);
     font-family: @font__main;
 }
 
@@ -16,7 +16,9 @@
 }
 
 .content-pray-us-description span {
-    font: bold @prayUs__size-text @font__main;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(13);
 }
 
 .content-pray-us-submit {
