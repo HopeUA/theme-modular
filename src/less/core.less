@@ -1,5 +1,6 @@
 html {
     box-sizing: border-box;
+    font-size: 100%;
 }
 
 *,
@@ -15,6 +16,7 @@ img {
 body {
     background: #f3f4f4;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     user-select: none;
     //width: 100%;
     //overflow: hidden;
@@ -52,8 +54,8 @@ body {
 }
 
 .container h2 {
-    font-family: @font-Regular;
-    font-size: 20px;
+    font-family: @font__main;
+    .font-size(20);
     text-transform: uppercase;
     color: #808285;
     font-weight: 100;
@@ -63,8 +65,8 @@ body {
 }
 
 .container2 h2 {
-    font-family: @font-Regular;
-    font-size: 20px;
+    font-family: @font__main;
+    .font-size(20);
     text-transform: uppercase;
     color: #808285;
     font-weight: 100;
@@ -124,14 +126,16 @@ body {
 }
 
 .page-container-wrap {
-    width: 200%;
+    width: 300%;
     overflow: hidden;
     display: flex;
-    margin-left: -20px;
+    margin-left: -100%;
 }
 
-.page-container-wrap .container {
-    margin-left: 0;
+.page-container-wrap > div {
+    width: 1262px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .page-content-arrow__left {
@@ -141,6 +145,7 @@ body {
     width: 68px;
     height: 68px;
     position: absolute;
+    z-index: 10;
     background: url(../img/page-video-arrow__left.png);
 }
 
@@ -156,6 +161,7 @@ body {
     width: 68px;
     height: 68px;
     position: absolute;
+    z-index: 10;
     background: url(../img/page-video-arrow__left.png);
     transform: scaleX(-1);
 }

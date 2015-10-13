@@ -42,20 +42,16 @@ $(function () {
     document.dispatchEvent(episodeChangedEvent);
 
     page.hopeSliderPage({
-        render: function (template, data) {
-            $('.page-episode').data('episode-code', data.code);
+        render: function (response) {
 
-            template.find('.pv-episode-title').text(data.title);
-            $('.pv-episode-title').text(data.title);
-            template.find('.pv-episode-show').text(data.show);
-            $('.pv-episode-show').text(data.show);
-            var imgSrc = data.image;
-            template.find('.pv-episode-img').attr('src', imgSrc);
-            template.find('.pv-episode-description').html(data.description);
-            template.find('.pv-episode-date').text(moment(data.date).format('DD.MM.YYYY'));
-            template.find('.pv-episode-views').text(data.views);
+            var template = $('#template-page-episode').html();
+            var view     = {};
+            view.episode = response.object;
+
+            return Mustache.render(template, view);
         },
-        loader: LocalMediaAPI.episodes()
+        loader: LocalMediaAPI.episodes(),
+        timePage: 800
     });
 
 });

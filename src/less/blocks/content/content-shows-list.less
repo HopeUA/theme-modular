@@ -1,5 +1,3 @@
-// out: null
-
 .content-shows-list {
     padding: 10px 0 16px 0;
     border-bottom: solid 5px #ddd;
@@ -30,7 +28,9 @@
 
 .content-shows-list-category h1 {
     margin: 0;
-    font: bold 12px @font-Bold;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(12);
     text-transform: uppercase;
 }
 
@@ -38,7 +38,8 @@
     position: absolute;
     top: 42px;
     color: #2f8dca;
-    font: 13px @font-Regular;
+    .font-size(13, 16);
+    font-family: @font__main;
     text-decoration: none;
 }
 
@@ -72,7 +73,8 @@
 .content-shows-list-link span {
     position: relative;
     right: -1px;
-    font: 13px Arial;
+    font-family: Arial;
+    .font-size(13);
 }
 
 .content-shows-category-link {
@@ -102,8 +104,9 @@
     margin-left: 4px;
     background: #ff1111;
     color: #fff;
-    font: bold 9px @font-Bold;
-    line-height: 13px;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(9, 13);
     text-align: center;
     content: "new";
 }
@@ -112,9 +115,9 @@
     display: block;
     padding-bottom: 12px;
     color: #8a8c8e;
-    font: 14px @font-Regular;
+    .font-size(14);
+    font-family: @font__main;
     text-decoration: none;
-    line-height: 14px;
     transition: all 0.1s ease-out;
 }
 
@@ -127,19 +130,22 @@
     padding: 0;
     margin: 10px 0 0 0;
     color: #8a8c8e;
-    font: 13px @font-Regular;
-    line-height: 20px;
+    .font-size(13, 20);
+    font-family: @font__main;
 }
 
 .content-shows-list-channel-description span {
-    font: bold 12px @font-Bold;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(12);
 }
 
 .content-shows-list-channel-link {
     position: absolute;
     left: 11px;
     color: #2f8dca;
-    font: 13px @font-Regular;
+    .font-size(13, 16);
+    font-family: @font__main;
     text-decoration: none;
 }
 
@@ -173,7 +179,8 @@
 .content-shows-list-channel-link span {
     position: relative;
     right: -1px;
-    font: 13px Arial;
+    font-family: Arial;
+    .font-size(13);
 }
 
 .content-shows-list-channel-share {

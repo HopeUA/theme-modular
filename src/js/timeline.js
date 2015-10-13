@@ -344,7 +344,6 @@ $(function () {
 
         scheduler.from(start).to(end).fetch().then(function(result){
             serverTime = moment(Hope.Chrono.getDate());
-            console.log(serverTime.format('H:mm'));
             var episodes = result.data;
             var str = null;
             var strFull = null;

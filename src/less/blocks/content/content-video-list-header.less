@@ -32,22 +32,23 @@
 
 .content-video-list-header-days {
   color: #eddbbf;
-  font: 18px PTSansRegular;
-  line-height: 18px;
+  .font-size(18);
+  font-family: @font__main;
   margin: 0;
 }
 .content-video-list-header-time {
   color: #f9ca0e;
-  font: 22px PTSansBold;
-  line-height: 22px;
+  font-family: @font__main;
+  font-weight: bold;
+  .font-size(22);
   margin-top: 9px;
   margin-bottom: 0;
 }
 
 .content-video-list-header-time span {
   color: #eddbbf;
-  font: 18px PTSansRegular;
-  line-height: 18px;
+  .font-size(18);
+  font-family: @font__main;
 }
 
 .content-video-list-header-title {
@@ -56,8 +57,8 @@
 
 .content-video-list-header-show__title {
   color: #fff;
-  font: 32px PTSansRegular;
-  line-height: 32px;
+  .font-size(32);
+  font-family: @font__main;
   margin-top: 33px;
   margin-bottom: 0;
   position: relative;
@@ -86,8 +87,9 @@
 
 .content-video-list-header-show__category {
   color: #eddbbf;
-  font: 14px PTSansBold;
-  line-height: 14px;
+  font-family: @font__main;
+  font-weight: bold;
+  .font-size(14);
   margin-top: 8px;
   margin-bottom: 0;
 }
@@ -100,8 +102,8 @@
 
 .content-video-list-header-about {
   color: #f9ca0e;
-  font: 16px PTSansRegular;
-  line-height: 16px;
+  .font-size(16);
+  font-family: @font__main;
   text-decoration: none;
   border: solid 1px #f9ca0e;
   border-radius: 3px;
@@ -116,8 +118,8 @@
 
 .content-video-list-header-subscribe {
   color: #9cc3f6;
-  font: 16px PTSansRegular;
-  line-height: 16px;
+  .font-size(16);
+  font-family: @font__main;
   text-decoration: none;
   border: solid 1px #9cc3f6;
   border-radius: 3px;
@@ -145,8 +147,8 @@
   width: 444px;
   height: 38px;
   color: #fff;
-  font: 16px PTSansRegular;
-  line-height: 16px;
+  .font-size(16);
+  font-family: @font__main;
   background: rgba(0,0,0,0);
   border: none;
   padding-left: 13px;
@@ -154,10 +156,10 @@
   outline: none;
 }
 
-.content-video-list-header-search-input::-webkit-input-placeholder {font-family: PTSansItalic;}
-.content-video-list-header-search-input::-moz-placeholder          {font-family: PTSansItalic;}/* Firefox 19+ */
-.content-video-list-header-search-input:-moz-placeholder           {font-family: PTSansItalic;}/* Firefox 18- */
-.content-video-list-header-search-input:-ms-input-placeholder      {font-family: PTSansItalic;}
+.content-video-list-header-search-input::-webkit-input-placeholder {font-style: italic; font-family: @font__main;}
+.content-video-list-header-search-input::-moz-placeholder          {font-style: italic; font-family: @font__main;}/* Firefox 19+ */
+.content-video-list-header-search-input:-moz-placeholder           {font-style: italic; font-family: @font__main;}/* Firefox 18- */
+.content-video-list-header-search-input:-ms-input-placeholder      {font-style: italic; font-family: @font__main;}
 
 .content-video-list-header-search-icon {
   position: absolute;

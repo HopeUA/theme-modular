@@ -2,9 +2,12 @@
     padding-top: 3px;
     padding-bottom: 51px;
     background: #f3f4f4;
+    height: 900px;
+    margin-top: 150px;
+    opacity: 0.4;
 }
 
-.page-episode::after {
+.page-episode-loaded::after {
     content: "";
     display: block;
     width: 100%;
@@ -13,8 +16,20 @@
     background: url("../img/articlePageBorder.png") repeat-x;
 }
 
+.page-episode-arrow__left {
+    left: 15%;
+    opacity: 0;
+}
+
+.page-episode-arrow__right {
+    right: 15%;
+    opacity: 0;
+}
+
 .container-oh {
     overflow: hidden;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .page-episode-links {
@@ -29,8 +44,8 @@
 
 .page-episode-links a {
     color: #808285;
-    font-family: 'PTSansRegular';
-    font-size: 14px;
+    font-family: @font__main;
+    .font-size(14, 20);
     text-decoration: underline;
     display: block;
     margin-right: 3px;
@@ -44,8 +59,8 @@
 
 .page-episode-links span {
     color: #808285;
-    font-family: 'PTSansRegular';
-    font-size: 14px;
+    font-family: @font__main;
+    .font-size(14);
     display: block;
     float: left;
     margin-right: 3px;
@@ -70,9 +85,10 @@
 
 .page-episode-header-title {
     color: #6e7b7d;
-    font-family: 'PTSansBold';
-    font-size: 28px;
-    letter-spacing: 0.1px;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(28);
+    .letter-spacing(0.1);
     display: block;
     margin-top: 0;
     margin-bottom: 0;
@@ -82,8 +98,8 @@
 
 .page-episode-header-date {
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
-    font-size: 18px;
+    font-family: @font__main;
+    .font-size(18);
     display: flex;
     margin-top: 11px;
     margin-bottom: 0;
@@ -113,8 +129,8 @@
 
 .page-episode-header-views {
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
-    font-size: 18px;
+    font-family: @font__main;
+    .font-size(18);
     display: flex;
     margin-top: 11px;
     margin-bottom: 0;
@@ -134,8 +150,9 @@
 
 .page-episode-header-download {
     color: #6e7b7d;
-    font-family: 'PTSansItalic';
-    font-size: 12px;
+    font-family: @font__main;
+    .font-size(12);
+    font-style: italic;
     width: 54px;
     text-align: center;
     position: absolute;
@@ -257,8 +274,8 @@
 .page-episode-content-description {
     user-select: text;
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
-    font-size: 18px;
+    font-family: @font__main;
+    .font-size(18, 20);
     margin-top: 37px;
     margin-bottom: 0;
     line-height: 26px;
@@ -336,8 +353,8 @@
 
 .similar-episodes-item-description-time {
     color: #a7a9ac;
-    font-family: 'PTSansRegular';
-    font-size: 12px;
+    font-family: @font__main;
+    .font-size(12);
     margin-left: 21px;
     margin-top: 15px;
     margin-bottom: 0;
@@ -347,8 +364,8 @@
 
 .similar-episodes-item-description-title {
     color: #6d6e71;
-    font-family: 'PTSansRegular';
-    font-size: 18px;
+    font-family: @font__main;
+    .font-size(18);
     margin-left: 21px;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -360,7 +377,8 @@
     display: inline-block;
     margin-left: 10px;
     color: #2f8dca;
-    font: 14px PTSansRegular;
+    font-family: @font__main;
+    .font-size(14, 20);
     text-decoration: none;
     margin-left: 42px;
     margin-bottom: 23px;
@@ -401,7 +419,8 @@
     padding: 15px 18px;
     display: inline-block;
     color: #808285;
-    font: 15px PTSansRegular;
+    font-family: @font__main;
+    .font-size(15);
     text-align: center;
 }
 
@@ -446,7 +465,8 @@
     z-index: 100;
     margin-top: 29px;
     color: #808285;
-    font: 13px PTSansRegular;
+    font-family: @font__main;
+    .font-size(13);
     line-height: 28px;
     user-select: none;
     right: 0;
@@ -471,8 +491,8 @@
 
 .page-episode-content-date {
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
-    font-size: 15px;
+    font-family: @font__main;
+    .font-size(15);
     display: flex;
     margin-top: 16px;
     margin-bottom: 0;
@@ -494,8 +514,8 @@
 
 .page-episode-content-views {
     color: #6e7b7d;
-    font-family: 'PTSansRegular';
-    font-size: 15px;
+    font-family: @font__main;
+    .font-size(15);
     display: flex;
     margin-top: 16px;
     margin-bottom: 0;
@@ -513,6 +533,6 @@
     background: url(../img/episodePageViews.png);
     background-size: 100%;
 }
-.page-episode-content-info{
+.page-episode-content-info {
     display: none;
 }

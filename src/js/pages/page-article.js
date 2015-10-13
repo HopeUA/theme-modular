@@ -29,25 +29,19 @@ $(function () {
         }
     });
 
-    page.hopeSliderPage({
-        render: function (template, data) {
-            template.find('.pa-article-title').text(data.title);
-            $('.pa-article-title').text(data.title);
-            var imgSrc = 'img/' + data.img;
-            template.find('.pa-article-img').attr('src', imgSrc);
-            template.find('.pa-article-description').html(data.description);
-            template.find('.pa-article-date').text(moment.unix(data.date).format('DD.MM.YYYY'));
-            template.find('.pa-article-views').text(data.views);
+    page.hopeSliderArticlePage({
+        render: function (response) {
+
+            //var template = $('#template-page-episode').html();
+            //var view     = {};
+            //view.episode = response.object;
+
+            //return Mustache.render(template, view);
         },
+        loader: LocalArticlesAPI.category('news'),
         arrowLeft: $('.page-article-arrow__left'),
         arrowRight: $('.page-article-arrow__right'),
-        url: 'ajax/'
+        timePage: 800
     });
-
-    function timeToStr(unixTime, lang) {
-        moment.locale(lang);
-        var strDate = moment.unix(unixTime).format('D MMMM') + ', ' + '<span>' + moment.unix(unixTime).format('LT') + '</span>';
-        return strDate;
-    }
 
 });

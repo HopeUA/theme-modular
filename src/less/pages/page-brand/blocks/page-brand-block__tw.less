@@ -3,7 +3,8 @@
   position: relative;
   height: 119px;
 }
-.twit-lab::before{
+
+.twit-lab::before {
   content: " ";
   position: absolute;
   width: 55px;
@@ -44,8 +45,8 @@ position: relative;
 
 }
 .twit-lab{
-  font-family: PTSansRegular;
-  font-size: 20px;
+  font-family: @font__main;
+  .font-size(20);
   text-transform: uppercase;
   color: #808285;
   font-weight: 100;
@@ -58,8 +59,8 @@ position: relative;
   margin: 0px 43px 0;
   display: inline-block;
   color: #707c7e;
-  font-size: 18px;
-  font-family: PTSansRegular;
+  .font-size(18);
+  font-family: @font__main;
   position: relative;
 }
 .tw-data::before{
@@ -77,9 +78,8 @@ position: relative;
   margin: auto;
   padding: 50px 50px;
   color: #dfdfdf;
-  font-size: 20px;
-  font-family: PTSansRegular;
-  line-height: 20px;
+  .font-size(20);
+  font-family: @font__main;
   position: relative;
   border-bottom: 1px solid #687071;
 }

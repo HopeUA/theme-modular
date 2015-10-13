@@ -1,11 +1,11 @@
 .block-about-time{
   color:  #c44db2;
-  font-family: PTSansRegular;
+  font-family: @font__main;
 }
 .days-week{
   color:  #facb0e;
   margin-right: 10px;
-  font-family: PTSansRegular;
+  font-family: @font__main;
 }
 .block-about-time span{
   color: #808285;
@@ -22,7 +22,8 @@
   height: 100%x;
 }
 .about-ellipse{
-  font-family: PTSansitalic;
+  font-family: @font__main;
+  font-style: italic;
   color:  #838f91;
   margin-left: 50px;
   position: relative;
@@ -43,7 +44,7 @@
   display: inline-block;
   width: 30px;
   height: 30px;
-  background: url(../img/share-fb-Icon.png);
+  background-image: url(../img/share-fb-Icon.png);
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -64,15 +65,16 @@
    background-repeat: no-repeat;
  }
 .info-leading-name{
-  color:  #c44db2;
-  font-size: 18px;
-  font-family: PTSansBold;
+    color:  #c44db2;
+    font-family: @font__main;
+  font-weight: bold;
+  .font-size(18);
 }
 .info-leading-info{
   width: 209px;
-  font-family: PTSansRegular;
+    font-family: @font__main;
   color:  #a7a9ac;
-  font-size: 14px;
+  .font-size(14);
 }
 .leading{
   display: flex;
@@ -102,9 +104,8 @@
   margin: auto;
   margin-top: 30px;
   color: #a7a9ac;
-  font-size: 18px;
-  font-family: PTSansRegular;
-  line-height: 16px;
+  .font-size(18);
+    font-family: @font__main;
 }
 .leadings{
   display: block;

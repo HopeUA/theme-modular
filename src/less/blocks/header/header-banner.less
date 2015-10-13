@@ -94,7 +94,8 @@
     width: 103px;
     margin-left: 40px;
     color: @headerBanner__color-time;
-    font: 500 38px @font-Bold;
+    font-family: @font__main;
+    .font-size(38);
     text-align: center;
 }
 
@@ -107,7 +108,9 @@
     margin: 0 0 35px 40px;
     background: @headerBanner__color-day__background;
     color: @headerBanner__color-day;
-    font: bold 12px @font-Bold;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(12);
     text-transform: uppercase;
     text-align: center;
 }
@@ -118,7 +121,9 @@
     width: 167px;
     margin: 0 0 13px 40px;
     color: @headerBanner__color-title;
-    font: bold 15px @font-Bold;
+    font-family: @font__main;
+    font-weight: bold;
+    .font-size(15, 20);
 }
 
 .header-banner__item-description {
@@ -127,8 +132,8 @@
     width: 136px;
     margin-left: 40px;
     color: @headerBanner__color-description;
-    font: 14px @font-Regular;
-    line-height: 16px;
+    .font-size(14, 16);
+    font-family: @font__main;
 }
 
 .header-banner__item-play {
