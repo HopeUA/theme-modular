@@ -159,33 +159,33 @@
             var prevCode = self.articleCache[self.currentCode].prev;
 
             changePage(self, 'right');
-            //var timer = self.options.timePage + 100;
-            //
-            //setTimeout(function(){
-            //    self.container.find('.page-episode-next').html('');
-            //    self.container.find('.page-episode-current').addClass('page-episode-next').removeClass('page-episode-current');
-            //    self.container.find('.page-episode-prev').addClass('page-episode-current').removeClass('page-episode-prev');
-            //    self.container.find('.page-episode-next').eq(1).remove();
-            //    self.container.find('.page-episode-current').before('<div class="page-episode-prev"></div>');
-            //    self.container.css('margin-left', '-100%');
-            //
-            //    self.currentCode = prevCode;
-            //    prevCode = self.pageCache[self.currentCode].prev;
-            //
-            //    if (prevCode) {
-            //        loadJsonByCode(self, prevCode).then(function(){
-            //            var place = self.container.find('.page-episode-prev');
-            //            render(self, prevCode, place);
-            //        });
-            //
-            //        var episodeChangedEvent = new CustomEvent('episodeChanged', {
-            //            detail: { code: self.currentCode }
-            //        });
-            //        document.dispatchEvent(episodeChangedEvent);
-            //    } else {
-            //        hideArrow(self, $(this));
-            //    }
-            //}, timer);
+            var timer = self.options.timePage + 100;
+
+            setTimeout(function(){
+                self.$object.find('.page-article-text-next').html('');
+                self.$object.find('.page-article-text-current').addClass('page-article-text-next').removeClass('page-article-text-current');
+                self.$object.find('.page-article-text-prev').addClass('page-article-text-current').removeClass('page-article-text-prev');
+                self.$object.find('.page-article-text-next').eq(1).remove();
+                self.$object.find('.page-article-text-current').before('<div class="page-article-text-prev"></div>');
+                self.$object.find('.page-article-text-wrap').css('margin-left', '-100%');
+
+                //self.currentCode = prevCode;
+                //prevCode = self.articleCache[self.currentCode].prev;
+                //
+                //if (prevCode) {
+                //    loadJsonByCode(self, prevCode).then(function(){
+                //        var place = self.container.find('.page-episode-prev');
+                //        render(self, prevCode, place);
+                //    });
+                //
+                //    var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                //        detail: { code: self.currentCode }
+                //    });
+                //    document.dispatchEvent(episodeChangedEvent);
+                //} else {
+                //    hideArrow(self, $(this));
+                //}
+            }, timer);
         });
 
         self.$arrowLeft.click(function (event) {
