@@ -11,7 +11,7 @@
         }
 
         this.loader = this.options.loader;
-        this.pageCache = {};
+        this.articleCache = {};
         this.currentCode = null;
         this.prevObject = null;
         this.$arrowLeft = 'arrowLeft' in this.options ? (this.options.arrowLeft) : $('.page-content-arrow__left');
@@ -35,13 +35,13 @@
 
         return new Promise(function(resolve) {
 
-            if (self.pageCache.hasOwnProperty(code)) {
+            if (self.articleCache.hasOwnProperty(code)) {
                 resolve();
                 return;
             }
 
-            self.loader.code(code).fetch().then(function (data) {
-                self.pageCache[code] = data;
+            self.loader.single(code).fetch().then(function (data) {
+                self.articleCache[code] = data;
                 console.log('inside promise');
                 resolve();
             });
@@ -81,76 +81,60 @@
         }
     }
 
-    function render(self, code, place) {
-        var data = self.pageCache[code];
-        var renderHtml = self.options.render(data);
-        place.html(renderHtml);
+    function render(self, code, header, text) {
+        var data = self.articleCache[code];
+        var renderHeaderHtml = self.options.render(data).header;
+        var renderTextHtml = self.options.render(data).text;
+        header.html(renderHeaderHtml);
+        text.html(renderTextHtml);
     }
 
     function init(self) {
         self.currentCode = self.$object.data('article-code');
 
+        loadJsonByCode(self, self.currentCode).then(function(){
+            var prevArticleCode = self.articleCache[self.currentCode].prev;
+            var nextArticleCode = self.articleCache[self.currentCode].next;
 
-
-        setTimeout(function(){
+            var headerPlace = self.$object.find('.page-article-header-content-current');
+            var textPlace = self.$object.find('.page-article-text-current');
+            render(self, self.currentCode, headerPlace, textPlace);
 
             self.$object.find('.page-article-header-content').animate({
                 opacity: 1,
                 top: 0
-            }, 250, function(){
-                self.$object.find('.page-article-text').animate({
-                    marginTop: 0,
-                    opacity: 1
-                }, 400, function(){
-                    $('.page-article-arrow__left').animate({
-                        left: '10%',
-                        opacity: 1
-                    }, 200);
-                    $('.page-article-arrow__right').animate({
-                        right: '10%',
-                        opacity: 1
-                    }, 200);
-                });
             });
 
-        }, 200);
+            self.$object.find('.page-article-text-wrapper').animate({
+                marginTop: 0,
+                opacity: 1
+            }, 400, function() {
+                self.$object.css('height', 'auto');
+                self.$object.addClass('page-article-loaded');
+                $('.page-article-arrow__left').animate({
+                    left: '10%',
+                    opacity: 1
+                }, 200);
+                $('.page-article-arrow__right').animate({
+                    right: '10%',
+                    opacity: 1
+                }, 200);
+            });
 
+            loadJsonByCode(self, prevArticleCode).then(function(){
+                var headerPlace = self.$object.find('.page-article-header-content-prev');
+                var textPlace = self.$object.find('.page-article-text-prev');
+                render(self, prevArticleCode, headerPlace, textPlace);
+            });
 
-        //loadJsonByCode(self, self.currentCode).then(function(){
-        //    var prevEpisodeCode = self.pageCache[self.currentCode].prev;
-        //    var nextEpisodeCode = self.pageCache[self.currentCode].next;
-        //
-        //    var place = self.container.find('.page-episode-current');
-        //    render(self, self.currentCode, place);
-        //    console.log('log');
-        //    self.$object.find('.page-article-text').animate({
-        //        marginTop: 0,
-        //        opacity: 1
-        //    }, 400, function() {
-        //        self.$object.css('height', 'auto');
-        //        self.$object.addClass('page-episode-loaded');
-        //        $('.page-episode-arrow__left').animate({
-        //            left: '10%',
-        //            opacity: 1
-        //        }, 200);
-        //        $('.page-episode-arrow__right').animate({
-        //            right: '10%',
-        //            opacity: 1
-        //        }, 200);
-        //    });
-        //
-        //    loadJsonByCode(self, prevEpisodeCode).then(function(){
-        //        var place = self.container.find('.page-episode-prev');
-        //        render(self, prevEpisodeCode, place);
-        //    });
-        //
-        //    loadJsonByCode(self, nextEpisodeCode).then(function(){
-        //        var place = self.container.find('.page-episode-next');
-        //        render(self, nextEpisodeCode, place);
-        //    });
-        //
-        //});
-        //
+            loadJsonByCode(self, nextArticleCode).then(function(){
+                var headerPlace = self.$object.find('.page-article-header-content-next');
+                var textPlace = self.$object.find('.page-article-text-next');
+                render(self, prevArticleCode, headerPlace, textPlace);
+            });
+
+        });
+
         //self.$arrowRight.click(function (event) {
         //    event.preventDefault();
         //
