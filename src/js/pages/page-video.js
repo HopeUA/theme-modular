@@ -51,7 +51,7 @@ $(function () {
             return Mustache.render(template, view);
         },
         loader: LocalMediaAPI.episodes(),
-        timePage: 800
+        timePage: 625
     });
 
 });

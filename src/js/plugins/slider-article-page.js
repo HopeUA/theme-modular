@@ -24,7 +24,8 @@
 
     SliderArticlePage.DEFAULTS = {
         timeArrow: 300,
-        timePage: 200
+        timePage: 200,
+        shiftEasing : [.13,.63,.17,.99]
     };
 
     function loadJsonByCode() {
@@ -65,6 +66,9 @@
     };
 
     function changePage(self, direction) {
+        var easing = typeof self.options.shiftEasing === 'string' ? self.options.shiftEasing : $.bez(self.options.shiftEasing);
+        var easingPrev = $.bez([.85,.01,.93,.71]);
+
         self.ready = false;
 
         if (direction == 'right') {
@@ -72,24 +76,40 @@
                 top: '+=100%'
             });
             setTimeout(function(){
+
+                $('.page-article-text-prev').animate({
+                    opacity: 1
+                }, 200, easingPrev);
+                $('.page-article-text-current').animate({
+                    opacity: 0
+                }, 450);
+
                 self.$object.find('.page-article-text-wrap').animate({
                     marginLeft: '+=100%'
-                }, self.options.timePage, function() {
+                }, self.options.timePage, easing, function() {
                     self.ready = true;
                 });
-            }, 500);
+            }, 150);
 
         } else if (direction == 'left') {
             self.$object.find('.page-article-header-content').animate({
                 top: '-=100%'
             });
             setTimeout(function(){
+
+                $('.page-article-text-next').animate({
+                    opacity: 1
+                }, 200, easingPrev);
+                $('.page-article-text-current').animate({
+                    opacity: 0
+                }, 450);
+
                 self.$object.find('.page-article-text-wrap').animate({
                     marginLeft: '-=100%'
-                }, self.options.timePage, function() {
+                }, self.options.timePage, easing, function() {
                     self.ready = true;
                 });
-            }, 500);
+            }, 150);
         }
     }
 
@@ -142,7 +162,7 @@
             loadJsonByCode(self, nextArticleCode).then(function(){
                 var headerPlace = self.$object.find('.page-article-header-content-next');
                 var textPlace = self.$object.find('.page-article-text-next');
-                render(self, prevArticleCode, headerPlace, textPlace);
+                render(self, nextArticleCode, headerPlace, textPlace);
             });
 
         });
@@ -160,6 +180,7 @@
 
             changePage(self, 'right');
             var timer = self.options.timePage + 100;
+            timer = 415;
 
             setTimeout(function(){
                 self.$object.find('.page-article-text-next').html('');
@@ -169,22 +190,33 @@
                 self.$object.find('.page-article-text-current').before('<div class="page-article-text-prev"></div>');
                 self.$object.find('.page-article-text-wrap').css('margin-left', '-100%');
 
-                //self.currentCode = prevCode;
-                //prevCode = self.articleCache[self.currentCode].prev;
+                self.$object.find('.page-article-header-content-next').html('');
+                self.$object.find('.page-article-header-content-current').addClass('page-article-header-content-next').removeClass('page-article-header-content-current');
+                self.$object.find('.page-article-header-content-prev').addClass('page-article-header-content-current').removeClass('page-article-header-content-prev');
+                self.$object.find('.page-article-header-content-next').eq(1).remove();
+                self.$object.find('.page-article-header-content-current').before('<div class="page-article-header-content-prev"></div>');
+                self.$object.find('.page-article-header-content').css('top', '-100%');
+
+                self.currentCode = prevCode;
+                prevCode = self.articleCache[self.currentCode].prev;
+
+                //setTimeout(function(){
+                //    if (prevCode) {
+                //        loadJsonByCode(self, prevCode).then(function(){
+                //            var headerPlace = self.$object.find('.page-article-header-content-prev');
+                //            var textPlace = self.$object.find('.page-article-text-prev');
+                //            render(self, prevCode, headerPlace, textPlace);
+                //        });
                 //
-                //if (prevCode) {
-                //    loadJsonByCode(self, prevCode).then(function(){
-                //        var place = self.container.find('.page-episode-prev');
-                //        render(self, prevCode, place);
-                //    });
-                //
-                //    var episodeChangedEvent = new CustomEvent('episodeChanged', {
-                //        detail: { code: self.currentCode }
-                //    });
-                //    document.dispatchEvent(episodeChangedEvent);
-                //} else {
-                //    hideArrow(self, $(this));
-                //}
+                //        var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                //            detail: { code: self.currentCode }
+                //        });
+                //        document.dispatchEvent(episodeChangedEvent);
+                //    } else {
+                //        hideArrow(self, $(this));
+                //    }
+                //}, 200);
+
             }, timer);
         });
 

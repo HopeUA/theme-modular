@@ -46,7 +46,7 @@ $(function () {
         loader: LocalArticlesAPI,
         arrowLeft: $('.page-article-arrow__left'),
         arrowRight: $('.page-article-arrow__right'),
-        timePage: 800
+        timePage: 400
     });
 
 });
