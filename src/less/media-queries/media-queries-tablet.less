@@ -221,7 +221,8 @@
     width: 63%;
   }
   .page-articles-article-content-description{
-    width: 63%;
+    width: 100%;
+    max-height: 107px;
   }
   .page-articles-article-last{
     height: 567px;
@@ -256,5 +257,24 @@
     width: 176px;
     display: flex;
     justify-content: space-between;
+  }
+  .page-articles-article-content-date::after{
+    display: none;
+  }
+  .page-articles-article-content-views::after{
+    display: none;
+  }
+  .page-articles-article-content-views{
+    top: 15px;
+    right: 100px;
+  }
+  .page-articles-article-content-date{
+    top: 15px;
+  }
+  .page-articles-article-content-link{
+    display: none;
+  }
+  .page-articles-article-content-title{
+    width: 100%;
   }
 }
