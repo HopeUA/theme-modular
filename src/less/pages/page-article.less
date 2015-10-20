@@ -1,16 +1,36 @@
 .page-article {
     background: #f3f4f4;
     width: 100%;
+    height: 900px;
     overflow: hidden;
+}
+.page-article-text-wrapper {
+    margin-top: 150px;
+    opacity: 0.4;
+}
+
+.page-article-text-wrap {
+    display: flex;
+    width: 300%;
+    margin-left: -100%;
 }
 
 .page-article-text {
     margin-top: 150px;
     opacity: 0;
     overflow: hidden;
+    display: flex;
 }
 
-.page-article::after {
+.page-article-text-prev {
+    opacity: 0.4;
+}
+
+.page-article-text-next {
+    opacity: 0.4;
+}
+
+.page-article-loaded::after {
     content: "";
     display: block;
     width: 100%;
@@ -92,9 +112,14 @@
 .page-article-header-content {
     position: absolute;
     z-index: 3;
+    height: 100%;
     width: 100%;
     opacity: 0.4;
-    top: -100%;
+    top: -200%;
+}
+
+.page-article-header-content > div {
+    height: 100%;
 }
 
 .page-article-header-content-poster {

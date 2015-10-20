@@ -11,7 +11,7 @@
         }
 
         this.loader = this.options.loader;
-        this.pageCache = {};
+        this.articleCache = {};
         this.currentCode = null;
         this.prevObject = null;
         this.$arrowLeft = 'arrowLeft' in this.options ? (this.options.arrowLeft) : $('.page-content-arrow__left');
@@ -24,7 +24,8 @@
 
     SliderArticlePage.DEFAULTS = {
         timeArrow: 300,
-        timePage: 200
+        timePage: 200,
+        shiftEasing : [.13,.63,.17,.99]
     };
 
     function loadJsonByCode() {
@@ -35,13 +36,13 @@
 
         return new Promise(function(resolve) {
 
-            if (self.pageCache.hasOwnProperty(code)) {
+            if (self.articleCache.hasOwnProperty(code)) {
                 resolve();
                 return;
             }
 
-            self.loader.code(code).fetch().then(function (data) {
-                self.pageCache[code] = data;
+            self.loader.single(code).fetch().then(function (data) {
+                self.articleCache[code] = data;
                 console.log('inside promise');
                 resolve();
             });
@@ -65,176 +66,203 @@
     };
 
     function changePage(self, direction) {
+        var easing = typeof self.options.shiftEasing === 'string' ? self.options.shiftEasing : $.bez(self.options.shiftEasing);
+        var easingPrev = $.bez([.85,.01,.93,.71]);
+
         self.ready = false;
+
         if (direction == 'right') {
-            self.container.animate({
-                marginLeft: '+=100%'
-            }, self.options.timePage, function() {
-                self.ready = true;
+            self.$object.find('.page-article-header-content').animate({
+                top: '+=100%'
             });
+            setTimeout(function(){
+
+                $('.page-article-text-prev').animate({
+                    opacity: 1
+                }, 200, easingPrev);
+                $('.page-article-text-current').animate({
+                    opacity: 0
+                }, 450);
+
+                self.$object.find('.page-article-text-wrap').animate({
+                    marginLeft: '+=100%'
+                }, self.options.timePage, easing, function() {
+                    self.ready = true;
+                });
+            }, 150);
+
         } else if (direction == 'left') {
-            self.container.animate({
-                marginLeft: '-=100%'
-            }, self.options.timePage, function() {
-                self.ready = true;
+            self.$object.find('.page-article-header-content').animate({
+                top: '-=100%'
             });
+            setTimeout(function(){
+
+                $('.page-article-text-next').animate({
+                    opacity: 1
+                }, 200, easingPrev);
+                $('.page-article-text-current').animate({
+                    opacity: 0
+                }, 450);
+
+                self.$object.find('.page-article-text-wrap').animate({
+                    marginLeft: '-=100%'
+                }, self.options.timePage, easing, function() {
+                    self.ready = true;
+                });
+            }, 150);
         }
     }
 
-    function render(self, code, place) {
-        var data = self.pageCache[code];
-        var renderHtml = self.options.render(data);
-        place.html(renderHtml);
+    function render(self, code, header, text) {
+        var data = self.articleCache[code];
+        var renderHeaderHtml = self.options.render(data).header;
+        var renderTextHtml = self.options.render(data).text;
+        header.html(renderHeaderHtml);
+        text.html(renderTextHtml);
     }
 
     function init(self) {
         self.currentCode = self.$object.data('article-code');
 
+        loadJsonByCode(self, self.currentCode).then(function(){
+            var prevArticleCode = self.articleCache[self.currentCode].prev;
+            var nextArticleCode = self.articleCache[self.currentCode].next;
 
-
-        setTimeout(function(){
+            var headerPlace = self.$object.find('.page-article-header-content-current');
+            var textPlace = self.$object.find('.page-article-text-current');
+            render(self, self.currentCode, headerPlace, textPlace);
 
             self.$object.find('.page-article-header-content').animate({
                 opacity: 1,
-                top: 0
-            }, 250, function(){
-                self.$object.find('.page-article-text').animate({
-                    marginTop: 0,
-                    opacity: 1
-                }, 400, function(){
-                    $('.page-article-arrow__left').animate({
-                        left: '10%',
-                        opacity: 1
-                    }, 200);
-                    $('.page-article-arrow__right').animate({
-                        right: '10%',
-                        opacity: 1
-                    }, 200);
-                });
+                top: '-100%'
             });
 
-        }, 200);
+            self.$object.find('.page-article-text-wrapper').animate({
+                marginTop: 0,
+                opacity: 1
+            }, 400, function() {
+                self.$object.css('height', 'auto');
+                self.$object.addClass('page-article-loaded');
+                $('.page-article-arrow__left').animate({
+                    left: '10%',
+                    opacity: 1
+                }, 200);
+                $('.page-article-arrow__right').animate({
+                    right: '10%',
+                    opacity: 1
+                }, 200);
+            });
 
+            loadJsonByCode(self, prevArticleCode).then(function(){
+                var headerPlace = self.$object.find('.page-article-header-content-prev');
+                var textPlace = self.$object.find('.page-article-text-prev');
+                render(self, prevArticleCode, headerPlace, textPlace);
+            });
 
-        //loadJsonByCode(self, self.currentCode).then(function(){
-        //    var prevEpisodeCode = self.pageCache[self.currentCode].prev;
-        //    var nextEpisodeCode = self.pageCache[self.currentCode].next;
-        //
-        //    var place = self.container.find('.page-episode-current');
-        //    render(self, self.currentCode, place);
-        //    console.log('log');
-        //    self.$object.find('.page-article-text').animate({
-        //        marginTop: 0,
-        //        opacity: 1
-        //    }, 400, function() {
-        //        self.$object.css('height', 'auto');
-        //        self.$object.addClass('page-episode-loaded');
-        //        $('.page-episode-arrow__left').animate({
-        //            left: '10%',
-        //            opacity: 1
-        //        }, 200);
-        //        $('.page-episode-arrow__right').animate({
-        //            right: '10%',
-        //            opacity: 1
-        //        }, 200);
-        //    });
-        //
-        //    loadJsonByCode(self, prevEpisodeCode).then(function(){
-        //        var place = self.container.find('.page-episode-prev');
-        //        render(self, prevEpisodeCode, place);
-        //    });
-        //
-        //    loadJsonByCode(self, nextEpisodeCode).then(function(){
-        //        var place = self.container.find('.page-episode-next');
-        //        render(self, nextEpisodeCode, place);
-        //    });
-        //
-        //});
-        //
-        //self.$arrowRight.click(function (event) {
-        //    event.preventDefault();
-        //
-        //    if (!self.ready) {
-        //        return;
-        //    }
-        //
-        //    showArrow(self, self.$arrowLeft);
-        //
-        //    var prevCode = self.pageCache[self.currentCode].prev;
-        //
-        //    changePage(self, 'right');
-        //    var timer = self.options.timePage + 100;
-        //
-        //    setTimeout(function(){
-        //        self.container.find('.page-episode-next').html('');
-        //        self.container.find('.page-episode-current').addClass('page-episode-next').removeClass('page-episode-current');
-        //        self.container.find('.page-episode-prev').addClass('page-episode-current').removeClass('page-episode-prev');
-        //        self.container.find('.page-episode-next').eq(1).remove();
-        //        self.container.find('.page-episode-current').before('<div class="page-episode-prev"></div>');
-        //        self.container.css('margin-left', '-100%');
-        //
-        //        self.currentCode = prevCode;
-        //        prevCode = self.pageCache[self.currentCode].prev;
-        //
-        //        if (prevCode) {
-        //            loadJsonByCode(self, prevCode).then(function(){
-        //                var place = self.container.find('.page-episode-prev');
-        //                render(self, prevCode, place);
-        //            });
-        //
-        //            var episodeChangedEvent = new CustomEvent('episodeChanged', {
-        //                detail: { code: self.currentCode }
-        //            });
-        //            document.dispatchEvent(episodeChangedEvent);
-        //        } else {
-        //            hideArrow(self, $(this));
-        //        }
-        //    }, timer);
-        //});
-        //
-        //self.$arrowLeft.click(function (event) {
-        //    event.preventDefault();
-        //
-        //    if (!self.ready) {
-        //        return;
-        //    }
-        //
-        //    showArrow(self, self.$arrowRight);
-        //
-        //    var nextCode = self.pageCache[self.currentCode].next;
-        //    var prevCode = null;
-        //
-        //    changePage(self, 'left');
-        //    var timer = self.options.timePage + 100;
-        //
-        //    setTimeout(function(){
-        //        self.currentCode = nextCode;
-        //        nextCode = self.pageCache[self.currentCode].next;
-        //        prevCode = self.pageCache[self.currentCode].next;
-        //
-        //        self.container.find('.page-episode-prev').html('');
-        //        self.container.find('.page-episode-current').addClass('page-episode-prev').removeClass('page-episode-current');
-        //        self.container.find('.page-episode-next').addClass('page-episode-current').removeClass('page-episode-next');
-        //        self.container.find('.page-episode-prev').eq(0).remove();
-        //        self.container.find('.page-episode-current').after('<div class="page-episode-next"></div>');
-        //
-        //        self.container.css('margin-left', '-100%');
-        //
-        //        if (nextCode) {
-        //            loadJsonByCode(self, nextCode).then(function(){
-        //                var place = self.container.find('.page-episode-next');
-        //                render(self, nextCode, place);
-        //            });
-        //
-        //            var episodeChangedEvent = new CustomEvent('episodeChanged', {
-        //                detail: { code: self.currentCode }
-        //            });
-        //            document.dispatchEvent(episodeChangedEvent);
-        //        } else {
-        //            hideArrow(self, $(this));
-        //        }
-        //    }, timer);
-        //});
+            loadJsonByCode(self, nextArticleCode).then(function(){
+                var headerPlace = self.$object.find('.page-article-header-content-next');
+                var textPlace = self.$object.find('.page-article-text-next');
+                render(self, nextArticleCode, headerPlace, textPlace);
+            });
+
+        });
+
+        self.$arrowRight.click(function (event) {
+            event.preventDefault();
+
+            if (!self.ready) {
+                return;
+            }
+
+            showArrow(self, self.$arrowLeft);
+
+            var prevCode = self.articleCache[self.currentCode].prev;
+
+            changePage(self, 'right');
+            var timer = self.options.timePage + 100;
+            timer = 415;
+
+            setTimeout(function(){
+                self.$object.find('.page-article-text-next').html('');
+                self.$object.find('.page-article-text-current').addClass('page-article-text-next').removeClass('page-article-text-current');
+                self.$object.find('.page-article-text-prev').addClass('page-article-text-current').removeClass('page-article-text-prev');
+                self.$object.find('.page-article-text-next').eq(1).remove();
+                self.$object.find('.page-article-text-current').before('<div class="page-article-text-prev"></div>');
+                self.$object.find('.page-article-text-wrap').css('margin-left', '-100%');
+
+                self.$object.find('.page-article-header-content-next').html('');
+                self.$object.find('.page-article-header-content-current').addClass('page-article-header-content-next').removeClass('page-article-header-content-current');
+                self.$object.find('.page-article-header-content-prev').addClass('page-article-header-content-current').removeClass('page-article-header-content-prev');
+                self.$object.find('.page-article-header-content-next').eq(1).remove();
+                self.$object.find('.page-article-header-content-current').before('<div class="page-article-header-content-prev"></div>');
+                self.$object.find('.page-article-header-content').css('top', '-100%');
+
+                self.currentCode = prevCode;
+                prevCode = self.articleCache[self.currentCode].prev;
+
+                //setTimeout(function(){
+                //    if (prevCode) {
+                //        loadJsonByCode(self, prevCode).then(function(){
+                //            var headerPlace = self.$object.find('.page-article-header-content-prev');
+                //            var textPlace = self.$object.find('.page-article-text-prev');
+                //            render(self, prevCode, headerPlace, textPlace);
+                //        });
+                //
+                //        var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                //            detail: { code: self.currentCode }
+                //        });
+                //        document.dispatchEvent(episodeChangedEvent);
+                //    } else {
+                //        hideArrow(self, $(this));
+                //    }
+                //}, 200);
+
+            }, timer);
+        });
+
+        self.$arrowLeft.click(function (event) {
+            event.preventDefault();
+
+            if (!self.ready) {
+                return;
+            }
+
+            showArrow(self, self.$arrowRight);
+
+            var nextCode = self.articleCache[self.currentCode].next;
+            var prevCode = null;
+
+            changePage(self, 'left');
+            //var timer = self.options.timePage + 100;
+            //
+            //setTimeout(function(){
+            //    self.currentCode = nextCode;
+            //    nextCode = self.pageCache[self.currentCode].next;
+            //    prevCode = self.pageCache[self.currentCode].next;
+            //
+            //    self.container.find('.page-episode-prev').html('');
+            //    self.container.find('.page-episode-current').addClass('page-episode-prev').removeClass('page-episode-current');
+            //    self.container.find('.page-episode-next').addClass('page-episode-current').removeClass('page-episode-next');
+            //    self.container.find('.page-episode-prev').eq(0).remove();
+            //    self.container.find('.page-episode-current').after('<div class="page-episode-next"></div>');
+            //
+            //    self.container.css('margin-left', '-100%');
+            //
+            //    if (nextCode) {
+            //        loadJsonByCode(self, nextCode).then(function(){
+            //            var place = self.container.find('.page-episode-next');
+            //            render(self, nextCode, place);
+            //        });
+            //
+            //        var episodeChangedEvent = new CustomEvent('episodeChanged', {
+            //            detail: { code: self.currentCode }
+            //        });
+            //        document.dispatchEvent(episodeChangedEvent);
+            //    } else {
+            //        hideArrow(self, $(this));
+            //    }
+            //}, timer);
+        });
     };
 
     function Plugin(option) {

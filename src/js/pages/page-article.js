@@ -32,16 +32,21 @@ $(function () {
     page.hopeSliderArticlePage({
         render: function (response) {
 
-            //var template = $('#template-page-episode').html();
-            //var view     = {};
-            //view.episode = response.object;
+            var templateHeader = $('#template-article-header').html();
+            var templateText = $('#template-article-text').html();
+            var view     = {};
+            view.article = response.object;
+            view.article.date = moment(Date.parse(response.object.date)).format('DD.MM.YYYY');
 
-            //return Mustache.render(template, view);
+            return {
+                header: Mustache.render(templateHeader, view),
+                text: Mustache.render(templateText, view)
+            };
         },
-        loader: LocalArticlesAPI.category('news'),
+        loader: LocalArticlesAPI,
         arrowLeft: $('.page-article-arrow__left'),
         arrowRight: $('.page-article-arrow__right'),
-        timePage: 800
+        timePage: 400
     });
 
 });

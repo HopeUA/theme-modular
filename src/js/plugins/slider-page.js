@@ -24,7 +24,8 @@
 
     SliderPage.DEFAULTS = {
         timeArrow: 300,
-        timePage: 200
+        timePage: 200,
+        shiftEasing : [.13,.63,.17,.99]
     };
 
     function loadJsonByCode() {
@@ -63,17 +64,34 @@
     };
 
     function changePage(self, direction) {
+
+        var easing = typeof self.options.shiftEasing === 'string' ? self.options.shiftEasing : $.bez(self.options.shiftEasing);
+        var easingPrev = $.bez([.85,.01,.93,.71]);
+
+
         self.ready = false;
         if (direction == 'right') {
+            $('.page-episode-prev').animate({
+                opacity: 1
+            }, 200, easingPrev);
+            $('.page-episode-current').animate({
+                opacity: 0
+            }, 450);
             self.container.animate({
                 marginLeft: '+=100%'
-            }, self.options.timePage, function() {
+            }, self.options.timePage, easing, function() {
                 self.ready = true;
             });
         } else if (direction == 'left') {
+            $('.page-episode-next').animate({
+                opacity: 1
+            }, 200, easingPrev);
+            $('.page-episode-current').animate({
+                opacity: 0
+            }, 450);
             self.container.animate({
                 marginLeft: '-=100%'
-            }, self.options.timePage, function() {
+            }, self.options.timePage, easing, function() {
                 self.ready = true;
             });
         }
