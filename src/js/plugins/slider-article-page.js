@@ -199,8 +199,19 @@
                 var wrapHeight = self.$object.find('.page-article-text-current .container').css('height');
                 self.$object.find('.page-article-text-wrap').animate({
                     height : wrapHeight
-                }, 200);
+                }, 150);
 
+                self.$object.find('.page-article-header-poster-item-next').animate({
+                    opacity : 1
+                }, 200, function(){
+                    self.$object.find('.page-article-header-poster-item-current').addClass('page-article-header-poster-item-prev').removeClass('page-article-header-poster-item-current');
+                    self.$object.find('.page-article-header-poster-item-next').addClass('page-article-header-poster-item-current').removeClass('page-article-header-poster-item-next');
+                    self.$object.find('.page-article-header-poster-item-prev').eq(0).remove();
+                    self.$object.find('.page-article-header-poster-item-current').after('<div class="page-article-header-poster-item-next"></div>');
+                });
+
+                console.log(self.currentCode);
+                console.log(prevCode);
                 self.currentCode = prevCode;
                 prevCode = self.articleCache[self.currentCode].prev;
 
@@ -211,13 +222,15 @@
                             var textPlace = self.$object.find('.page-article-text-prev');
                             render(self, prevCode, headerPlace, textPlace);
                             self.$object.find('.page-article-text-wrap').css('margin-left', '-100%');
+                            console.log(self.articleCache);
+                            console.log(self.articleCache[self.currentCode].prev);
                         });
                     } else {
                         hideArrow(self, $(this));
                     }
                 }, 200);
 
-            }, timer);
+            }, 800);
         });
 
         self.$arrowLeft.click(function (event) {
@@ -251,7 +264,7 @@
                 var wrapHeight = self.$object.find('.page-article-text-current .container').css('height');
                 self.$object.find('.page-article-text-wrap').animate({
                     height : wrapHeight
-                }, 200);
+                }, 150);
 
                 self.currentCode = nextCode;
                 nextCode = self.articleCache[self.currentCode].next;
