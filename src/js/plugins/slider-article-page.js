@@ -182,6 +182,12 @@
             changePage(self, 'right');
             var timer = self.options.timePage + 15;
 
+            self.$object.find('.page-article-header-poster-item-next').css('opacity', 0);
+            var visibleStatus = self.$object.find('.page-article-header-poster-item-next').css('z-index');
+            console.log('visibleStatus', visibleStatus);
+            if (visibleStatus == 1) {
+                self.$object.find('.page-article-header-poster-item-next').css('z-index', 2);
+            }
             self.$object.find('.page-article-header-poster-item-next').animate({
                 opacity : 1
             }, 900, function(){
@@ -248,6 +254,18 @@
             changePage(self, 'left');
             var timer = self.options.timePage + 15;
 
+            self.$object.find('.page-article-header-poster-item-next').css('opacity', 0);
+            self.$object.find('.page-article-header-poster-item-prev').css('opacity', 0);
+            self.$object.find('.page-article-header-poster-item-current').css('z-index', 1);
+            self.$object.find('.page-article-header-poster-item-prev').animate({
+                opacity : 1
+            }, 900, function(){
+                self.$object.find('.page-article-header-poster-item-current').addClass('page-article-header-poster-item-next').removeClass('page-article-header-poster-item-current');
+                self.$object.find('.page-article-header-poster-item-prev').addClass('page-article-header-poster-item-current').removeClass('page-article-header-poster-item-prev');
+                self.$object.find('.page-article-header-poster-item-next').eq(1).remove();
+                self.$object.find('.page-article-header-poster-item-current').before('<div class="page-article-header-poster-item-prev"></div>');
+            });
+
             setTimeout(function(){
                 self.$object.find('.page-article-text-prev').html('');
                 self.$object.find('.page-article-text-current').addClass('page-article-text-prev').removeClass('page-article-text-current');
@@ -277,6 +295,11 @@
                             var textPlace = self.$object.find('.page-article-text-next');
                             render(self, nextCode, headerPlace, textPlace);
                             self.$object.find('.page-article-text-wrap').css('margin-left', '-100%');
+                            var nextArticle = self.articleCache[nextCode];
+                            var nextImage = nextArticle.object.image;
+                            var nextBackground = 'background-image: url("' + nextImage + '");';
+                            var nextPlace = self.$object.find('.page-article-header-poster-item-prev');
+                            nextPlace.attr('style', nextBackground);
                         });
                     } else {
                         hideArrow(self, $(this));
