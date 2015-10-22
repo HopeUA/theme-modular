@@ -13,6 +13,7 @@
     display: flex;
     width: 300%;
     margin-left: -100%;
+    margin-top: 50px;
 }
 
 .page-article-text {
@@ -24,10 +25,16 @@
 
 .page-article-text-prev {
     opacity: 0.4;
+    width: 100%;
+}
+
+.page-article-text-current {
+    width: 100%;
 }
 
 .page-article-text-next {
     opacity: 0.4;
+    width: 100%;
 }
 
 .page-article-loaded::after {
@@ -77,25 +84,43 @@
     float: right;
     margin-left: 3px;
 }
-.page-article-header {
+
+.page-article-header-poster-items {
+    width: 101%;
+    height: 286px;
+    position: relative;
+}
+
+.page-article-header-poster-items > div {
     background-position: center;
     background-size: cover;
     filter: blur(4px);
+    position: absolute;
+    width: 100%;
+    height: 103%;
+    padding: 0;
+    margin-left: -10px;
+    margin-top: -10px;
+}
+
+.page-article-header-poster-item-prev {
+    z-index: 2;
+    opacity: 0;
+}
+
+.page-article-header-poster-item-current {
+    z-index: 2;
+}
+
+.page-article-header-poster-item-next {
+    z-index: 2;
+    opacity: 0;
 }
 
 .page-article-header-wrap {
     overflow: hidden;
     height: 286px;
     position: relative;
-}
-
-.page-article-header {
-    display: flex;
-    height: 307px;
-    width: 101%;
-    padding: 0;
-    margin-left: -10px;
-    margin-top: -10px;
 }
 
 .page-article-header-wrap::before {
@@ -106,7 +131,7 @@
     position: absolute;
     background: #0b2226;
     opacity: 0.5;
-    z-index: 1;
+    z-index: 3;
 }
 
 .page-article-header-content {
@@ -306,7 +331,6 @@
 }
 
 .page-article-content-controls {
-    margin-top: 50px;
     display: flex;
     position: relative;
 }

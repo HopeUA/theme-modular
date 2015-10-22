@@ -96,7 +96,6 @@
                 top: '-=100%'
             });
             setTimeout(function(){
-
                 $('.page-article-text-next').animate({
                     opacity: 1
                 }, 200, easingPrev);
@@ -143,6 +142,8 @@
             }, 400, function() {
                 self.$object.css('height', 'auto');
                 self.$object.addClass('page-article-loaded');
+                var wrapHeight = self.$object.find('.page-article-text-current .container').css('height');
+                self.$object.find('.page-article-text-wrap').css('height', wrapHeight);
                 $('.page-article-arrow__left').animate({
                     left: '10%',
                     opacity: 1
@@ -179,8 +180,22 @@
             var prevCode = self.articleCache[self.currentCode].prev;
 
             changePage(self, 'right');
-            var timer = self.options.timePage + 100;
-            timer = 415;
+            var timer = self.options.timePage + 15;
+
+            self.$object.find('.page-article-header-poster-item-next').css('opacity', 0);
+            var visibleStatus = self.$object.find('.page-article-header-poster-item-next').css('z-index');
+            console.log('visibleStatus', visibleStatus);
+            if (visibleStatus == 1) {
+                self.$object.find('.page-article-header-poster-item-next').css('z-index', 2);
+            }
+            self.$object.find('.page-article-header-poster-item-next').animate({
+                opacity : 1
+            }, 900, function(){
+                self.$object.find('.page-article-header-poster-item-current').addClass('page-article-header-poster-item-prev').removeClass('page-article-header-poster-item-current');
+                self.$object.find('.page-article-header-poster-item-next').addClass('page-article-header-poster-item-current').removeClass('page-article-header-poster-item-next');
+                self.$object.find('.page-article-header-poster-item-prev').eq(0).remove();
+                self.$object.find('.page-article-header-poster-item-current').after('<div class="page-article-header-poster-item-next"></div>');
+            });
 
             setTimeout(function(){
                 self.$object.find('.page-article-text-next').html('');
@@ -196,28 +211,33 @@
                 self.$object.find('.page-article-header-content-next').eq(1).remove();
                 self.$object.find('.page-article-header-content-current').before('<div class="page-article-header-content-prev"></div>');
                 self.$object.find('.page-article-header-content').css('top', '-100%');
+                var wrapHeight = self.$object.find('.page-article-text-current .container').css('height');
+                self.$object.find('.page-article-text-wrap').animate({
+                    height : wrapHeight
+                }, 150);
 
                 self.currentCode = prevCode;
                 prevCode = self.articleCache[self.currentCode].prev;
 
-                //setTimeout(function(){
-                //    if (prevCode) {
-                //        loadJsonByCode(self, prevCode).then(function(){
-                //            var headerPlace = self.$object.find('.page-article-header-content-prev');
-                //            var textPlace = self.$object.find('.page-article-text-prev');
-                //            render(self, prevCode, headerPlace, textPlace);
-                //        });
-                //
-                //        var episodeChangedEvent = new CustomEvent('episodeChanged', {
-                //            detail: { code: self.currentCode }
-                //        });
-                //        document.dispatchEvent(episodeChangedEvent);
-                //    } else {
-                //        hideArrow(self, $(this));
-                //    }
-                //}, 200);
+                setTimeout(function(){
+                    if (prevCode) {
+                        loadJsonByCode(self, prevCode).then(function(){
+                            var headerPlace = self.$object.find('.page-article-header-content-prev');
+                            var textPlace = self.$object.find('.page-article-text-prev');
+                            render(self, prevCode, headerPlace, textPlace);
+                            self.$object.find('.page-article-text-wrap').css('margin-left', '-100%');
+                            var nextArticle = self.articleCache[prevCode];
+                            var nextImage = nextArticle.object.image;
+                            var nextBackground = 'background-image: url("' + nextImage + '");';
+                            var nextPlace = self.$object.find('.page-article-header-poster-item-next');
+                            nextPlace.attr('style', nextBackground);
+                        });
+                    } else {
+                        hideArrow(self, $(this));
+                    }
+                }, 200);
 
-            }, timer);
+            }, 800);
         });
 
         self.$arrowLeft.click(function (event) {
@@ -230,38 +250,63 @@
             showArrow(self, self.$arrowRight);
 
             var nextCode = self.articleCache[self.currentCode].next;
-            var prevCode = null;
 
             changePage(self, 'left');
-            //var timer = self.options.timePage + 100;
-            //
-            //setTimeout(function(){
-            //    self.currentCode = nextCode;
-            //    nextCode = self.pageCache[self.currentCode].next;
-            //    prevCode = self.pageCache[self.currentCode].next;
-            //
-            //    self.container.find('.page-episode-prev').html('');
-            //    self.container.find('.page-episode-current').addClass('page-episode-prev').removeClass('page-episode-current');
-            //    self.container.find('.page-episode-next').addClass('page-episode-current').removeClass('page-episode-next');
-            //    self.container.find('.page-episode-prev').eq(0).remove();
-            //    self.container.find('.page-episode-current').after('<div class="page-episode-next"></div>');
-            //
-            //    self.container.css('margin-left', '-100%');
-            //
-            //    if (nextCode) {
-            //        loadJsonByCode(self, nextCode).then(function(){
-            //            var place = self.container.find('.page-episode-next');
-            //            render(self, nextCode, place);
-            //        });
-            //
-            //        var episodeChangedEvent = new CustomEvent('episodeChanged', {
-            //            detail: { code: self.currentCode }
-            //        });
-            //        document.dispatchEvent(episodeChangedEvent);
-            //    } else {
-            //        hideArrow(self, $(this));
-            //    }
-            //}, timer);
+            var timer = self.options.timePage + 15;
+
+            self.$object.find('.page-article-header-poster-item-next').css('opacity', 0);
+            self.$object.find('.page-article-header-poster-item-prev').css('opacity', 0);
+            self.$object.find('.page-article-header-poster-item-current').css('z-index', 1);
+            self.$object.find('.page-article-header-poster-item-prev').animate({
+                opacity : 1
+            }, 900, function(){
+                self.$object.find('.page-article-header-poster-item-current').addClass('page-article-header-poster-item-next').removeClass('page-article-header-poster-item-current');
+                self.$object.find('.page-article-header-poster-item-prev').addClass('page-article-header-poster-item-current').removeClass('page-article-header-poster-item-prev');
+                self.$object.find('.page-article-header-poster-item-next').eq(1).remove();
+                self.$object.find('.page-article-header-poster-item-current').before('<div class="page-article-header-poster-item-prev"></div>');
+            });
+
+            setTimeout(function(){
+                self.$object.find('.page-article-text-prev').html('');
+                self.$object.find('.page-article-text-current').addClass('page-article-text-prev').removeClass('page-article-text-current');
+                self.$object.find('.page-article-text-next').addClass('page-article-text-current').removeClass('page-article-text-next');
+                self.$object.find('.page-article-text-prev').eq(0).remove();
+                self.$object.find('.page-article-text-current').after('<div class="page-article-text-next"></div>');
+                self.$object.find('.page-article-text-wrap').css('margin-left', '-100%');
+
+                self.$object.find('.page-article-header-content-prev').html('');
+                self.$object.find('.page-article-header-content-current').addClass('page-article-header-content-prev').removeClass('page-article-header-content-current');
+                self.$object.find('.page-article-header-content-next').addClass('page-article-header-content-current').removeClass('page-article-header-content-next');
+                self.$object.find('.page-article-header-content-prev').eq(0).remove();
+                self.$object.find('.page-article-header-content-current').after('<div class="page-article-header-content-next"></div>');
+                self.$object.find('.page-article-header-content').css('top', '-100%');
+                var wrapHeight = self.$object.find('.page-article-text-current .container').css('height');
+                self.$object.find('.page-article-text-wrap').animate({
+                    height : wrapHeight
+                }, 150);
+
+                self.currentCode = nextCode;
+                nextCode = self.articleCache[self.currentCode].next;
+
+                setTimeout(function(){
+                    if (nextCode) {
+                        loadJsonByCode(self, nextCode).then(function(){
+                            var headerPlace = self.$object.find('.page-article-header-content-next');
+                            var textPlace = self.$object.find('.page-article-text-next');
+                            render(self, nextCode, headerPlace, textPlace);
+                            self.$object.find('.page-article-text-wrap').css('margin-left', '-100%');
+                            var nextArticle = self.articleCache[nextCode];
+                            var nextImage = nextArticle.object.image;
+                            var nextBackground = 'background-image: url("' + nextImage + '");';
+                            var nextPlace = self.$object.find('.page-article-header-poster-item-prev');
+                            nextPlace.attr('style', nextBackground);
+                        });
+                    } else {
+                        hideArrow(self, $(this));
+                    }
+                }, 200);
+
+            }, 800);
         });
     };
 
