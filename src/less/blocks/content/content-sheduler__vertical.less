@@ -14,6 +14,7 @@
     background: #fff;
     z-index: 0;
     border-radius: 4px;
+    box-shadow: 0 2px 0 #E0E0E0;
 }
 
 .content-sheduler__vertical::after {
@@ -27,6 +28,8 @@
     z-index: -1;
     top: 0;
     right: 0;
+    box-shadow: 0 2px 0 #E0E0E0;
+    border-radius: 4px;
 }
 
 .content-sheduler__vertical-current:hover {
@@ -144,7 +147,7 @@
 .content-sheduler__vertical-list {
     z-index: 0;
     padding: 0;
-    margin: 13px 0 0 34px;
+    margin: 13px 0 0 22px;
     backface-visibility: hidden;
 }
 
@@ -157,18 +160,13 @@
 
 .content-sheduler__vertical-list-item {
     position: relative;
-    width: 181px;
+    width: 204px;
+    height: 66px;
     padding-bottom: 4px;
     border-bottom: dotted 1px #b2b2b3;
     margin-top: 13px;
-    color: #808285;
-    .font-size(11);
-    font-family: @font__main;
-    list-style-image: url(../img/content-episode-arrowIcon.svg);
-}
-
-.content-sheduler__vertical-list-item:nth-child(3) {
-    border-bottom: none;
+    list-style: none;
+    display: flex;
 }
 
 .content-sheduler__vertical-list-item:nth-child(4) {
@@ -179,7 +177,7 @@
     border-bottom: none;
 }
 
-.content-sheduler__vertical-list-item span {
+.content-sheduler__vertical-list-item :nth-child(1) {
     position: relative;
     top: 1px;
     margin-right: 10px;
@@ -210,4 +208,39 @@
     transform: scale(1.1);
 }
 
-
+.content-sheduler__vertical-list .uk::after{
+    content: '';
+    background: url("../img/page-scheduler-content-container-flag__ua.png");
+    display: block;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 19px;
+    left: 7px;
+}
+.content-sheduler__vertical-list .ru::after{
+    content: '';
+    background: url("../img/page-scheduler-content-container-flag__ru.png");
+    display: block;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 19px;
+    left: 7px;
+}
+.content-sheduler__vertical-list-item div :nth-child(2){
+    .font-size(11);
+    display: block;
+    margin-top: 3px;
+    color:  #808285;
+    font-family: @font__main;
+}
+.content-sheduler__vertical-list-item div :nth-child(1) {
+    width: 153px;
+    padding-bottom: 4px;
+    color: #6e7b7d;
+    .font-size(13);
+    font-family: @font__main;
+    font-weight: bold;
+    display: block;
+}
