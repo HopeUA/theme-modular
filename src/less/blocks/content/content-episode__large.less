@@ -52,7 +52,7 @@
 }
 
 .content-episode__large:hover .content-episode__large-image {
-    filter: grayscale(100%);
+    //filter: grayscale(100%); // don't work in safari
 }
 
 .content-episode__large::before {
@@ -147,9 +147,11 @@
     border-radius: 4px 0 0 4px;
     opacity: 0.2;
 }
-.content-episode__large:hover .content-episode__large-image{
-    transform: scale(1.25);
+
+.content-episode__large:hover .content-episode__large-image {
+    //transform: scale(1.25); // don't work in safari
 }
+
 .new .content-episode__large-image {
     border-radius: 4px;
 }
