@@ -268,28 +268,30 @@
 
         <div class="content-arrow-left new-arrow-left"></div>
 
-        <div class="container-content new">
-            <script id="template-new" type="x-tmpl-mustache">
-             {{#first}}
-                <div class="content-episode__large grid__column-2">
-                    <div class="content-episode__large-play"></div>
-                    <h5 class="content-episode__large-title__episode">{{& title }}</h5>
-                    <p class="content-episode__large-title__show">{{& show }}</p>
-                    <div class="content-episode__large-image" style="background-image: url({{& image }})"></div>
-                </div>
-                <div class="content-episodes__row">
-            {{/first}}
-            {{#episodes}}
-                <div class="content-episodes__row-item content-episodes__row-item-fix-height">
-                    <div class="content-episodes__row-item-play"></div>
-                    <p class="content-episodes__row-item-title">{{& title }}</p>
-                    <div class="content-episodes__row-image" style="background-image: url({{& image }})"></div>
-                </div>
-            {{/episodes}}
-            {{#first}}
-                </div>
-            {{/first}}
-            </script>
+        <div class="container-content-wrap-items">
+            <div class="container-content new">
+                <script id="template-new" type="x-tmpl-mustache">
+                 {{#first}}
+                    <div class="content-episode__large grid__column-2">
+                        <div class="content-episode__large-play"></div>
+                        <h5 class="content-episode__large-title__episode">{{& title }}</h5>
+                        <p class="content-episode__large-title__show">{{& show }}</p>
+                        <div class="content-episode__large-image" style="background-image: url({{& image }})"></div>
+                    </div>
+                    <div class="content-episodes__row">
+                {{/first}}
+                {{#episodes}}
+                    <div class="content-episodes__row-item content-episodes__row-item-fix-height">
+                        <div class="content-episodes__row-item-play"></div>
+                        <p class="content-episodes__row-item-title">{{& title }}</p>
+                        <div class="content-episodes__row-image" style="background-image: url({{& image }})"></div>
+                    </div>
+                {{/episodes}}
+                {{#first}}
+                    </div>
+                {{/first}}
+                </script>
+            </div>
         </div>
         <div class="content-arrow-right new-arrow-right"></div>
     </section>
