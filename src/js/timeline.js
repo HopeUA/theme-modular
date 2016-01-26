@@ -91,63 +91,39 @@ $(function () {
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item', function () {
-
-        var self = $('.header-timeline__items > div').not($(this));
-
-        self.stop().animate({
-            'opacity': 0.5
+        $(this).stop().animate({
+            opacity: 1
         }, 250);
-
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item-current', function () {
-
-        var self = $('.header-timeline__items > div').not($(this));
-
-        self.stop().animate({
-            'opacity': 0.5
+        $(this).stop().animate({
+            opacity: 1
         }, 250);
-
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item-next', function () {
-
-        var self = $('.header-timeline__items > div').not($(this));
-
-        self.stop().animate({
-            'opacity': 0.5
+        $(this).stop().animate({
+            opacity: 1
         }, 250);
-
     });
 
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item', function () {
-
-        var self = $('.header-timeline__items > div').not($(this));
-
-        self.stop().animate({
-            'opacity': 1
+        $(this).stop().animate({
+            opacity: 0.65
         }, 250);
-
     });
 
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item-current', function () {
-
-        var self = $('.header-timeline__items > div').not($(this));
-
-        self.stop().animate({
-            'opacity': 1
+        $(this).stop().animate({
+            opacity: 0.65
         }, 250);
-
     });
 
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item-next', function () {
-
-        var self = $('.header-timeline__items > div').not($(this));
-
-        self.stop().animate({
-            'opacity': 1
+        $(this).stop().animate({
+            opacity: 0.65
         }, 250);
-
     });
 
     function isAnimated(self) {
@@ -299,7 +275,7 @@ $(function () {
             display: 'block'
         });
         timelineMenu.animate({
-            opacity: 1,
+            opacity: 1
         }, 500);
 
         $('.header-timeline-menu-container').animate({
