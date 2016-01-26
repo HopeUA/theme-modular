@@ -4,25 +4,23 @@ $(function(){
     var elementArrowRight  = $('.header-banner__arrow_right');
 
     elementArrowLeft.click(function(){
-
-        move('left');
-
+        move('left', false);
     });
 
     elementArrowRight.click(function(){
-
-        move('right');
-
+        move('right', false);
     });
 
     $('.header-banner__controls-item').click(function(){
         var index = $(this).index();
-
         moveTo(this, index);
     });
 
-    function move(direction) {
+    function move(direction, startLine) {
         var time = 400;
+        if (startLine !== false) {
+            startLine = true;
+        }
 
         var $current = $('.header-banner__item__current');
         var $first   = $('.header-banner__item').first();
@@ -118,7 +116,9 @@ $(function(){
             }
         }
 
-        bannerTimer();
+        if (startLine) {
+            bannerTimer();
+        }
     }
 
     function moveTo(self, index) {
@@ -145,8 +145,6 @@ $(function(){
             $current = $('.header-banner__item__current');
             $current.animate({opacity : 1}, 400);
         }, 400);
-
-        bannerTimer();
     }
 
     var mainColor = $('.header-banner__item').eq(0).data('averagecolor');
