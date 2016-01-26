@@ -341,9 +341,10 @@ $(function () {
         var serverTime = moment(Hope.Chrono.getDate());
         var start = moment(serverTime).subtract(10, 'hour').utc().toDate();
         var end = moment(serverTime).add(10, 'hour').utc().toDate();
+        console.log(start, end);
 
         scheduler.from(start).to(end).fetch().then(function(result){
-            serverTime = moment(Hope.Chrono.getDate());
+            serverTime = moment(Hope.Chrono.getDate()).second(0);
             var episodes = result.data;
             var str = null;
             var strFull = null;
@@ -351,7 +352,6 @@ $(function () {
             var placeFull = $('.header-timeline-menu-items');
             var minutes = null;
             var multiplier = 5;
-            var minutes = null;
             var elementClass = null;
             var currentBefore = null;
             var currentAfter = null;
