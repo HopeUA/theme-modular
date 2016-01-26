@@ -22,7 +22,6 @@ $(function(){
     });
 
     function move(direction) {
-
         var time = 400;
 
         var $current = $('.header-banner__item__current');
@@ -47,7 +46,7 @@ $(function(){
                 $current.animate({opacity : 0}, time);
                 $last.animate({opacity : 1}, time);
 
-                mainColor = $last.data('averegecolor');
+                mainColor = $last.data('averagecolor');
 
                 $labelActive.removeClass('header-banner__controls-item__active');
                 $labelLast.addClass('header-banner__controls-item__active');
@@ -64,7 +63,7 @@ $(function(){
                 $current.animate({opacity : 0}, time);
                 $next.animate({opacity : 1}, time);
 
-                mainColor = $next.data('averegecolor');
+                mainColor = $next.data('averagecolor');
 
                 $labelActive.removeClass('header-banner__controls-item__active');
                 $labelNext.addClass('header-banner__controls-item__active');
@@ -86,11 +85,10 @@ $(function(){
             var $labelPrev = $labelActive.prev('.header-banner__controls-item');
 
             if ($last.hasClass('header-banner__item__current')) {
+                mainColor = $first.data('averagecolor');
 
                 $current.animate({opacity : 0}, time);
                 $first.animate({opacity : 1}, time);
-
-                mainColor = $first.data('averegecolor');
 
                 $labelActive.removeClass('header-banner__controls-item__active');
                 $labelFirst.addClass('header-banner__controls-item__active');
@@ -103,11 +101,10 @@ $(function(){
                 }, time)
 
             } else {
+                mainColor = $next.data('averagecolor');
 
                 $current.animate({opacity : 0}, time);
                 $next.animate({opacity : 1}, time);
-
-                mainColor = $next.data('averegecolor');
 
                 $labelActive.removeClass('header-banner__controls-item__active');
                 $labelNext.addClass('header-banner__controls-item__active');
@@ -120,6 +117,8 @@ $(function(){
                 }, time);
             }
         }
+
+        bannerTimer();
     }
 
     function moveTo(self, index) {
@@ -132,7 +131,7 @@ $(function(){
 
         var $next = $('.header-banner__item').eq(index);
 
-        mainColor = $next.data('averegecolor');
+        mainColor = $next.data('averagecolor');
 
         $labelActive.removeClass('header-banner__controls-item__active');
         $(self).addClass('header-banner__controls-item__active');
@@ -146,45 +145,37 @@ $(function(){
             $current = $('.header-banner__item__current');
             $current.animate({opacity : 1}, 400);
         }, 400);
+
+        bannerTimer();
     }
 
-    var mainColor = $('.header-banner__item').eq(0).data('averegecolor');
+    var mainColor = $('.header-banner__item').eq(0).data('averagecolor');
 
     function bannerTimer() {
 
         var $line = $('.header-banner__loader');
-        var timer = 5000;
+        var timer = 4990;
         var width = $(window).width();
-
-        var $line = $('.header-banner__loader');
 
         $line.css('background-color', mainColor);
 
         $line.animate({
             width: width
-        }, 4990, 'linear', function(){
+        }, timer, 'linear', function(){
+            $line.animate({width : 0}, 0);
             move('right');
         });
-
-        setTimeout(function(){
-            $line.animate({width : 0}, 0);
-        }, 4990);
-
     };
 
-    var sliderAnimations = null;
     var changeTimeout = null;
     var $line = $('.header-banner__loader');
     var mainSliderStatus = $('.header-timeline-menu').css('opacity');
 
     if (mainSliderStatus == 0) {
         bannerTimer();
-        sliderAnimations = setInterval(bannerTimer, 5010);
     }
 
     $('.header__large').hover(function(){
-        console.log('in');
-        clearInterval(sliderAnimations);
         $line.stop();
         $line.animate({width : 0}, 600);
 
@@ -193,9 +184,6 @@ $(function(){
 
         if (mainSliderStatus == 0) {
             bannerTimer();
-            sliderAnimations = setInterval(bannerTimer, 5010);
         }
     });
-
-    //console.log('test');
 });
