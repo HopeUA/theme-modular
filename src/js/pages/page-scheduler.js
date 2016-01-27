@@ -69,7 +69,6 @@ $(function () {
     var counterSlider = 0;
 
     if ($container) {
-
         var serverTime = Hope.Chrono.getDate();
         var year = moment(serverTime).format('YYYY');
         var day = moment(serverTime).format('DD');
@@ -329,9 +328,13 @@ $(function () {
         ajaxListStatus(true);
         loadJson(dayDate).then(function(data){
             if (currentIndex < prevIndex) {
-                renderTemplate(data, 'prev');
+                renderTemplate(data, 'prev', false, function(){
+                    //console.log('render prev was finished');
+                });
             } else {
-                renderTemplate(data, 'next');
+                renderTemplate(data, 'next', false, function(){
+                    //console.log('render next was finished');
+                });
             }
             ajaxListStatus(false);
         });
@@ -393,24 +396,32 @@ $(function () {
 
             loadJson(elementId).then(function(data){
                 if (currentIndex < prevIndex) {
-                    renderTemplate(data, 'prev');
+                    renderTemplate(data, 'prev', false, function() {
+                        var currentProgram = $('.page-scheduler-content-items .live2');
+                        $(window).scrollTo(currentProgram, 400, {
+                            over: {
+                                top: -10.347
+                            }
+                        });
 
-                    var currentProgram = $('.page-scheduler-content-items .active');
-                    $(window).scrollTo(currentProgram, 400, {
-                        over: {
-                            top: 1.965
-                        }
+                        currentProgram.addClass('live');
+                        showItem(currentProgram);
                     });
                 } else {
-                    renderTemplate(data, 'next');
+                    renderTemplate(data, 'next', false, function() {
+                        var currentProgram = $('.page-scheduler-content-items .live2');
+                        $(window).scrollTo(currentProgram, 400, {
+                            over: {
+                                top: -10.347
+                            }
+                        });
 
-                    var currentProgram = $('.page-scheduler-content-items .active');
-                    $(window).scrollTo(currentProgram, 400, {
-                        over: {
-                            top: -5
-                        }
+                        currentProgram.addClass('live');
+                        showItem(currentProgram);
                     });
                 }
+            }).catch(function(e){
+                console.error(e.message);
             });
         }
     });
@@ -421,8 +432,7 @@ $(function () {
         return strDate;
     }
 
-    function renderTemplate(currentDay, dirrection, first) {
-
+    function renderTemplate(currentDay, dirrection, first, cb) {
         var $container = $('.page-scheduler-content-items');
 
         if (dirrection == 'next') {
@@ -435,7 +445,6 @@ $(function () {
             var shiftList = 0 - (currentDay.length - 2) * 79 + 200;
             var tempHeightFirst = shiftList * (-2);
 
-            console.log(tempHeightFirst);
             $container.css({
                 'height': tempHeightFirst
             });
@@ -449,13 +458,23 @@ $(function () {
         }
 
         var episodes = [];
+        var liveStatus = false;
         for (var i = 0; i < currentDay.length; i++) {
             var episode = {
                 title : currentDay[i].episode.title,
                 show :  currentDay[i].show.title,
                 date :  timeToStr(currentDay[i].date, 'ru'),
-                language : currentDay[i].episode.language
+                language : currentDay[i].episode.language,
+                liveStatus: ''
             };
+
+            var episodeDate = moment(currentDay[i].date);
+            var currentDate = moment(Hope.Chrono.getDate());
+            if (!liveStatus && episodeDate.date() == currentDate.date() && episodeDate.isAfter(currentDate)) {
+                episodes[(i-1)].liveStatus = 'live2';
+                liveStatus = true;
+            }
+
             if (currentDay[i].episode.description) {
                 episode.description = currentDay[i].episode.description;
             } else {
@@ -470,7 +489,6 @@ $(function () {
 
             episodes.push(episode);
         }
-
         var template = $('#scheduler-list__vertical').html();
         var view     = {};
         view.episodes = episodes;
@@ -481,7 +499,6 @@ $(function () {
         if (dirrection == 'next') {
             var beginLoop = $containerList.length;
             $container.append(renderTemplate);
-            console.log($container.css('height'));
             $container.css({
                 height: newHeight
             });
@@ -507,6 +524,10 @@ $(function () {
                 $('.page-scheduler-content-items').css({
                     marginTop: 0
                 })
+
+                if (cb) {
+                    cb();
+                }
             });
         } else {
 
@@ -516,6 +537,9 @@ $(function () {
                 var $containerList = $('.page-scheduler-content-items').find('.page-scheduler-content-item');
                 for (counter; counter <= counterContainerList; counter++) {
                     $containerList.eq(counter).remove();
+                }
+                if (cb) {
+                    cb();
                 }
             }, 300);
         }
