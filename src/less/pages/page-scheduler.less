@@ -322,12 +322,13 @@
     padding-left: 59px;
 }
 
-.page-scheduler-content-item p > span:nth-child(3) {
+.page-scheduler-content-show-title {
     color: #939598;
     font-family: @font__main;
     .font-size(15);
     display: block;
     margin-top: 0;
+    text-decoration: none;
 }
 
 .page-scheduler-content-item {
@@ -455,7 +456,7 @@
     color: #58595b;
 }
 
-.page-scheduler-content-items .active .page-scheduler-content-episode-title {
+.page-scheduler-content-items .active a.page-scheduler-content-episode-title {
     display: inline-block;
     margin: auto;
     color: #2f8dca;
@@ -463,6 +464,24 @@
     .font-size(18);
     text-decoration: none;
     height: 27px;
+}
+
+.page-scheduler-content-items .active span.page-scheduler-content-episode-title {
+    display: inline-block;
+    margin: auto;
+    color: #2f8dca;
+    font-family: @font__main;
+    .font-size(18);
+    text-decoration: none;
+    height: 27px;
+}
+
+.page-scheduler-content-items .active span.page-scheduler-content-episode-title span {
+    display: none;
+}
+
+.page-scheduler-content-items .active span.page-scheduler-content-episode-title::after {
+    display: none;
 }
 
 .page-scheduler-content-items .active .page-scheduler-content-episode-title::after {
@@ -693,16 +712,21 @@
 
 .page-scheduler-content-items .active .page-scheduler-content-episode-play {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     top: 50%;
     left: 50%;
-    display: block;
+    display: none;
     width: 40px;
     height: 40px;
     margin: -20px 0 0 -20px;
-    background: url(../img/header-playButton.svg) no-repeat;
+    background: url(../img/playButton.png) no-repeat;
     content: "";
     transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
+    background-size: contain;
+}
+
+.page-scheduler-content-episode-info-video .page-scheduler-content-episode-poster .page-scheduler-content-episode-play {
+    display: block;
 }
 
 .page-scheduler-content-items .page-scheduler-content-episode-play {
@@ -1033,4 +1057,11 @@
     top: 4%;
     margin-left: -30px;
     z-index: 2;
+}
+.page-scheduler-header-link__calendar {
+    display: none;
+}
+.no-link {
+    text-decoration: none;
+    display: none;
 }
