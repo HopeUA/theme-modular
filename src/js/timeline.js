@@ -317,7 +317,6 @@ $(function () {
         var serverTime = moment(Hope.Chrono.getDate());
         var start = moment(serverTime).subtract(10, 'hour').utc().toDate();
         var end = moment(serverTime).add(10, 'hour').utc().toDate();
-        console.log(start, end);
 
         scheduler.from(start).to(end).fetch().then(function(result){
             serverTime = moment(Hope.Chrono.getDate()).second(0);
