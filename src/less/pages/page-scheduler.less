@@ -50,14 +50,15 @@
 
 .page-scheduler-header-container {
     overflow: hidden;
-    width: 824px;
-    margin-left: 48px;
+    width: 825px;
+    margin-left: 40px;
     position: relative;
     height: 171px;
 }
 
 .page-scheduler-header-list {
     display: flex;
+    flex-wrap: wrap;
     padding-left: 0;
     margin-top: 30px;
     margin-bottom: 34px;
@@ -89,9 +90,10 @@
 }
 
 .page-scheduler-header-list-arrow__right {
+    position: absolute;
     width: 20px;
     height: 37px;
-    margin-left: 31px;
+    left: 885px;
     margin-top: 60px;
     background: url(../img/page-scheduler-page-scheduler-header-list-arrow__left.png);
     transform: scaleX(-1);

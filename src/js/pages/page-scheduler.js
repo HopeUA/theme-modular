@@ -239,6 +239,10 @@ $(function () {
                     });
 
                     ajaxStatus(false);
+
+                    var dayItemsLength = $('.page-scheduler-header-list li').length;
+                    var dayItemsLengthPx = dayItemsLength * 95;
+                    $('.page-scheduler-header-list').css('width', dayItemsLengthPx);
                 });
                 shiftCounter--;
             });
@@ -300,6 +304,11 @@ $(function () {
                         + '</li>';
 
                     $containerCalendar.append(template);
+
+                    var dayItemsLength = $('.page-scheduler-header-list li').length;
+                    var dayItemsLengthPx = dayItemsLength * 95;
+                    $('.page-scheduler-header-list').css('width', dayItemsLengthPx);
+
                     ajaxStatus(false);
                 });
                 shiftCounter++;
