@@ -2,8 +2,9 @@ $(function () {
 
     var currentVideo = $('.content-video-list-header-content').data('show-code');
     var place = $('.content-video-list-items');
+    var pageEpisodeWrap = $('.page-episode-wrap');
 
-    if (currentVideo) {
+    if (currentVideo && pageEpisodeWrap.length == 0) {
         var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
         var Api = LocalMediaAPI.episodes('show').param('show', currentVideo);
 
