@@ -145,6 +145,8 @@
     </section>
     <!-- Section Content-Video-List-Header END -->
 
+    <div class="page-episode-wrap">
+
     <a href="#" class="page-content-arrow__left page-episode-arrow__left"></a>
 
     <section class="page-episode" data-episode-code="MBCU00315">
@@ -284,6 +286,53 @@
         <div class="content-arrow-right anons-arrow-right"></div>
     </section>
     <!-- Section Container END -->
+
+    </div>
+
+    <!-- Section Content-Video-List-Items START -->
+    <section class="content-video-list-items"></section>
+    <script id="template-video-list" type="x-tmpl-mustache">
+        {{#episodes}}
+            <div class="content-video-list-item">
+                <div class="container">
+                    <div class="container-content block-box">
+                        <div class="content-video-list-poster">
+                            <div class="content-video-list-poster-play"></div>
+                            <div class="content-video-list-poster-container">
+                                <div class="content-video-list-poster-image" style="background-image: url({{& image }})"></div>
+                            </div>
+                        </div>
+                        <div class="content-video-list-content">
+                            <a href="/episode.html?{{& code }}" class="content-video-list-content-title">{{& title }}</a>
+                            <p class="content-video-list-content-date">{{& date }}</p>
+                            <div class="content-video-list-content-labels">{{& labels }}</div>
+                            <p class="content-video-list-content-description">{{& description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/episodes}}
+    </script>
+
+    <script id="template-video-list-label-empty" type="x-tmpl-mustache">
+        <div class="content-video-list-label">
+            <div class="container">
+                <div class="container-content">
+                    <h1 class="content-video-list-label-empty">По вашему запросу ничего не найдено!</h1>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="template-video-list-label-error" type="x-tmpl-mustache">
+        <div class="content-video-list-label">
+            <div class="container">
+                <div class="container-content">
+                    <h1 class="content-video-list-label-error">Ошибка на сервере!</h1>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!-- Section Content-Video-List-Items END -->
 
     <section class="banners-wide">
         <div class="container baners">
