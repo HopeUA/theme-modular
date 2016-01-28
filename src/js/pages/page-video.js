@@ -117,6 +117,9 @@ $(function () {
 
         //loadVideo(0, 10, Api);
 
+        var pageEpisodeWrap = $('.page-episode-wrap');
+
+
         setTimeout(function() {
 
             var counter = 1;
@@ -126,14 +129,16 @@ $(function () {
                     return;
                 }
 
+                console.log(pageEpisodeWrap.css('display'));
+
                 var scrollHeight = $(document).height() - $(window).height();
 
-                if ((scrollHeight - $(window).scrollTop()) <= 1851) {
+                if ((scrollHeight - $(window).scrollTop()) <= 1851 && pageEpisodeWrap.css('display') == 'none') {
 
                     var videoTotal = $('.content-video-list-items').children().length;
                     var currentInputVal = $('.content-video-list-header-search-input').val();
                     var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentInputVal);
-                    //loadVideo(videoTotal, 10, ApiSearch);
+                    loadVideo(videoTotal, 10, ApiSearch);
 
                     counter++;
                 }
@@ -147,7 +152,6 @@ $(function () {
 
         var $input = $('.content-video-list-header-search-input');
         var changeInput = false;
-        var pageEpisodeWrap = $('.page-episode-wrap');
 
         $input.keyup(function(){
             changeInput = true;
