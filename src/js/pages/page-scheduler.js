@@ -481,6 +481,9 @@ $(function () {
             var currentDate = moment(Hope.Chrono.getDate());
             if (!liveStatus && episodeDate.date() == currentDate.date() && episodeDate.isAfter(currentDate)) {
                 episodes[(i-1)].liveStatus = 'live2';
+                $('.page-scheduler-header-now-time').html(timeToStr(currentDay[i-1].date, 'ru'));
+                $('.page-scheduler-header-now-episode').html(currentDay[i-1].episode.title);
+                $('.page-scheduler-header-now-show').html(currentDay[i-1].show.title);
                 liveStatus = true;
             }
 

@@ -140,202 +140,249 @@
 </section>
 <!-- Section Content-Brand-Header END -->
 
-<section class="container flex-none mt">
-    <div class="container-header align">
-        <h2>Последние выпуски</h2>
-        <button class="archive">Архив выпусков</button>
-    </div>
+<div class="content-Brand-page-wrap">
+    <section class="container flex-none mt">
+        <div class="container-header align">
+            <h2>Последние выпуски</h2>
+            <button class="archive">Архив выпусков</button>
+        </div>
 
-    <div class="content-arrow-left new-arrow-left"></div>
+        <div class="content-arrow-left new-arrow-left"></div>
 
-    <div class="container-content-wrap-items">
-        <div class="container-content new"></div>
-        <script id="template-new" type="x-tmpl-mustache">
-                {{#first}}
-                    <div class="content-episode__large grid__column-2">
-                        <div class="content-episode__large-play"></div>
-                        <h5 class="content-episode__large-title__episode">{{& title }}</h5>
-                        <p class="content-episode__large-title__show">{{& show }}</p>
-                        <div class="content-episode__large-image" style="background-image: url({{& image }})"></div>
+        <div class="container-content-wrap-items">
+            <div class="container-content new"></div>
+            <script id="template-new" type="x-tmpl-mustache">
+                    {{#first}}
+                        <div class="content-episode__large grid__column-2">
+                            <div class="content-episode__large-play"></div>
+                            <h5 class="content-episode__large-title__episode">{{& title }}</h5>
+                            <p class="content-episode__large-title__show">{{& show }}</p>
+                            <div class="content-episode__large-image" style="background-image: url({{& image }})"></div>
+                        </div>
+                        <div class="content-episodes__row">
+                    {{/first}}
+                    {{#episodes}}
+                        <div class="content-episodes__row-item content-episodes__row-item-fix-height">
+                            <div class="content-episodes__row-item-play"></div>
+                            <p class="content-episodes__row-item-title">{{& title }}</p>
+                            <div class="content-episodes__row-image" style="background-image: url({{& image }})"></div>
+                        </div>
+                    {{/episodes}}
+                    {{#first}}
+                        </div>
+                    {{/first}}
+                </script>
+        </div>
+
+        <div class="content-arrow-right new-arrow-right"></div>
+    </section>
+
+    <!-- Section Container END -->
+    <section class="page-brand-block__instagramm">
+            <div class="container">
+                <div class="container-header align">
+                    <h2>Фото с программы</h2>
+                    <button class="archive">Подписаться+</button>
+                </div>
+                <div class="container-content align">
+                    <div class="photo-block">
+                        <img src="img/api1.jpg" alt="">
+                        <span class="photo-block-footer align">
+                            <span></span>
+                            <span>1 день назад</span>
+                        </span>
                     </div>
-                    <div class="content-episodes__row">
-                {{/first}}
-                {{#episodes}}
-                    <div class="content-episodes__row-item content-episodes__row-item-fix-height">
-                        <div class="content-episodes__row-item-play"></div>
-                        <p class="content-episodes__row-item-title">{{& title }}</p>
-                        <div class="content-episodes__row-image" style="background-image: url({{& image }})"></div>
+                    <div class="photo-block">
+                        <img src="img/api2.jpg" alt="">
+                        <span class="photo-block-footer align">
+                            <span></span>
+                            <span>2 день назад</span>
+                        </span>
                     </div>
-                {{/episodes}}
-                {{#first}}
+                    <div class="photo-block">
+                        <img src="img/api3.jpg" alt="">
+                        <span class="photo-block-footer align">
+                            <span></span>
+                            <span>3 день назад</span>
+                        </span>
                     </div>
-                {{/first}}
-            </script>
-    </div>
+                    <div class="photo-block">
+                        <img src="img/api1.jpg" alt="">
+                        <span class="photo-block-footer align">
+                            <span></span>
+                            <span>4 день назад</span>
+                        </span>
+                    </div>
+                    <div class="photo-block">
+                        <img src="img/api2.jpg" alt="">
+                        <span class="photo-block-footer align">
+                            <span></span>
+                            <span>5 день назад</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="photo-block-show-more">
+                    <div class="photo-block-show">
+                         <div class="show-more">Показать еще</div>
+                    </div>
+                </div>
+            </div>
+    </section>
 
-    <div class="content-arrow-right new-arrow-right"></div>
-</section>
-
-<!-- Section Container END -->
-<section class="page-brand-block__instagramm">
-        <div class="container">
-            <div class="container-header align">
-                <h2>Фото с программы</h2>
+    <!-- Section-photo-album-END -->
+    <section class="page-brand-block__tw">
+        <div class="container posts">
+            <div class="container-header align pl">
+                <a class="twit-lab">TWITTER</a>
                 <button class="archive">Подписаться+</button>
             </div>
-            <div class="container-content align">
-                <div class="photo-block">
-                    <img src="img/api1.jpg" alt="">
-                    <span class="photo-block-footer align">
-                        <span></span>
-                        <span>1 день назад</span>
-                    </span>
-                </div>
-                <div class="photo-block">
-                    <img src="img/api2.jpg" alt="">
-                    <span class="photo-block-footer align">
-                        <span></span>
-                        <span>2 день назад</span>
-                    </span>
-                </div>
-                <div class="photo-block">
-                    <img src="img/api3.jpg" alt="">
-                    <span class="photo-block-footer align">
-                        <span></span>
-                        <span>3 день назад</span>
-                    </span>
-                </div>
-                <div class="photo-block">
-                    <img src="img/api1.jpg" alt="">
-                    <span class="photo-block-footer align">
-                        <span></span>
-                        <span>4 день назад</span>
-                    </span>
-                </div>
-                <div class="photo-block">
-                    <img src="img/api2.jpg" alt="">
-                    <span class="photo-block-footer align">
-                        <span></span>
-                        <span>5 день назад</span>
-                    </span>
-                </div>
+            <span class="tw-data">Сегодня</span>
+            <div class="page-brand-block__tw-content">
+                <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
             </div>
-            <div class="photo-block-show-more">
-                <div class="photo-block-show">
-                     <div class="show-more">Показать еще</div>
-                </div>
+            <span class="tw-data">13 Октября</span>
+            <div class="page-brand-block__tw-content">
+                <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
+            </div>
+            <span class="tw-data">12 Октября</span>
+            <div class="page-brand-block__tw-content">
+                <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
+            </div>
+            <span class="tw-data">11 Октября</span>
+            <div class="page-brand-block__tw-content">
+                <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
+            </div>
+            <span class="tw-data">10 Октября</span>
+            <div class="page-brand-block__tw-content">
+                <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
+            </div>
+            <span class="tw-data">9 Октября</span>
+            <div class="page-brand-block__tw-content">
+                <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
             </div>
         </div>
-</section>
+        <div class="container">
+            <span class="page-brand-block__tw-divider"></span>
+        </div>
+    </section>
 
-<!-- Section-photo-album-END -->
-<section class="page-brand-block__tw">
-    <div class="container posts">
-        <div class="container-header align pl">
-            <a class="twit-lab">TWITTER</a>
-            <button class="archive">Подписаться+</button>
-        </div>
-        <span class="tw-data">Сегодня</span>
-        <div class="page-brand-block__tw-content">
-            <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
-        </div>
-        <span class="tw-data">13 Октября</span>
-        <div class="page-brand-block__tw-content">
-            <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
-        </div>
-        <span class="tw-data">12 Октября</span>
-        <div class="page-brand-block__tw-content">
-            <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
-        </div>
-        <span class="tw-data">11 Октября</span>
-        <div class="page-brand-block__tw-content">
-            <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
-        </div>
-        <span class="tw-data">10 Октября</span>
-        <div class="page-brand-block__tw-content">
-            <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
-        </div>
-        <span class="tw-data">9 Октября</span>
-        <div class="page-brand-block__tw-content">
-            <p class="page-brand-block__tw-content-text">Очень понравился подход ведущих к такому важному вопросу, как можно ли расчесаться гребнем волны на Азовском море.</p>
-        </div>
-    </div>
-    <div class="container">
-        <span class="page-brand-block__tw-divider"></span>
-    </div>
-</section>
-
-<section class="page-brand-block__about__multiple">
-    <div class="container">
-        <div class="container-header align">
-            <h2>О программе</h2>
-            <div class="container-content">
-                <p class="days-week">понеділок-середа</p>
-                <p class="block-about-time">13:30<span> та </span>19:00</p>
+    <section class="page-brand-block__about__multiple">
+        <div class="container">
+            <div class="container-header align">
+                <h2>О программе</h2>
+                <div class="container-content">
+                    <p class="days-week">понеділок-середа</p>
+                    <p class="block-about-time">13:30<span> та </span>19:00</p>
+                </div>
             </div>
-        </div>
-        <span class="about-ellipse">Ведущие:</span>
-        <div class="leadings">
-            <div class="leading">
-                <span class="photo-leading"><img src="img/photogirl.png"></span>
-                <span class="info-leading">
-                    <span class="info-leading-name">Ілона Глібка</span>
-                    <p class="info-leading-info">Доктор богословия, профессионал своего дела, топ расскажчик</p>
-                    <span class="info-leading-share">
-                        <a class="brand-share-fb"></a>
-                        <a class="brand-share-vk"></a>
-                        <a class="brand-share-tw"></a>
+            <span class="about-ellipse">Ведущие:</span>
+            <div class="leadings">
+                <div class="leading">
+                    <span class="photo-leading"><img src="img/photogirl.png"></span>
+                    <span class="info-leading">
+                        <span class="info-leading-name">Ілона Глібка</span>
+                        <p class="info-leading-info">Доктор богословия, профессионал своего дела, топ расскажчик</p>
+                        <span class="info-leading-share">
+                            <a class="brand-share-fb"></a>
+                            <a class="brand-share-vk"></a>
+                            <a class="brand-share-tw"></a>
+                        </span>
                     </span>
-                </span>
-            </div>
-            <span class="divider-horizontal"></span>
-            <div class="leading">
-                <span class="photo-leading"><img src="img/photogirl.png"></span>
-                <span class="info-leading">
-                    <span class="info-leading-name">Владимир Гриневич</span>
-                    <p class="info-leading-info">Доктор богословия, профессионал своего дела, топ расскажчик</p>
-                    <span class="info-leading-share">
-                        <a class="brand-share-fb"></a>
-                        <a class="brand-share-vk"></a>
-                        <a class="brand-share-tw"></a>
+                </div>
+                <span class="divider-horizontal"></span>
+                <div class="leading">
+                    <span class="photo-leading"><img src="img/photogirl.png"></span>
+                    <span class="info-leading">
+                        <span class="info-leading-name">Владимир Гриневич</span>
+                        <p class="info-leading-info">Доктор богословия, профессионал своего дела, топ расскажчик</p>
+                        <span class="info-leading-share">
+                            <a class="brand-share-fb"></a>
+                            <a class="brand-share-vk"></a>
+                            <a class="brand-share-tw"></a>
+                        </span>
                     </span>
-                </span>
+                </div>
             </div>
-        </div>
-        <span class="about-ellipse">Описание:</span>
-        <p class="about-description">Дельные рекомендации от педагогов и психологов, личные советы от мам и пап с долголетним опытом, а также отрывки из мультфильмов и кино, обзор семейных фотографий и многое другое! Дельные рекомендации от педагогов и психологов, личные советы от мам и пап с долголетним опытом, а также отрывки из мультфильмов и кино, обзор семейных фотографий и многое другое!</p>
-    </div>
-</section>
-
-<section class="page-brand-block__about">
-    <div class="container">
-        <div class="container-header align leadings1-container-header">
-            <h2>О программе</h2>
-            <div class="container-content">
-                <p class="days-week">понеділок-середа</p>
-                <p class="block-about-time">13:30<span> та </span>19:00</p>
-            </div>
-        </div>
-        <div class="leadings1">
             <span class="about-ellipse">Описание:</span>
             <p class="about-description">Дельные рекомендации от педагогов и психологов, личные советы от мам и пап с долголетним опытом, а также отрывки из мультфильмов и кино, обзор семейных фотографий и многое другое! Дельные рекомендации от педагогов и психологов, личные советы от мам и пап с долголетним опытом, а также отрывки из мультфильмов и кино, обзор семейных фотографий и многое другое!</p>
-            <span class="divider-horizontal"></span>
-            <div class="leading">
-                <span class="about-ellipse">Ведущий:</span>
-                <span class="photo-leading"><img src="img/photogirl.png"></span>
-                <span class="info-leading">
-                    <span class="info-leading-name">Владимир Гриневич</span>
-                    <p class="info-leading-info">Доктор богословия, профессионал своего дела, топ расскажчик</p>
-                    <span class="info-leading-share">
-                        <a class="brand-share-fb"></a>
-                        <a class="brand-share-vk"></a>
-                        <a class="brand-share-tw"></a>
+        </div>
+    </section>
+
+    <section class="page-brand-block__about">
+        <div class="container">
+            <div class="container-header align leadings1-container-header">
+                <h2>О программе</h2>
+                <div class="container-content">
+                    <p class="days-week">понеділок-середа</p>
+                    <p class="block-about-time">13:30<span> та </span>19:00</p>
+                </div>
+            </div>
+            <div class="leadings1">
+                <span class="about-ellipse">Описание:</span>
+                <p class="about-description">Дельные рекомендации от педагогов и психологов, личные советы от мам и пап с долголетним опытом, а также отрывки из мультфильмов и кино, обзор семейных фотографий и многое другое! Дельные рекомендации от педагогов и психологов, личные советы от мам и пап с долголетним опытом, а также отрывки из мультфильмов и кино, обзор семейных фотографий и многое другое!</p>
+                <span class="divider-horizontal"></span>
+                <div class="leading">
+                    <span class="about-ellipse">Ведущий:</span>
+                    <span class="photo-leading"><img src="img/photogirl.png"></span>
+                    <span class="info-leading">
+                        <span class="info-leading-name">Владимир Гриневич</span>
+                        <p class="info-leading-info">Доктор богословия, профессионал своего дела, топ расскажчик</p>
+                        <span class="info-leading-share">
+                            <a class="brand-share-fb"></a>
+                            <a class="brand-share-vk"></a>
+                            <a class="brand-share-tw"></a>
+                        </span>
                     </span>
-                </span>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
+
+<!-- Section Content-Video-List-Items START -->
+<section class="content-video-list-items"></section>
+<script id="template-video-list" type="x-tmpl-mustache">
+        {{#episodes}}
+            <div class="content-video-list-item">
+                <div class="container">
+                    <div class="container-content block-box">
+                        <div class="content-video-list-poster">
+                            <div class="content-video-list-poster-play"></div>
+                            <div class="content-video-list-poster-container">
+                                <div class="content-video-list-poster-image" style="background-image: url({{& image }})"></div>
+                            </div>
+                        </div>
+                        <div class="content-video-list-content">
+                            <a href="/episode.html?{{& code }}" class="content-video-list-content-title">{{& title }}</a>
+                            <p class="content-video-list-content-date">{{& date }}</p>
+                            <div class="content-video-list-content-labels">{{& labels }}</div>
+                            <p class="content-video-list-content-description">{{& description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/episodes}}
+    </script>
+
+<script id="template-video-list-label-empty" type="x-tmpl-mustache">
+        <div class="content-video-list-label">
+            <div class="container">
+                <div class="container-content">
+                    <h1 class="content-video-list-label-empty">По вашему запросу ничего не найдено!</h1>
+                </div>
+            </div>
+        </div>
+    </script>
+<script id="template-video-list-label-error" type="x-tmpl-mustache">
+        <div class="content-video-list-label">
+            <div class="container">
+                <div class="container-content">
+                    <h1 class="content-video-list-label-error">Ошибка на сервере!</h1>
+                </div>
+            </div>
+        </div>
+    </script>
+<!-- Section Content-Video-List-Items END -->
 
 <section class="banners-wide">
     <div class="container baners">
