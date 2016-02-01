@@ -158,7 +158,35 @@ $(function () {
             }
         };
 
-        init(dateFull);
+        var goToEpisodeScroll = function() {
+
+            console.log('goToEpisodeScroll');
+
+            $('.page-scheduler-content-items .active').removeAttr('style');
+            $('.page-scheduler-content-items .active').removeClass('active');
+
+            var current = $('.page-scheduler-content-items .goToEpisode');
+
+            $(window).scrollTo(current, 400, {
+                over: {
+                    top: -10.347
+                }
+            });
+
+            showItem(current);
+        };
+
+        var goToTime = window.location.hash;
+
+        if (goToTime.length > 1) {
+            goToTime = goToTime.slice(1, goToTime.length);
+            var goToEpisodeDay = goToTime.slice(0, 10);
+            console.log(goToEpisodeDay);
+            init(goToEpisodeDay, goToEpisodeScroll);
+        } else {
+            console.log('Default');
+            init(dateFull);
+        }
 
         var widthElementsAll = displayDays.length * 95;
         var shiftCounter = null;
@@ -468,14 +496,25 @@ $(function () {
 
         var episodes = [];
         var liveStatus = false;
+
+        var selectedGoToTime = window.location.hash.match(/\d{2}:\d{2}/);
+        if (selectedGoToTime) {
+            selectedGoToTime = selectedGoToTime[0];
+        }
+
         for (var i = 0; i < currentDay.length; i++) {
             var episode = {
                 title : currentDay[i].episode.title,
                 show :  currentDay[i].show.title,
                 date :  timeToStr(currentDay[i].date, 'ru'),
                 language : currentDay[i].episode.language,
-                liveStatus: ''
+                liveStatus: '',
+                goToEpisodeStatus : ''
             };
+
+            if (selectedGoToTime == episode.date) {
+                episode.goToEpisodeStatus = 'goToEpisode'
+            }
 
             var episodeDate = moment(currentDay[i].date);
             var currentDate = moment(Hope.Chrono.getDate());
@@ -557,9 +596,10 @@ $(function () {
         }
     }
 
-    function init(day) {
+    function init(day, cb) {
 
         ajaxListStatus(true);
+
         loadJson(day).then(function(data) {
             oldCounter = data.length;
             renderTemplate(data, 'next', true);
@@ -568,6 +608,11 @@ $(function () {
             $container.animate({
                 opacity: 1
             }, 200);
+
+            if (cb) {
+                cb();
+            }
+
             ajaxListStatus(false);
         });
     }

@@ -94,36 +94,72 @@ $(function () {
         $(this).stop().animate({
             opacity: 1
         }, 250);
+
+        var timelineTitleStatus = $('.header-timeline-small').length;
+
+        if (timelineTitleStatus == 1) {
+            $('.header-timeline__description').stop().animate({opacity : 1}, 200);
+        }
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item-current', function () {
         $(this).stop().animate({
             opacity: 1
         }, 250);
+
+        var timelineTitleStatus = $('.header-timeline-small').length;
+
+        if (timelineTitleStatus == 1) {
+            $('.header-timeline__description').stop().animate({opacity : 1}, 200);
+        }
     });
 
     $('.header-timeline__items').on('mouseenter', '.header-timeline__item-next', function () {
         $(this).stop().animate({
             opacity: 1
         }, 250);
+
+        var timelineTitleStatus = $('.header-timeline-small').length;
+
+        if (timelineTitleStatus == 1) {
+            $('.header-timeline__description').stop().animate({opacity : 1}, 200);
+        }
     });
 
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item', function () {
         $(this).stop().animate({
             opacity: 0.65
         }, 250);
+
+        var timelineTitleStatus = $('.header-timeline-small').length;
+
+        if (timelineTitleStatus == 1) {
+            $('.header-timeline__description').stop().animate({opacity : 0}, 200);
+        }
     });
 
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item-current', function () {
         $(this).stop().animate({
             opacity: 0.65
         }, 250);
+
+        var timelineTitleStatus = $('.header-timeline-small').length;
+
+        if (timelineTitleStatus == 1) {
+            $('.header-timeline__description').stop().animate({opacity : 0}, 200);
+        }
     });
 
     $('.header-timeline__items').on('mouseleave', '.header-timeline__item-next', function () {
         $(this).stop().animate({
             opacity: 0.65
         }, 250);
+
+        var timelineTitleStatus = $('.header-timeline-small').length;
+
+        if (timelineTitleStatus == 1) {
+            $('.header-timeline__description').stop().animate({opacity : 0}, 200);
+        }
     });
 
     function isAnimated(self) {
