@@ -17,6 +17,8 @@ $(function () {
             loadStatus = true;
             Api.offset(videoTotal).limit(videoLimit).fetch().then(function (response) {
 
+                console.log('request');
+
                 var template = $('#template-article-list').html();
                 var view     = {};
 
@@ -44,18 +46,46 @@ $(function () {
                     place.append(html);
                 }
 
+                $('.page-articles-article-last .container').animate({
+                    opacity: 1
+                }, 250);
+                $('.page-articles-article').animate({
+                    opacity: 1
+                }, 250);
+
                 loadStatus = false;
 
             }).catch(function (response) {
 
-                if (response.status == 404 && videoTotal == 0) {
-                    var viewLabelEmpty = $('#template-video-list-label-empty').html();
-                    var htmlBlock = Mustache.render(viewLabelEmpty);
-                    place.html(htmlBlock);
-                } else if (videoTotal == 0) {
-                    var viewLabelServerError = $('#template-video-list-label-error').html();
-                    var htmlBlock = Mustache.render(viewLabelServerError);
-                    place.html(htmlBlock);
+                if (videoTotal == 0) {
+                    if (response.status == 404) {
+                        var viewLabelEmpty = $('.page-articles-search-error-empty');
+                        viewLabelEmpty.css('display', 'block');
+                        viewLabelEmpty.animate({
+                            opacity: 1
+                        }, 250);
+
+                        var articlesItem = $('.page-articles-article').not(':first');
+                        var articleItemFirstContainer = $('.page-articles-article').eq(0).find('.container');
+
+                        articleItemFirstContainer.animate({
+                            opacity: 0
+                        }, 200);
+
+                        articlesItem.animate({
+                            opacity: 0
+                        }, 200, function () {
+                            $('.banners-wide').css('margin-top', '-5px');
+                            articlesItem.css('display', 'none');
+                        });
+
+                    } else {
+                        var viewLabelServerError = $('.page-articles-search-error-server');
+                        viewLabelServerError.css('display', 'inline-flex');
+                        viewLabelServerError.animate({
+                            opacity: 1
+                        }, 250);
+                    }
                 }
                 console.log(response);
             });
@@ -102,19 +132,44 @@ $(function () {
 
         var $input = $('.page-articles-header-search-input');
         var changeInput = false;
+        var searchString = '';
 
         $input.keyup(function(){
             changeInput = true;
+            console.log('keyup');
             setTimeout(function(){
                 var currentVal = $input.val();
-                if (changeInput) {
-                    console.log(currentVal);
+                console.log('start timer');
+                if (changeInput && currentVal !== searchString) {
+                    console.log('load artilce');
                     //var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentVal);
                     var ApiSearch = Api.search(currentVal);
                     //place.html('');
+                    var errorEmpty = $('.page-articles-search-error-empty');
+                    var errorServer = $('.page-articles-search-error-server');
+
+                    if (errorEmpty.css('display') !== 'none') {
+                        errorEmpty.animate({
+                            opacity: 0
+                        }, 250, function() {
+                            errorEmpty.css('display', 'none');
+                        })
+                    }
+
+                    if (errorServer.css('display') !== 'none') {
+                        errorServer.animate({
+                            opacity: 0
+                        }, 250, function() {
+                            errorServer.css('display', 'none');
+                        })
+                    }
+
                     loadVideo(0, 10, ApiSearch, 'new');
+
                     changeInput = false;
                 }
+                searchString = currentVal;
+                console.log('end timer');
             }, 700);
         });
     }

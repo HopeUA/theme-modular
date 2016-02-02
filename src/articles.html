@@ -148,6 +148,13 @@
                     </div>
                     <a href="#" class="page-articles-header-subscribe">Подписаться на статьи</a>
                 </div>
+                <div class="page-articles-search-errors">
+                    <div class="page-articles-search-error-empty">
+                        <span class="page-articles-search-error-empty-title">Ничего не найдено!</span>
+                        <span class="page-articles-search-error-empty-subtitle">По вашему запросу ничего не найдено, попробуйте использовать другие ключевые слова</span>
+                    </div>
+                    <div><span class="page-articles-search-error-server">Ошибка: Проблемы на сервере!</span></div>
+                </div>
             </div>
         </div>
 
@@ -175,7 +182,10 @@
             {{/articles}}
         </script>
 
-        <div class="page-articles-items"></div>
+        <div class="page-articles-items">
+            <div class="page-articles-items-loader"></div>
+            <div class="page-articles-items-loader2"></div>
+        </div>
     </section>
 
     <section class="banners-wide">
