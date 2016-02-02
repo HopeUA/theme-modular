@@ -167,6 +167,10 @@ $(function () {
 
             var current = $('.page-scheduler-content-items .goToEpisode');
 
+            if (current.hasClass('live2')) {
+                current.addClass('live');
+            }
+
             $(window).scrollTo(current, 400, {
                 over: {
                     top: -10.347
