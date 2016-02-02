@@ -90,11 +90,11 @@
         <section class="header-timeline">
             <div class="container">
                 <div class="container-content header-timeline-line">
-                    <div class="header-timeline-time">11:77</div>
+                    <div class="header-timeline-time"></div>
                 </div>
             </div>
 
-            <div class="header-timeline__items"></div>
+            <div class="header-timeline__items header-timeline-small"></div>
         </section>
         <!-- Section Header-Timeline END -->
 
@@ -149,7 +149,7 @@
         </ul>
         <script id="scheduler-list__vertical" type="x-tmpl-mustache">
             {{#episodes}}
-                <li class="page-scheduler-content-item {{language}} {{liveStatus}}">
+                <li class="page-scheduler-content-item {{language}} {{liveStatus}} {{goToEpisodeStatus}}">
                     <div class="container">
                         <div class="content">
                             <div class="page-scheduler-content-episode-time">
