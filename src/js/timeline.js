@@ -26,15 +26,21 @@ $(function () {
     $('.header-timeline__items').on('click', 'div', function () {
 
         if ($('header').hasClass('header__small')) {
-            window.location.href = '/scheduler.html';
+            var episodeDate = $(this).data('episode-date');
+            var schedulerPageStatus = window.location.href;
+            if (schedulerPageStatus.indexOf('scheduler') > 0) {
+                window.location.href = '/scheduler.html#' + episodeDate;
+                document.location.reload(true);
+            }
+            window.location.href = '/scheduler.html#' + episodeDate;
+        } else {
+            var $current = $(this).parent().children();
+            var index = $current.index(this);
+
+            toogleTimeline(status, index);
+
+            status = !status;
         }
-
-        var $current = $(this).parent().children();
-        var index = $current.index(this);
-
-        toogleTimeline(status, index);
-
-        status = !status;
     });
 
     $('.header-timeline-menu-item-full-close').on('click', function () {
@@ -377,6 +383,7 @@ $(function () {
             var limit = episodes.length - 1;
             for (var i = 0; i < limit; i++) {
                 var start = moment(episodes[i].date);
+                //console.log(start.format('YYYY-MM-DDTHH:mm'));
                 var endIdx = i + 1;
                 var end = moment(episodes[endIdx].date);
 
@@ -422,7 +429,7 @@ $(function () {
                     }
                 }
 
-                str = '<div class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + start.format('H:mm') + '</span><span class="header-timeline__live">' + 'live' + '</span><p class="header-timeline__description">' + Hope.Utils.textTrim(episodes[i].episode.title, timelineTitleLength) + '</p><div class="after"></div></div>'
+                str = '<div data-episode-date="'+ start.format('YYYY-MM-DDTHH:mm') +'" class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + start.format('H:mm') + '</span><span class="header-timeline__live">' + 'live' + '</span><p class="header-timeline__description">' + Hope.Utils.textTrim(episodes[i].episode.title, timelineTitleLength) + '</p><div class="after"></div></div>'
                 place.append(str);
 
                 var episodeDescription = null;
