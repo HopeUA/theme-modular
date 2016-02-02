@@ -70,12 +70,26 @@ $(function () {
 
     if ($container) {
         var serverTime = Hope.Chrono.getDate();
+
         var year = moment(serverTime).format('YYYY');
         var day = moment(serverTime).format('DD');
+        var currentDay = moment(serverTime).format('DD');
         var month = moment(serverTime).format('MM');
+
+        var hashTime = window.location.hash;
+        if (hashTime.length > 1) {
+            hashTime = hashTime.slice(1, hashTime.length);
+            var momentHashTime = moment(hashTime);
+            if (momentHashTime) {
+                currentDay = momentHashTime.format('DD');
+            }
+        }
+
         var dateFull = year + '-' + month + '-' + day;
         var daysFormatted = [];
         var $containerCalendar = $('.page-scheduler-header-list');
+
+        console.log(dateFull);
 
         moment.locale('ru');
 
@@ -120,8 +134,10 @@ $(function () {
                 var itemStyle = [];
 
                 if (itemDate == day) {
-                    itemStyle.push('selected');
                     itemStyle.push('current');
+                }
+                if (itemDate == currentDay) {
+                    itemStyle.push('selected');
                 }
 
                 if (result.dates[item] == 0) {
@@ -185,7 +201,6 @@ $(function () {
         if (goToTime.length > 1) {
             goToTime = goToTime.slice(1, goToTime.length);
             var goToEpisodeDay = goToTime.slice(0, 10);
-            console.log(goToEpisodeDay);
             init(goToEpisodeDay, goToEpisodeScroll);
         } else {
             console.log('Default');
