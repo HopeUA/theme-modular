@@ -432,6 +432,10 @@ $(function () {
                 str = '<div data-episode-date="'+ start.format('YYYY-MM-DDTHH:mm') +'" class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + start.format('H:mm') + '</span><span class="header-timeline__live">' + 'live' + '</span><p class="header-timeline__description">' + Hope.Utils.textTrim(episodes[i].episode.title, timelineTitleLength) + '</p><div class="after"></div></div>'
                 place.append(str);
 
+                $('.header-timeline').animate({
+                    opacity: 1
+                }, 400);
+
                 var episodeDescription = null;
                 if (episodes[i].episode.description != '') {
                     episodeDescription = episodes[i].episode.description;
