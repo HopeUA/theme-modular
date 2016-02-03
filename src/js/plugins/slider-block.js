@@ -228,7 +228,6 @@
     SliderBlock.prototype.reload = function() {
         var self = this;
         var place = self.$object;
-        //filter-small__reload__loading
         $('.filter-small__reload').addClass('filter-small__reload__loading');
 
         self.loader.limit(self.options.limit.first).fetch().then(function(data){
