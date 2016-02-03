@@ -31,6 +31,8 @@ $(function(){
                 return item;
             });
 
+            blockLoader('anons');
+
             return Mustache.render(template, view);
         }
     });

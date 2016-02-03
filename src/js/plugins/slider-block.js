@@ -11,6 +11,7 @@
 
         this.loader = this.options.loader;
         this.clickCounter = 0;
+        this.readyStatus = true;
 
         this.$arrowLeft  = 'arrowLeft'  in this.options ? $(this.options.arrowLeft)  : $('.' + this.options.name + '-arrow-left');
         this.$arrowRight = 'arrowRight' in this.options ? $(this.options.arrowRight) : $('.' + this.options.name + '-arrow-right');
@@ -135,6 +136,7 @@
                             var total = self.$object.find('.content-episodes__row').children().length + 2;
                         }
 
+                        self.readyStatus = false;
                         self.loader.offset(total).limit(self.options.limit.default).fetch().then(function(data) {
                             var html = self.options.render(data);
                             if (self.options.type == 'column') {
@@ -142,6 +144,8 @@
                             } else {
                                 self.$object.find('.content-episodes__row').append(html);
                             }
+                            self.readyStatus = true; // i am ready
+
                         }).catch(function(response){
                             console.error(response);
                         });
@@ -199,6 +203,11 @@
 
         self.$arrowRight.click(function(){
 
+            console.log(self.readyStatus)
+            if (self.readyStatus == false) {
+                return;
+            }
+
             if (isAnimated(self)) {
                 return;
             }
@@ -219,18 +228,18 @@
     SliderBlock.prototype.reload = function() {
         var self = this;
         var place = self.$object;
+        $('.filter-small__reload').addClass('filter-small__reload__loading');
 
-        self.$object.animate({opacity : 0}, 200);
-
-        setTimeout(function(){
-            self.loader.limit(self.options.limit.first).fetch().then(function(data){
+        self.loader.limit(self.options.limit.first).fetch().then(function(data){
+            self.$object.animate({opacity : 0}, 200, function() {
                 var html = self.options.render(data, true);
                 self.$object.html(html);
-            }).catch(function(response){
-                console.error(response);
+                self.$object.animate({opacity : 1}, 200);
+                $('.filter-small__reload').removeClass('filter-small__reload__loading');
             });
-            self.$object.animate({opacity : 1}, 200);
-        }, 200)
+        }).catch(function(response){
+            console.error(response);
+        });
 
     };
 

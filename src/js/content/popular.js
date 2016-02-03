@@ -17,6 +17,8 @@ $(function(){
             }
             view.shows = response.data;
 
+            blockLoader('popular');
+
             return Mustache.render(template, view);
         }
     });

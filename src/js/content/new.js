@@ -21,6 +21,8 @@ $(function(){
                 return item;
             });
 
+            blockLoader('new');
+
             return Mustache.render(template, view);
         }
     });

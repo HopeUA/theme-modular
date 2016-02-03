@@ -20,6 +20,8 @@ $(function () {
                 return item;
             });
 
+            blockLoader('recomended');
+
             return Mustache.render(template, view);
         }
     });
