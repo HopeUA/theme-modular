@@ -567,7 +567,20 @@
 }
 
 .page-programs-shows-list-columns .content-shows-category-link {
+    display: flex;
     font-size: 20px;
+    text-transform: none;
+    align-items: center;
+}
+
+.page-programs-shows-list-columns .content-shows-category-link::after {
+    display: block;
+    width: 13px;
+    height: 9px;
+    margin-left: 8px;
+    margin-top: 5px;
+    background: url(../img/arrowRightBl.png) no-repeat;
+    content: "";
 }
 
 .page-programs-shows-list-columns .page-programs-shows-list-item {
@@ -576,4 +589,8 @@
 
 .page-shows .page-programs-shows-list-columns {
     width: 100%;
+}
+
+.page-programs-shows-list-columns .container-header {
+    margin-bottom: 10px;
 }
