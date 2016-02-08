@@ -1,0 +1,22 @@
+.content-video-list-items {
+    height: 400px;
+    opacity: 0;
+    margin-top: 100px;
+}
+
+.page__show-loader {
+    position: relative;
+    height: 600px;
+}
+
+.page__show-loader::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 64px;
+    background: url(../img/ajax-loader.gif);
+    position: absolute;
+    left: 50%;
+    margin-left: -30px;
+    z-index: 2;
+}
