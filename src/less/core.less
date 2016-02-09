@@ -55,12 +55,12 @@ body {
 
 .container h2 {
     font-family: @font__main;
-    .font-size(20);
+    .font-size(28);
     font-weight: bold;
-    text-transform: uppercase;
+    text-transform: initial;
     color: #808285;
     margin-top: 38px;
-    margin-bottom: 17px;
+    margin-bottom: 30px;
     display: inline-block;
 }
 
@@ -172,4 +172,30 @@ body {
 .page-content-arrow__right:hover {
     background: url(../img/page-video-arrow__right__hover.png);
     transform: scaleX(+1);
+}
+
+.now-title h2 {
+    margin-bottom: 9px;
+}
+
+.now-time {
+    border-radius: 3px;
+    background-color:  #facb0e;
+    width: 51px;
+    height: 20px;
+    color:  #fff;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 43px;
+    right: 60px;
+}
+
+.now-subtitle {
+    display: block;
+    color:  #909799;
+    font-size: 14px;
+    margin-bottom: 5px;
 }
