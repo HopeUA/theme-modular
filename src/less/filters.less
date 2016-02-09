@@ -7,6 +7,7 @@
     font-family: @font__main;
     font-weight: bold;
     user-select: none;
+    display: none;
 }
 
 .filter-small__items {
@@ -99,6 +100,7 @@
 .filter-small__reload {
     right: 0;
     padding: 10px 23px 10px 10px;
+    display: block;
 }
 
 .filter-small__reload__loading::after {
@@ -124,7 +126,7 @@
         transform:rotate(0deg);
     }
     to {
-        transform:rotate(360deg);
+        transform:rotate(-360deg);
     }
 }
 
