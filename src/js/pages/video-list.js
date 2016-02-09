@@ -1,5 +1,6 @@
 $(function () {
 
+    var firstLoad = true;
     var currentVideo = $('.content-video-list-header-content').data('show-code');
     var place = $('.content-video-list-items');
     var pageEpisodeWrap = $('.page-episode-wrap');
@@ -14,8 +15,11 @@ $(function () {
             loadStatus = true;
 
             if (status == 'new') {
-                $('.page__show-loader').css('marginTop', -400);
-                $('.page__show-loader').css('display', 'block');
+                if (firstLoad) {
+                    $('.page__show-loader').css('display', 'block');
+                    $('.page__show-loader').css('marginTop', -400);
+                    firstLoad = false;
+                }
             } else {
                 $('.page__show-loader').css({
                     marginTop: 40,
@@ -69,6 +73,14 @@ $(function () {
 
                 $('.page__show-loader').css('display', 'none');
 
+                $('.content-video-list-header-search-loader').stop().animate({
+                    opacity: 0
+                }, 200, function() {
+                    $('.content-video-list-header-search-icon').stop().animate({
+                        opacity: 1
+                    }, 200);
+                });
+
                 $('.content-video-list-label').html('');
                 loadStatus = false;
 
@@ -78,6 +90,16 @@ $(function () {
                     var viewLabelEmpty = $('#template-video-list-label-empty').html();
                     var htmlBlock = Mustache.render(viewLabelEmpty);
                     place.html(htmlBlock);
+
+                    $('.page__show-loader').css('display', 'none');
+
+                    $('.content-video-list-header-search-loader').stop().animate({
+                        opacity: 0
+                    }, 200, function() {
+                        $('.content-video-list-header-search-icon').stop().animate({
+                            opacity: 1
+                        }, 200);
+                    });
                 } else if (videoTotal == 0) {
                     var viewLabelServerError = $('#template-video-list-label-error').html();
                     var htmlBlock = Mustache.render(viewLabelServerError);
@@ -122,14 +144,29 @@ $(function () {
         });
 
         var $input = $('.content-video-list-header-search-input');
+        var $inputVal = $('.content-video-list-header-search-input').val();
         var requestTimeout;
 
         $input.keyup(function(){
+
+            if ($inputVal != $input.val()) {
+                $('.content-video-list-header-search-icon').stop().animate({
+                    opacity: 0
+                }, 200, function () {
+                    $('.content-video-list-header-search-loader').stop().animate({
+                        opacity: 1
+                    }, 200);
+                });
+            } else {
+                return;
+            }
+
             if (requestTimeout) {
                 clearTimeout(requestTimeout);
             }
             requestTimeout = setTimeout(function(){
                 var currentVal = $input.val();
+                $inputVal = $input.val();
                 var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentVal);
                 //place.html('');
                 loadVideo(0, 10, ApiSearch, 'new');

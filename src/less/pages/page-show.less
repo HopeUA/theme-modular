@@ -20,3 +20,38 @@
     margin-left: -30px;
     z-index: 2;
 }
+
+.content-video-list-header-search-loader {
+    opacity: 0;
+}
+
+.content-video-list-header-search-loader::after {
+    position: absolute;
+    top: 9px;
+    right: 6px;
+    display: block;
+    width: 24px;
+    height: 20px;
+    background: url(../img/filter-small__reload.svg);
+    opacity: 1;
+    transform: rotate(180deg);
+    content: "";
+    transition: all 0.1s ease-out;
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.content-video-list-header-search__loading .content-video-list-header-search-icon {
+    display: none;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(-360deg);
+    }
+}
