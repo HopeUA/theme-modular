@@ -130,6 +130,7 @@
                     <div class="content-video-list-header-search">
                         <input type="text" class="content-video-list-header-search-input" placeholder="Поиск по выпускам..." autofocus>
                         <a href="" class="content-video-list-header-search-icon"><img src="img/videoListInputSearch.png" alt=""></a>
+                        <div class="content-video-list-header-search-loader"></div>
                     </div>
                     <a href="#" class="content-video-list-header-about">О программе</a>
                     <a href="#" class="content-video-list-header-subscribe">Подписаться на новые выпуски</a>
@@ -140,7 +141,9 @@
     <!-- Section Content-Video-List-Header END -->
 
     <!-- Section Content-Video-List-Items START -->
+
     <section class="content-video-list-items"></section>
+    <div class="page__show-loader"></div>
     <script id="template-video-list" type="x-tmpl-mustache">
         {{#episodes}}
             <div class="content-video-list-item">
