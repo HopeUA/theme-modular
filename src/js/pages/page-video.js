@@ -1,7 +1,7 @@
 $(function () {
 
     var page = $('.page-episode');
-    if (!page.length) {
+    if (page.length == 0) {
         return;
     }
 
