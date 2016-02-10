@@ -18,6 +18,9 @@
         this.$arrowRight = 'arrowRight' in this.options ? (this.options.arrowRight) : $('.page-content-arrow__right');
         this.container = this.$object.find('.page-container-wrap');
         this.ready = true;
+        this.loading = false;
+        this.firstLoad = false;
+        this.similarTimer = null;
 
         init(this);
     };
@@ -38,12 +41,37 @@
             if (self.pageCache.hasOwnProperty(code)) {
                 resolve();
                 return;
+            } else {
+
+                if ($('.page-episode-loader').length > 0 && self.firstLoad == false) {
+                    console.log('load start');
+                    $('.page-episode-loader').css('display', 'block');
+                    $('.page-episode-loader').animate({
+                        opacity: 1
+                    }, 200);
+                }
             }
 
+            self.loading = true;
+
             self.loader.code(code).fetch().then(function (data) {
+
                 self.pageCache[code] = data;
+                self.loading = false;
+
+                $('.page-episode-loader').animate({
+                    opacity: 0
+                }, 200, function () {
+                    $('.page-episode-loader').css('display', 'none');
+                });
+
                 resolve();
+            }).catch(function(error){
+                console.log(error);
+                self.loading = false;
             });
+
+            self.firstLoad = true;
         });
 
     };
@@ -68,8 +96,6 @@
         var easing = typeof self.options.shiftEasing === 'string' ? self.options.shiftEasing : $.bez(self.options.shiftEasing);
         var easingPrev = $.bez([.85,.01,.93,.71]);
 
-
-        self.ready = false;
         if (direction == 'right') {
             $('.page-episode-prev').animate({
                 opacity: 1
@@ -79,9 +105,7 @@
             }, 450);
             self.container.animate({
                 marginLeft: '+=100%'
-            }, self.options.timePage, easing, function() {
-                self.ready = true;
-            });
+            }, self.options.timePage, easing);
         } else if (direction == 'left') {
             $('.page-episode-next').animate({
                 opacity: 1
@@ -91,9 +115,7 @@
             }, 450);
             self.container.animate({
                 marginLeft: '-=100%'
-            }, self.options.timePage, easing, function() {
-                self.ready = true;
-            });
+            }, self.options.timePage, easing);
         }
     }
 
@@ -142,7 +164,7 @@
         self.$arrowRight.click(function (event) {
             event.preventDefault();
 
-            if (!self.ready) {
+            if (!self.ready || self.loading) {
                 return;
             }
 
@@ -152,6 +174,7 @@
 
             changePage(self, 'right');
             var timer = self.options.timePage + 100;
+            self.ready = false;
 
             setTimeout(function(){
                 self.container.find('.page-episode-next').html('');
@@ -169,21 +192,25 @@
                         var place = self.container.find('.page-episode-prev');
                         render(self, prevCode, place);
                     });
-
-                    var episodeChangedEvent = new CustomEvent('episodeChanged', {
-                        detail: { code: self.currentCode }
-                    });
-                    document.dispatchEvent(episodeChangedEvent);
+                    clearTimeout(self.similarTimer);
+                    self.similarTimer = setTimeout(function(){
+                        var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                            detail: { code: self.currentCode }
+                        });
+                        document.dispatchEvent(episodeChangedEvent);
+                    }, 3000);
                 } else {
                     hideArrow(self, $(this));
                 }
+
+                self.ready = true;
             }, timer);
         });
 
         self.$arrowLeft.click(function (event) {
             event.preventDefault();
 
-            if (!self.ready) {
+            if (!self.ready || self.loading) {
                 return;
             }
 
@@ -194,6 +221,7 @@
 
             changePage(self, 'left');
             var timer = self.options.timePage + 100;
+            self.ready = false;
 
             setTimeout(function(){
                 self.currentCode = nextCode;
@@ -214,13 +242,18 @@
                         render(self, nextCode, place);
                     });
 
-                    var episodeChangedEvent = new CustomEvent('episodeChanged', {
-                        detail: { code: self.currentCode }
-                    });
-                    document.dispatchEvent(episodeChangedEvent);
+                    clearTimeout(self.similarTimer);
+                    self.similarTimer = setTimeout(function(){
+                        var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                            detail: { code: self.currentCode }
+                        });
+                        document.dispatchEvent(episodeChangedEvent);
+                    }, 3000);
                 } else {
                     hideArrow(self, $(this));
                 }
+
+                self.ready = true;
             }, timer);
         });
     };
