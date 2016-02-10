@@ -54,8 +54,6 @@ $(function () {
         timePage: 625
     });
 
-    console.log('Page Episode');
-
     var currentVideo = $('.content-video-list-header-content').data('show-code');
     var place = $('.content-video-list-items');
 
@@ -66,16 +64,9 @@ $(function () {
         var loadStatus = false;
 
         var loadVideo = function (videoTotal, videoLimit, Api, status) {
-            console.log('loadVideo run');
             loadStatus = true;
 
             Api.offset(videoTotal).limit(videoLimit).fetch().then(function (response) {
-                console.log('videoTotal: ' + videoTotal);
-                console.log('videoLimit: ' + videoLimit);
-                console.log('Api: ' + Api);
-                console.log('status: ' + status);
-                console.log('level 1');
-
                 var template = $('#template-video-list').html();
                 var view     = {};
 
@@ -95,13 +86,10 @@ $(function () {
                     return item;
                 });
 
-                console.log('level 2');
-
                 view.episodes = response.data;
 
                 var html = Mustache.render(template, view);
 
-                console.log('level 3');
                 if (status == 'new') {
                     $('.page-episode-wrap').animate({
                         opacity: 0
@@ -119,8 +107,6 @@ $(function () {
                     place.css('height', 'auto');
                 }
                 $('.content-video-list-label').html('');
-
-                console.log('level 4');
 
                 $('.content-video-list-header-search-loader').stop().animate({
                     opacity: 0
@@ -185,8 +171,6 @@ $(function () {
                 if (loadStatus) {
                     return;
                 }
-
-                console.log(pageEpisodeWrap.css('display'));
 
                 var scrollHeight = $(document).height() - $(window).height();
 
