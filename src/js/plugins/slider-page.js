@@ -193,9 +193,7 @@
                         render(self, prevCode, place);
                     });
                     clearTimeout(self.similarTimer);
-                    console.log('event timeout');
                     self.similarTimer = setTimeout(function(){
-                        console.log('event send');
                         var episodeChangedEvent = new CustomEvent('episodeChanged', {
                             detail: { code: self.currentCode }
                         });
