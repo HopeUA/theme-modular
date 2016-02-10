@@ -103,7 +103,7 @@ $(function () {
                         marginTop: 0
                     }, 400);
                 } else {
-                    //place.append(html);
+                    place.append(html);
                     place.css('height', 'auto');
                 }
                 $('.content-video-list-label').html('');

@@ -42,7 +42,7 @@
                 resolve();
                 return;
             } else {
-                console.log(self.loadStatus);
+
                 if ($('.page-episode-loader').length > 0 && self.firstLoad == false) {
                     console.log('load start');
                     $('.page-episode-loader').css('display', 'block');
@@ -53,9 +53,9 @@
             }
 
             self.loading = true;
-            console.log('start request');
+
             self.loader.code(code).fetch().then(function (data) {
-                console.log('end request');
+
                 self.pageCache[code] = data;
                 self.loading = false;
 
