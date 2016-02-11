@@ -1,23 +1,23 @@
 $(function(){
 
-    var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
+    var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
 
     $('.new').hopeSliderBlock({
         name:   'new',
         lines:  2,
-        loader: LocalMediaAPI.episodes('new'),
+        loader: MediaAPI.episodes('new'),
         render: function (response, first) {
             first = first || false;
 
             var template = $('#template-new').html();
             var view     = {};
             if (first) {
-                view.first = [response.data.shift()];
+                view.first = [response.shift()];
             }
 
-            view.episodes = response.data.map(function (item) {
+            view.episodes = response.map(function (item) {
                 item.title = Hope.Utils.textTrim(item.title, 25);
-                item.show = Hope.Utils.textTrim(item.show, 23);
+                item.show.title = Hope.Utils.textTrim(item.show.title, 23);
                 return item;
             });
 
