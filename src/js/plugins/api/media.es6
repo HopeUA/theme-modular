@@ -24,7 +24,7 @@
         shows(module = '') {
             let self = clone(this);
             if (module) {
-                self.param('module', module, false);
+                self._module = module;
             }
             self._resource = 'shows';
 

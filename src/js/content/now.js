@@ -12,10 +12,10 @@ $(function(){
             var template = $('#template-now').html();
             var view     = {};
             if (first) {
-                view.first = [response.shift()];
+                view.first = [response.data.shift()];
             }
 
-            view.episodes = response.map(function (item) {
+            view.episodes = response.data.map(function (item) {
                 item.title = Hope.Utils.textTrim(item.title, 25);
                 item.show.title = Hope.Utils.textTrim(item.show.title, 23);
                 return item;

@@ -13,9 +13,9 @@ $(function(){
             var template = $('#template-popular').html();
             var view     = {};
             if (first) {
-                view.first = [response.shift()];
+                view.first = [response.data.shift()];
             }
-            view.shows = response;
+            view.shows = response.data;
 
             blockLoader('popular');
 

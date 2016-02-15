@@ -13,7 +13,7 @@ $(function () {
             var template = $('#template-recomended').html();
             var view = {};
 
-            view.episodes = response.map(function (item) {
+            view.episodes = response.data.map(function (item) {
                 item.title = Hope.Utils.textTrim(item.title, 32);
                 item.show.title = Hope.Utils.textTrim(item.show.title, 25);
                 item.description = Hope.Utils.textTrim(item.description, 138);
