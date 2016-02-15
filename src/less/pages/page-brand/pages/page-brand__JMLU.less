@@ -17,16 +17,20 @@
 
 .brand-JMLU .content-video-list-header-show__category {
     color: #3c0000;
+    font-weight: normal;
+    font-size: 16px;
 }
 
 .brand-JMLU .content-video-list-header-show__title::before {
     background: #e1e0b4;
-    width: 100px;
+    width: 150px;
+    opacity: 0.5;
 }
 
 .brand-JMLU .content-video-list-header-show__title::after {
     background: #e1e0b4;
-    width: 100px;
+    width: 150px;
+    opacity: 0.5;
 }
 
 .brand-JMLU .content-video-list-header-search {
@@ -94,6 +98,7 @@
 .brand-JMLU .container h2 {
     color: #000;
     position: relative;
+    margin: 50px 0 40px;
 }
 
 .brand-JMLU .container h2::before {
@@ -112,6 +117,33 @@
     outline: 0;
     border: 1px solid #b3ac96;
     color: #b3ac96;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    font-size: 15px;
+    padding: 0 20px;
+    width: auto;
+    margin-top: 47px;
+}
+
+.brand-JMLU .archive::after {
+    content: '';
+    width: 5px;
+    height: 10px;
+    background-image: url('../img/brand/JMLU/arrowDownJMLU.png');
+    display: inline-block;
+    bottom: -13px;
+    margin-left: 16px;
+}
+
+.brand-JMLU .archive.social::after {
+    content: '+';
+    display: inline-block;
+    bottom: -13px;
+    margin-left: 10px;
+    background-image: none;
+    font-size: 15px;
 }
 
 .brand-JMLU .days-week {
@@ -143,12 +175,63 @@
     background: url("../img/brand/JMLU/arrowRightJMLU.png");
 }
 
+.brand-JMLU .show-more {
+    color:  #b3ac96;
+    border-color: #b3ac96;
+}
+
+.brand-JMLU .show-more::after {
+    background: url("../img/brand/JMLU/arrowMoreJMLU.png");
+}
+
+.brand-JMLU .photo-leading {
+    border-color: #7d7968;
+}
+
+.brand-JMLU .about-ellipse {
+    color: #a49e89;
+}
+
+.brand-JMLU .about-description {
+    color: #a49e89;
+}
+
+.brand-JMLU .info-leading-info {
+    color: #a49e89;
+}
+
+.brand-JMLU .brand-share-fb {
+    background: url("../img/brand/JMLU/GroupfbJMLU.png");
+}
+
+.brand-JMLU .brand-share-vk {
+    background: url("../img/brand/JMLU/GroupVKJMLU.png");
+}
+
+.brand-JMLU .brand-share-tw {
+    background: url("../img/brand/JMLU/GroupTWJMLU.png");
+}
+
+.brand-JMLU .content-video-list-header-search {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.brand-JMLU .content-episode__large-title__episode {
+    color:  #e1e0b4;
+}
+
+.brand-JMLU .photo-block-show-more {
+    margin-top: 40px;
+}
+
 @media screen and (min-width: 1921px) {
     .brand-JMLU .content-header-poster {
         background-size: cover;
+        background-position: bottom center;
     }
     .content-Brand-page-wrap.brand-JMLU::before {
         background-size: 100%;
+        background-position: top center;
     }
     .content-Brand-page-wrap.brand-JMLU {
         background-size: 100%;
