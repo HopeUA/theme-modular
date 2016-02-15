@@ -1,11 +1,11 @@
 $(function(){
 
-    var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
+    var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
 
     $('.now').hopeSliderBlock({
         name:   'now',
         limit:  {first : 7, default : 10},
-        loader: LocalMediaAPI.episodes('now'),
+        loader: MediaAPI.episodes('now'),
         render: function (response, first) {
             first = first || false;
 
@@ -17,7 +17,7 @@ $(function(){
 
             view.episodes = response.data.map(function (item) {
                 item.title = Hope.Utils.textTrim(item.title, 25);
-                item.show = Hope.Utils.textTrim(item.show, 23);
+                item.show.title = Hope.Utils.textTrim(item.show.title, 23);
                 return item;
             });
 

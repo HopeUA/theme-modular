@@ -5,7 +5,7 @@
         this.options = $.extend({}, SliderBlock.DEFAULTS, options);
 
         if (!this.options.loader) {
-            console.error('Loader required1', this.options);
+            console.error('Loader required', this.options);
             return;
         }
 
@@ -169,7 +169,7 @@
 
                 setTimeout(function(){
                     self.$arrowLeft.css({'display' : 'none'});
-                }, self.options.arrowTime)
+                }, self.options.arrowTime);
 
                 if( !isMobile.any() ) {
                     self.$arrowRight.css({'display' : 'block'});
@@ -180,13 +180,13 @@
 
                 break;
         }
-    };
+    }
 
     function isAnimated(self){
 
         return self.$object.is(':animated');
 
-    };
+    }
 
     function init(self) {
 
@@ -203,7 +203,6 @@
 
         self.$arrowRight.click(function(){
 
-            console.log(self.readyStatus)
             if (self.readyStatus == false) {
                 return;
             }
@@ -222,8 +221,11 @@
         self.loader.limit(self.options.limit.first).fetch().then(function(data){
             var html = self.options.render(data, true);
             self.$object.html(html);
+        }).catch(function(error){
+            console.log('Error in ', self.options.name);
+            console.error(error);
         });
-    };
+    }
 
     SliderBlock.prototype.reload = function() {
         var self = this;

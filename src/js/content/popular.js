@@ -1,12 +1,12 @@
 $(function(){
 
-    var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
+    var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
 
     $('.popular').hopeSliderBlock({
         name: 'popular',
         lines: 2,
         type: 'column',
-        loader: LocalMediaAPI.shows('popular'),
+        loader: MediaAPI.shows('popular'),
         render: function (response, first) {
             first = first || false;
 

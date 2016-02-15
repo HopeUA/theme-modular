@@ -5,7 +5,7 @@ $(function () {
         return;
     }
 
-    var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
+    var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
 
     document.addEventListener('episodeChanged', function (e) {
         if (e.detail == null) {
@@ -14,7 +14,7 @@ $(function () {
 
         $('.similar-episodes').hopeLoaderBlock({
             name: 'similar-episodes',
-            loader: LocalMediaAPI.episodes('similar').param('code', e.detail.code),
+            loader: MediaAPI.episodes('similar').code(e.detail.code),
             render: function (response, first) {
                 first = first || false;
 
@@ -27,7 +27,7 @@ $(function () {
 
                 view.episodes = response.data.map(function (item) {
                     item.title = Hope.Utils.textTrim(item.title, 20);
-                    item.show = Hope.Utils.textTrim(item.show, 20);
+                    item.show.title = Hope.Utils.textTrim(item.show.title, 20);
                     return item;
                 });
 
@@ -46,11 +46,11 @@ $(function () {
 
             var template = $('#template-page-episode').html();
             var view     = {};
-            view.episode = response.object;
+            view.episode = response;
 
             return Mustache.render(template, view);
         },
-        loader: LocalMediaAPI.episodes(),
+        loader: MediaAPI.episodes(),
         timePage: 625
     });
 
@@ -58,8 +58,7 @@ $(function () {
     var place = $('.content-video-list-items');
 
     if (currentVideo) {
-        var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
-        var Api = LocalMediaAPI.episodes('show').param('show', currentVideo);
+        // var Api = MediaAPI.episodes('show').param('show', currentVideo);
 
         var loadStatus = false;
 
@@ -178,7 +177,7 @@ $(function () {
 
                     var videoTotal = $('.content-video-list-items').children().length;
                     var currentInputVal = $('.content-video-list-header-search-input').val();
-                    var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentInputVal);
+                    var ApiSearch = MediaAPI.shows('episodes').code(currentVideo).search(currentInputVal);
                     loadVideo(videoTotal, 10, ApiSearch);
 
                     counter++;
@@ -240,7 +239,7 @@ $(function () {
                 }
 
                 $inputVal = $input.val();
-                var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentVal);
+                var ApiSearch = MediaAPI.shows('episodes').code(currentVideo).search(currentVal);
 
                 $('.content-video-list-items').css('display', 'block');
                 loadVideo(0, 10, ApiSearch, 'new');
@@ -269,7 +268,7 @@ $(function () {
         return;
     }
 
-    var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
+    var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
 
     console.log('Brand Page Episode');
 
@@ -277,8 +276,7 @@ $(function () {
     var place = $('.content-video-list-items');
 
     if (currentVideo) {
-        var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
-        var Api = LocalMediaAPI.episodes('show').param('show', currentVideo);
+        var Api = MediaAPI.shows('episodes').code(currentVideo);
 
         var loadStatus = false;
 
@@ -375,7 +373,7 @@ $(function () {
 
                     var videoTotal = $('.content-video-list-items').children().length;
                     var currentInputVal = $('.content-video-list-header-search-input').val();
-                    var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentInputVal);
+                    var ApiSearch = MediaAPI.shows('episodes').code(currentVideo).search(currentInputVal);
                     loadVideo(videoTotal, 10, ApiSearch);
 
                     counter++;
@@ -405,7 +403,7 @@ $(function () {
                             $('.content-video-list-items').html('');
                         });
                     } else {
-                        var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentVal);
+                        var ApiSearch = MediaAPI.shows('episodes').code(currentVideo).search(currentVal);
                         //place.html('');
                         loadVideo(0, 10, ApiSearch, 'new');
                         pageEpisodeWrap.animate({

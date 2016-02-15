@@ -10,8 +10,8 @@ $(function () {
     }
 
     if (currentVideo && pageEpisodeWrap.length == 0) {
-        var LocalMediaAPI = Hope.Api.LocalMedia(Hope.Config.Api.Media.Endpoint);
-        var Api = LocalMediaAPI.episodes('show').param('show', currentVideo);
+        var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
+        var Api = MediaAPI.shows('episodes').code(currentVideo);
 
         var loadStatus = false;
 
@@ -38,16 +38,13 @@ $(function () {
                 var view     = {};
 
                 response.data.map(function(item){
-                    item.date = timeToStr2(item.date, 'ru');
-                    item.code = getEpisodeUrl(item.code);
+                    item.publish = timeToStr2(item.publish, 'ru');
+                    // item.code = getEpisodeUrl(item.code);
                     item.labels = '';
 
                     $.each(item.tags, function (index, tag) {
                         if (index < 4) {
-                            var label = '<a href="#" class="content-video-list-content-label">' + tag + '</a>';
-                            item.labels += label;
-                        } else {
-                            return;
+                            item.labels += '<a href="#" class="content-video-list-content-label">' + tag + '</a>';
                         }
                     });
                     return item;
@@ -134,7 +131,7 @@ $(function () {
 
                     var videoTotal = $('.content-video-list-items').children().length;
                     var currentInputVal = $('.content-video-list-header-search-input').val();
-                    var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentInputVal);
+                    var ApiSearch = MediaAPI.shows('episodes').code(currentVideo).search(currentInputVal);
                     loadVideo(videoTotal, 10, ApiSearch);
 
                     counter++;
@@ -171,7 +168,7 @@ $(function () {
             requestTimeout = setTimeout(function(){
                 var currentVal = $input.val();
                 $inputVal = $input.val();
-                var ApiSearch = LocalMediaAPI.episodes('show').param('show', currentVideo).search(currentVal);
+                var ApiSearch = MediaAPI.shows('episodes').code(currentVideo).search(currentVal);
                 //place.html('');
                 loadVideo(0, 10, ApiSearch, 'new');
             }, 700);
