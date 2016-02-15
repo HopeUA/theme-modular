@@ -3,7 +3,7 @@
     var SliderPage = function (object, options) {
 
         this.$object = $(object); // main object
-        this.options = $.extend({}, SliderPage.DEFAULTS, options)
+        this.options = $.extend({}, SliderPage.DEFAULTS, options);
 
         if (!this.options.loader) {
             console.error('Loader required');
@@ -128,8 +128,8 @@
     function init(self) {
         self.currentCode = self.$object.data('episode-code');
         loadJsonByCode(self, self.currentCode).then(function(){
-            var prevEpisodeCode = self.pageCache[self.currentCode].prev;
-            var nextEpisodeCode = self.pageCache[self.currentCode].next;
+            var prevEpisodeCode = self.pageCache[self.currentCode].links.prev;
+            var nextEpisodeCode = self.pageCache[self.currentCode].links.next;
 
             var place = self.container.find('.page-episode-current');
             render(self, self.currentCode, place);
@@ -170,7 +170,7 @@
 
             showArrow(self, self.$arrowLeft);
 
-            var prevCode = self.pageCache[self.currentCode].prev;
+            var prevCode = self.pageCache[self.currentCode].links.prev;
 
             changePage(self, 'right');
             var timer = self.options.timePage + 100;
@@ -185,7 +185,7 @@
                 self.container.css('margin-left', '-100%');
 
                 self.currentCode = prevCode;
-                prevCode = self.pageCache[self.currentCode].prev;
+                prevCode = self.pageCache[self.currentCode].links.prev;
 
                 if (prevCode) {
                     loadJsonByCode(self, prevCode).then(function(){
@@ -216,7 +216,7 @@
 
             showArrow(self, self.$arrowRight);
 
-            var nextCode = self.pageCache[self.currentCode].next;
+            var nextCode = self.pageCache[self.currentCode].links.next;
             var prevCode = null;
 
             changePage(self, 'left');
@@ -225,8 +225,8 @@
 
             setTimeout(function(){
                 self.currentCode = nextCode;
-                nextCode = self.pageCache[self.currentCode].next;
-                prevCode = self.pageCache[self.currentCode].next;
+                nextCode = self.pageCache[self.currentCode].links.next;
+                prevCode = self.pageCache[self.currentCode].links.prev;
 
                 self.container.find('.page-episode-prev').html('');
                 self.container.find('.page-episode-current').addClass('page-episode-prev').removeClass('page-episode-current');
