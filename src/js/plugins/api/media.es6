@@ -50,18 +50,6 @@
             return this.param('limit', n);
         }
 
-        include(entity) {
-            return this.filter('include', entity);
-        }
-
-        filter(name, value, createNew = true) {
-            let self = createNew ? clone(this) : this;
-            self._filter[name] = value;
-            self._query.filter = JSON.stringify(self._filter);
-
-            return self;
-        }
-
         param(name, value, createNew = true) {
             let self = createNew ? clone(this) : this;
             self._query[name] = value;
@@ -94,11 +82,11 @@
             }
 
             let parts = [this._endpoint, this._resource];
-            if (this._module) {
-                parts.push(this._module);
-            }
             if (this._code) {
                 parts.push(this._code);
+            }
+            if (this._module) {
+                parts.push(this._module);
             }
 
             let url = URI(parts.join('/'));

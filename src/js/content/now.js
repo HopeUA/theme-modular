@@ -5,7 +5,7 @@ $(function(){
     $('.now').hopeSliderBlock({
         name:   'now',
         limit:  {first : 7, default : 10},
-        loader: MediaAPI.episodes('now').include('show'),
+        loader: MediaAPI.episodes('now'),
         render: function (response, first) {
             first = first || false;
 
