@@ -11,6 +11,9 @@ Hope.Config = {
         Scheduler: {
             Endpoint: 'https://scheduler.s.hope.ua/v1'
         },
+        Thumbs: {
+            Endpoint: 'https://thumb.s.hope.ua'
+        },
         Articles: {
             Endpoint: 'https://dev-tv.hope.ua/api'
         }
