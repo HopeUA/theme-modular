@@ -1,6 +1,7 @@
 $(function(){
 
     var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
+    var ThumbsApi = Hope.Api.Thumbs(Hope.Config.Api.Thumbs.Endpoint);
 
     $('.popular').hopeSliderBlock({
         name: 'popular',
@@ -9,6 +10,10 @@ $(function(){
         loader: MediaAPI.shows('popular'),
         render: function (response, first) {
             first = first || false;
+
+            response.data.forEach(function(show){
+                show.images.cover = ThumbsApi.getUrl(show.images.cover, 460, 250);
+            });
 
             var template = $('#template-popular').html();
             var view     = {};
