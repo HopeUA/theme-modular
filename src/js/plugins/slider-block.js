@@ -218,7 +218,22 @@
             move(self, 'begin'); // move to begin
         });
 
-        self.loader.limit(self.options.limit.first).fetch().then(function(data){
+        if ($('.page-shows').length > 0) {
+            var limit = 11;
+        } else {
+            var limit = self.options.limit.first;
+        }
+
+        self.loader.limit(limit).fetch().then(function(data){
+            if ($('.page-shows').length > 0) {
+                $('.page-shows-loading').removeClass('page-shows-loading');
+                $('.page-shows .content-shows__row-container').animate({
+                    opacity: 1,
+                    marginTop: 0,
+                    paddingTop: 0,
+                    marginBottom: -61
+                }, 400);
+            }
             var html = self.options.render(data, true);
             self.$object.html(html);
         }).catch(function(error){
