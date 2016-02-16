@@ -223,10 +223,10 @@ $(function () {
     var ajaxStatus = function(status) {
         if (status) {
             ajaxRunning = true;
-            $('.page-scheduler-header').addClass('page-scheduler-header-loader');
+            $('.page-scheduler-header-container').addClass('page-scheduler-header-container-loader');
         } else {
             ajaxRunning = false;
-            $('.page-scheduler-header').removeClass('page-scheduler-header-loader');
+            $('.page-scheduler-header-container').removeClass('page-scheduler-header-container-loader');
         }
     };
 
