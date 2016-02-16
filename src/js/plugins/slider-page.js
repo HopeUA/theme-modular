@@ -21,6 +21,7 @@
         this.loading = false;
         this.firstLoad = false;
         this.similarTimer = null;
+        this.player = null;
 
         init(this);
     };
@@ -105,7 +106,9 @@
             }, 450);
             self.container.animate({
                 marginLeft: '+=100%'
-            }, self.options.timePage, easing);
+            }, self.options.timePage, easing, function() {
+                //setVideo(self);
+            });
         } else if (direction == 'left') {
             $('.page-episode-next').animate({
                 opacity: 1
@@ -115,7 +118,9 @@
             }, 450);
             self.container.animate({
                 marginLeft: '-=100%'
-            }, self.options.timePage, easing);
+            }, self.options.timePage, easing, function() {
+                //setVideo(self);
+            });
         }
     }
 
@@ -125,14 +130,80 @@
         place.html(renderHtml);
     }
 
+    var loadCounter = 0;
+    function onPageLoad(self) {
+        loadCounter++;
+        if (loadCounter == 2) {
+            setVideo(self);
+        }
+    }
+
+    function setVideo(self) {
+        $('#youtubePlayer').remove();
+        $('.page-episode-current .page-episode-content-video').append('<div class="pv-episode-videoPlayer" id="youtubePlayer"></div>');
+
+        $('.page-episode-content-video-play').css({
+            display: 'block',
+            opacity: 1
+        });
+        $('.pv-episode-img').css({
+            display: 'block',
+            opacity: 1
+        });
+        var videoWidth = $('.pv-episode-img').width();
+        var videoHeight = $('.pv-episode-img').height();
+        self.player = new YT.Player('youtubePlayer', {
+            height: videoHeight,
+            width: videoWidth,
+            videoId: self.pageCache[self.currentCode].source.youtube.id
+        });
+    }
+
     function init(self) {
         self.currentCode = self.$object.data('episode-code');
+
+        // Video from Youtube
+
+        var status = false;
+
+        var tag = document.createElement('script');
+
+        tag.src = "http://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        window.onYouTubeIframeAPIReady = function() {
+            onPageLoad(self);
+        };
+
+        $('.page-container-wrap').on('click', '.page-episode-content-video', function() {
+            console.log('click');
+            $('.page-episode-current .page-episode-content-video-play').animate({
+                opacity: 0
+            }, 20, function() {
+                $('.page-episode-current .page-episode-content-video-play').css('display', 'none');
+            });
+            $('.page-episode-current .pv-episode-img').animate({
+                opacity: 0
+            }, 200, function() {
+                $('.page-episode-current .pv-episode-img').css('display', 'none');
+            });
+
+            self.player.playVideo();
+        });
+
+        // END videoPlayer
+
         loadJsonByCode(self, self.currentCode).then(function(){
             var prevEpisodeCode = self.pageCache[self.currentCode].links.prev;
             var nextEpisodeCode = self.pageCache[self.currentCode].links.next;
 
             var place = self.container.find('.page-episode-current');
             render(self, self.currentCode, place);
+            onPageLoad(self);
+
             self.$object.animate({
                 marginTop: 0,
                 opacity: 1
@@ -187,6 +258,8 @@
                 self.currentCode = prevCode;
                 prevCode = self.pageCache[self.currentCode].links.prev;
 
+                setVideo(self);
+
                 if (prevCode) {
                     loadJsonByCode(self, prevCode).then(function(){
                         var place = self.container.find('.page-episode-prev');
@@ -235,6 +308,8 @@
                 self.container.find('.page-episode-current').after('<div class="page-episode-next"></div>');
 
                 self.container.css('margin-left', '-100%');
+
+                setVideo(self);
 
                 if (nextCode) {
                     loadJsonByCode(self, nextCode).then(function(){
