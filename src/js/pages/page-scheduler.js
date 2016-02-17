@@ -1,5 +1,9 @@
 $(function () {
 
+    if ($('.page-scheduler-header-list').length == 0) {
+        return;
+    }
+
     var tempIndex = $('.page-scheduler-content-items .active').index();
     var $pageContent = $('.page-scheduler-content');
     var daysCache = {};

@@ -233,6 +233,13 @@
             render(self, self.currentCode, place);
             onPageLoad(self);
 
+            var playStatus = window.location.hash;
+
+            if (playStatus == '#play') {
+                console.log('true');
+                $('.page-container-wrap .page-episode-current .page-episode-content-video').click();
+            }
+
             self.$object.animate({
                 marginTop: 0,
                 opacity: 1
