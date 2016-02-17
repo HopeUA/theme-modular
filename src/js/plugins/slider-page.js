@@ -22,6 +22,7 @@
         this.firstLoad = false;
         this.similarTimer = null;
         this.player = null;
+        this.playerReady = false;
 
         init(this);
     };
@@ -155,7 +156,30 @@
         self.player = new YT.Player('youtubePlayer', {
             height: videoHeight,
             width: videoWidth,
-            videoId: self.pageCache[self.currentCode].source.youtube.id
+            videoId: self.pageCache[self.currentCode].source.youtube.id,
+            events: {
+                onReady: function() {
+                    self.playerReady = true;
+                }
+            }
+        });
+    }
+
+    function waitPlayer(self) {
+        return new Promise(function(resolve, reject){
+            var counter = 0;
+            var interval = setInterval(function(){
+                counter++;
+                if (counter > 200) {
+                    clearInterval(interval);
+                    return reject();
+                }
+
+                if (self.playerReady) {
+                    clearInterval(interval);
+                    return resolve();
+                }
+            }, 10);
         });
     }
 
@@ -180,18 +204,27 @@
 
         $('.page-container-wrap').on('click', '.page-episode-content-video', function() {
             console.log('click');
-            $('.page-episode-current .page-episode-content-video-play').animate({
-                opacity: 0
-            }, 20, function() {
-                $('.page-episode-current .page-episode-content-video-play').css('display', 'none');
-            });
-            $('.page-episode-current .pv-episode-img').animate({
-                opacity: 0
-            }, 200, function() {
-                $('.page-episode-current .pv-episode-img').css('display', 'none');
-            });
 
-            self.player.playVideo();
+            waitPlayer(self).then(function(){
+
+                $('.page-episode-current .page-episode-content-video-play').animate({
+                    opacity: 0
+                }, 400, function() {
+                    $('.page-episode-current .page-episode-content-video-play').css('display', 'none');
+                });
+
+                setTimeout(function(){
+                    $('.page-episode-current .pv-episode-img').animate({
+                        opacity: 0
+                    }, 400, function() {
+                        $('.page-episode-current .pv-episode-img').css('display', 'none');
+                    });
+                }, 300);
+
+                self.player.playVideo();
+            }).catch(function(){
+                console.error('Youtube player error');
+            });
         });
 
         // END videoPlayer
@@ -238,6 +271,8 @@
             if (!self.ready || self.loading) {
                 return;
             }
+
+            self.playerReady = false;
 
             showArrow(self, self.$arrowLeft);
 
@@ -286,6 +321,8 @@
             if (!self.ready || self.loading) {
                 return;
             }
+
+            self.playerReady = false;
 
             showArrow(self, self.$arrowRight);
 
