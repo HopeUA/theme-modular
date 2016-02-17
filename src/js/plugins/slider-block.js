@@ -5,7 +5,7 @@
         this.options = $.extend({}, SliderBlock.DEFAULTS, options);
 
         if (!this.options.loader) {
-            console.error('Loader required1', this.options);
+            console.error('Loader required', this.options);
             return;
         }
 
@@ -169,7 +169,7 @@
 
                 setTimeout(function(){
                     self.$arrowLeft.css({'display' : 'none'});
-                }, self.options.arrowTime)
+                }, self.options.arrowTime);
 
                 if( !isMobile.any() ) {
                     self.$arrowRight.css({'display' : 'block'});
@@ -180,13 +180,13 @@
 
                 break;
         }
-    };
+    }
 
     function isAnimated(self){
 
         return self.$object.is(':animated');
 
-    };
+    }
 
     function init(self) {
 
@@ -203,7 +203,6 @@
 
         self.$arrowRight.click(function(){
 
-            console.log(self.readyStatus)
             if (self.readyStatus == false) {
                 return;
             }
@@ -219,11 +218,29 @@
             move(self, 'begin'); // move to begin
         });
 
-        self.loader.limit(self.options.limit.first).fetch().then(function(data){
+        if ($('.page-shows').length > 0) {
+            var limit = 11;
+        } else {
+            var limit = self.options.limit.first;
+        }
+
+        self.loader.limit(limit).fetch().then(function(data){
+            if ($('.page-shows').length > 0) {
+                $('.page-shows-loading').removeClass('page-shows-loading');
+                $('.page-shows .content-shows__row-container').animate({
+                    opacity: 1,
+                    marginTop: 0,
+                    paddingTop: 0,
+                    marginBottom: -61
+                }, 400);
+            }
             var html = self.options.render(data, true);
             self.$object.html(html);
+        }).catch(function(error){
+            console.log('Error in ', self.options.name);
+            console.error(error);
         });
-    };
+    }
 
     SliderBlock.prototype.reload = function() {
         var self = this;

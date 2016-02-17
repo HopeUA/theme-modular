@@ -3,7 +3,7 @@
     var SliderPage = function (object, options) {
 
         this.$object = $(object); // main object
-        this.options = $.extend({}, SliderPage.DEFAULTS, options)
+        this.options = $.extend({}, SliderPage.DEFAULTS, options);
 
         if (!this.options.loader) {
             console.error('Loader required');
@@ -18,6 +18,9 @@
         this.$arrowRight = 'arrowRight' in this.options ? (this.options.arrowRight) : $('.page-content-arrow__right');
         this.container = this.$object.find('.page-container-wrap');
         this.ready = true;
+        this.loading = false;
+        this.firstLoad = false;
+        this.similarTimer = null;
 
         init(this);
     };
@@ -38,12 +41,37 @@
             if (self.pageCache.hasOwnProperty(code)) {
                 resolve();
                 return;
+            } else {
+
+                if ($('.page-episode-loader').length > 0 && self.firstLoad == false) {
+                    console.log('load start');
+                    $('.page-episode-loader').css('display', 'block');
+                    $('.page-episode-loader').animate({
+                        opacity: 1
+                    }, 200);
+                }
             }
 
+            self.loading = true;
+
             self.loader.code(code).fetch().then(function (data) {
+
                 self.pageCache[code] = data;
+                self.loading = false;
+
+                $('.page-episode-loader').animate({
+                    opacity: 0
+                }, 200, function () {
+                    $('.page-episode-loader').css('display', 'none');
+                });
+
                 resolve();
+            }).catch(function(error){
+                console.log(error);
+                self.loading = false;
             });
+
+            self.firstLoad = true;
         });
 
     };
@@ -68,8 +96,6 @@
         var easing = typeof self.options.shiftEasing === 'string' ? self.options.shiftEasing : $.bez(self.options.shiftEasing);
         var easingPrev = $.bez([.85,.01,.93,.71]);
 
-
-        self.ready = false;
         if (direction == 'right') {
             $('.page-episode-prev').animate({
                 opacity: 1
@@ -79,9 +105,7 @@
             }, 450);
             self.container.animate({
                 marginLeft: '+=100%'
-            }, self.options.timePage, easing, function() {
-                self.ready = true;
-            });
+            }, self.options.timePage, easing);
         } else if (direction == 'left') {
             $('.page-episode-next').animate({
                 opacity: 1
@@ -91,9 +115,7 @@
             }, 450);
             self.container.animate({
                 marginLeft: '-=100%'
-            }, self.options.timePage, easing, function() {
-                self.ready = true;
-            });
+            }, self.options.timePage, easing);
         }
     }
 
@@ -106,8 +128,8 @@
     function init(self) {
         self.currentCode = self.$object.data('episode-code');
         loadJsonByCode(self, self.currentCode).then(function(){
-            var prevEpisodeCode = self.pageCache[self.currentCode].prev;
-            var nextEpisodeCode = self.pageCache[self.currentCode].next;
+            var prevEpisodeCode = self.pageCache[self.currentCode].links.prev;
+            var nextEpisodeCode = self.pageCache[self.currentCode].links.next;
 
             var place = self.container.find('.page-episode-current');
             render(self, self.currentCode, place);
@@ -142,16 +164,17 @@
         self.$arrowRight.click(function (event) {
             event.preventDefault();
 
-            if (!self.ready) {
+            if (!self.ready || self.loading) {
                 return;
             }
 
             showArrow(self, self.$arrowLeft);
 
-            var prevCode = self.pageCache[self.currentCode].prev;
+            var prevCode = self.pageCache[self.currentCode].links.prev;
 
             changePage(self, 'right');
             var timer = self.options.timePage + 100;
+            self.ready = false;
 
             setTimeout(function(){
                 self.container.find('.page-episode-next').html('');
@@ -162,43 +185,48 @@
                 self.container.css('margin-left', '-100%');
 
                 self.currentCode = prevCode;
-                prevCode = self.pageCache[self.currentCode].prev;
+                prevCode = self.pageCache[self.currentCode].links.prev;
 
                 if (prevCode) {
                     loadJsonByCode(self, prevCode).then(function(){
                         var place = self.container.find('.page-episode-prev');
                         render(self, prevCode, place);
                     });
-
-                    var episodeChangedEvent = new CustomEvent('episodeChanged', {
-                        detail: { code: self.currentCode }
-                    });
-                    document.dispatchEvent(episodeChangedEvent);
+                    clearTimeout(self.similarTimer);
+                    self.similarTimer = setTimeout(function(){
+                        var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                            detail: { code: self.currentCode }
+                        });
+                        document.dispatchEvent(episodeChangedEvent);
+                    }, 3000);
                 } else {
                     hideArrow(self, $(this));
                 }
+
+                self.ready = true;
             }, timer);
         });
 
         self.$arrowLeft.click(function (event) {
             event.preventDefault();
 
-            if (!self.ready) {
+            if (!self.ready || self.loading) {
                 return;
             }
 
             showArrow(self, self.$arrowRight);
 
-            var nextCode = self.pageCache[self.currentCode].next;
+            var nextCode = self.pageCache[self.currentCode].links.next;
             var prevCode = null;
 
             changePage(self, 'left');
             var timer = self.options.timePage + 100;
+            self.ready = false;
 
             setTimeout(function(){
                 self.currentCode = nextCode;
-                nextCode = self.pageCache[self.currentCode].next;
-                prevCode = self.pageCache[self.currentCode].next;
+                nextCode = self.pageCache[self.currentCode].links.next;
+                prevCode = self.pageCache[self.currentCode].links.prev;
 
                 self.container.find('.page-episode-prev').html('');
                 self.container.find('.page-episode-current').addClass('page-episode-prev').removeClass('page-episode-current');
@@ -214,13 +242,18 @@
                         render(self, nextCode, place);
                     });
 
-                    var episodeChangedEvent = new CustomEvent('episodeChanged', {
-                        detail: { code: self.currentCode }
-                    });
-                    document.dispatchEvent(episodeChangedEvent);
+                    clearTimeout(self.similarTimer);
+                    self.similarTimer = setTimeout(function(){
+                        var episodeChangedEvent = new CustomEvent('episodeChanged', {
+                            detail: { code: self.currentCode }
+                        });
+                        document.dispatchEvent(episodeChangedEvent);
+                    }, 3000);
                 } else {
                     hideArrow(self, $(this));
                 }
+
+                self.ready = true;
             }, timer);
         });
     };

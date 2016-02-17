@@ -279,7 +279,7 @@
                         <div class="content-episode__large grid__column-2">
                             <div class="content-episode__large-play"></div>
                             <h5 class="content-episode__large-title__episode">{{& title }}</h5>
-                            <p class="content-episode__large-title__show">{{& show }}</p>
+                            <p class="content-episode__large-title__show">{{& show.title }}</p>
                             <div class="content-episode__large-image" style="background-image: url({{& image }})"></div>
                         </div>
                         <div class="content-episodes__row">
@@ -387,7 +387,7 @@
                             </div>
                         </div>
                         <div class="content-episodes__vertical-info">
-                            <a href="{{ url }}" class="content-episodes__vertical-link">{{& show }} <span> →</span></a>
+                            <a href="{{ url }}" class="content-episodes__vertical-link">{{& show.title }} <span> →</span></a>
                             <p class="content-episodes__vertical-description">{{& description }}</p>
                         </div>
                     </div>
@@ -411,7 +411,7 @@
                     <div class="content-episode__large grid__column-2">
                         <div class="content-episode__large-play"></div>
                         <h5 class="content-episode__large-title__episode">{{& title }}</h5>
-                        <p class="content-episode__large-title__show">{{ show }}</p>
+                        <p class="content-episode__large-title__show">{{ show.title }}</p>
                         <div class="content-episode__large-image" style="background-image: url({{& image }})"></div>
                     </div>
                     <div class="content-episodes__row">
