@@ -21,6 +21,8 @@
         this.loading = false;
         this.firstLoad = false;
         this.similarTimer = null;
+        this.player = null;
+        this.playerReady = false;
 
         init(this);
     };
@@ -125,14 +127,112 @@
         place.html(renderHtml);
     }
 
+    var loadCounter = 0;
+    function onPageLoad(self) {
+        loadCounter++;
+        if (loadCounter == 2) {
+            setVideo(self);
+        }
+    }
+
+    function setVideo(self) {
+        $('#youtubePlayer').remove();
+        $('.page-episode-current .page-episode-content-video').append('<div class="pv-episode-videoPlayer" id="youtubePlayer"></div>');
+
+        $('.page-episode-content-video-play').css({
+            display: 'block',
+            opacity: 1
+        });
+        $('.pv-episode-img').css({
+            display: 'block',
+            opacity: 1
+        });
+        var videoWidth = $('.pv-episode-img').width();
+        var videoHeight = $('.pv-episode-img').height();
+        self.player = new YT.Player('youtubePlayer', {
+            height: videoHeight,
+            width: videoWidth,
+            videoId: self.pageCache[self.currentCode].source.youtube.id,
+            events: {
+                onReady: function() {
+                    self.playerReady = true;
+                }
+            }
+        });
+    }
+
+    function waitPlayer(self) {
+        return new Promise(function(resolve, reject){
+            var counter = 0;
+            var interval = setInterval(function(){
+                counter++;
+                if (counter > 200) {
+                    clearInterval(interval);
+                    return reject();
+                }
+
+                if (self.playerReady) {
+                    clearInterval(interval);
+                    return resolve();
+                }
+            }, 10);
+        });
+    }
+
     function init(self) {
         self.currentCode = self.$object.data('episode-code');
+
+        // Video from Youtube
+
+        var status = false;
+
+        var tag = document.createElement('script');
+
+        tag.src = "http://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        window.onYouTubeIframeAPIReady = function() {
+            onPageLoad(self);
+        };
+
+        $('.page-container-wrap').on('click', '.page-episode-content-video', function() {
+            console.log('click');
+
+            waitPlayer(self).then(function(){
+
+                $('.page-episode-current .page-episode-content-video-play').animate({
+                    opacity: 0
+                }, 400, function() {
+                    $('.page-episode-current .page-episode-content-video-play').css('display', 'none');
+                });
+
+                setTimeout(function(){
+                    $('.page-episode-current .pv-episode-img').animate({
+                        opacity: 0
+                    }, 400, function() {
+                        $('.page-episode-current .pv-episode-img').css('display', 'none');
+                    });
+                }, 300);
+
+                self.player.playVideo();
+            }).catch(function(){
+                console.error('Youtube player error');
+            });
+        });
+
+        // END videoPlayer
+
         loadJsonByCode(self, self.currentCode).then(function(){
             var prevEpisodeCode = self.pageCache[self.currentCode].links.prev;
             var nextEpisodeCode = self.pageCache[self.currentCode].links.next;
 
             var place = self.container.find('.page-episode-current');
             render(self, self.currentCode, place);
+            onPageLoad(self);
+
             self.$object.animate({
                 marginTop: 0,
                 opacity: 1
@@ -168,6 +268,8 @@
                 return;
             }
 
+            self.playerReady = false;
+
             showArrow(self, self.$arrowLeft);
 
             var prevCode = self.pageCache[self.currentCode].links.prev;
@@ -186,6 +288,8 @@
 
                 self.currentCode = prevCode;
                 prevCode = self.pageCache[self.currentCode].links.prev;
+
+                setVideo(self);
 
                 if (prevCode) {
                     loadJsonByCode(self, prevCode).then(function(){
@@ -214,6 +318,8 @@
                 return;
             }
 
+            self.playerReady = false;
+
             showArrow(self, self.$arrowRight);
 
             var nextCode = self.pageCache[self.currentCode].links.next;
@@ -235,6 +341,8 @@
                 self.container.find('.page-episode-current').after('<div class="page-episode-next"></div>');
 
                 self.container.css('margin-left', '-100%');
+
+                setVideo(self);
 
                 if (nextCode) {
                     loadJsonByCode(self, nextCode).then(function(){
