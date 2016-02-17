@@ -26,7 +26,7 @@ $(function(){
             var view     = {};
 
             view.articles = response.data.map(function (item) {
-                item.title = Hope.Utils.textTrim(item.title, 29);
+                item.title = Hope.Utils.textTrim(item.title, 25);
                 item.description = Hope.Utils.textTrim(item.description.short, 210);
                 return item;
             });

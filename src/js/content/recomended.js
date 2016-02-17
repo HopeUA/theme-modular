@@ -16,7 +16,7 @@ $(function () {
             view.episodes = response.data.map(function (item) {
                 item.title = Hope.Utils.textTrim(item.title, 32);
                 item.show.title = Hope.Utils.textTrim(item.show.title, 25);
-                item.description = Hope.Utils.textTrim(item.description, 138);
+                item.description = Hope.Utils.textTrim(item.description, 130);
                 return item;
             });
 
