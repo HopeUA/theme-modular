@@ -107,9 +107,7 @@
             }, 450);
             self.container.animate({
                 marginLeft: '+=100%'
-            }, self.options.timePage, easing, function() {
-                //setVideo(self);
-            });
+            }, self.options.timePage, easing);
         } else if (direction == 'left') {
             $('.page-episode-next').animate({
                 opacity: 1
@@ -119,9 +117,7 @@
             }, 450);
             self.container.animate({
                 marginLeft: '-=100%'
-            }, self.options.timePage, easing, function() {
-                //setVideo(self);
-            });
+            }, self.options.timePage, easing);
         }
     }
 
