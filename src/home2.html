@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru-RU">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <title>Home Page | Hope.UA Modular Theme</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <style>
+        .flowplayer {
+            width: 230px;
+            height: 129px;
+        }
+
+        .flowplayer.is-splash,
+        .flowplayer .fp-message {
+            background-color: #bbb;
+        }
+
+        @media(-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+            #dashvod {
+                background-image: url(//flowplayer.org/media/img/drive/home/drive-shoot@2x.jpg);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+<h2 id="live">Live</h2>
+
+<div id="dashlive" class="no-toggle"></div>
+
+<p class="info">DASH live stream simulation</p>
+
+<script>
+    var HopeUATime = new Date();
+    //        HopeUATime = new Date(2015, 8, 22, 15, 59, 10);
+</script>
+
+<script src="js/app.js"></script>
+
+<script>
+    var livecontainer = document.getElementById("dashlive");
+    flowplayer(livecontainer, {
+        autoplay: true,
+        muted: true,
+        clip: {
+            live: true,
+            sources: [
+                { type: "application/dash+xml",
+                    src:  "http://stream.hope.ua:1935/hopeua/smil:hopeua.smil/manifest.mpd" },
+                //http://dash.edgesuite.net/dash264/TestCases/1a/netflix/exMPD_BIP_TC1.mpd
+                { type: "application/x-mpegurl",
+                    src:  "http://stream.hope.ua:1935/hopeua/smil:hopeua.smil/playlist.m3u8" }
+            ]
+        }
+
+    }).on("error", function (e, api, err) {
+        if (err.code == 5) {
+            // customize error as this is not a production scenario
+            livecontainer.querySelector(".fp-message h2").innerHTML =
+                    "Test stream only available as MPEG-DASH";
+            livecontainer.querySelector(".fp-message p").innerHTML =
+                    "Please try in a different browser";
+        }
+
+    });
+</script>
+</body>
+
+</html>

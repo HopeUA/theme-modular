@@ -36,6 +36,9 @@ gulp.task('build:js', () => {
        'src/js/vendor.manual/jquery.color.js',
        'src/js/vendor.manual/jquery.scrollTo.js',
        'src/js/vendor.manual/object-assign.js',
+       'src/js/vendor.manual/flowplayer.min.js',
+       'src/js/vendor.manual/dash.all.js',
+       'src/js/vendor.manual/flowplayer.dashjs.js',
 
        'src/js/config.js',
        'src/js/config-dev.js',

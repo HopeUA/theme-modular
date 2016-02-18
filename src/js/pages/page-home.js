@@ -1,6 +1,10 @@
 $(function(){
     var $pageHome = $('.page__home');
 
+    if ($pageHome.length == 0) {
+        return;
+    }
+
     var contentObjects = {
         new: false,
         anons: false,
@@ -33,4 +37,54 @@ $(function(){
     };
 
     window.blockLoader = blockLoader;
+
+    // live stream
+
+    var livecontainer = $("#dashlive");
+    var $playerMuteButton = $('.content-sheduler__vertical-current-image .videoMuteButton');
+    var muteStatus = true;
+    var player = flowplayer(livecontainer, {
+        loading: true,
+        clip: {
+            live: true,
+            sources: [
+                { type: "application/dash+xml",
+                    src:  "http://stream.hope.ua:1935/hopeua/smil:hopeua.smil/manifest.mpd" },
+                { type: "application/x-mpegurl",
+                    src:  "http://stream.hope.ua:1935/hopeua/smil:hopeua.smil/playlist.m3u8" }
+            ]
+        }
+    }).on("error", function (e, api, err) {
+        if (err.code == 5) {
+
+        }
+    });
+
+    player.on('load ready', function() {
+        player.play();
+        player.volume(0);
+    });
+
+    $('.content-sheduler__vertical-current-image').hover(function(){
+        player.volume(1);
+        $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
+    }, function() {
+        if ($('.content-sheduler__vertical-current-image .videoMuteButton').hasClass('videoMuteButtonTrue')) {
+            $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
+        } else {
+            $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
+        }
+    });
+
+    $playerMuteButton.click(function() {
+        if (muteStatus) {
+            player.volume(0);
+            $playerMuteButton.removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
+            muteStatus = false;
+        } else {
+            player.volume(1);
+            $playerMuteButton.removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
+            muteStatus = true;
+        }
+    });
 });
