@@ -71,7 +71,13 @@
     rgba(0, 0, 0, 0.9) 100%);
     content: "";
     border-radius: 4px;
-    transition: all 0.2s cubic-bezier(0.8, 0, 0.3, 1);
+    transition: all 0.7s cubic-bezier(0.8, 0, 0.3, 1);
+}
+
+.content-episode__large:hover .content-episode__large-play{
+    opacity: 1;
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 .content-episode__large-play {
@@ -83,10 +89,17 @@
     width: 70px;
     height: 70px;
     margin: -35px 0 0 -35px;
-    background: url(../img/playButton.png);
+    background: url(../img/goToIcon.svg);
     content: "";
     transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
-    background-size: 100%;
+    opacity: 0;
+    background-size: 1%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.content-episode__large-play:hover {
+    background: url(../img/goToIconHover.svg);
 }
 
 .content-episode__large-title__episode {
