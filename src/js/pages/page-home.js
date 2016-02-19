@@ -42,7 +42,10 @@ $(function(){
 
     var livecontainer = $("#dashlive");
     var $playerMuteButton = $('.content-sheduler__vertical-current-image .videoMuteButton');
+    var $playerPlayButton = $('.content-sheduler__vertical-current-image .videoPlayButton');
+    var $playerExpandButton = $('.content-sheduler__vertical-current-image .videoExpandButton');
     var muteStatus = true;
+    var playStatus = true;
     var player = flowplayer(livecontainer, {
         loading: true,
         clip: {
@@ -85,6 +88,23 @@ $(function(){
             player.volume(1);
             $playerMuteButton.removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
             muteStatus = true;
+        }
+    });
+
+    $playerExpandButton.click(function() {
+        livecontainer.removeClass('dashlive-small');
+        player.fullscreen();
+    });
+
+    $playerPlayButton.click(function() {
+        if (playStatus) {
+            player.pause();
+            playStatus = false;
+            console.log('player on paused');
+        } else {
+            player.resume();
+            playStatus = false;
+            console.log('player on play');
         }
     });
 });

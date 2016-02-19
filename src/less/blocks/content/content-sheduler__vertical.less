@@ -242,6 +242,7 @@
 
 .dashlive-small a {
     opacity: 0;
+    z-index: -1;
 }
 
 .content-sheduler__vertical-current-image .videoMuteButton {
@@ -249,7 +250,7 @@
     color: red;
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 20%;
     width: 30px;
     height: 30px;
     margin-left: -15px;
@@ -276,4 +277,61 @@
 
 .content-sheduler__vertical-current-image .videoMuteButtonFalse:hover {
     background: url(../img/stopSoundIcon_hover.svg);
+}
+
+.content-sheduler__vertical-current-image .videoPlayButton {
+    font-size: 38px;
+    color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+    z-index: 9999;
+    opacity: 0;
+}
+
+.content-sheduler__vertical-current-image:hover .videoPlayButton {
+    opacity: 1;
+}
+
+.content-sheduler__vertical-current-image .videoPlayButtonFalse {
+    background: url(../img/stopButton.svg);
+}
+
+.content-sheduler__vertical-current-image .videoPlayButtonFalse:hover {
+    background: url(../img/stopButton_hover.svg);
+}
+
+.content-sheduler__vertical-current-image .videoPlayButtonTrue {
+    //background: url(../img/goToIcon.svg);
+}
+
+.content-sheduler__vertical-current-image .videoPlayButtonTrue:hover {
+    //background: url(../img/goToIcon_hover.svg);
+}
+
+.content-sheduler__vertical-current-image .videoExpandButton {
+    font-size: 38px;
+    color: red;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    width: 30px;
+    height: 30px;
+    margin-left: -15px;
+    margin-top: -15px;
+    z-index: 9999;
+    opacity: 0;
+    background: url(../img/expandIcon.svg);
+}
+
+.content-sheduler__vertical-current-image:hover .videoExpandButton {
+    opacity: 1;
+}
+
+.content-sheduler__vertical-current-image .videoExpandButton:hover {
+    background: url(../img/expandIcon_hover.svg);
 }
