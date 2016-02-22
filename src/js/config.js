@@ -17,5 +17,8 @@ Hope.Config = {
         Articles: {
             Endpoint: 'https://dev-tv.hope.ua/api'
         }
+    },
+    Site: {
+        BaseURL: window.location.protocol + '://' + window.location.host
     }
 };
