@@ -1,6 +1,10 @@
 $(function(){
     var $pageHome = $('.page__home');
 
+    if ($pageHome.length == 0) {
+        return;
+    }
+
     var contentObjects = {
         new: false,
         anons: false,
@@ -33,4 +37,79 @@ $(function(){
     };
 
     window.blockLoader = blockLoader;
+
+    // live stream
+
+    var livecontainer = $("#dashlive");
+    var $playerMuteButton = $('.content-sheduler__vertical-current-image .videoMuteButton');
+    var $playerPlayButton = $('.content-sheduler__vertical-current-image .videoPlayButton');
+    var $playerExpandButton = $('.content-sheduler__vertical-current-image .videoExpandButton');
+    var muteStatus = true;
+    var playStatus = true;
+    var player = flowplayer(livecontainer, {
+        loading: true,
+        clip: {
+            live: true,
+            sources: [
+                { type: "application/dash+xml",
+                    src:  "http://stream.hope.ua:1935/hopeua/smil:hopeua.smil/manifest.mpd" },
+                { type: "application/x-mpegurl",
+                    src:  "http://stream.hope.ua:1935/hopeua/smil:hopeua.smil/playlist.m3u8" }
+            ]
+        }
+    }).on("error", function (e, api, err) {
+        if (err.code == 5) {
+
+        }
+    });
+
+    player.on('load ready', function() {
+        player.play();
+        player.volume(0);
+    });
+
+    player.on('pause', function() {
+       if (livecontainer.hasClass('dashlive-expanded')) {
+           // show play button
+       }
+    });
+
+    player.on('fullscreen-exit', function() {
+        livecontainer.removeClass('dashlive-expanded');
+        livecontainer.addClass('dashlive-small');
+    });
+
+    $playerMuteButton.click(function() {
+        if (muteStatus) {
+            player.volume(1);
+            $playerMuteButton.removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
+            muteStatus = false;
+        } else {
+            player.volume(0);
+            $playerMuteButton.removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
+            muteStatus = true;
+        }
+    });
+
+    $playerExpandButton.click(function() {
+        player.fullscreen();
+        player.volume(1);
+        $playerMuteButton.removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
+        livecontainer.removeClass('dashlive-small');
+        livecontainer.addClass('dashlive-expanded');
+    });
+
+    $playerPlayButton.click(function() {
+        if (playStatus) {
+            player.pause();
+            playStatus = false;
+            $playerPlayButton.removeClass('videoPlayButtonTrue').addClass('videoPlayButtonFalse');
+            console.log('player on paused');
+        } else {
+            player.resume();
+            playStatus = true;
+            $playerPlayButton.removeClass('videoPlayButtonFalse').addClass('videoPlayButtonTrue');
+            console.log('player on play');
+        }
+    });
 });
