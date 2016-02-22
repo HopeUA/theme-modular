@@ -68,6 +68,17 @@ $(function(){
         player.volume(0);
     });
 
+    player.on('pause', function() {
+       if (livecontainer.hasClass('dashlive-expanded')) {
+           // show play button
+       }
+    });
+
+    player.on('fullscreen-exit', function() {
+        livecontainer.removeClass('dashlive-expanded');
+        livecontainer.addClass('dashlive-small');
+    });
+
     $('.content-sheduler__vertical-current-image').hover(function(){
         player.volume(1);
         $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
@@ -92,8 +103,9 @@ $(function(){
     });
 
     $playerExpandButton.click(function() {
-        livecontainer.removeClass('dashlive-small');
         player.fullscreen();
+        livecontainer.removeClass('dashlive-small');
+        livecontainer.addClass('dashlive-expanded');
     });
 
     $playerPlayButton.click(function() {
@@ -103,7 +115,7 @@ $(function(){
             console.log('player on paused');
         } else {
             player.resume();
-            playStatus = false;
+            playStatus = true;
             console.log('player on play');
         }
     });
