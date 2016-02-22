@@ -39,7 +39,7 @@ $(function () {
 
                 response.data.map(function(item){
                     item.publish = timeToStr2(item.publish, 'ru');
-                    // item.code = getEpisodeUrl(item.code);
+                    item.url     = '/shows/' + item.show.uid + '/' + item.uid.substring(4);
                     item.labels = '';
 
                     $.each(item.tags, function (index, tag) {
@@ -59,10 +59,10 @@ $(function () {
                         marginTop: 100
                     });
                     place.html(html);
-                    console.log('new');
+                    // console.log('new');
                 } else {
                     place.append(html);
-                    console.log('old');
+                    // console.log('old');
                 }
 
                 $('.banners-wide').css('margin-top', 0);
@@ -108,7 +108,7 @@ $(function () {
                 } else {
                     $('.page__show-loader').css('display', 'none');
                 }
-                console.log(response);
+                // console.log(response);
             });
         }
 
@@ -125,8 +125,8 @@ $(function () {
 
                 var scrollHeight = $(document).height() - $(window).height();
 
-                console.log(scrollHeight);
-                console.log($(window).scrollTop());
+                // console.log(scrollHeight);
+                // console.log($(window).scrollTop());
                 if ((scrollHeight - $(window).scrollTop()) <= 3434) {
 
                     var videoTotal = $('.content-video-list-items').children().length;
