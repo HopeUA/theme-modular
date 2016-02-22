@@ -79,25 +79,14 @@ $(function(){
         livecontainer.addClass('dashlive-small');
     });
 
-    $('.content-sheduler__vertical-current-image').hover(function(){
-        player.volume(1);
-        $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
-    }, function() {
-        if ($('.content-sheduler__vertical-current-image .videoMuteButton').hasClass('videoMuteButtonTrue')) {
-            $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
-        } else {
-            $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
-        }
-    });
-
     $playerMuteButton.click(function() {
         if (muteStatus) {
-            player.volume(0);
-            $playerMuteButton.removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
-            muteStatus = false;
-        } else {
             player.volume(1);
             $playerMuteButton.removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
+            muteStatus = false;
+        } else {
+            player.volume(0);
+            $playerMuteButton.removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
             muteStatus = true;
         }
     });
@@ -112,6 +101,7 @@ $(function(){
         if (playStatus) {
             player.pause();
             playStatus = false;
+            $playerPlayButton.removeClass('videoPlayButtonTrue').addClass('videoPlayButtonFalse');
             console.log('player on paused');
         } else {
             player.resume();
