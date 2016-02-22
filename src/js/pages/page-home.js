@@ -93,6 +93,8 @@ $(function(){
 
     $playerExpandButton.click(function() {
         player.fullscreen();
+        player.volume(1);
+        $playerMuteButton.removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');
         livecontainer.removeClass('dashlive-small');
         livecontainer.addClass('dashlive-expanded');
     });
@@ -106,6 +108,7 @@ $(function(){
         } else {
             player.resume();
             playStatus = true;
+            $playerPlayButton.removeClass('videoPlayButtonFalse').addClass('videoPlayButtonTrue');
             console.log('player on play');
         }
     });
