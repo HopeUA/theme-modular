@@ -46,6 +46,7 @@ $(function () {
 
             var template = $('#template-page-episode').html();
             var view     = {};
+            response.url = Hope.Config.Site.BaseURL + getEpisodeUrl(response.uid);
             view.episode = response;
 
             return Mustache.render(template, view);
