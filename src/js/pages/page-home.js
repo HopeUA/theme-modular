@@ -79,6 +79,11 @@ $(function(){
     player.on('fullscreen-exit', function() {
         livecontainer.removeClass('dashlive-expanded');
         livecontainer.addClass('dashlive-small');
+        player.volume(0);
+        player.play();
+        $playerPlayButton.removeClass('videoPlayButtonFalse').addClass('videoPlayButtonTrue');
+        $playerMuteButton.removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
+        muteStatus = true;
     });
 
     $playerMuteButton.click(function() {
@@ -94,6 +99,7 @@ $(function(){
     });
 
     $playerExpandButton.click(function() {
+        player.play();
         player.fullscreen();
         player.volume(1);
         $playerMuteButton.removeClass('videoMuteButtonFalse').addClass('videoMuteButtonTrue');

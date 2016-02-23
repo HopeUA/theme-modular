@@ -61,6 +61,8 @@ $(function() {
         modal.css('display', 'none');
         player.stop();
         window.liveStreamPlayerSmall.play();
+        window.liveStreamPlayerSmall.volume(0);
+        $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
     });
 
     $(window).click(function (event) {
@@ -68,6 +70,8 @@ $(function() {
             modal.css('display', 'none');
             player.stop();
             window.liveStreamPlayerSmall.play();
+            window.liveStreamPlayerSmall.volume(0);
+            $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
         }
     });
 });
