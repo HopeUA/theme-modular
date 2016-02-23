@@ -72,7 +72,7 @@
                         <a href="/shows.html" class="header-main__menu-item">Все программы</a>
                         <a href="/scheduler.html" class="header-main__menu-item">ТВ Программа</a>
                         <a href="#" class="header-main__menu-item">Пожертвовать</a>
-                        <a href="#" class="header-main__menu-item header-main__menu-item_online">ТВ Онлайн</a>
+                        <a href="#" class="header-main__menu-item header-main__menu-item_online liveStream-show">ТВ Онлайн</a>
                     </nav>
 
                     <div class="header-main__lang">
@@ -660,6 +660,21 @@
         <!-- Block Container END -->
     </footer>
     <!-- Footer END -->
+
+    <!-- The Modal -->
+    <div class="modal liveStream-modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="liveStream-close">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="liveStream-modal-video"></div>
+            </div>
+        </div>
+
+    </div>
 
     <script>
         var HopeUATime = new Date();
