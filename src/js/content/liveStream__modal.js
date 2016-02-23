@@ -36,6 +36,15 @@ $(function() {
                 player.play();
                 player.volume(1);
             });
+
+            player.on('fullscreen', function() {
+                livecontainer.addClass('liveStream-modal-video-expanded');
+            });
+
+            player.on('fullscreen-exit', function() {
+                livecontainer.removeClass('liveStream-modal-video-expanded');
+            });
+
             firstLoad = false;
         } else {
             player.play();
