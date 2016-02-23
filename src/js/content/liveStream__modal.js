@@ -5,10 +5,13 @@ $(function() {
 
     var livecontainer = $('.liveStream-modal-video');
     var firstLoad = true;
+    var player = null;
 
     var init = function () {
+        window.liveStreamPlayerSmall.stop();
+
         if (firstLoad) {
-            var player = flowplayer(livecontainer, {
+            player = flowplayer(livecontainer, {
                 loading: true,
                 clip: {
                     live: true,
@@ -34,6 +37,9 @@ $(function() {
                 player.volume(1);
             });
             firstLoad = false;
+        } else {
+            player.play();
+            player.volume(1);
         }
     };
 
@@ -44,11 +50,15 @@ $(function() {
 
     btnClose.click(function () {
         modal.css('display', 'none');
+        player.stop();
+        window.liveStreamPlayerSmall.play();
     });
 
     $(window).click(function (event) {
         if ($(event.target).hasClass('liveStream-modal')) {
             modal.css('display', 'none');
+            player.stop();
+            window.liveStreamPlayerSmall.play();
         }
     });
 });
