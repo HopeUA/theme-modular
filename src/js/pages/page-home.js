@@ -63,6 +63,8 @@ $(function(){
         }
     });
 
+    window.liveStreamPlayerSmall = player;
+
     player.on('load ready', function() {
         player.play();
         player.volume(0);
