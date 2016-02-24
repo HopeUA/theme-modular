@@ -456,7 +456,7 @@ $(function () {
                 if (trailerStatus == false) {
                    trailer = '<img src="' + episodeImage + '">';
                 } else {
-                    trailer = '<div id="'+ episodes[i].id + '"></div>';
+                    trailer = '<div id="'+ episodes[i].id + '" class="trailer-player__small"></div>';
                 }
 
                 strFull = '<div class="header-timeline-menu-item">' +
@@ -501,9 +501,11 @@ $(function () {
                 if (trailerStatus) {
                     var containerTrailerId = '#'+ episodes[i].id +'';
                     var containerTrailer = $(containerTrailerId);
-                    console.log(containerTrailer);
+                    window.trailerPlayers = {};
+
                     var playerTrailers = flowplayer(containerTrailer, {
                         loading: true,
+                        volume: 1,
                         clip: {
                             live: true,
                             sources: [
@@ -515,7 +517,16 @@ $(function () {
                         if (err.code == 5) {
 
                         }
-                    });
+                    }).on('resume', function(e, api) {
+                        api.volume(1);
+                    }).on('fullscreen', function(e, api) {
+                        //api.resume();
+                        //api.volume(1);
+                        //console.log(api);
+                    }).on('load ready', function(e, api) {
+                        //console.log(api);
+                        //window.trailerPlayers[containerTrailerId.slice(1)] = api;
+                    });;
                 }
 
             }
@@ -685,6 +696,14 @@ $(function () {
         var $items = $('.header-timeline-menu-items');
         var $current = $('.header-timeline-menu-item__current');
         var shift = null;
+
+        console.log('MoveTimeLine');
+
+        for (var i = 0; i < $('.trailer-player__small').length; i++) {
+            //$('.trailer-player__small').eq(i).data('flowplayer').stop();
+            //$('.trailer-player__small').eq(i).data('flowplayer').stop();
+            console.log($('.trailer-player__small').eq(i));
+        }
 
         if (direction == 'left') {
             shift = $items.position();
