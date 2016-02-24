@@ -136,25 +136,6 @@
     font-family: @font__main;
 }
 
-.header-banner__item-play {
-    position: relative;
-    top: 30px;
-    display: block;
-    height: 290px;
-    margin: 0 auto;
-}
-
-.header-banner__item-play::before {
-    display: block;
-    width: 100px;
-    height: 100px;
-    margin: 91px auto;
-    background: @headerBanner__play;
-    background-size: 100%;
-    content: "";
-    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
-}
-
 .header-banner__item-play:hover {
     cursor: pointer;
 }
@@ -196,4 +177,36 @@
     top: 535px;
     width: 0;
     height: 5px;
+}
+
+.header-banner__item-play {
+    position: relative;
+    top: 30px;
+    display: block;
+    height: 290px;
+    margin: 0 auto;
+}
+
+.header-banner__item-play::before {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 125px auto;
+    background: @headerBanner__play;
+    background-size: 100%;
+    content: "";
+}
+
+.header-banner__item-play:hover::before {
+    background-image: url("@{img}/playIcon_hover.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.header-banner__arrow_right:hover::before {
+    background-image: url("@{img}/header-arrow-leftIcon_hover.svg");
+}
+.header-banner__arrow_left:hover::before {
+    background-image: url("@{img}/header-arrow-leftIcon_hover.svg");
 }
