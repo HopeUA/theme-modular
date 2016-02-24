@@ -29,10 +29,10 @@ $(function () {
             var episodeDate = $(this).data('episode-date');
             var schedulerPageStatus = window.location.href;
             if (schedulerPageStatus.indexOf('scheduler') > 0) {
-                window.location.href = '/scheduler.html#' + episodeDate;
+                window.location.href = '/scheduler#' + episodeDate;
                 document.location.reload(true);
             }
-            window.location.href = '/scheduler.html#' + episodeDate;
+            window.location.href = '/scheduler#' + episodeDate;
         } else {
             var $current = $(this).parent().children();
             var index = $current.index(this);

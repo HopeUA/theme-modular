@@ -156,6 +156,8 @@
                         mediaPlayer.setAutoPlay(false);
                         // for seeking in paused state
                         mediaPlayer.setScheduleWhilePaused(true);
+                        //mediaPlayer.setLogToBrowserConsole(false);
+                        mediaPlayer.getDebug().setLogToBrowserConsole(false);
 
                         mediaPlayer.addEventListener("error", function (e) {
                             var fperr,
@@ -263,7 +265,7 @@
             // inject dash conf at earliest opportunity
             var dashconf = extend({
                 type: "video/mp4",
-                codecs: "avc1.42c01e, mp4a.40.2"
+                codecs: "avc1.42c01e, mp4a.40.2",
             }, flowplayer.conf[engineName], conf[engineName], conf.clip[engineName]);
 
             return isDashType(type) &&
