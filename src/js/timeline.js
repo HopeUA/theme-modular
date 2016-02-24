@@ -186,19 +186,19 @@ $(function () {
 
     function toogleTimeline(status, index) {
         if (status) {
-            console.log('show');
             var $items = $('.header-timeline');
             $items.animate({
                 opacity: 0
             }, 150);
             showTimeline(index);
         } else {
-            console.log('hide');
             hideTimeline();
         }
     };
 
     function hideTimeline() {
+
+        window.trailerPlayer.shutdown();
 
         shouldMoveTimeline = true;
         var timeShift = (newTimeUnix - DateStopUnix) / 60;
@@ -277,6 +277,32 @@ $(function () {
 
         var $items = $('.header-timeline-menu-items');
         var current = $items.find('.header-timeline-menu-item').eq(index);
+
+        var trailerUrl = current.find('.trailer-player__small').data('trailer-url');
+        if (trailerUrl) {
+            var playerTrailers = flowplayer(current.find('.trailer-player__small'), {
+                loading: true,
+                volume: 1,
+                clip: {
+                    live: true,
+                    sources: [
+                        { type: "video/mp4",
+                            src: trailerUrl }
+                    ]
+                }
+            }).on("error", function (e, api, err) {
+                if (err.code == 5) {
+
+                }
+            }).on('resume', function(e, api) {
+                api.volume(1);
+            }).on('fullscreen', function(e, api) {
+                playerTrailers.resume();
+                playerTrailers.volume(1);
+            });
+
+            window.trailerPlayer = playerTrailers;
+        }
 
         var timeData = current.find('.header-timeline-menu-item-small .header-timeline-menu-item-time').text();
         var timeContainer = $('.header-timeline-menu-item-full-time').eq(1).text(timeData);
@@ -450,6 +476,15 @@ $(function () {
                     episodeImage = episodes[i].show.images.cover;
                 }
 
+                var trailerStatus = episodes[i].episode.hasOwnProperty('trailers');
+                var trailer = null;
+
+                if (trailerStatus == false) {
+                   trailer = '<img src="' + episodeImage + '">';
+                } else {
+                    trailer = '<div id="'+ episodes[i].id + '" class="trailer-player__small" data-trailer-url="'+ episodes[i].episode.trailers.today.local.url +'"></div>';
+                }
+
                 strFull = '<div class="header-timeline-menu-item">' +
 
                             '<div class="header-timeline-menu-item-full">' +
@@ -457,7 +492,7 @@ $(function () {
                             '<div class="header-timeline-menu-item-full__content">' +
                             '<a href="/episode.html" class="header-timeline-menu-item-full-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 30) + '</a>' +
                             '<a href="/show.html" class="header-timeline-menu-item-full-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 40) + '</a>' +
-                            '<div class="header-timeline-menu-item-full-video"><img src="' + episodeImage + '"></div>' +
+                            '<div class="header-timeline-menu-item-full-video">'+ trailer +'</div>' +
                             '<p class="header-timeline-menu-item-full-description">' + Hope.Utils.textTrim(episodeDescription, 250) + '</p>' +
                             '<div class="header-timeline-menu-item-full-share">' +
                                 '<ul class="header-timeline-menu-item-full-share-items">' +
@@ -488,7 +523,6 @@ $(function () {
                             '</div>' +
                             '</div>';
                 placeFull.append(strFull);
-
             }
 
             counterElements = $('.header-timeline__item').length;
@@ -657,6 +691,10 @@ $(function () {
         var $current = $('.header-timeline-menu-item__current');
         var shift = null;
 
+        if (window.trailerPlayer) {
+            window.trailerPlayer.shutdown();
+        }
+
         if (direction == 'left') {
             shift = $items.position();
             shift = shift.left - 267;
@@ -665,6 +703,33 @@ $(function () {
 
             //$current.animate({'opacity' : 0}, 450);
             $current.removeClass('header-timeline-menu-item__current');
+            var trailerCurrent = $('.header-timeline-menu-item__current').find('.trailer-player__small');
+            var trailerCurrentUrl = trailerCurrent.data('trailer-url');
+
+            if (trailerCurrentUrl) {
+                var playerTrailers = flowplayer(trailerCurrent, {
+                    loading: true,
+                    volume: 1,
+                    clip: {
+                        live: true,
+                        sources: [
+                            { type: "video/mp4",
+                                src: trailerCurrentUrl }
+                        ]
+                    }
+                }).on("error", function (e, api, err) {
+                    if (err.code == 5) {
+
+                    }
+                }).on('resume', function(e, api) {
+                    api.volume(1);
+                }).on('fullscreen', function(e, api) {
+                    playerTrailers.resume();
+                    playerTrailers.volume(1);
+                });
+
+                window.trailerPlayer = playerTrailers;
+            }
 
             setTimeout(function () {
                 //$current.removeClass('header-timeline-menu-item__current');
@@ -683,7 +748,6 @@ $(function () {
             var $timePlaceAfter = $('.header-timeline-menu-item-full-time-container span').eq(2);
 
             var timeInit = function(){
-                console.log('all done');
 
                 var timeEpisodeBeforeInd = $('.header-timeline-menu-item__current').index() - 1;
                 var timeEpisodeBefore = $('.header-timeline-menu-item').eq(timeEpisodeBeforeInd).find('.header-timeline-menu-item-time').text();
@@ -753,6 +817,34 @@ $(function () {
             $current.prev().addClass('header-timeline-menu-item__current');
             $current.removeClass('header-timeline-menu-item__current');
 
+            var trailerCurrent = $('.header-timeline-menu-item__current').find('.trailer-player__small');
+            var trailerCurrentUrl = trailerCurrent.data('trailer-url');
+
+            if (trailerCurrentUrl) {
+                var playerTrailers = flowplayer(trailerCurrent, {
+                    loading: true,
+                    volume: 1,
+                    clip: {
+                        live: true,
+                        sources: [
+                            { type: "video/mp4",
+                                src: trailerCurrentUrl }
+                        ]
+                    }
+                }).on("error", function (e, api, err) {
+                    if (err.code == 5) {
+
+                    }
+                }).on('resume', function(e, api) {
+                    api.volume(1);
+                }).on('fullscreen', function(e, api) {
+                    playerTrailers.resume();
+                    playerTrailers.volume(1);
+                });
+
+                window.trailerPlayer = playerTrailers;
+            }
+
             $current.animate({
                 'opacity': 1
             }, 300);
@@ -766,7 +858,6 @@ $(function () {
             var $timePlaceAfter = $('.header-timeline-menu-item-full-time-container span').eq(2);
 
             var timeInit = function(){
-                console.log('all done');
 
                 var timeEpisodeBeforeInd = $('.header-timeline-menu-item__current').index() - 1;
                 var timeEpisodeBefore = $('.header-timeline-menu-item').eq(timeEpisodeBeforeInd).find('.header-timeline-menu-item-time').text();

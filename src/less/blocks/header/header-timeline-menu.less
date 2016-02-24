@@ -339,24 +339,6 @@
     margin-right: 32px;
 }
 
-.header-timeline-menu-item-full-video::before {
-    position: absolute;
-    z-index: 100;
-    top: 50%;
-    left: 50%;
-    display: block;
-    width: 60px;
-    height: 60px;
-    margin: -30px 0 0 -30px;
-    background: url(../img/header-playButton.svg);
-    content: "";
-    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
-}
-
-.header-timeline-menu-item-full-video:hover {
-    cursor: pointer;
-}
-
 .header-timeline-menu-item-full-video:hover::before {
     transform: scale(1.25);
 }
@@ -389,6 +371,10 @@
     height: 149px;
     border: solid 3px #bbbdbf;
     overflow: hidden;
+}
+
+.trailer-player__small .fp-embed {
+    display: none;
 }
 
 .header-timeline-menu-item-full-video img {
