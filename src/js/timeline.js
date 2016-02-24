@@ -450,6 +450,15 @@ $(function () {
                     episodeImage = episodes[i].show.images.cover;
                 }
 
+                var trailerStatus = episodes[i].episode.hasOwnProperty('trailers');
+                var trailer = null;
+
+                if (trailerStatus == false) {
+                   trailer = '<img src="' + episodeImage + '">';
+                } else {
+                    trailer = '<div id="'+ episodes[i].id + '"></div>';
+                }
+
                 strFull = '<div class="header-timeline-menu-item">' +
 
                             '<div class="header-timeline-menu-item-full">' +
@@ -457,7 +466,7 @@ $(function () {
                             '<div class="header-timeline-menu-item-full__content">' +
                             '<a href="/episode.html" class="header-timeline-menu-item-full-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 30) + '</a>' +
                             '<a href="/show.html" class="header-timeline-menu-item-full-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 40) + '</a>' +
-                            '<div class="header-timeline-menu-item-full-video"><img src="' + episodeImage + '"></div>' +
+                            '<div class="header-timeline-menu-item-full-video">'+ trailer +'</div>' +
                             '<p class="header-timeline-menu-item-full-description">' + Hope.Utils.textTrim(episodeDescription, 250) + '</p>' +
                             '<div class="header-timeline-menu-item-full-share">' +
                                 '<ul class="header-timeline-menu-item-full-share-items">' +
@@ -488,6 +497,26 @@ $(function () {
                             '</div>' +
                             '</div>';
                 placeFull.append(strFull);
+
+                if (trailerStatus) {
+                    var containerTrailerId = '#'+ episodes[i].id +'';
+                    var containerTrailer = $(containerTrailerId);
+                    console.log(containerTrailer);
+                    var playerTrailers = flowplayer(containerTrailer, {
+                        loading: true,
+                        clip: {
+                            live: true,
+                            sources: [
+                                { type: "video/mp4",
+                                    src: episodes[i].episode.trailers.today.local.url }
+                            ]
+                        }
+                    }).on("error", function (e, api, err) {
+                        if (err.code == 5) {
+
+                        }
+                    });
+                }
 
             }
 

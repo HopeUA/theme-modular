@@ -156,6 +156,7 @@
                         mediaPlayer.setAutoPlay(false);
                         // for seeking in paused state
                         mediaPlayer.setScheduleWhilePaused(true);
+                        mediaPlayer.getDebug().setLogToBrowserConsole(false);
 
                         mediaPlayer.addEventListener("error", function (e) {
                             var fperr,
