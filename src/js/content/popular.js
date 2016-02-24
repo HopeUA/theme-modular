@@ -22,7 +22,9 @@ $(function(){
             }
             view.shows = response.data;
 
-            blockLoader('popular');
+            if (window.blockLoader) {
+                blockLoader('popular');
+            }
 
             return Mustache.render(template, view);
         }

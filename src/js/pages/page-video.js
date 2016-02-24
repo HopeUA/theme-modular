@@ -71,8 +71,8 @@ $(function () {
                 var view     = {};
 
                 response.data.map(function(item){
-                    item.date = timeToStr2(item.date, 'ru');
-                    item.code = getEpisodeUrl(item.code);
+                    item.publish = timeToStr2(item.publish, 'ru');
+                    item.url  = '/shows/' + item.show.uid + '/' + item.uid.substring(4);
                     item.labels = '';
 
                     $.each(item.tags, function (index, tag) {
