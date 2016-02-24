@@ -186,19 +186,19 @@ $(function () {
 
     function toogleTimeline(status, index) {
         if (status) {
-            console.log('show');
             var $items = $('.header-timeline');
             $items.animate({
                 opacity: 0
             }, 150);
             showTimeline(index);
         } else {
-            console.log('hide');
             hideTimeline();
         }
     };
 
     function hideTimeline() {
+
+        window.trailerPlayer.shutdown();
 
         shouldMoveTimeline = true;
         var timeShift = (newTimeUnix - DateStopUnix) / 60;
@@ -277,6 +277,32 @@ $(function () {
 
         var $items = $('.header-timeline-menu-items');
         var current = $items.find('.header-timeline-menu-item').eq(index);
+
+        var trailerUrl = current.find('.trailer-player__small').data('trailer-url');
+        if (trailerUrl) {
+            var playerTrailers = flowplayer(current.find('.trailer-player__small'), {
+                loading: true,
+                volume: 1,
+                clip: {
+                    live: true,
+                    sources: [
+                        { type: "video/mp4",
+                            src: trailerUrl }
+                    ]
+                }
+            }).on("error", function (e, api, err) {
+                if (err.code == 5) {
+
+                }
+            }).on('resume', function(e, api) {
+                api.volume(1);
+            }).on('fullscreen', function(e, api) {
+                playerTrailers.resume();
+                playerTrailers.volume(1);
+            });
+
+            window.trailerPlayer = playerTrailers;
+        }
 
         var timeData = current.find('.header-timeline-menu-item-small .header-timeline-menu-item-time').text();
         var timeContainer = $('.header-timeline-menu-item-full-time').eq(1).text(timeData);
@@ -456,7 +482,7 @@ $(function () {
                 if (trailerStatus == false) {
                    trailer = '<img src="' + episodeImage + '">';
                 } else {
-                    trailer = '<div id="'+ episodes[i].id + '" class="trailer-player__small"></div>';
+                    trailer = '<div id="'+ episodes[i].id + '" class="trailer-player__small" data-trailer-url="'+ episodes[i].episode.trailers.today.local.url +'"></div>';
                 }
 
                 strFull = '<div class="header-timeline-menu-item">' +
@@ -497,38 +523,6 @@ $(function () {
                             '</div>' +
                             '</div>';
                 placeFull.append(strFull);
-
-                if (trailerStatus) {
-                    var containerTrailerId = '#'+ episodes[i].id +'';
-                    var containerTrailer = $(containerTrailerId);
-                    window.trailerPlayers = {};
-
-                    var playerTrailers = flowplayer(containerTrailer, {
-                        loading: true,
-                        volume: 1,
-                        clip: {
-                            live: true,
-                            sources: [
-                                { type: "video/mp4",
-                                    src: episodes[i].episode.trailers.today.local.url }
-                            ]
-                        }
-                    }).on("error", function (e, api, err) {
-                        if (err.code == 5) {
-
-                        }
-                    }).on('resume', function(e, api) {
-                        api.volume(1);
-                    }).on('fullscreen', function(e, api) {
-                        //api.resume();
-                        //api.volume(1);
-                        //console.log(api);
-                    }).on('load ready', function(e, api) {
-                        //console.log(api);
-                        //window.trailerPlayers[containerTrailerId.slice(1)] = api;
-                    });;
-                }
-
             }
 
             counterElements = $('.header-timeline__item').length;
@@ -697,12 +691,8 @@ $(function () {
         var $current = $('.header-timeline-menu-item__current');
         var shift = null;
 
-        console.log('MoveTimeLine');
-
-        for (var i = 0; i < $('.trailer-player__small').length; i++) {
-            //$('.trailer-player__small').eq(i).data('flowplayer').stop();
-            //$('.trailer-player__small').eq(i).data('flowplayer').stop();
-            console.log($('.trailer-player__small').eq(i));
+        if (window.trailerPlayer) {
+            window.trailerPlayer.shutdown();
         }
 
         if (direction == 'left') {
@@ -713,6 +703,33 @@ $(function () {
 
             //$current.animate({'opacity' : 0}, 450);
             $current.removeClass('header-timeline-menu-item__current');
+            var trailerCurrent = $('.header-timeline-menu-item__current').find('.trailer-player__small');
+            var trailerCurrentUrl = trailerCurrent.data('trailer-url');
+
+            if (trailerCurrentUrl) {
+                var playerTrailers = flowplayer(trailerCurrent, {
+                    loading: true,
+                    volume: 1,
+                    clip: {
+                        live: true,
+                        sources: [
+                            { type: "video/mp4",
+                                src: trailerCurrentUrl }
+                        ]
+                    }
+                }).on("error", function (e, api, err) {
+                    if (err.code == 5) {
+
+                    }
+                }).on('resume', function(e, api) {
+                    api.volume(1);
+                }).on('fullscreen', function(e, api) {
+                    playerTrailers.resume();
+                    playerTrailers.volume(1);
+                });
+
+                window.trailerPlayer = playerTrailers;
+            }
 
             setTimeout(function () {
                 //$current.removeClass('header-timeline-menu-item__current');
@@ -731,7 +748,6 @@ $(function () {
             var $timePlaceAfter = $('.header-timeline-menu-item-full-time-container span').eq(2);
 
             var timeInit = function(){
-                console.log('all done');
 
                 var timeEpisodeBeforeInd = $('.header-timeline-menu-item__current').index() - 1;
                 var timeEpisodeBefore = $('.header-timeline-menu-item').eq(timeEpisodeBeforeInd).find('.header-timeline-menu-item-time').text();
@@ -801,6 +817,34 @@ $(function () {
             $current.prev().addClass('header-timeline-menu-item__current');
             $current.removeClass('header-timeline-menu-item__current');
 
+            var trailerCurrent = $('.header-timeline-menu-item__current').find('.trailer-player__small');
+            var trailerCurrentUrl = trailerCurrent.data('trailer-url');
+
+            if (trailerCurrentUrl) {
+                var playerTrailers = flowplayer(trailerCurrent, {
+                    loading: true,
+                    volume: 1,
+                    clip: {
+                        live: true,
+                        sources: [
+                            { type: "video/mp4",
+                                src: trailerCurrentUrl }
+                        ]
+                    }
+                }).on("error", function (e, api, err) {
+                    if (err.code == 5) {
+
+                    }
+                }).on('resume', function(e, api) {
+                    api.volume(1);
+                }).on('fullscreen', function(e, api) {
+                    playerTrailers.resume();
+                    playerTrailers.volume(1);
+                });
+
+                window.trailerPlayer = playerTrailers;
+            }
+
             $current.animate({
                 'opacity': 1
             }, 300);
@@ -814,7 +858,6 @@ $(function () {
             var $timePlaceAfter = $('.header-timeline-menu-item-full-time-container span').eq(2);
 
             var timeInit = function(){
-                console.log('all done');
 
                 var timeEpisodeBeforeInd = $('.header-timeline-menu-item__current').index() - 1;
                 var timeEpisodeBefore = $('.header-timeline-menu-item').eq(timeEpisodeBeforeInd).find('.header-timeline-menu-item-time').text();
