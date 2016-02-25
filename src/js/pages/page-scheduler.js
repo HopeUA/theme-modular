@@ -43,14 +43,14 @@ $(function () {
             backgroundColor: '#fff'
         });
 
-        $item.find('*').css({
+        $item.find('*').not('.trailer-player-scheduler__small *').css({
             opacity: 0
         });
 
         $item.animate({
             height: 'auto'
         }, 150, function () {
-            $item.find('*').animate({
+            $item.find('*').not('.trailer-player-scheduler__small *').animate({
                 opacity: 1
             });
         });
