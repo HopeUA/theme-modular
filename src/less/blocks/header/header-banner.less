@@ -136,15 +136,11 @@
     font-family: @font__main;
 }
 
-.header-banner__item-play:hover {
-    cursor: pointer;
-}
-
 .header-banner__controls {
     position: relative;
     top: 343px;
     display: flex;
-    width: 112px;
+    width: max-content;
     height: 8px;
     margin: 0 auto;
 }
@@ -183,21 +179,18 @@
     position: relative;
     top: 30px;
     display: block;
-    height: 290px;
-    margin: 0 auto;
-}
-
-.header-banner__item-play::before {
-    display: block;
     width: 100px;
     height: 100px;
     margin: 125px auto;
     background: @headerBanner__play;
     background-size: 100%;
-    content: "";
+    opacity: 0;
+}
+.header-banner:hover .header-banner__item-play {
+    opacity: 1;
 }
 
-.header-banner__item-play:hover::before {
+.header-banner__item-play:hover {
     background-image: url("@{img}/playIcon_hover.svg");
     background-position: center;
     background-repeat: no-repeat;
