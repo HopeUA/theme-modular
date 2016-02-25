@@ -37,6 +37,8 @@ $(function () {
     });
 
     function showItem($item) {
+        console.log('show');
+
         $item.css({
             backgroundColor: '#fff'
         });
@@ -54,6 +56,37 @@ $(function () {
         });
 
         $item.addClass('active');
+
+        if (window.trailerPlayerScheduler) {
+            window.trailerPlayerScheduler.shutdown();
+        }
+
+        var trailerCurrent = $item.find('.trailer-player-scheduler__small');
+        var trailerCurrentUrl = trailerCurrent.data('trailer-url');
+        if (trailerCurrentUrl) {
+            var playerTrailerScheduler = flowplayer(trailerCurrent, {
+                loading: true,
+                volume: 1,
+                clip: {
+                    live: true,
+                    sources: [
+                        { type: "video/mp4",
+                            src: trailerCurrentUrl }
+                    ]
+                }
+            }).on("error", function (e, api, err) {
+                if (err.code == 5) {
+
+                }
+            }).on('resume', function(e, api) {
+                api.volume(1);
+            }).on('fullscreen', function(e, api) {
+                playerTrailerScheduler.resume();
+                playerTrailerScheduler.volume(1);
+            });
+
+            window.trailerPlayerScheduler = playerTrailerScheduler;
+        }
     }
 
     var $arrowLeft = $('.page-scheduler-header-list-arrow__left');
@@ -92,8 +125,6 @@ $(function () {
         var dateFull = year + '-' + month + '-' + day;
         var daysFormatted = [];
         var $containerCalendar = $('.page-scheduler-header-list');
-
-        console.log(dateFull);
 
         moment.locale('ru');
 
@@ -180,8 +211,6 @@ $(function () {
 
         var goToEpisodeScroll = function() {
 
-            console.log('goToEpisodeScroll');
-
             $('.page-scheduler-content-items .active').removeAttr('style');
             $('.page-scheduler-content-items .active').removeClass('active');
 
@@ -207,7 +236,6 @@ $(function () {
             var goToEpisodeDay = goToTime.slice(0, 10);
             init(goToEpisodeDay, goToEpisodeScroll);
         } else {
-            console.log('Default');
             init(dateFull);
         }
 
@@ -534,6 +562,14 @@ $(function () {
                 liveStatus: '',
                 goToEpisodeStatus : ''
             };
+
+            var trailerStatus = currentDay[i].episode.hasOwnProperty('trailers');
+
+            if (trailerStatus == false) {
+                episode.trailer = '<img src="' + currentDay[i].episode.image + '">';
+            } else {
+                episode.trailer = '<div id="'+ currentDay[i].id + '" class="trailer-player-scheduler__small" data-trailer-url="'+ currentDay[i].episode.trailers.today.local.url +'"></div>';
+            }
 
             if (selectedGoToTime == episode.date) {
                 episode.goToEpisodeStatus = 'goToEpisode'

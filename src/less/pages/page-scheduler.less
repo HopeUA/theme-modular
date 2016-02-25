@@ -321,6 +321,11 @@
 
 .page-scheduler-content-items .container {
     padding-left: 59px;
+    display: flex; // fix div
+}
+
+.page-scheduler-content-items .content {
+    display: flex; // fix div
 }
 
 .page-scheduler-content-show-title {
@@ -365,6 +370,7 @@
     .font-size(26);
     height: 26px;
     margin: auto;
+    display: flex; // fix div
 }
 
 .page-scheduler-content-item > btn {
@@ -376,6 +382,7 @@
 .page-scheduler-content-item-titles {
     margin-left: 15px;
     height: 39px;
+    display: flex; // fix div
 }
 
 .page-scheduler-content-items .ru .page-scheduler-content-item-titles::before {
@@ -416,7 +423,7 @@
 }
 
 .page-scheduler-content-item div {
-    display: flex;
+    //display: flex;
 }
 
 .page-scheduler-content-items .content {
@@ -692,6 +699,7 @@
     margin-left: 16px;
     margin-bottom: 25px;
     height: 144px;
+    display: flex; // fix div
 }
 
 .page-scheduler-content-items .active .page-scheduler-content-item-titles {
@@ -702,6 +710,8 @@
 .page-scheduler-content-items .active .page-scheduler-content-episode-poster {
     overflow: hidden;
     position: relative;
+    width: 226px;
+    height: 124px;
     margin-top: 17px;
     cursor: pointer;
     display: block;
@@ -711,19 +721,12 @@
     display: none;
 }
 
-.page-scheduler-content-items .active .page-scheduler-content-episode-play {
-    position: absolute;
-    z-index: 3;
-    top: 50%;
-    left: 50%;
+.trailer-player-scheduler__small .fp-player {
+    background-color: #000;
+}
+
+.trailer-player-scheduler__small .fp-embed {
     display: none;
-    width: 40px;
-    height: 40px;
-    margin: -20px 0 0 -20px;
-    background: url(../img/playButton.png) no-repeat;
-    content: "";
-    transition: all 0.1s cubic-bezier(0.8, 0, 0.3, 1);
-    background-size: contain;
 }
 
 .page-scheduler-content-episode-info-video .page-scheduler-content-episode-poster .page-scheduler-content-episode-play {
