@@ -52,9 +52,9 @@ $(function(){
             live: true,
             sources: [
                 { type: "application/dash+xml",
-                    src:  "http://stream.hope.ua:1935/hopeua/smil:hopeua.smil/manifest.mpd" },
+                    src:  "https://stream.hope.ua/hopeua/smil:hopeua.smil/manifest.mpd" },
                 { type: "application/x-mpegurl",
-                    src:  "http://stream.hope.ua:1935/hopeua/smil:hopeua.smil/playlist.m3u8" }
+                    src:  "https://stream.hope.ua/hopeua/smil:hopeua.smil/playlist.m3u8" }
             ]
         }
     }).on("error", function (e, api, err) {
