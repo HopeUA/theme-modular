@@ -21,10 +21,8 @@ $(function(){
                 view.first = [response.data.shift()];
             }
             view.shows = response.data;
-
-            if (window.blockLoader) {
-                blockLoader('popular');
-            }
+            
+            blockLoader('popular');
 
             return Mustache.render(template, view);
         }
