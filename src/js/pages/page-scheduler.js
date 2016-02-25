@@ -36,6 +36,20 @@ $(function () {
         tempIndex = indexCurrent;
     });
 
+    $('.page-scheduler-content-items').on('click', '.page-scheduler-content-episode-title', function ( event ) {
+        if ($(this).closest('.page-scheduler-content-item').hasClass('active') == false) {
+            event.preventDefault();
+            return;
+        }
+    });
+
+    $('.page-scheduler-content-items').on('click', '.page-scheduler-content-show-title', function ( event ) {
+        if ($(this).closest('.page-scheduler-content-item').hasClass('active') == false) {
+            event.preventDefault();
+            return;
+        }
+    });
+
     function showItem($item) {
         console.log('show');
 
