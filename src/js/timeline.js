@@ -455,7 +455,7 @@ $(function () {
                     }
                 }
 
-                str = '<div data-episode-date="'+ start.format('YYYY-MM-DDTHH:mm') +'" class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + start.format('H:mm') + '</span><span class="header-timeline__live">' + 'live' + '</span><p class="header-timeline__description">' + Hope.Utils.textTrim(episodes[i].episode.title, timelineTitleLength) + '</p><div class="after"></div></div>'
+                str = '<div data-episode-date="'+ start.format('YYYY-MM-DDTHH:mm') +'" class="' + elementClass + '" style="width: ' + width + 'px"><div class="before"></div><span class="header-timeline__time">' + start.format('H:mm') + '</span><span class="header-timeline__live">' + '' + '</span><p class="header-timeline__description">' + Hope.Utils.textTrim(episodes[i].episode.title, timelineTitleLength) + '</p><div class="after"></div></div>'
                 place.append(str);
 
                 $('.header-timeline').animate({
@@ -518,7 +518,7 @@ $(function () {
                             '<a href="/episode.html" class="header-timeline-menu-item-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 20) + '</a>' +
                             '<a href="/show.html" class="header-timeline-menu-item-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 20) + '</a>' +
                             '<span class="header-timeline-menu-item-time">' + start.format('HH:mm') + '</span>' +
-                            '<span class="header-timeline-menu-item-label">' + 'live' + '</span>' +
+                            '<span class="header-timeline-menu-item-label">' + '' + '</span>' +
                             '<p class="header-timeline-menu-item-description">' + Hope.Utils.textTrim(episodeDescription, 310) + '</p>' +
                             '</div>' +
                             '</div>';

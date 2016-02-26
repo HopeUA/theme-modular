@@ -1,9 +1,9 @@
 $(function(){
-
     var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
     var ThumbsApi = Hope.Api.Thumbs(Hope.Config.Api.Thumbs.Endpoint);
+    var $container = $('.popular');
 
-    $('.popular').hopeSliderBlock({
+    $container.hopeSliderBlock({
         name: 'popular',
         lines: 2,
         type: 'column',
@@ -27,6 +27,11 @@ $(function(){
             return Mustache.render(template, view);
         }
     });
+    
+    $container.on('click', '.content-shows__row-item-card', function(){
+        location.href = $(this).find('a').attr('href');
+    });
+    
 
     //var slider = $('.popular').data('hopeSliderBlock');
 

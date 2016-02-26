@@ -1,14 +1,18 @@
 $(function(){
-
     var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
+    var $container = $('.new');
 
-    $('.new').hopeSliderBlock({
+    $container.hopeSliderBlock({
         name:   'new',
         lines:  2,
         loader: MediaAPI.episodes('new'),
         render: function (response, first) {
             first = first || false;
 
+            response.data.map(function(item){
+                item.url = '/shows/' + item.show.uid + '/' + item.uid.substring(4);
+            });
+            
             var template = $('#template-new').html();
             var view     = {};
             if (first) {
@@ -25,5 +29,13 @@ $(function(){
 
             return Mustache.render(template, view);
         }
+    });
+    
+    $container.on('click', '.content-episodes__row-item', function(){
+        location.href = $(this).find('a').attr('href');
+    });
+    
+    $container.on('click', '.content-episode__large', function(){
+        location.href = $(this).find('a').attr('href');
     });
 });

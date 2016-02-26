@@ -282,15 +282,8 @@ $(function () {
         var loadStatus = false;
 
         var loadVideo = function (videoTotal, videoLimit, Api, status) {
-            console.log('loadVideo run');
-            console.log('videoTotal: ' + videoTotal);
-            console.log('videoLimit: ' + videoLimit);
-            console.log('Api: ' + Api);
-            console.log('status: ' + status);
             loadStatus = true;
             Api.offset(videoTotal).limit(videoLimit).fetch().then(function (response) {
-                console.log('step1');
-
                 var template = $('#template-video-list').html();
                 var view     = {};
 
@@ -310,13 +303,9 @@ $(function () {
                     return item;
                 });
 
-                console.log('step2');
-
                 view.episodes = response.data;
 
                 var html = Mustache.render(template, view);
-
-                console.log('step3');
 
                 if (status == 'new') {
                     place.html(html);
@@ -324,8 +313,6 @@ $(function () {
                     place.append(html);
                 }
                 $('.content-video-list-label').html('');
-
-                console.log('i am here');
 
                 $('.content-video-list-header-search-loader').stop().animate({
                     opacity: 0
