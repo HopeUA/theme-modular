@@ -186,19 +186,23 @@ $(function () {
 
     function toogleTimeline(status, index) {
         if (status) {
+            console.log('Show');
             var $items = $('.header-timeline');
             $items.animate({
                 opacity: 0
             }, 150);
             showTimeline(index);
         } else {
+            console.log('Hide');
             hideTimeline();
         }
     };
 
     function hideTimeline() {
 
-        window.trailerPlayer.shutdown();
+        if (window.trailerPlayer) {
+            window.trailerPlayer.shutdown();
+        }
 
         shouldMoveTimeline = true;
         var timeShift = (newTimeUnix - DateStopUnix) / 60;
