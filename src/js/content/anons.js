@@ -1,24 +1,11 @@
-// Slider init
-    //$('.anons').hopeSliderBlock({
-    //    loadUrl: 'ajax/anons',
-    //    name: 'anons'
-    //});
-
-    // Slider reload
-    //var slider = $('.anons').hopeSliderBlock();
-
-    //$('.filtet').click(function(){
-    //    slider.setUrl('new url').reload();
-    //})
-
-
 $(function(){
-
     var LocalArticlesAPI = Hope.Api.LocalArticles(Hope.Config.Api.Articles.Endpoint);
+    var $container = $('.anons');
 
-    $('.anons').hopeSliderBlock({
+    $container.hopeSliderBlock({
         name:   'anons',
         lines:  2,
+        pages: 2,
         loader: LocalArticlesAPI.category('news'),
         render: function (response) {
 
@@ -36,5 +23,8 @@ $(function(){
             return Mustache.render(template, view);
         }
     });
-});
 
+    $container.on('click', 'article', function(){
+        location.href = $(this).find('a').attr('href');
+    });
+});

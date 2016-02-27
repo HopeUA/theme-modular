@@ -153,6 +153,9 @@
             height: videoHeight,
             width: videoWidth,
             videoId: self.pageCache[self.currentCode].source.youtube.id,
+            playerVars: {
+                rel: 0
+            },
             events: {
                 onReady: function() {
                     self.playerReady = true;
@@ -199,8 +202,6 @@
         };
 
         $('.page-container-wrap').on('click', '.page-episode-content-video', function() {
-            console.log('click');
-
             waitPlayer(self).then(function(){
 
                 $('.page-episode-current .page-episode-content-video-play').animate({

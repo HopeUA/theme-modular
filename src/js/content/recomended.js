@@ -1,8 +1,8 @@
 $(function () {
-
     var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
+    var $container = $('.recomended');
 
-    $('.recomended').hopeSliderBlock({
+    $container.hopeSliderBlock({
         name: 'recomended',
         limit: {first: 10, default: 5},
         type: 'column',
@@ -17,6 +17,7 @@ $(function () {
                 item.title = Hope.Utils.textTrim(item.title, 32);
                 item.show.title = Hope.Utils.textTrim(item.show.title, 25);
                 item.description = Hope.Utils.textTrim(item.description, 130);
+                item.url = '/shows/' + item.show.uid + '/' + item.uid.substring(4);
                 return item;
             });
 
@@ -24,5 +25,9 @@ $(function () {
 
             return Mustache.render(template, view);
         }
+    });
+
+    $container.on('click', '.content-episodes__row-item', function(){
+        location.href = $(this).closest('.content-episodes__vertical').find('a').attr('href');
     });
 });
