@@ -145,11 +145,11 @@
                 var wrapHeight = self.$object.find('.page-article-text-current .container').css('height');
                 self.$object.find('.page-article-text-wrap').css('height', wrapHeight);
                 $('.page-article-arrow__left').animate({
-                    left: '10%',
+                    left: '5%',
                     opacity: 1
                 }, 200);
                 $('.page-article-arrow__right').animate({
-                    right: '10%',
+                    right: '5%',
                     opacity: 1
                 }, 200);
             });
