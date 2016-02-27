@@ -1,4 +1,13 @@
 $(function(){
+   $('.header-top__social-item').click(function(){
+       var linkUrk = $(this).find('a').attr('href');
+       if (linkUrk) {
+           window.location.href = linkUrk;
+       }
+   });
+});
+
+$(function(){
     var $pageHome = $('.page__home');
 
     if ($pageHome.length == 0) {
