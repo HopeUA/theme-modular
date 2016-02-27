@@ -73,7 +73,7 @@
                 }
             }
 
-            string += options.symbols;
+            // string += options.symbols;
         }
 
         var arrayOfString = string.split('');

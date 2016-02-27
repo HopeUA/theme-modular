@@ -3,9 +3,12 @@ $(function(){
     var ThumbsApi = Hope.Api.Thumbs(Hope.Config.Api.Thumbs.Endpoint);
     var $container = $('.popular');
 
+    var isHome = $('.page__home').length > 0;
+
     $container.hopeSliderBlock({
         name: 'popular',
         lines: 2,
+        pages: 2,
         type: 'column',
         loader: MediaAPI.shows('popular'),
         render: function (response, first) {
@@ -21,8 +24,10 @@ $(function(){
                 view.first = [response.data.shift()];
             }
             view.shows = response.data;
-            
-            blockLoader('popular');
+
+            if (isHome) {
+                blockLoader('popular');
+            }
 
             return Mustache.render(template, view);
         }

@@ -27,7 +27,7 @@ $(function () {
         }
     });
 
-    $container.on('click', '.content-episodes__row-image', function(){
+    $container.on('click', '.content-episodes__row-item', function(){
         location.href = $(this).closest('.content-episodes__vertical').find('a').attr('href');
     });
 });

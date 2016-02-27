@@ -5,6 +5,7 @@ $(function(){
     $container.hopeSliderBlock({
         name:   'anons',
         lines:  2,
+        pages: 2,
         loader: LocalArticlesAPI.category('news'),
         render: function (response) {
 
