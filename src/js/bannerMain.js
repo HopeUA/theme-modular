@@ -1,7 +1,70 @@
 $(function(){
 
+    if ($('.header-banner__items').length == 0) {
+        return;
+    }
+
     var elementArrowLeft   = $('.header-banner__arrow_left');
     var elementArrowRight  = $('.header-banner__arrow_right');
+
+    $('.header-banner__item-play').click(function() {
+        console.log('Play click');
+
+        var container = $('.header-banner__item__current').find('.header-banner__item-video');
+        var trailerUrl = $('.header-banner__item__current').data('trailer-url');
+
+        if (trailerUrl) {
+            var playerTrailers = flowplayer(container, {
+                loading: true,
+                volume: 1,
+                isFullscreen: true,
+                clip: {
+                    live: true,
+                    sources: [
+                        {
+                            type: "video/mp4",
+                            src: trailerUrl
+                        }
+                    ]
+                }
+            }).on("error", function (e, api, err) {
+                if (err.code == 5) {
+
+                }
+            }).on('load ready', function (e, api) {
+                api.play();
+                api.volume(1);
+            }).on('fullscreen', function(e, api){
+                container.addClass('header-banner__item-video__expanded');
+            }).on('fullscreen-exit', function(e, api){
+                api.shutdown();
+                container.removeClass('header-banner__item-video__expanded');
+                container.html('');
+            });
+
+            if (playerTrailers) {
+                playerTrailers.fullscreen();
+            }
+        }
+    });
+
+    $('.header-banner__item-play').hover(function(){
+        $('.header-banner__item-play-hover__out').animate({
+            opacity: 0
+        }, 60, function(){
+            $('.header-banner__item-play-hover__in').animate({
+                opacity: 1
+            }, 60);
+        });
+    }, function() {
+        $('.header-banner__item-play-hover__in').animate({
+            opacity: 0
+        }, 60, function(){
+            $('.header-banner__item-play-hover__out').animate({
+                opacity: 1
+            }, 60);
+        });
+    });
 
     elementArrowLeft.click(function(){
         move('left', false);
