@@ -4,6 +4,7 @@ var newTime = null;
 var DateStopUnix = null;
 var newTimeUnix = null;
 var shouldMoveTimeline = true;
+var moveTimelineMenuStatus = false;
 
 
 $(function () {
@@ -58,6 +59,10 @@ $(function () {
 
 
     $('.header-timeline-menu-item-full__left').on('click', function () {
+        if (moveTimelineMenuStatus) {
+            return;
+        }
+
         var current = $('.header-timeline-menu-item__current').index();
 
         $('.header-timeline-menu-item-full-arrow__right').css('display', 'block');
@@ -77,6 +82,10 @@ $(function () {
     });
 
     $('.header-timeline-menu-item-full-arrow__right').on('click', function () {
+        if (moveTimelineMenuStatus) {
+            return;
+        }
+
         var last = $('.header-timeline__items > div').length - 5;
         var current = $('.header-timeline-menu-item__current').index();
 
@@ -691,6 +700,8 @@ $(function () {
     function moveFullTimeline(direction) {
         //slider FullTimeline
 
+        moveTimelineMenuStatus = true;
+
         var $items = $('.header-timeline-menu-items');
         var $current = $('.header-timeline-menu-item__current');
         var shift = null;
@@ -779,6 +790,7 @@ $(function () {
                 if (blockAnimation == 0) {
                     timeInit();
                 }
+                moveTimelineMenuStatus = false;
             });
             setTimeout(function (){
                 //$timePlace.css('opacity', 0); // immediately
@@ -900,6 +912,7 @@ $(function () {
                 if (blockAnimation == 0) {
                     timeInit();
                 }
+                moveTimelineMenuStatus = false;
             });
             setTimeout(function (){
             //    //$timePlace.css('opacity', 0); // immediately
