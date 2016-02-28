@@ -503,8 +503,8 @@ $(function () {
                             '<div class="header-timeline-menu-item-full">' +
 
                             '<div class="header-timeline-menu-item-full__content">' +
-                            '<a href="/episode.html" class="header-timeline-menu-item-full-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 30) + '</a>' +
-                            '<a href="/show.html" class="header-timeline-menu-item-full-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 40) + '</a>' +
+                            '<a class="header-timeline-menu-item-full-episode">' + Hope.Utils.textTrim(episodes[i].episode.title, 27) + '</a>' +
+                            '<a class="header-timeline-menu-item-full-shows">' + Hope.Utils.textTrim(episodes[i].show.title, 40) + '</a>' +
                             '<div class="header-timeline-menu-item-full-video">'+ trailer +'</div>' +
                             '<p class="header-timeline-menu-item-full-description">' + Hope.Utils.textTrim(episodeDescription, 250) + '</p>' +
                             '<div class="header-timeline-menu-item-full-share">' +

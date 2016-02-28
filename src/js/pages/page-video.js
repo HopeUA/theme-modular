@@ -174,7 +174,7 @@ $(function () {
 
                 var scrollHeight = $(document).height() - $(window).height();
 
-                if ((scrollHeight - $(window).scrollTop()) <= 3434 && pageEpisodeWrap.css('display') == 'none') {
+                if ((scrollHeight - $(window).scrollTop()) <= 4434 && pageEpisodeWrap.css('display') == 'none') {
 
                     var videoTotal = $('.content-video-list-items').children().length;
                     var currentInputVal = $('.content-video-list-header-search-input').val();
@@ -273,7 +273,7 @@ $(function () {
 
     console.log('Brand Page Episode');
 
-    var currentVideo = $('.content-Brand-header-content').data('show-code');
+    var currentVideo = $('.content-video-list-header-content').data('show-code');
     var place = $('.content-video-list-items');
 
     if (currentVideo) {
@@ -288,8 +288,8 @@ $(function () {
                 var view     = {};
 
                 response.data.map(function(item){
-                    item.date = timeToStr2(item.date, 'ru');
-                    item.code = getEpisodeUrl(item.code);
+                    item.publish = timeToStr2(item.publish, 'ru');
+                    item.url  = '/shows/' + item.show.uid + '/' + item.uid.substring(4);
                     item.labels = '';
 
                     $.each(item.tags, function (index, tag) {
@@ -308,6 +308,7 @@ $(function () {
                 var html = Mustache.render(template, view);
 
                 if (status == 'new') {
+                    place.css('display', 'block');
                     place.html(html);
                 } else {
                     place.append(html);
@@ -329,10 +330,12 @@ $(function () {
                 if (response.status == 404 && videoTotal == 0) {
                     var viewLabelEmpty = $('#template-video-list-label-empty').html();
                     var htmlBlock = Mustache.render(viewLabelEmpty);
+                    place.css('display', 'block');
                     place.html(htmlBlock);
                 } else if (videoTotal == 0) {
                     var viewLabelServerError = $('#template-video-list-label-error').html();
                     var htmlBlock = Mustache.render(viewLabelServerError);
+                    place.css('display', 'block');
                     place.html(htmlBlock);
                 }
                 console.log(response);
@@ -353,8 +356,6 @@ $(function () {
                     return;
                 }
 
-                console.log(pageEpisodeWrap.css('display'));
-
                 var scrollHeight = $(document).height() - $(window).height();
 
                 if ((scrollHeight - $(window).scrollTop()) <= 1851 && pageEpisodeWrap.css('display') == 'none') {
@@ -374,7 +375,7 @@ $(function () {
             window.location.href = link.attr('href');
         });
 
-        var $input = $('.content-Brand-header-search-input');
+        var $input = $('.content-video-list-header-search-input');
         var changeInput = false;
 
         $input.keyup(function(){
@@ -383,12 +384,12 @@ $(function () {
                 var currentVal = $input.val();
                 if (changeInput) {
                     if (currentVal == '') {
-                        console.log('clear');
                         pageEpisodeWrap.css('display', 'block');
                         pageEpisodeWrap.animate({
                             opacity: 1
                         }, 200, function(){
                             $('.content-video-list-items').html('');
+                            place.hide();
                         });
                     } else {
                         var ApiSearch = MediaAPI.shows('episodes').code(currentVideo).search(currentVal);
@@ -415,5 +416,9 @@ $(function () {
     function getEpisodeUrl(code) {
         return '/shows/' + code.substring(0, 4) + '/' + code.substring(4);
     }
+
+    $('.photo-block').click(function(){
+        location.href = $(this).find('a').attr('href');
+    })
 
 });
