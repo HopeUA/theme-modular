@@ -286,6 +286,8 @@
 
             self.playerReady = false;
 
+            console.log('click Right');
+
             if (!self.pageCache[self.pageCache[self.currentCode].links.prev].links.prev) {
                 hideArrow(self, self.$arrowRight);
             };
@@ -308,8 +310,11 @@
 
                 self.currentCode = prevCode;
                 prevCode = self.pageCache[self.currentCode].links.prev;
+                console.log(self.pageCache[self.currentCode]);
 
                 setVideo(self);
+
+                self.ready = true;
 
                 if (prevCode) {
                     loadJsonByCode(self, prevCode).then(function(){
@@ -324,10 +329,9 @@
                         document.dispatchEvent(episodeChangedEvent);
                     }, 3000);
                 } else {
-                    hideArrow(self, $(this));
+                    hideArrow(self, self.$arrowRight);
                 }
 
-                self.ready = true;
             }, timer);
         });
 
@@ -347,7 +351,7 @@
 
             showArrow(self, self.$arrowRight);
 
-            var prevCode = null;
+            //var prevCode = null;
 
             changePage(self, 'left');
             var timer = self.options.timePage + 100;
@@ -356,7 +360,8 @@
             setTimeout(function(){
                 self.currentCode = nextCode;
                 nextCode = self.pageCache[self.currentCode].links.next;
-                prevCode = self.pageCache[self.currentCode].links.prev;
+                console.log(self.pageCache[self.currentCode]);
+                //prevCode = self.pageCache[self.currentCode].links.prev;
 
                 self.container.find('.page-episode-prev').html('');
                 self.container.find('.page-episode-current').addClass('page-episode-prev').removeClass('page-episode-current');
@@ -367,6 +372,7 @@
                 self.container.css('margin-left', '-100%');
 
                 setVideo(self);
+                self.ready = true;
 
                 if (nextCode) {
                     loadJsonByCode(self, nextCode).then(function(){
@@ -382,10 +388,8 @@
                         document.dispatchEvent(episodeChangedEvent);
                     }, 3000);
                 } else {
-                    hideArrow(self, $(this));
+                    hideArrow(self, self.$arrowLeft);
                 }
-
-                self.ready = true;
             }, timer);
         });
     };
