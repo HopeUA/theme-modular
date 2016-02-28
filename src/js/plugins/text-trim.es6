@@ -25,7 +25,7 @@
         large: ['m', 'w', 'ю', 'ж', 'ф', 'ш', 'щ', 'ы', 'м', 'д', 'ъ', '—', '…'],
         small: ['l', 'i', 'j', 'f', 't', 'r', 'ґ', 'г', 'і', 'ї', '!', '?', ',', '.', ':', ';', ' ', '\"', '\'', '\(', '\)', '\{', '\}', '\[', '\]', '-']
     };
-    const symbolWeightValues = {small: 1, medium: 2, large: 3};
+    const symbolWeightValues = {small: 1, medium: 2, large: 5};
 
     var getWeight = function (symbol) {
         if (typeof symbol !== 'string') {
