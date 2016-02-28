@@ -2,10 +2,13 @@ $(function(){
     var MediaAPI = Hope.Api.Media(Hope.Config.Api.Media.Endpoint);
     var $container = $('.new');
 
+    var isHome = $('.page__home').length > 0;
+    var loader = $('.brand-JMLU').length ? MediaAPI.shows('episodes').code('JMLU') : MediaAPI.episodes('new');
+
     $container.hopeSliderBlock({
         name:   'new',
         lines:  2,
-        loader: MediaAPI.episodes('new'),
+        loader: loader,
         render: function (response, first) {
             first = first || false;
 
@@ -25,7 +28,9 @@ $(function(){
                 return item;
             });
 
-            blockLoader('new');
+            if (isHome) {
+                blockLoader('new');
+            }
 
             return Mustache.render(template, view);
         }
