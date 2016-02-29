@@ -167,7 +167,7 @@
                     console.log(poster);
                 });
             } else {
-                self.$arrowRight.css('display', 'none');
+                self.$arrowLeft.css('display', 'none');
             }
 
             if (prevArticleCode) {
@@ -181,7 +181,7 @@
                     console.log(poster);
                 });
             } else {
-                self.$arrowLeft.css('display', 'none');
+                self.$arrowRight.css('display', 'none');
             }
 
         });
