@@ -158,12 +158,20 @@
                 var headerPlace = self.$object.find('.page-article-header-content-prev');
                 var textPlace = self.$object.find('.page-article-text-prev');
                 render(self, prevArticleCode, headerPlace, textPlace);
+                console.log('Prev');
+                var poster = self.articleCache[prevArticleCode].object.image;
+                $('.page-article-header-poster-item-prev').css('background-image', 'url(' + poster + ')');
+                console.log(poster);
             });
 
             loadJsonByCode(self, nextArticleCode).then(function(){
                 var headerPlace = self.$object.find('.page-article-header-content-next');
                 var textPlace = self.$object.find('.page-article-text-next');
                 render(self, nextArticleCode, headerPlace, textPlace);
+                console.log('Next');
+                var poster = self.articleCache[nextArticleCode].object.image;
+                $('.page-article-header-poster-item-next').css('background-image', 'url(' + poster + ')');
+                console.log(poster);
             });
 
         });
