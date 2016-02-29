@@ -18,6 +18,7 @@
         this.$arrowRight = 'arrowRight' in this.options ? (this.options.arrowRight) : $('.page-content-arrow__right');
         this.container = this.$object.find('.page-container-wrap');
         this.ready = true;
+        this.loading = false;
 
         init(this);
     };
@@ -41,10 +42,16 @@
                 return;
             }
 
+            self.loading = true;
+
             self.loader.single(code).fetch().then(function (data) {
                 self.articleCache[code] = data;
+                self.loading = false;
                 console.log('inside promise');
                 resolve();
+            }).catch(function(error){
+                console.log(error);
+                self.loading = false;
             });
         });
 
@@ -189,7 +196,7 @@
         self.$arrowRight.click(function (event) {
             event.preventDefault();
 
-            if (!self.ready) {
+            if (!self.ready || self.loading) {
                 return;
             }
 
@@ -265,7 +272,7 @@
         self.$arrowLeft.click(function (event) {
             event.preventDefault();
 
-            if (!self.ready) {
+            if (!self.ready || self.loading) {
                 return;
             }
 
