@@ -8,7 +8,9 @@ $(function() {
     var player = null;
 
     var init = function () {
-        window.liveStreamPlayerSmall.stop();
+        if (window.liveStreamPlayerSmall) {
+            window.liveStreamPlayerSmall.stop();
+        }
 
         if (firstLoad) {
             player = flowplayer(livecontainer, {
@@ -61,8 +63,10 @@ $(function() {
     btnClose.click(function () {
         modal.css('display', 'none');
         player.stop();
-        window.liveStreamPlayerSmall.play();
-        window.liveStreamPlayerSmall.volume(0);
+        if (window.liveStreamPlayerSmall) {
+            window.liveStreamPlayerSmall.play();
+            window.liveStreamPlayerSmall.volume(0);
+        }
         $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
     });
 
@@ -70,8 +74,10 @@ $(function() {
         if ($(event.target).hasClass('liveStream-modal')) {
             modal.css('display', 'none');
             player.stop();
-            window.liveStreamPlayerSmall.play();
-            window.liveStreamPlayerSmall.volume(0);
+            if (window.liveStreamPlayerSmall) {
+                window.liveStreamPlayerSmall.play();
+                window.liveStreamPlayerSmall.volume(0);
+            }
             $('.content-sheduler__vertical-current-image .videoMuteButton').removeClass('videoMuteButtonTrue').addClass('videoMuteButtonFalse');
         }
     });

@@ -130,4 +130,9 @@ $(function(){
             console.log('player on play');
         }
     });
+
+    // Info block
+    $('.content-episode__large-info .content-episode__large').click(function(){
+        location.href = $(this).find('.content-episode__large-play').data('href');
+    });
 });
