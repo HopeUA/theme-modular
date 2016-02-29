@@ -154,17 +154,33 @@
                 }, 200);
             });
 
-            loadJsonByCode(self, prevArticleCode).then(function(){
-                var headerPlace = self.$object.find('.page-article-header-content-prev');
-                var textPlace = self.$object.find('.page-article-text-prev');
-                render(self, prevArticleCode, headerPlace, textPlace);
-            });
+            if (prevArticleCode) {
+                loadJsonByCode(self, prevArticleCode).then(function () {
+                    var headerPlace = self.$object.find('.page-article-header-content-prev');
+                    var textPlace = self.$object.find('.page-article-text-prev');
+                    render(self, prevArticleCode, headerPlace, textPlace);
+                    console.log('Prev');
+                    var poster = self.articleCache[prevArticleCode].object.image;
+                    $('.page-article-header-poster-item-prev').css('background-image', 'url(' + poster + ')');
+                    console.log(poster);
+                });
+            } else {
+                self.$arrowRight.css('display', 'none');
+            }
 
-            loadJsonByCode(self, nextArticleCode).then(function(){
-                var headerPlace = self.$object.find('.page-article-header-content-next');
-                var textPlace = self.$object.find('.page-article-text-next');
-                render(self, nextArticleCode, headerPlace, textPlace);
-            });
+            if (nextArticleCode) {
+                loadJsonByCode(self, nextArticleCode).then(function () {
+                    var headerPlace = self.$object.find('.page-article-header-content-next');
+                    var textPlace = self.$object.find('.page-article-text-next');
+                    render(self, nextArticleCode, headerPlace, textPlace);
+                    console.log('Next');
+                    var poster = self.articleCache[nextArticleCode].object.image;
+                    $('.page-article-header-poster-item-next').css('background-image', 'url(' + poster + ')');
+                    console.log(poster);
+                });
+            } else {
+                self.$arrowLeft.css('display', 'none');
+            }
 
         });
 
@@ -174,6 +190,10 @@
             if (!self.ready) {
                 return;
             }
+
+            if (!self.articleCache[self.articleCache[self.currentCode].prev].prev) {
+                hideArrow(self, self.$arrowRight);
+            };
 
             showArrow(self, self.$arrowLeft);
 
@@ -247,6 +267,9 @@
                 return;
             }
 
+            if (!self.articleCache[self.articleCache[self.currentCode].next].next) {
+                hideArrow(self, self.$arrowLeft);
+            };
             showArrow(self, self.$arrowRight);
 
             var nextCode = self.articleCache[self.currentCode].next;
