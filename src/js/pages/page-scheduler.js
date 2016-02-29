@@ -79,6 +79,7 @@ $(function () {
         var trailerCurrentUrl = trailerCurrent.data('trailer-url');
         if (trailerCurrentUrl) {
             var playerTrailerScheduler = flowplayer(trailerCurrent, {
+                key: '$613259111419742',
                 loading: true,
                 volume: 1,
                 clip: {
