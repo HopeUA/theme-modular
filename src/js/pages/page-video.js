@@ -27,6 +27,7 @@ $(function () {
 
                 view.episodes = response.data.map(function (item) {
                     item.title = Hope.Utils.textTrim(item.title, 20);
+                    item.url = '/shows/' + item.show.uid + '/' + item.uid.substr(4);
                     item.show.title = Hope.Utils.textTrim(item.show.title, 20);
                     return item;
                 });
@@ -257,6 +258,10 @@ $(function () {
     function getEpisodeUrl(code) {
         return '/shows/' + code.substring(0, 4) + '/' + code.substring(4);
     }
+
+    $('.similar-episodes').on('click', '.similar-episodes-item-video', function(){
+        location.href = $(this).parent().find('a').attr('href');
+    });
 
 });
 

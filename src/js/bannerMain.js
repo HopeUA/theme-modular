@@ -15,6 +15,7 @@ $(function(){
 
         if (trailerUrl) {
             var playerTrailers = flowplayer(container, {
+                key: '$613259111419742',
                 loading: true,
                 volume: 1,
                 isFullscreen: true,

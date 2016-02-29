@@ -12,6 +12,7 @@ $(function() {
 
         if (firstLoad) {
             player = flowplayer(livecontainer, {
+                key: '$613259111419742',
                 loading: true,
                 clip: {
                     live: true,

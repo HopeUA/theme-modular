@@ -294,6 +294,7 @@ $(function () {
         var trailerUrl = current.find('.trailer-player__small').data('trailer-url');
         if (trailerUrl) {
             var playerTrailers = flowplayer(current.find('.trailer-player__small'), {
+                key: '$613259111419742',
                 loading: true,
                 volume: 1,
                 clip: {
@@ -723,6 +724,7 @@ $(function () {
 
             if (trailerCurrentUrl) {
                 var playerTrailers = flowplayer(trailerCurrent, {
+                    key: '$613259111419742',
                     loading: true,
                     volume: 1,
                     clip: {
@@ -838,6 +840,7 @@ $(function () {
 
             if (trailerCurrentUrl) {
                 var playerTrailers = flowplayer(trailerCurrent, {
+                    key: '$613259111419742',
                     loading: true,
                     volume: 1,
                     clip: {

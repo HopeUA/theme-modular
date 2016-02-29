@@ -56,6 +56,7 @@ $(function(){
     var muteStatus = true;
     var playStatus = true;
     var player = flowplayer(livecontainer, {
+        key: '$613259111419742',
         loading: true,
         clip: {
             live: true,

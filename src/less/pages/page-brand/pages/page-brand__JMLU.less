@@ -187,6 +187,7 @@
 
 .brand-JMLU .photo-leading {
     border-color: #7d7968;
+    overflow: hidden;
 }
 
 .brand-JMLU .about-ellipse {
@@ -247,7 +248,8 @@
 }
 
 .brand-JMLU .photo-block-footer span:nth-child(1) {
-    background-image: url("../img/brand/JMLU/instaIcon.png");
+    background-size: cover;
+    background-image: url("../img/brand/JMLU/fbIcon.svg");
 }
 
 @media screen and (min-width: 1921px) {
@@ -261,5 +263,12 @@
     }
     .content-Brand-page-wrap.brand-JMLU {
         background-size: 100%;
+    }
+}
+
+@media screen and (max-width: 1450px) and (min-width: 1025px){
+    .photo-block {
+        width: 175px;
+        height: 175px;
     }
 }
