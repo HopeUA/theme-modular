@@ -226,15 +226,3 @@ describe('LocalArticles API', function(){
         expect(api.getUrl()).to.be.equal(endpoint + '/articles.json?search=some+text+string');
     });
 });
-
-describe('Hope Chrono', function(){
-    it('should return current time as Date instance', function(){
-        var currentDate = Hope.Chrono.getDate();
-        expect(currentDate).to.be.an.instanceof(Date);
-    });
-
-    it('should handle offset', function(){
-        var offset = Math.ceil(Hope.Chrono.getOffset() / 1000);
-        expect(offset).to.be.equal(-600);
-    });
-});

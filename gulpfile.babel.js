@@ -26,6 +26,7 @@ gulp.task('build:js', () => {
    return gulp.src([
        'src/js/vendor/jquery/dist/jquery.min.js',
        'src/js/vendor/moment/min/moment-with-locales.min.js',
+       'src/js/vendor/moment-timezone/builds/moment-timezone-with-data.min.js',
        'src/js/vendor/es6-promise/promise.min.js',
        'src/js/vendor/fetch/fetch.js',
        'src/js/vendor/uri.js/src/URI.min.js',
