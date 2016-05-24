@@ -3,11 +3,21 @@ $(function(){
     var $container = $('.new');
 
     var isHome = $('.page__home').length > 0;
-    var loader = $('.brand-JMLU').length ? MediaAPI.shows('episodes').code('JMLU') : MediaAPI.episodes('new');
+    var loader;
+    var sliderPages = 5;
+    if ($('.brand-JMLU').length) {
+        loader = MediaAPI.shows('episodes').code('JMLU');
+    } else if ($('.brand-GMNU').length) {
+        loader = MediaAPI.shows('episodes').code('GMNU');
+        sliderPages = 2;
+    } else {
+        loader = MediaAPI.episodes('new');
+    }
 
     $container.hopeSliderBlock({
         name:   'new',
         lines:  2,
+        pages: sliderPages,
         loader: loader,
         render: function (response, first) {
             first = first || false;
