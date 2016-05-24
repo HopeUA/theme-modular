@@ -1,11 +1,11 @@
 (function(Hope){
     class Chrono {
-        constructor(channelTime) {
-            this.offset = channelTime.getTime() - Date.now();
+        constructor() {
+            this.offset = (moment.tz('Europe/Kiev').format('H') - moment().format('H')) * 60 * 60 * 1000;
         }
 
         getDate() {
-            return new Date(Date.now() + this.offset);
+            return moment(new Date(Date.now() + this.offset));
         }
 
         getOffset() {
@@ -13,5 +13,5 @@
         }
     }
 
-    Hope.Chrono = new Chrono(HopeUATime);
+    Hope.Chrono = new Chrono();
 })(Hope);

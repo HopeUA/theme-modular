@@ -396,12 +396,12 @@ $(function () {
         var $after = self.find('.after');
 
         var scheduler = Hope.Api.Scheduler(Hope.Config.Api.Scheduler.Endpoint);
-        var serverTime = moment(Hope.Chrono.getDate());
+        var serverTime = Hope.Chrono.getDate();
         var start = moment(serverTime).subtract(10, 'hour').utc().toDate();
         var end = moment(serverTime).add(10, 'hour').utc().toDate();
 
         scheduler.from(start).to(end).fetch().then(function(result){
-            serverTime = moment(Hope.Chrono.getDate()).second(0);
+            serverTime = Hope.Chrono.getDate().second(0);
             var episodes = result.data;
             var str = null;
             var strFull = null;
@@ -569,7 +569,7 @@ $(function () {
             return;
         }
 
-        var serverTime = moment(Hope.Chrono.getDate());
+        var serverTime = Hope.Chrono.getDate();
 
         if (serverTime.format('mm') != currentTime.format('mm')) {
             currentTime = serverTime;

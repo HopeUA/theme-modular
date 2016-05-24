@@ -135,4 +135,12 @@ $(function(){
     $('.content-episode__large-info .content-episode__large').click(function(){
         location.href = $(this).find('.content-episode__large-play').data('href');
     });
+
+    // Form
+    $('.content-pray-us .form__default').submit(function(e){
+        e.preventDefault();
+        var btn = $(this).find('input.btn');
+        btn.val('Спасибо за вашу просьбу');
+        $.post('/pray.php', $(this).serialize());
+    });
 });
