@@ -8,7 +8,6 @@ var moveTimelineMenuStatus = false;
 
 
 $(function () {
-
     var status = true;
 
     // new code

@@ -1,5 +1,5 @@
 /*jslint browser: true, for: true */
-/*global Dash, flowplayer, MediaPlayer, window */
+/*global dashjs, flowplayer, MediaPlayer, window */
 
 /*!
 
@@ -10,45 +10,56 @@
    Released under the MIT License:
    http://www.opensource.org/licenses/mit-license.php
 
-   Includes dash.all.js:
-   Copyright (c) 2015, Dash Industry Forum. **All rights reserved.
-   https://github.com/Dash-Industry-Forum/dash.js/blob/master/LICENSE.md
+   Includes hls.js
+   Copyright (c) 2015 Dailymotion (http://www.dailymotion.com)
+   https://github.com/dailymotion/hls.js/blob/master/LICENSE
 
-   requires:
-   - Flowplayer HTML5 version 6.x or greater
-   - dash.js https://github.com/Dash-Industry-Forum/dash.js
+   Includes es5.js
+   https://github.com/inexorabletash/polyfill/blob/master/es5.js
+   for compatibility with legacy browsers
+
+   Requires Flowplayer HTML5 version 6.x
    revision: $GIT_ID$
 
 */
 
-(function () {
+(function (flowplayer, dashjs) {
     "use strict";
     var engineName = "dash",
         mse = window.MediaSource,
         common = flowplayer.common,
         extend = flowplayer.extend,
+        version = flowplayer.version,
+        dashconf,
 
-        isDashType = function (typ) {
-            return typ.toLowerCase() === "application/dash+xml";
+        dashCanPlay = function (sourceType, dashType, dashCodecs) {
+            return sourceType.toLowerCase() === "application/dash+xml" &&
+                    mse.isTypeSupported(dashType + ';codecs="' + dashCodecs + '"') &&
+                    // Android MSE advertises he-aac, but fails
+                    (dashCodecs.indexOf("mp4a.40.5") < 0 || navigator.userAgent.indexOf("Android") < 0);
         },
 
-        engineImpl = function mpegdashEngine(player, root) {
+        engineImpl = function dashjsEngine(player, root) {
             var bean = flowplayer.bean,
                 mediaPlayer,
                 videoTag,
-                context,
+                bc,
+                has_bg,
 
                 engine = {
                     engineName: engineName,
 
                     pick: function (sources) {
                         var i,
-                            source;
+                            source,
+                            dashType,
+                            dashCodecs;
 
                         for (i = 0; i < sources.length; i += 1) {
                             source = sources[i];
-                            if (isDashType(source.type)
-                                    && (!source.engine || source.engine === engineName)) {
+                            dashType = source.dashType || dashconf.type;
+                            dashCodecs = source.dashCodecs || dashconf.codecs;
+                            if (dashCanPlay(source.type, dashType, dashCodecs)) {
                                 if (typeof source.src === 'string') {
                                     source.src = common.createAbsoluteUrl(source.src);
                                 }
@@ -58,158 +69,221 @@
                     },
 
                     load: function (video) {
-                        var init = !context,
-                            conf = player.conf,
+                        var conf = player.conf,
+                            EVENTS = {
+                                ended: "finish",
+                                loadeddata: "ready",
+                                pause: "pause",
+                                play: "resume",
+                                progress: "buffer",
+                                ratechange: "speed",
+                                seeked: "seek",
+                                timeupdate: "progress",
+                                volumechange: "volume"
+                            },
+                            DASHEVENTS = dashjs.MediaPlayer.events,
+                            autoplay = !!video.autoplay || !!conf.autoplay,
+                            posterClass = "is-poster",
                             livestartpos = 0;
 
-                        if (init) {
-                            context = new Dash.di.DashContext();
-
+                        if (!mediaPlayer) {
                             common.removeNode(common.findDirect("video", root)[0]
                                     || common.find(".fp-player > video", root)[0]);
+                            // dash.js enforces preload="auto" and
+                            // autoplay depending on initialization
+                            // so setting the attributes here will have no effect
                             videoTag = common.createElement("video", {
-                                className: "fp-engine " + engineName + "-engine",
-                                autoplay: conf.autoplay
-                                    ? "autoplay"
-                                    : false
+                                "class": "fp-engine " + engineName + "-engine",
+                                "x-webkit-airplay": "allow"
                             });
-                            videoTag.setAttribute("x-webkit-airplay", "allow");
-                        } else {
-                            mediaPlayer.reset();
-                        }
 
-                        bean.on(videoTag, "play", function () {
-                            player.trigger('resume', [player]);
-                        });
-                        bean.on(videoTag, "pause", function () {
-                            player.trigger('pause', [player]);
-                        });
-                        bean.one(videoTag, "timeupdate." + engineName, function () {
-                            if (video.live) {
-                                livestartpos = videoTag.currentTime;
-                            }
-                        });
-                        bean.on(videoTag, "timeupdate", function () {
-                            player.trigger('progress', [player, videoTag.currentTime - livestartpos]);
-                        });
-                        bean.on(videoTag, "loadeddata", function () {
-                            extend(video, {
-                                duration: videoTag.duration,
-                                seekable: videoTag.seekable.end(null),
-                                width: videoTag.videoWidth,
-                                height: videoTag.videoHeight,
-                                url: videoTag.currentSrc
-                            });
-                            player.trigger('ready', [player, video]);
-                        });
-                        bean.on(videoTag, "seeked", function () {
-                            player.trigger('seek', [player, videoTag.currentTime]);
-                        });
-                        bean.on(videoTag, "progress", function (e) {
-                            var ct = videoTag.currentTime,
-                                buffer = 0,
-                                buffend,
-                                buffered,
-                                last,
-                                i;
+                            Object.keys(EVENTS).forEach(function (key) {
+                                var flow = EVENTS[key],
+                                    type = key + "." + engineName,
+                                    arg;
 
-                            try {
-                                buffered = videoTag.buffered;
-                                last = buffered.length - 1;
-                                buffend = 0;
-                                // cycle through time ranges to obtain buffer
-                                // nearest current time
-                                if (ct) {
-                                    for (i = last; i > -1; i -= 1) {
-                                        buffend = buffered.end(i);
-
-                                        if (buffend >= ct) {
-                                            buffer = buffend;
-                                        }
+                                bean.on(videoTag, type, function (e) {
+                                    if (conf.debug && flow.indexOf("progress") < 0) {
+                                        console.log(type, "->", flow, e.originalEvent);
                                     }
-                                }
-                            } catch (ignored) {}
+                                    if (!player.ready && flow.indexOf("ready") < 0) {
+                                        return;
+                                    }
 
-                            video.buffer = buffer;
-                            player.trigger('buffer', [player, e]);
-                        });
-                        bean.on(videoTag, "ended", function () {
-                            player.trigger('finish', [player]);
+                                    var ct = 0,
+                                        buffer = 0,
+                                        buffend = 0,
+                                        buffered,
+                                        i;
 
-                            bean.one(videoTag, "seeked." + engineName, function () {
-                                if (!videoTag.currentTime) {
-                                    videoTag.play();
+                                    switch (flow) {
+                                    case "ready":
+                                        arg = extend(player.video, {
+                                            duration: videoTag.duration,
+                                            seekable: videoTag.seekable.end(null),
+                                            width: videoTag.videoWidth,
+                                            height: videoTag.videoHeight,
+                                            url: player.video.src
+                                        });
+                                        break;
+                                    case "resume":
+                                        if (player.poster) {
+                                            player.poster = false;
+                                            common.removeClass(root, posterClass);
+                                        }
+                                        break;
+                                    case "seek":
+                                    case "progress":
+                                        ct = videoTag.currentTime;
+                                        if (player.video.live && !livestartpos && ct > 0) {
+                                            livestartpos = ct;
+                                        }
+                                        arg = !player.video.live
+                                            ? ct
+                                            : livestartpos
+                                                ? ct - livestartpos
+                                                : 0;
+                                        break;
+                                    case "speed":
+                                        arg = videoTag.playbackRate;
+                                        break;
+                                    case "volume":
+                                        arg = videoTag.volume;
+                                        break;
+                                    case "buffer":
+                                        try {
+                                            ct = videoTag.currentTime;
+                                            // cycle through time ranges to obtain buffer
+                                            // nearest current time
+                                            if (ct) {
+                                                buffered = videoTag.buffered;
+                                                for (i = buffered.length - 1; i > -1; i -= 1) {
+                                                    buffend = buffered.end(i);
+
+                                                    if (buffend >= ct) {
+                                                        buffer = buffend;
+                                                    }
+                                                }
+                                            }
+                                        } catch (ignore) {}
+                                        video.buffer = buffer;
+                                        arg = e;
+                                        break;
+                                    }
+
+                                    player.trigger(flow, [player, arg]);
+                                });
+                            });
+
+                            if (conf.poster) {
+                                var posterHack = function () {
+                                    setTimeout(function () {
+                                        if (!player.poster) {
+                                            common.addClass(root, posterClass);
+                                            player.poster = true;
+                                        }
+                                    }, 0);
+                                };
+
+                                player.one("ready." + engineName, posterHack).on("stop." + engineName, posterHack);
+                            }
+                            player.on("error." + engineName, function () {
+                                if (mediaPlayer) {
+                                    mediaPlayer.reset();
+                                    mediaPlayer = 0;
                                 }
                             });
-                        });
-                        bean.on(videoTag, "volumechange", function () {
-                            player.trigger('volume', [player, videoTag.volume]);
-                        });
 
-                        mediaPlayer = new MediaPlayer(context);
-                        mediaPlayer.startup();
+                            mediaPlayer = dashjs.MediaPlayer().create();
+                            player.engine[engineName] = mediaPlayer;
 
-                        // caching can cause failures in playlists
-                        // for the moment disable entirely
-                        mediaPlayer.enableLastBitrateCaching(false);
-                        // handled by fp API
-                        mediaPlayer.setAutoPlay(false);
-                        // for seeking in paused state
-                        mediaPlayer.setScheduleWhilePaused(true);
-                        mediaPlayer.getDebug().setLogToBrowserConsole(false);
+                            // new ABR algo
+                            mediaPlayer.enableBufferOccupancyABR(!!dashconf.bufferOccupancyABR);
+                            // caching can cause failures in playlists
+                            // for the moment disable entirely
+                            mediaPlayer.enableLastBitrateCaching(false);
+                            // for seeking in paused state
+                            mediaPlayer.setScheduleWhilePaused(true);
+                            mediaPlayer.getDebug().setLogToBrowserConsole(!!dashconf.debug);
 
-                        mediaPlayer.addEventListener("error", function (e) {
-                            var fperr,
-                                errobj;
+                            Object.keys(DASHEVENTS).forEach(function (key) {
+                                var etype = DASHEVENTS[key],
+                                    fpEventType = engineName + etype.charAt(0).toUpperCase() + etype.slice(1),
+                                    listeners = dashconf.listeners,
+                                    expose = listeners && listeners.indexOf(etype) > -1;
 
-                            switch (e.error) {
-                            case "download":
-                                fperr = 4;
-                                break;
-                            case "manifestError":
-                                fperr = 5;
-                                break;
-                            case "mediasource":
-                                switch (e.event) {
-                                case "MEDIA_ERR_DECODE":
-                                    fperr = 3;
-                                    break;
-                                case "MEDIA_ERR_SRC_NOT_SUPPORTED":
-                                    fperr = 5;
-                                    break;
-                                case "MEDIA_ERR_NETWORK":
-                                    fperr = 2;
-                                    break;
-                                case "MEDIA_ERR_ABORTED":
-                                    fperr = 1;
-                                    break;
-                                }
-                                break;
-                            }
-                            if (fperr) {
-                                errobj = {code: fperr};
-                                if (fperr > 2) {
-                                    errobj.video = extend(video, {
-                                        src: video.src,
-                                        url: e.event.url || video.src
-                                    });
-                                }
-                                player.trigger('error', [player, errobj]);
-                            }
-                        }, false);
+                                mediaPlayer.on(etype, function (e) {
+                                    var data = extend({}, e),
+                                        src = player.video.src,
+                                        fperr,
+                                        errobj;
 
-                        if (init) {
+                                    delete data.type;
+                                    switch (key) {
+                                    case "ERROR":
+                                        switch (data.error) {
+                                        case "download":
+                                            fperr = 4;
+                                            break;
+                                        case "manifestError":
+                                            fperr = 5;
+                                            break;
+                                        case "mediasource":
+                                            switch (e.event) {
+                                            case "MEDIA_ERR_DECODE":
+                                                fperr = 3;
+                                                break;
+                                            case "MEDIA_ERR_SRC_NOT_SUPPORTED":
+                                                fperr = 5;
+                                                break;
+                                            case "MEDIA_ERR_NETWORK":
+                                                fperr = 2;
+                                                break;
+                                            case "MEDIA_ERR_ABORTED":
+                                                fperr = 1;
+                                                break;
+                                            }
+                                            break;
+                                        }
+                                        if (fperr) {
+                                            errobj = {code: fperr};
+                                            if (fperr > 2) {
+                                                errobj.video = extend(video, {
+                                                    src: src,
+                                                    url: data.event.url || src
+                                                });
+                                            }
+                                            player.trigger('error', [player, errobj]);
+                                            return;
+                                        }
+                                        break;
+                                    }
+
+                                    if (expose) {
+                                        player.trigger(fpEventType, [player, data]);
+                                    }
+                                });
+                            });
+
                             common.prepend(common.find(".fp-player", root)[0], videoTag);
+                            mediaPlayer.initialize(videoTag, video.src, autoplay);
+
+                            // at least some Android requires extra load
+                            // https://github.com/flowplayer/flowplayer/issues/910
+                            if (autoplay && !flowplayer.support.zeropreload) {
+                                videoTag.load();
+                            }
+
+                        } else {
+                            if ((player.video.src && video.src !== player.video.src) || video.index) {
+                                mediaPlayer.setAutoPlay(true);
+                            }
+                            mediaPlayer.attachSource(video.src);
+
                         }
 
-                        mediaPlayer.attachView(videoTag);
-                        mediaPlayer.attachSource(video.src);
-
-                        if (videoTag.paused && (video.autoplay || conf.autoplay)) {
-                            bean.on(videoTag, "loadeddata." + engineName, function () {
-                                videoTag.play();
-                            });
-                        }
+                        // update video object before ready
+                        player.video = video;
                     },
 
                     resume: function () {
@@ -237,20 +311,35 @@
 
                     unload: function () {
                         if (mediaPlayer) {
+                            var listeners = "." + engineName;
+
                             mediaPlayer.reset();
                             mediaPlayer = 0;
-                            context = 0;
-                            bean.off(videoTag);
+                            player.off(listeners);
+                            bean.off(root, listeners);
+                            bean.off(videoTag, listeners);
                             common.removeNode(videoTag);
                             videoTag = 0;
                         }
                     }
                 };
 
+            // pre 6.0.4: no boolean api.conf.poster and no poster with autoplay
+            if (/^6\.0\.[0-3]$/.test(version) &&
+                    !player.conf.splash && !player.conf.poster && !player.conf.autoplay) {
+                bc = common.css(root, 'backgroundColor');
+                // spaces in rgba arg mandatory for recognition
+                has_bg = common.css(root, 'backgroundImage') !== "none" ||
+                        (bc && bc !== "rgba(0, 0, 0, 0)" && bc !== "transparent");
+                if (has_bg) {
+                    player.conf.poster = true;
+                }
+            }
+
             return engine;
         };
 
-    if (mse && flowplayer.version.indexOf("5.") !== 0) {
+    if (mse && version.indexOf("5.") !== 0) {
         // only load engine if it can be used
         engineImpl.engineName = engineName; // must be exposed
         engineImpl.canPlay = function (type, conf) {
@@ -262,13 +351,12 @@
               default: avc1 baseline level 3.0 + aac_lc
             */
             // inject dash conf at earliest opportunity
-            var dashconf = extend({
+            dashconf = extend({
                 type: "video/mp4",
-                codecs: "avc1.42c01e, mp4a.40.2"
+                codecs: "avc1.42c01e,mp4a.40.2"
             }, flowplayer.conf[engineName], conf[engineName], conf.clip[engineName]);
 
-            return isDashType(type) &&
-                    mse.isTypeSupported(dashconf.type + '; codecs="' + dashconf.codecs + '"');
+            return dashCanPlay(type, dashconf.type, dashconf.codecs);
         };
 
         // put on top of engine stack
@@ -277,4 +365,6 @@
 
     }
 
-}());
+}.apply(null, (typeof module === 'object' && module.exports)
+    ? [require('flowplayer'), require('dashjs')]
+    : [window.flowplayer, window.dashjs]));

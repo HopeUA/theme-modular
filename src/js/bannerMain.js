@@ -1,5 +1,4 @@
 $(function(){
-
     if ($('.header-banner__items').length == 0) {
         return;
     }
@@ -149,8 +148,12 @@ $(function(){
             if ($last.hasClass('header-banner__item__current')) {
                 mainColor = $first.data('averagecolor');
 
-                $current.animate({opacity : 0}, time);
-                $first.animate({opacity : 1}, time);
+                // $current.animate({opacity : 0}, time);
+                // $first.animate({opacity : 1}, time);
+                $current.css({opacity : 0});
+                $first.css({opacity : 1});
+
+
 
                 $labelActive.removeClass('header-banner__controls-item__active');
                 $labelFirst.addClass('header-banner__controls-item__active');
@@ -159,14 +162,17 @@ $(function(){
                     $current.removeClass('header-banner__item__current');
                     $first.addClass('header-banner__item__current');
                     $current = $('.header-banner__item__current');
-                    $current.animate({opacity : 1}, time);
+                    // $current.animate({opacity : 1}, time);
+                    $current.css({opacity : 1});
                 }, time)
 
             } else {
                 mainColor = $next.data('averagecolor');
 
-                $current.animate({opacity : 0}, time);
-                $next.animate({opacity : 1}, time);
+                // $current.animate({opacity : 0}, time);
+                // $next.animate({opacity : 1}, time);
+                $current.css({opacity : 0});
+                $next.css({opacity : 1});
 
                 $labelActive.removeClass('header-banner__controls-item__active');
                 $labelNext.addClass('header-banner__controls-item__active');
@@ -175,7 +181,8 @@ $(function(){
                     $current.removeClass('header-banner__item__current');
                     $next.addClass('header-banner__item__current');
                     $current = $('.header-banner__item__current');
-                    $current.animate({opacity : 1}, time);
+                    // $current.animate({opacity : 1}, time);
+                    $current.css({opacity : 1});
                 }, time);
             }
         }
@@ -227,6 +234,10 @@ $(function(){
             $line.animate({width : 0}, 0);
             move('right');
         });
+
+        // setTimeout(function(){
+        //     move('right');
+        // }, timer);
     };
 
     var changeTimeout = null;
