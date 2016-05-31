@@ -189,8 +189,6 @@
 
 .header-banner__item-play {
     position: relative;
-    display: flex;
-    justify-content: center;
     top: 30px;
     width: 100px;
     height: 100px;
@@ -205,7 +203,7 @@
 
 .header-banner__item-play-hover__out {
     display: block;
-    position: static;
+    position: absolute;
     width: 100px;
     height: 100px;
     background: @headerBanner__play no-repeat;
@@ -215,7 +213,7 @@
 
 .header-banner__item-play-hover__in {
     display: block;
-    position: static;
+    position: absolute;
     width: 100px;
     height: 100px;
     background: url("@{img}/playIcon_hover.svg") no-repeat;
