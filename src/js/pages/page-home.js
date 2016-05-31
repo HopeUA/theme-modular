@@ -61,10 +61,10 @@ $(function(){
         clip: {
             live: true,
             sources: [
-                { type: "application/dash+xml",
-                    src:  "https://stream.hope.ua/hopeua/smil:hopeua.smil/manifest.mpd" },
                 { type: "application/x-mpegurl",
-                    src:  "https://stream.hope.ua/hopeua/smil:hopeua.smil/playlist.m3u8" }
+                    src:  "https://stream.hope.ua/hopeua/smil:hopeua.smil/playlist.m3u8" },
+                { type: "application/dash+xml",
+                    src:  "https://stream.hope.ua/hopeua/smil:hopeua.smil/manifest.mpd" }
             ]
         }
     }).on("error", function (e, api, err) {

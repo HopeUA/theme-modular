@@ -142,19 +142,19 @@ $(function () {
         var $containerCalendar = $('.page-scheduler-header-list');
 
         moment.locale('ru');
-
+        
         var displayDays = [
-            serverTime.subtract(5, 'days'),
-            serverTime.subtract(4, 'days'),
-            serverTime.subtract(3, 'days'),
-            serverTime.subtract(2, 'days'),
-            serverTime.subtract(1, 'day'),
-            serverTime,
-            serverTime.add(1, 'day'),
-            serverTime.add(2, 'days'),
-            serverTime.add(3, 'days'),
-            serverTime.add(4, 'days'),
-            serverTime.add(5, 'days')
+            moment(serverTime).subtract(5, 'days'),
+            moment(serverTime).subtract(4, 'days'),
+            moment(serverTime).subtract(3, 'days'),
+            moment(serverTime).subtract(2, 'days'),
+            moment(serverTime).subtract(1, 'day'),
+            moment(serverTime),
+            moment(serverTime).add(1, 'day'),
+            moment(serverTime).add(2, 'days'),
+            moment(serverTime).add(3, 'days'),
+            moment(serverTime).add(4, 'days'),
+            moment(serverTime).add(5, 'days')
         ];
 
         var ajaxRunning = false;
@@ -170,6 +170,7 @@ $(function () {
             daysFormatted.push(item);
         }
 
+        console.log(displayDays);
         var scheduler = Hope.Api.Scheduler(Hope.Config.Api.Scheduler.Endpoint);
         scheduler.count(daysFormatted).fetch().then(function(result){
 
